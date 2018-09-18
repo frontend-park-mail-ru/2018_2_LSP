@@ -1,7 +1,12 @@
-.menu {
+section {
+    height: 200px;
+    width: 400px;
+
     position: absolute;
     top: 40%;
     left: 50%;
+    font-size: 30px;
+    text-align: center;
     transform: translate(-50%, -50%);
 }
 
@@ -36,18 +41,6 @@ td, th {
 	font-size: 15
 }
 
-.landingPageContent {
-    height: 200px;
-    width: 400px;
-
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    font-size: 30px;
-    text-align: center;
-    transform: translate(-50%, -50%);
-}
-
 .formPage {
     position: absolute;
     top: 40%;
@@ -55,7 +48,7 @@ td, th {
     transform: translate(-50%, -50%);
 }
 
-.landingPageHeader {
+nav {
 	text-align: right
 }
 
