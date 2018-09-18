@@ -9,11 +9,16 @@ function ajax(callback, method, path, body) {
 		xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	}
 
-	xhr.onreadystatechange = function () {
+	xhr.onreadystatechange = function() {
 		if (xhr.readyState !== 4) {
 			return;
 		}
-		callback(xhr);
+		const response = JSON.parse(xhr.responseText);
+		if (+xhr.status !== 200) {
+		 	callback(xhr, response);
+		} else {
+			callback(null, response);
+		}
 	};
 
 	if (body) {
@@ -188,15 +193,18 @@ function createSigninPage() {
 
 		const email = form.elements['email'].value;
 		const password = form.elements['password'].value;
-
-		// ajax(function (xhr) {
-		// 	root.innerHTML = '';
-		// 	createProfile();
-		// }, 'POST', '/login', {
-		// 	email: email,
-		// 	password: password
-		// });
-    });
+		const callback = function(err, response) {
+			console.log(err, response);
+			if (err === null) {
+				application.innerHTML = '';
+				createProfilePage();
+			} else {
+				alert(response.error);
+			}
+		};
+		ajax(callback, 'POST', '/auth', {email: email, password: password});
+	});
+	
 	signinSection.appendChild(signinTitle);
     signinSection.appendChild(form);
     application.appendChild(headerBlock);
