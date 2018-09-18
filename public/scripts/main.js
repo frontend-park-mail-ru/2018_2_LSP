@@ -3,10 +3,10 @@
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);
 
-const application = document.getElementById('application');
-
 //обращение к ajax с помощью данного модуля (get / post)
 //const AJAX = window.AjaxModule;
+
+const application = document.getElementById('application');
 
 const pages = {
 	greeting: createGreeting,
@@ -18,12 +18,38 @@ const pages = {
     profile: createProfile
 };
 
+application.addEventListener('click', function(event) {
+	if (!(event.target instanceof HTMLAnchorElement)) {
+		return;
+	}
+
+	event.preventDefault();
+	const link = event.target;
+
+	console.log({
+		href: link.href,
+		dataHref: link.dataset.href
+	});
+
+	application.innerHTML = '';
+
+	pages[link.dataset.href]();
+});
+
 createGreeting();
 
+function backToMenu() {
+    const menuLink = document.createElement('a');
+    menuLink.href = menuLink.dataset.href = 'menu';
+
+    menuLink.textContent = 'Back to main menu';
+
+    return menuLink;
+}
 
 function createGreeting() {
 	const links = {
-		'Играть': 'signin',
+		'Играть': 'menu',
 		'Правила': 'rules',
 		'Вход': 'signin',
 		'Регистрация': 'signup' 
@@ -306,6 +332,7 @@ function createLeaders(users) {
 		// 	createLeaderboard(users);
 		// }, 'GET', '/users');
     }
+    leadersSection.appendChild(backToMenu());
     leadersSection.appendChild(leadersTitle);
     leadersSection.appendChild(leadersInner);
 	application.appendChild(leadersSection);
@@ -324,17 +351,13 @@ function createRules() {
 	pTag.textContent = 'Подробное описание правил игры...';
 	rulesInner.appendChild(pTag);
 
+    rulesSection.appendChild(backToMenu());
 	rulesSection.appendChild(rulesTitle);
 	rulesSection.appendChild(rulesInner);
 	application.appendChild(rulesSection);
 }
 
 function createProfile(profile) {
-    const userParams = {
-        'Логин': profile.login,
-        'Почта': profile.email,
-        'Счет': profile.age
-    } 
 	const profileSection = document.createElement('section');
 	profileSection.dataset.sectionName = 'profile';
 
@@ -344,6 +367,11 @@ function createProfile(profile) {
     const profileInner = document.createElement('div');
 
 	if (profile) {
+        const userParams = {
+            'Логин': profile.login,
+            'Почта': profile.email,
+            'Счет': profile.age
+        } 
 		Object.entries(userParams).forEach((param) => {
 			const pParam = document.createElement('p');
 			pParam.textContent = param[0] + ': ' + param[1];
@@ -362,46 +390,9 @@ function createProfile(profile) {
 		// 	root.innerHTML = '';
 		// 	createProfile(user);
 		// }, 'GET', '/me');
-	}
+    }
+    profileSection.appendChild(backToMenu());
 	profileSection.appendChild(profileTitle);
     profileSection.appendChild(profileInner);
 	application.appendChild(profileSection);
 }
-
-
-
-
-// const sections = document.getElementsByTagName('section')
-
-// application.addEventListener('click', function(event) {
-//     console.log(event.target);
-//     document.getElementById('title').innerHTML = event.target.value;
-//     const sectionsArray = Array.from(sections);
-
-//     sectionsArray.forEach(function(sectionElement) {
-//         if (sectionElement.id === event.target.href) {
-//             sectionElement.hidden = false;
-//         } else {
-//             sectionElement.hidden = true;
-//         }
-//     })
-// });
-
-
-// application.addEventListener('click', (event) => {
-// 	if (!(event.target instanceof HTMLAnchorElement)) {
-// 		return;
-// 	}
-
-// 	event.preventDefault();
-// 	const link = event.target;
-
-// 	console.log({
-// 		href: link.href,
-// 		dataHref: link.dataset.href
-// 	});
-
-// 	root.innerHTML = '';
-
-// 	pages[ link.dataset.href ]();
-// });
