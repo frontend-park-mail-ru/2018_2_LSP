@@ -29,7 +29,6 @@ function ajax(callback, method, path, body = {}) {
 }
 
 
-
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);
 
@@ -198,7 +197,6 @@ function createSigninPage() {
 			if (err === null) {
 				application.innerHTML = '';
 				createMenuPage();
-				//createProfilePage(response);
 			} else {
 				alert(response.error);
 			}
@@ -272,8 +270,7 @@ function createSignupPage() {
 			console.log(err, response);
 			if (err === null) {
 				application.innerHTML = '';
-				createMenuPage();
-				//createProfilePage(response);
+				createProfilePage(response);
 			} else {
 				alert(response.error);
 			}
@@ -334,9 +331,10 @@ function createLeadersPage(users) {
 		//%%%%%%%%%%%%%%
 		thead.innerHTML = `
 		<tr>
-            <td>Логин</td>
+			<td>Логин</td>
+			<td>Почта</td>
+            <td>Сыграно игр</td>
             <td>Рейтинг</td>
-            <td>Количество игр</td>
         </tr>
 		`;
 		const tbody = document.createElement('tbody');
@@ -347,21 +345,27 @@ function createLeadersPage(users) {
 		table.cellSpacing = table.cellPadding = 0;
 
 		users.forEach((user) => {
+			//нужно написать ф-цию генерации таблицы
+			const login = user.login;
 			const email = user.email;
-			const age = user.age;
+			const gamecount = user.gamecount;
 			const score = user.score;
 
 			const tr = document.createElement('tr');
+
+			const tdLogin = document.createElement('td');
 			const tdEmail = document.createElement('td');
-			const tdAge = document.createElement('td');
+			const tdGameCount = document.createElement('td');
 			const tdScore = document.createElement('td');
 
+			tdLogin.textContent = login;
 			tdEmail.textContent = email;
-			tdAge.textContent = age;
+			tdGameCount.textContent = gamecount;
 			tdScore.textContent = score;
 
+			tr.appendChild(tdLogin);
 			tr.appendChild(tdEmail);
-			tr.appendChild(tdAge);
+			tr.appendChild(tdGameCount);
 			tr.appendChild(tdScore);
 
 			tbody.appendChild(tr);
@@ -373,11 +377,16 @@ function createLeadersPage(users) {
 		em.textContent = 'Еще никто не установил рекорд. Вы можете быть первыми;)';
 		leadersInner.appendChild(em);
 
-		// ajax(function (xhr) {
-		// 	const users = JSON.parse(xhr.responseText);
-		// 	root.innerHTML = '';
-		// 	createLeaderboard(users);
-		// }, 'GET', '/users');
+		const callback = function(err, response) {
+			console.log(err, response);
+			if (err === null) {
+				application.innerHTML = '';
+				createLeadersPage(response);
+			} else {
+				alert(response.error);
+			}
+		}
+		ajax(callback, 'GET', '/users');
     }
     leadersSection.appendChild(leadersTitle);
     leadersSection.appendChild(leadersInner);
@@ -422,7 +431,8 @@ function createProfilePage(profile) {
 	if (profile) {
         const userParams = {
             'Логин': profile.login,
-            'Почта': profile.email,
+			'Почта': profile.email,
+			'Сыграно игр': profile.gamecount,
             'Счет': profile.score
         }; 
 		Object.entries(userParams).forEach((param) => {

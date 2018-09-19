@@ -17,12 +17,14 @@ const users = {
         login: 'Moleque',
 		email: 'moleque@mail.ru',
 		password: '1234',
+		gamecount: 5,
 		score: 72,
 	},
 	'molecada@yandex.ru': {
         login: 'Molecada',
 		email: 'molecada@yandex.ru',
 		password: '12345',
+		gamecount: 7,
 		score: 100500,
 	}
 };
@@ -64,7 +66,7 @@ app.post('/register', function(request, response) {
 
 	const id = uuid();
 	ids[id] = email;
-	users[email] = {login, email, password, score: 0};
+	users[email] = {login, email, password, gamecount: 0, score: 0};
 
 	response.cookie('session', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
 	response.status(201).json({id});
@@ -79,6 +81,18 @@ app.get('/user', function(request, response) {
 	}
 
 	response.status(200).json(users[email]);
+});
+
+app.get('/users', function (request, response) {
+	const scorelist = Object.values(users).sort((l, r) => r.score - l.score).map(user => {
+			return {
+				login: user.login, 
+				email: user.email,
+				gamecount: user.gamecount, 
+				score: user.score
+			};
+		});
+	response.json(scorelist);
 });
 
 //Сервер
