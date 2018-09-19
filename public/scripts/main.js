@@ -1,10 +1,41 @@
 'use strict';
 
+function ajax(callback, method, path, body) {
+	const xhr = new XMLHttpRequest();
+	xhr.open(method, path, true);
+	xhr.withCredentials = true;
+
+	if (body) {
+		xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+	}
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState !== 4) {
+			return;
+		}
+		const response = JSON.parse(xhr.responseText);
+		if (+xhr.status !== 200) {
+		 	callback(xhr, response);
+		} else {
+			callback(null, response);
+		}
+	};
+
+	if (body) {
+		xhr.send(JSON.stringify(body));
+	} else {
+		xhr.send();
+	}
+}
+
+
+
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);
 
 //обращение к ajax с помощью данного модуля (get / post)
 //const AJAX = window.AjaxModule;
+
 
 const application = document.getElementById('application');
 
@@ -21,18 +52,30 @@ application.addEventListener('click', function(event) {
 
 createLandingPage();
 
-// function makeInputField(fieldName, form, type, placeholder) {
-//     let p = document.createElement("p");
-//     p.textContent = fieldName;
-//     form.appendChild(p);
+//вспомогательные функции
+function makeInputField(input) {
+    const p = document.createElement('p');
+    const field = document.createElement('input');
+    
+    field.name = input.name;
+    field.type = input.type;
+    field.placeholder = input.placeholder;
 
-//     let field = document.createElement("input");
-//     field.setAttribute("type", type);
-//     field.setAttribute("placeholder", placeholder);
-//     field.classList.add("inputs");
-//     form.appendChild(field);
-//     form.appendChild(document.createElement('br'));
-// }
+    p.appendChild(field);
+    return p;
+}
+
+function makeMenuItem(item) {
+    const div = document.createElement('div');
+    const link = document.createElement('a');
+
+    link.href = item[0];
+    link.dataset.href = item[0];
+    link.textContent = item[1];
+
+    div.appendChild(link);
+    return div;
+}
 
 //функции элементов возврата
 function backToLandingPage() {
@@ -142,33 +185,27 @@ function createSigninPage() {
 	const form = document.createElement('form');
 
 	inputs.forEach((input) => {
-		const pTag = document.createElement('p');
-		const inputTag = document.createElement('input');
-		
-		inputTag.name = input.name;
-		inputTag.type = input.type;
-		inputTag.placeholder = input.placeholder;
-
-		pTag.appendChild(inputTag);
-		form.appendChild(pTag);
+		form.appendChild(makeInputField(input));
 	});
-
-	//signinSection.appendChild(createMenuLink());
 
 	form.addEventListener('submit', function(event) {
 		event.preventDefault();
 
 		const email = form.elements['email'].value;
 		const password = form.elements['password'].value;
-
-		// ajax(function (xhr) {
-		// 	root.innerHTML = '';
-		// 	createProfile();
-		// }, 'POST', '/login', {
-		// 	email: email,
-		// 	password: password
-		// });
-    });
+		const callback = function(err, response) {
+			console.log(err, response);
+			if (err === null) {
+				application.innerHTML = '';
+				createMenuPage();
+				//createProfilePage(response);
+			} else {
+				alert(response.error);
+			}
+		};
+		ajax(callback, 'POST', '/auth', {email: email, password: password});
+	});
+	
 	signinSection.appendChild(signinTitle);
     signinSection.appendChild(form);
     application.appendChild(headerBlock);
@@ -215,19 +252,8 @@ function createSignupPage() {
 	const form = document.createElement('form');
 
 	inputs.forEach((input) => {
-		const pTag = document.createElement('p');
-		const inputTag = document.createElement('input');
-		
-		inputTag.name = input.name;
-		inputTag.type = input.type;
-		inputTag.placeholder = input.placeholder;
-
-		pTag.appendChild(inputTag);
-		form.appendChild(pTag);
+		form.appendChild(makeInputField(input));
 	});
-
-	
-	//signupSection.appendChild(createMenuLink());
 
 	form.addEventListener('submit', function(event) {
 		event.preventDefault();
@@ -275,13 +301,7 @@ function createMenuPage() {
     const menuInner = document.createElement('div');
 
     Object.entries(items).forEach((item) => {
-        const itemDiv = document.createElement('div');
-		const itemLink = document.createElement('a');
-		itemLink.href = item[0];
-		itemLink.dataset.href = item[0];
-		itemLink.textContent = item[1];
-        itemDiv.appendChild(itemLink);
-		menuInner.appendChild(itemDiv);
+		menuInner.appendChild(makeMenuItem(item));
     });
     menuSection.appendChild(menuTitle);
     menuSection.appendChild(menuInner);
@@ -400,26 +420,26 @@ function createProfilePage(profile) {
         const userParams = {
             'Логин': profile.login,
             'Почта': profile.email,
-            'Счет': profile.age
-        } 
+            'Счет': profile.score
+        }; 
 		Object.entries(userParams).forEach((param) => {
 			const pParam = document.createElement('p');
 			pParam.textContent = param[0] + ': ' + param[1];
 			profileInner.appendChild(pParam);
 		});
 	} else {
-		// ajax(function (xhr) {
-		// 	if (!xhr.responseText) {
-		// 		alert('Unauthorized');
-		// 		root.innerHTML = '';
-		// 		createMenu();
-		// 		return;
-		// 	}
-
-		// 	const user = JSON.parse(xhr.responseText);
-		// 	root.innerHTML = '';
-		// 	createProfile(user);
-		// }, 'GET', '/me');
+		const callback = function(err, response) {
+			console.log(err, response);
+			if (err === null) {
+				application.innerHTML = '';
+				createProfilePage(response);
+			} else {
+				alert('Unauthorized');
+				application.innerHTML = '';
+				createSigninPage();
+			}
+		};
+		ajax(callback, 'GET', '/user');
     }
 	profileSection.appendChild(profileTitle);
     profileSection.appendChild(profileInner);
