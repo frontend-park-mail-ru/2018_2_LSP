@@ -1,6 +1,6 @@
 'use strict';
 
-function ajax(callback, method, path, body) {
+function ajax(callback, method, path, body = {}) {
 	const xhr = new XMLHttpRequest();
 	xhr.open(method, path, true);
 	xhr.withCredentials = true;
@@ -14,7 +14,7 @@ function ajax(callback, method, path, body) {
 			return;
 		}
 		const response = JSON.parse(xhr.responseText);
-		if (+xhr.status !== 200) {
+		if (+xhr.status !== 200 && +xhr.status !== 201) {
 		 	callback(xhr, response);
 		} else {
 			callback(null, response);
@@ -52,7 +52,7 @@ application.addEventListener('click', function(event) {
 
 createLandingPage();
 
-//вспомогательные функции
+//вспомогательные функции создания блоков
 function makeInputField(input) {
     const p = document.createElement('p');
     const field = document.createElement('input');
@@ -268,14 +268,17 @@ function createSignupPage() {
 			return;
 		}
 
-		// ajax(function (xhr) {
-		// 	root.innerHTML = '';
-		// 	createProfile();
-		// }, 'POST', '/signup', {
-		// 	email: email,
-		// 	age: age,
-		// 	password: password
-		// });
+		const callback = function(err, response) {
+			console.log(err, response);
+			if (err === null) {
+				application.innerHTML = '';
+				createMenuPage();
+				//createProfilePage(response);
+			} else {
+				alert(response.error);
+			}
+		}
+		ajax(callback, 'POST', '/register', {login: login, email: email, password: password});
     });
 	signupSection.appendChild(signupTitle);
     signupSection.appendChild(form);

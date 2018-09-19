@@ -33,6 +33,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
 
+//POST запросы
 app.post('/auth', function(request, response) {
     const email = request.body.email;
     const password = request.body.password;
@@ -50,6 +51,26 @@ app.post('/auth', function(request, response) {
 	response.status(200).json({id});
 });
 
+app.post('/register', function(request, response) {
+	const login = request.body.login
+	const email = request.body.email;
+	const password = request.body.password;
+	if (!password || !email || !login || !email.match(/@/)) {
+		return response.status(400).json({error: 'Не валидные данные пользователя'});
+	}
+	if (users[email]) {
+		return response.status(400).json({error: 'Пользователь уже существует'});
+	}
+
+	const id = uuid();
+	ids[id] = email;
+	users[email] = {login, email, password, score: 0};
+
+	response.cookie('session', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+	response.status(201).json({id});
+});
+
+//GET запросы
 app.get('/user', function(request, response) {
 	const id = request.cookies['session'];
 	const email = ids[id];
@@ -60,6 +81,7 @@ app.get('/user', function(request, response) {
 	response.status(200).json(users[email]);
 });
 
+//Сервер
 app.listen(PORT, function () {
 	console.log(`Server listening port ${PORT}`);
 });
