@@ -50,16 +50,14 @@ app.post('/auth', function(request, response) {
 	response.status(200).json({id});
 });
 
-app.get('/me', function(req, res) {
-	const id = req.cookies['sessionid'];
+app.get('/user', function(request, response) {
+	const id = request.cookies['session'];
 	const email = ids[id];
 	if (!email || !users[email]) {
-		return res.status(401).end();
+		return response.status(401).json({error: 'Нет такого пользователя'});
 	}
 
-	users[email].score += 1;
-
-	res.json(users[email]);
+	response.status(200).json(users[email]);
 });
 
 app.listen(PORT, function () {

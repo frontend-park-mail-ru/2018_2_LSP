@@ -197,7 +197,8 @@ function createSigninPage() {
 			console.log(err, response);
 			if (err === null) {
 				application.innerHTML = '';
-				createProfilePage();
+				createMenuPage();
+				//createProfilePage(response);
 			} else {
 				alert(response.error);
 			}
@@ -419,26 +420,26 @@ function createProfilePage(profile) {
         const userParams = {
             'Логин': profile.login,
             'Почта': profile.email,
-            'Счет': profile.age
-        } 
+            'Счет': profile.score
+        }; 
 		Object.entries(userParams).forEach((param) => {
 			const pParam = document.createElement('p');
 			pParam.textContent = param[0] + ': ' + param[1];
 			profileInner.appendChild(pParam);
 		});
 	} else {
-		// ajax(function (xhr) {
-		// 	if (!xhr.responseText) {
-		// 		alert('Unauthorized');
-		// 		root.innerHTML = '';
-		// 		createMenu();
-		// 		return;
-		// 	}
-
-		// 	const user = JSON.parse(xhr.responseText);
-		// 	root.innerHTML = '';
-		// 	createProfile(user);
-		// }, 'GET', '/me');
+		const callback = function(err, response) {
+			console.log(err, response);
+			if (err === null) {
+				application.innerHTML = '';
+				createProfilePage(response);
+			} else {
+				alert('Unauthorized');
+				application.innerHTML = '';
+				createSigninPage();
+			}
+		};
+		ajax(callback, 'GET', '/user');
     }
 	profileSection.appendChild(profileTitle);
     profileSection.appendChild(profileInner);
