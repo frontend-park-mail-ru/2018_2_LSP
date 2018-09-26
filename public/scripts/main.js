@@ -1,8 +1,12 @@
 'use strict';
 
-const Users = window.Users;
-const users = new Users();
+// import {Users} from './services/users.js';
 
+// const users = new Users();
+
+import User from './services/users';
+
+new User("Вася");
 
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);
