@@ -1,32 +1,7 @@
 'use strict';
 
-function ajax(callback, method, path, body = {}) {
-	const xhr = new XMLHttpRequest();
-	xhr.open(method, path, true);
-	xhr.withCredentials = true;
-
-	if (body) {
-		xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-	}
-
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState !== 4) {
-			return;
-		}
-		const response = JSON.parse(xhr.responseText);
-		if (+xhr.status !== 200 && +xhr.status !== 201) {
-		 	callback(xhr, response);
-		} else {
-			callback(null, response);
-		}
-	};
-
-	if (body) {
-		xhr.send(JSON.stringify(body));
-	} else {
-		xhr.send();
-	}
-}
+const Users = window.Users;
+const users = new Users();
 
 
 //import someValue from './components/Board/Board.mjs';
@@ -80,7 +55,7 @@ function makeMenuItem(item) {
 function errorHandler(error) {
 	const errors = {
 		'incorrect': 'Не верно указана почта и/или пароль',
-		'invalid': 'Не валидные данные',
+		'invalid': 'Невалидные данные',
 		'user': 'Пользователь уже существует',
 		'default': 'Ошибка... Попробуйте ввести данные еще раз'
 	};
@@ -229,7 +204,7 @@ function createSigninPage() {
 				errorLine.hidden = false;
 			}
 		};
-		ajax(callback, 'POST', '/auth', {email: email, password: password});
+		users.auth(callback, email, password);
 	});
 	
 	signinSection.appendChild(signinTitle);
@@ -310,7 +285,7 @@ function createSignupPage() {
 				errorLine.hidden = false;
 			}
 		}
-		ajax(callback, 'POST', '/register', {login: login, email: email, password: password});
+		users.register(callback, login, email, password);
 	});
 	signupSection.appendChild(signupTitle);
 	signupSection.appendChild(errorLine);
