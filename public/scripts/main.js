@@ -1,12 +1,8 @@
 'use strict';
 
-// import {Users} from './services/users.js';
+import Users from './services/users.js';
 
-// const users = new Users();
-
-import User from './services/users';
-
-new User("Вася");
+const users = new Users();
 
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);

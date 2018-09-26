@@ -1,5 +1,3 @@
-'use strict';
-
 const noop = () => null;
 
 export default class Ajax {
