@@ -54,7 +54,8 @@ createLandingPage();
 //вспомогательные функции создания блоков
 function makeInputField(input) {
     const p = document.createElement('p');
-    const field = document.createElement('input');
+	const field = document.createElement('input');
+	// field.required = true;	//отправка пустого поля запрещена
     
     field.name = input.name;
     field.type = input.type;
@@ -74,6 +75,27 @@ function makeMenuItem(item) {
 
     div.appendChild(link);
     return div;
+}
+
+function errorHandler(error) {
+	const errors = {
+		'incorrect': 'Не верно указана почта и/или пароль',
+		'invalid': 'Не валидные данные',
+		'user': 'Пользователь уже существует',
+		'default': 'Ошибка... Попробуйте ввести данные еще раз'
+	};
+	return errors[error];
+
+	// switch (error) {
+	// 	case 'email':
+	// 		return 'Не указана почта';
+	// 	case 'password':
+	// 		return 'Не указан пароль';
+	// 	case 'incorrect':
+	// 		return 'Не верно указана почта и/или пароль';
+	// 	default:
+	// 		return 'Ошибка... Попробуйте ввести данные еще раз';
+	// }
 }
 
 //функции элементов возврата
@@ -181,6 +203,10 @@ function createSigninPage() {
 	const signinTitle = document.createElement('h2');
     signinTitle.textContent = "Вход";
 
+	const errorLine = document.createElement('p');
+	errorLine.classList.add('errorLine');
+	errorLine.hidden = true
+
 	const form = document.createElement('form');
 
 	inputs.forEach((input) => {
@@ -198,13 +224,16 @@ function createSigninPage() {
 				application.innerHTML = '';
 				createMenuPage();
 			} else {
-				alert(response.error);
+				const errorLine = document.getElementsByClassName('errorLine')[0];
+				errorLine.textContent = errorHandler(response.error)
+				errorLine.hidden = false;
 			}
 		};
 		ajax(callback, 'POST', '/auth', {email: email, password: password});
 	});
 	
 	signinSection.appendChild(signinTitle);
+	signinSection.appendChild(errorLine);
     signinSection.appendChild(form);
     application.appendChild(headerBlock);
 	application.appendChild(signinSection);
@@ -247,6 +276,10 @@ function createSignupPage() {
 	const signupTitle = document.createElement('h2');
 	signupTitle.textContent = 'Регистрация';
 
+	const errorLine = document.createElement('p');
+	errorLine.classList.add('errorLine');
+	errorLine.hidden = true
+
 	const form = document.createElement('form');
 
 	inputs.forEach((input) => {
@@ -272,12 +305,15 @@ function createSignupPage() {
 				application.innerHTML = '';
 				createProfilePage(response);
 			} else {
-				alert(response.error);
+				const errorLine = document.getElementsByClassName('errorLine')[0];
+				errorLine.textContent = errorHandler(response.error)
+				errorLine.hidden = false;
 			}
 		}
 		ajax(callback, 'POST', '/register', {login: login, email: email, password: password});
-    });
+	});
 	signupSection.appendChild(signupTitle);
+	signupSection.appendChild(errorLine);
     signupSection.appendChild(form);
     application.appendChild(headerBlock);
 	application.appendChild(signupSection);

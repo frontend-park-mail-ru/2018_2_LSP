@@ -39,11 +39,11 @@ app.use(cookie());
 app.post('/auth', function(request, response) {
     const email = request.body.email;
     const password = request.body.password;
-	if (!password || !email) {
-		return response.status(400).json({error: 'Не указан E-Mail или пароль'});
+	if (!email || !password) {
+		return response.status(400).json({error: 'invalid'});
 	}
 	if (!users[email] || users[email].password !== password) {
-		return response.status(400).json({error: 'Не верный E-Mail и/или пароль'});
+		return response.status(400).json({error: 'incorrect'});
 	}
 
 	const id = uuid();
@@ -58,10 +58,10 @@ app.post('/register', function(request, response) {
 	const email = request.body.email;
 	const password = request.body.password;
 	if (!password || !email || !login || !email.match(/@/)) {
-		return response.status(400).json({error: 'Не валидные данные пользователя'});
+		return response.status(400).json({error: 'invalid'});
 	}
 	if (users[email]) {
-		return response.status(400).json({error: 'Пользователь уже существует'});
+		return response.status(400).json({error: 'user'});
 	}
 
 	const id = uuid();
