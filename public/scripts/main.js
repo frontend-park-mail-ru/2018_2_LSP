@@ -1,5 +1,13 @@
 'use strict';
 
+import { 
+	LandingMenuContent ,
+} from './components/LandingContent/LandingContent.mjs';
+
+import { 
+	Header,
+} from './components/Header/Header.mjs';
+
 function ajax(callback, method, path, body = {}) {
 	const xhr = new XMLHttpRequest();
 	xhr.open(method, path, true);
@@ -28,13 +36,11 @@ function ajax(callback, method, path, body = {}) {
 	}
 }
 
-
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);
 
 //обращение к ajax с помощью данного модуля (get / post)
 //const AJAX = window.AjaxModule;
-
 
 const application = document.getElementById('application');
 
@@ -98,21 +104,6 @@ function errorHandler(error) {
 	// }
 }
 
-//функции элементов возврата
-function backToLandingPage() {
-    const landingLink = document.createElement('a');
-    landingLink.href = landingLink.dataset.href = 'landing';
-    landingLink.textContent = 'Назад';
-    return landingLink;
-}
-
-function backToMenuPage() {
-    const menuLink = document.createElement('a');
-    menuLink.href = menuLink.dataset.href = 'menu';
-    menuLink.textContent = 'Назад в меню';
-    return menuLink;
-}
-
 //функции создания страниц
 const pages = {
 	landing: createLandingPage,
@@ -125,55 +116,12 @@ const pages = {
 };
 
 function createLandingPage() {
-	const links = {
-		'Играть': 'menu',
-		'Правила': 'rules',
-		'Вход': 'signin',
-		'Регистрация': 'signup' 
-	}
 
-    const landingSection = document.createElement('section');
-    landingSection.dataset.sectionName = 'landing';
-	
-    const headerBlock = document.createElement('nav');
-	
-	const signinLink = document.createElement('a');
-	signinLink.href = links['Вход'];
-	signinLink.dataset.href = links['Вход'];
-	signinLink.textContent = 'Вход';
-	headerBlock.appendChild(signinLink);
+	const header = new Header({type: 'landing'})
+	header.render();
 
-	const signupLink = document.createElement('a');
-	signupLink.href = links['Регистрация'];
-	signupLink.dataset.href = links['Регистрация'];
-	signupLink.textContent = 'Регистрация';
-	headerBlock.appendChild(signupLink);
-
-    const logo = document.createElement('h2');
-    logo.textContent = "Шакал";
-
-	const landingInner = document.createElement('div');
-
-	const playDiv = document.createElement('div');
-	const playLink = document.createElement('a');
-	playLink.href = links['Играть'];
-	playLink.dataset.href = links['Играть'];
-	playLink.textContent = 'Играть';
-	playDiv.appendChild(playLink);
-	landingInner.appendChild(playDiv);
-
-	const rulesDiv = document.createElement('div');
-	const rulesLink = document.createElement('a');
-	rulesLink.href = links['Правила'];
-	rulesLink.dataset.href = links['Правила'];
-	rulesLink.textContent = 'Правила';
-	rulesDiv.appendChild(rulesLink);
-	landingInner.appendChild(rulesDiv);
-
-	landingSection.appendChild(logo);
-    landingSection.appendChild(landingInner);
-    application.appendChild(headerBlock);
-	application.appendChild(landingSection);
+	const landingMenu = new LandingMenuContent({});
+	landingMenu.render();
 }
 
 function createSigninPage() {
@@ -193,9 +141,9 @@ function createSigninPage() {
 			type: 'submit'
 		}
     ];
-    
-    const headerBlock = document.createElement('nav');
-    headerBlock.appendChild(backToLandingPage());
+	
+	const header = new Header({type: 'backToLanding'})
+	header.render();
 
 	const signinSection = document.createElement('section');
 	signinSection.dataset.sectionName = 'signin';
@@ -235,7 +183,6 @@ function createSigninPage() {
 	signinSection.appendChild(signinTitle);
 	signinSection.appendChild(errorLine);
     signinSection.appendChild(form);
-    application.appendChild(headerBlock);
 	application.appendChild(signinSection);
 }
 
@@ -267,8 +214,8 @@ function createSignupPage() {
 		}
     ];
     
-    const headerBlock = document.createElement('nav');
-    headerBlock.appendChild(backToLandingPage());
+	const header = new Header({type: 'backToLanding'})
+	header.render();
 
 	const signupSection = document.createElement('section');
 	signupSection.dataset.sectionName = 'signup';
@@ -315,7 +262,6 @@ function createSignupPage() {
 	signupSection.appendChild(signupTitle);
 	signupSection.appendChild(errorLine);
     signupSection.appendChild(form);
-    application.appendChild(headerBlock);
 	application.appendChild(signupSection);
 }
 
@@ -345,8 +291,8 @@ function createMenuPage() {
 }
 
 function createLeadersPage(users) {
-    const headerBlock = document.createElement('nav');
-    headerBlock.appendChild(backToMenuPage());
+	const header = new Header({type: 'backToMenu'})
+	header.render();
 
 	const leadersSection = document.createElement('section');
 	leadersSection.dataset.sectionName = 'leaders';
@@ -426,13 +372,13 @@ function createLeadersPage(users) {
     }
     leadersSection.appendChild(leadersTitle);
     leadersSection.appendChild(leadersInner);
-    application.appendChild(headerBlock);
+   // application.appendChild(headerBlock);
 	application.appendChild(leadersSection);
 }
 
 function createRulesPage() {
-    const headerBlock = document.createElement('nav');
-    headerBlock.appendChild(backToMenuPage());
+    const header = new Header({type: 'backToLanding'})
+	header.render();
 
 	const rulesSection = document.createElement('section');
 	rulesSection.dataset.sectionName = 'rules';
@@ -448,13 +394,12 @@ function createRulesPage() {
 
 	rulesSection.appendChild(rulesTitle);
     rulesSection.appendChild(rulesInner);
-    application.appendChild(headerBlock);
 	application.appendChild(rulesSection);
 }
 
 function createProfilePage(profile) {
-    const headerBlock = document.createElement('nav');
-    headerBlock.appendChild(backToMenuPage());
+    const header = new Header({type: 'backToMenu'})
+	header.render();
 
 	const profileSection = document.createElement('section');
 	profileSection.dataset.sectionName = 'profile';
@@ -492,6 +437,6 @@ function createProfilePage(profile) {
     }
 	profileSection.appendChild(profileTitle);
     profileSection.appendChild(profileInner);
-    application.appendChild(headerBlock);
+    //application.appendChild(headerBlock);
     application.appendChild(profileSection);
 }
