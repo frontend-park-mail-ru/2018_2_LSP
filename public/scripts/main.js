@@ -2,8 +2,6 @@
 
 import Users from './services/users.js';
 
-const users = new Users();
-
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);
 
@@ -204,7 +202,7 @@ function createSigninPage() {
 				errorLine.hidden = false;
 			}
 		};
-		users.auth(callback, email, password);
+		Users.auth(callback, email, password);
 	});
 	
 	signinSection.appendChild(signinTitle);
@@ -285,7 +283,7 @@ function createSignupPage() {
 				errorLine.hidden = false;
 			}
 		}
-		users.register(callback, login, email, password);
+		Users.register(callback, login, email, password);
 	});
 	signupSection.appendChild(signupTitle);
 	signupSection.appendChild(errorLine);
@@ -397,7 +395,7 @@ function createLeadersPage(users) {
 				alert(response.error);
 			}
 		}
-		ajax(callback, 'GET', '/users');
+		Users.leaders(callback);
     }
     leadersSection.appendChild(leadersTitle);
     leadersSection.appendChild(leadersInner);
@@ -437,7 +435,11 @@ function createProfilePage(profile) {
     const profileTitle = document.createElement('h2');
     profileTitle.textContent = "Профиль";
 
-    const profileInner = document.createElement('div');
+	const profileInner = document.createElement('div');
+	
+	profileSection.appendChild(profileTitle);
+    profileSection.appendChild(profileInner);
+    application.appendChild(headerBlock);
 
 	if (profile) {
         const userParams = {
@@ -463,10 +465,7 @@ function createProfilePage(profile) {
 				createSigninPage();
 			}
 		};
-		ajax(callback, 'GET', '/user');
+		Users.profile(callback);
     }
-	profileSection.appendChild(profileTitle);
-    profileSection.appendChild(profileInner);
-    application.appendChild(headerBlock);
     application.appendChild(profileSection);
 }
