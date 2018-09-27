@@ -53,6 +53,10 @@ app.post('/auth', function(request, response) {
 	response.status(200).json({id});
 });
 
+app.get('/logout', function(request, response) {
+	response.clearCookie('session').status(200).end();
+});
+
 app.post('/register', function(request, response) {
 	const login = request.body.login
 	const email = request.body.email;
@@ -83,7 +87,7 @@ app.get('/user', function(request, response) {
 	response.status(200).json(users[email]);
 });
 
-app.get('/users', function (request, response) {
+app.get('/leaderboard', function (request, response) {
 	const scorelist = Object.values(users).sort((l, r) => r.score - l.score).map(user => {
 			return {
 				login: user.login, 

@@ -8,33 +8,8 @@ import {
 	Header,
 } from './components/Header/Header.mjs';
 
-function ajax(callback, method, path, body = {}) {
-	const xhr = new XMLHttpRequest();
-	xhr.open(method, path, true);
-	xhr.withCredentials = true;
+import Users from './services/users.js';
 
-	if (body) {
-		xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-	}
-
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState !== 4) {
-			return;
-		}
-		const response = JSON.parse(xhr.responseText);
-		if (+xhr.status !== 200 && +xhr.status !== 201) {
-		 	callback(xhr, response);
-		} else {
-			callback(null, response);
-		}
-	};
-
-	if (body) {
-		xhr.send(JSON.stringify(body));
-	} else {
-		xhr.send();
-	}
-}
 
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);
@@ -86,7 +61,7 @@ function makeMenuItem(item) {
 function errorHandler(error) {
 	const errors = {
 		'incorrect': 'Не верно указана почта и/или пароль',
-		'invalid': 'Не валидные данные',
+		'invalid': 'Невалидные данные',
 		'user': 'Пользователь уже существует',
 		'default': 'Ошибка... Попробуйте ввести данные еще раз'
 	};
@@ -177,7 +152,7 @@ function createSigninPage() {
 				errorLine.hidden = false;
 			}
 		};
-		ajax(callback, 'POST', '/auth', {email: email, password: password});
+		Users.auth(callback, email, password);
 	});
 	
 	signinSection.appendChild(signinTitle);
@@ -257,7 +232,7 @@ function createSignupPage() {
 				errorLine.hidden = false;
 			}
 		}
-		ajax(callback, 'POST', '/register', {login: login, email: email, password: password});
+		Users.register(callback, login, email, password);
 	});
 	signupSection.appendChild(signupTitle);
 	signupSection.appendChild(errorLine);
@@ -368,7 +343,7 @@ function createLeadersPage(users) {
 				alert(response.error);
 			}
 		}
-		ajax(callback, 'GET', '/users');
+		Users.leaders(callback);
     }
     leadersSection.appendChild(leadersTitle);
     leadersSection.appendChild(leadersInner);
@@ -407,7 +382,10 @@ function createProfilePage(profile) {
     const profileTitle = document.createElement('h2');
     profileTitle.textContent = "Профиль";
 
-    const profileInner = document.createElement('div');
+	const profileInner = document.createElement('div');
+	
+	profileSection.appendChild(profileTitle);
+    profileSection.appendChild(profileInner);
 
 	if (profile) {
         const userParams = {
@@ -433,10 +411,7 @@ function createProfilePage(profile) {
 				createSigninPage();
 			}
 		};
-		ajax(callback, 'GET', '/user');
+		Users.profile(callback);
     }
-	profileSection.appendChild(profileTitle);
-    profileSection.appendChild(profileInner);
-    //application.appendChild(headerBlock);
     application.appendChild(profileSection);
 }
