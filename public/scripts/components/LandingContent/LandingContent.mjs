@@ -22,7 +22,7 @@ export class LandingMenuContent {
     _renderDOM() {
         const links = {
             'Играть': 'menu',
-            'Правила': 'rules',
+            'Правила': 'rulesLanding',
             'Вход': 'signin',
             'Регистрация': 'signup' 
         }

@@ -1,15 +1,11 @@
 'use strict';
 
-import { 
-	LandingMenuContent ,
-} from './components/LandingContent/LandingContent.mjs';
-
-import { 
-	Header,
-} from './components/Header/Header.mjs';
+import { LandingMenuContent } from './components/LandingContent/LandingContent.mjs';
+import { Header } from './components/Header/Header.mjs';
+import { Menu } from './components/Menu/Menu.mjs';
+import { RulesPage } from './components/RulesPage/RulesPage.mjs';
 
 import Users from './services/users.js';
-
 
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);
@@ -46,18 +42,6 @@ function makeInputField(input) {
     return p;
 }
 
-function makeMenuItem(item) {
-    const div = document.createElement('div');
-    const link = document.createElement('a');
-
-    link.href = item[0];
-    link.dataset.href = item[0];
-    link.textContent = item[1];
-
-    div.appendChild(link);
-    return div;
-}
-
 function errorHandler(error) {
 	const errors = {
 		'incorrect': 'Не верно указана почта и/или пароль',
@@ -86,7 +70,10 @@ const pages = {
 	signup: createSignupPage,
     menu: createMenuPage,
 	leaders: createLeadersPage,
-	rules: createRulesPage,
+	//rules: createRulesPage,
+	rulesLanding: createRulesFromLanding,
+	rulesMenu: createRulesFromMenu,
+
     profile: createProfilePage
 };
 
@@ -241,28 +228,9 @@ function createSignupPage() {
 }
 
 function createMenuPage() {
-    const items = {
-		multiplayer: 'Мультиплеер',
-		singleplayer: 'Одиночная игра',
-		leaders: 'Лидеры',
-        rules: 'Правила',
-        profile: 'Профиль'
-    };
-    
-    const menuSection = document.createElement('section');
-    menuSection.dataset.sectionName = 'menu';
 
-    const menuTitle = document.createElement('h2');
-    menuTitle.textContent = "Меню";
-
-    const menuInner = document.createElement('div');
-
-    Object.entries(items).forEach((item) => {
-		menuInner.appendChild(makeMenuItem(item));
-    });
-    menuSection.appendChild(menuTitle);
-    menuSection.appendChild(menuInner);
-    application.appendChild(menuSection);
+	const mainMenu = new Menu();
+	mainMenu.render();
 }
 
 function createLeadersPage(users) {
@@ -351,25 +319,14 @@ function createLeadersPage(users) {
 	application.appendChild(leadersSection);
 }
 
-function createRulesPage() {
-    const header = new Header({type: 'backToLanding'})
-	header.render();
+function createRulesFromLanding() {
+    const rulesPage = new RulesPage({type: 'fromLanding'});
+	rulesPage.render();
+}
 
-	const rulesSection = document.createElement('section');
-	rulesSection.dataset.sectionName = 'rules';
-	
-	const rulesTitle = document.createElement('h2');
-	rulesTitle.textContent = "Правила";
-	
-	const rulesInner = document.createElement('div');
-	
-	const pTag = document.createElement('p');
-	pTag.textContent = 'Подробное описание правил игры...';
-	rulesInner.appendChild(pTag);
-
-	rulesSection.appendChild(rulesTitle);
-    rulesSection.appendChild(rulesInner);
-	application.appendChild(rulesSection);
+function createRulesFromMenu() {
+    const rulesPage = new RulesPage({type: 'fromMenu'});
+	rulesPage.render();
 }
 
 function createProfilePage(profile) {

@@ -43,6 +43,10 @@ export class Header {
         application.appendChild(headerBlock);
     }
 
+    _renderOnMenu() {
+        
+    }
+
     _renderBackToLanding() {
         const headerBlock = document.createElement('nav');
         
