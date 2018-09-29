@@ -10,8 +10,7 @@ export default class Users {
         this.users = {};
     }
 
-    static auth(callback, email, password) {
-        const data = {email, password}
+    static auth(callback, data = {}) {
         Http.Post(callback, '/auth', data);
     }
 

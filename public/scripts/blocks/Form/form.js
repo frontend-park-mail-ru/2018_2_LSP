@@ -4,10 +4,11 @@ export default class Form extends Block {
     constructor(fields = []) {
         const form = document.createElement('form');
         super(form);
-        for (field in fields) {
+        this.form = form;
+        fields.forEach(field => {
             const fieldElement = Block.Create('input', field.classes, field.attributes);
             this.append(fieldElement);
-        }
+        });
     }
 
     /**
@@ -15,11 +16,11 @@ export default class Form extends Block {
      * @param {*} callback 
      */
     submit(callback) {
-        form.addEventListener('submit', function(event) {
+        this.form.addEventListener('submit', function(event) {
             event.preventDefault();
             const formdata = {};
             const elements = this.form.elements;
-            for (element in elements) {
+            for (const element in elements) {
                 formdata[element] = elements[element].value;
             }
             callback(formdata);

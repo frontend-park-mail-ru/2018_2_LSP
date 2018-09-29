@@ -7,6 +7,7 @@ import { RulesPage } from './components/RulesPage/RulesPage.mjs';
 
 import Users from './services/users.js';
 import Table from './blocks/Table/table.js';
+import Form from './blocks/Form/form.js';
 
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);
@@ -30,18 +31,18 @@ application.addEventListener('click', function(event) {
 createLandingPage();
 
 //вспомогательные функции создания блоков
-function makeInputField(input) {
-    const p = document.createElement('p');
-	const field = document.createElement('input');
-	// field.required = true;	//отправка пустого поля запрещена
+// function makeInputField(input) {
+//     const p = document.createElement('p');
+// 	const field = document.createElement('input');
+// 	// field.required = true;	//отправка пустого поля запрещена
     
-    field.name = input.name;
-    field.type = input.type;
-    field.placeholder = input.placeholder;
+//     field.name = input.name;
+//     field.type = input.type;
+//     field.placeholder = input.placeholder;
 
-    p.appendChild(field);
-    return p;
-}
+//     p.appendChild(field);
+//     return p;
+// }
 
 function errorHandler(error) {
 	const errors = {
@@ -88,22 +89,7 @@ function createLandingPage() {
 }
 
 function createSigninPage() {
-	const inputs = [
-		{
-			name: 'email',
-			type: 'email',
-			placeholder: 'Почта'
-		},
-		{
-			name: 'password',
-			type: 'password',
-			placeholder: 'Пароль'
-		},
-		{
-			name: 'submit',
-			type: 'submit'
-		}
-    ];
+	
 	
 	const header = new Header({type: 'backToLanding'})
 	header.render();
@@ -118,18 +104,40 @@ function createSigninPage() {
 	errorLine.classList.add('errorLine');
 	errorLine.hidden = true
 
-	const form = document.createElement('form');
+	//const form = document.createElement('form');
 
-	inputs.forEach((input) => {
-		form.appendChild(makeInputField(input));
-	});
+	const inputs = [
+		{
+			classes: [],
+			attributes: {
+				name: 'email',
+				type: 'email',
+				placeholder: 'Почта',
+				required: 'required'
+			}
+		},
+		{
+			classes: [],
+			attributes: {
+				name: 'password',
+				type: 'password',
+				placeholder: 'Пароль',
+				required: 'required'
+			}
+		},
+		{
+			classes: [],
+			attributes: {
+				name: 'submit',
+				type: 'submit',
+				value: 'Вход'
+			}
+		}
+    ];
 
-	form.addEventListener('submit', function(event) {
-		event.preventDefault();
-
-		const email = form.elements['email'].value;
-		const password = form.elements['password'].value;
-		const callback = function(err, response) {
+	const form = new Form(inputs);
+	form.submit(function(data) {
+		Users.auth(function(err, response) {
 			console.log(err, response);
 			if (err === null) {
 				application.innerHTML = '';
@@ -139,13 +147,12 @@ function createSigninPage() {
 				errorLine.textContent = errorHandler(response.error)
 				errorLine.hidden = false;
 			}
-		};
-		Users.auth(callback, email, password);
+		}, data);
 	});
 	
 	signinSection.appendChild(signinTitle);
 	signinSection.appendChild(errorLine);
-    signinSection.appendChild(form);
+    signinSection.appendChild(form.getElement());
 	application.appendChild(signinSection);
 }
 
@@ -215,7 +222,7 @@ function createSignupPage() {
 				application.innerHTML = '';
 				createProfilePage(response);
 			} else {
-				const errorLine = document.getElementsByClassName('errorLine')[0];
+				let errorLine = document.getElementsByClassName('errorLine')[0];
 				errorLine.textContent = errorHandler(response.error)
 				errorLine.hidden = false;
 			}
