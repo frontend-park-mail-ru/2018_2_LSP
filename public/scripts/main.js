@@ -6,6 +6,7 @@ import { Menu } from './components/Menu/Menu.mjs';
 import { RulesPage } from './components/RulesPage/RulesPage.mjs';
 
 import Users from './services/users.js';
+import Table from './blocks/Table/table.js';
 
 //import someValue from './components/Board/Board.mjs';
 //console.log('someValue', someValue);
@@ -243,60 +244,58 @@ function createLeadersPage(users) {
 	const leadersTitle = document.createElement('h2');
     leadersTitle.textContent = "Лидеры";
 
-    const leadersInner = document.createElement('div');
+	const leadersInner = document.createElement('div');
+	
+	const items = ['Логин', 'Почта', 'Сыграно', 'Рейтинг'];
+	const leaderBoard = new Table(items);
 
 	if (users) {
-		//BOARD COMPONENT!!!
-		//board.data = user;
-		//console.log(board.data)
-		//==================
+		leaderBoard.update(users);
+		// const table = document.createElement('table');
+		// const thead = document.createElement('thead');
+		// thead.innerHTML = `
+		// <tr>
+		// 	<td>Логин</td>
+		// 	<td>Почта</td>
+        //     <td>Сыграно игр</td>
+        //     <td>Рейтинг</td>
+        // </tr>
+		// `;
+		// const tbody = document.createElement('tbody');
 
-		const table = document.createElement('table');
-		const thead = document.createElement('thead');
-		//%%%%%%%%%%%%%%
-		thead.innerHTML = `
-		<tr>
-			<td>Логин</td>
-			<td>Почта</td>
-            <td>Сыграно игр</td>
-            <td>Рейтинг</td>
-        </tr>
-		`;
-		const tbody = document.createElement('tbody');
+		// table.appendChild(thead);
+		// table.appendChild(tbody);
+		// table.border = 1;
+		// table.cellSpacing = table.cellPadding = 0;
 
-		table.appendChild(thead);
-		table.appendChild(tbody);
-		table.border = 1;
-		table.cellSpacing = table.cellPadding = 0;
+		// users.forEach((user) => {
+		// 	//нужно написать ф-цию генерации таблицы
+		// 	const login = user.login;
+		// 	const email = user.email;
+		// 	const gamecount = user.gamecount;
+		// 	const score = user.score;
 
-		users.forEach((user) => {
-			//нужно написать ф-цию генерации таблицы
-			const login = user.login;
-			const email = user.email;
-			const gamecount = user.gamecount;
-			const score = user.score;
+		// 	const tr = document.createElement('tr');
 
-			const tr = document.createElement('tr');
+		// 	const tdLogin = document.createElement('td');
+		// 	const tdEmail = document.createElement('td');
+		// 	const tdGameCount = document.createElement('td');
+		// 	const tdScore = document.createElement('td');
 
-			const tdLogin = document.createElement('td');
-			const tdEmail = document.createElement('td');
-			const tdGameCount = document.createElement('td');
-			const tdScore = document.createElement('td');
+		// 	tdLogin.textContent = login;
+		// 	tdEmail.textContent = email;
+		// 	tdGameCount.textContent = gamecount;
+		// 	tdScore.textContent = score;
 
-			tdLogin.textContent = login;
-			tdEmail.textContent = email;
-			tdGameCount.textContent = gamecount;
-			tdScore.textContent = score;
+		// 	tr.appendChild(tdLogin);
+		// 	tr.appendChild(tdEmail);
+		// 	tr.appendChild(tdGameCount);
+		// 	tr.appendChild(tdScore);
 
-			tr.appendChild(tdLogin);
-			tr.appendChild(tdEmail);
-			tr.appendChild(tdGameCount);
-			tr.appendChild(tdScore);
+		// 	tbody.appendChild(tr);
 
-			tbody.appendChild(tr);
-
-			leadersInner.appendChild(table);
-		});
+		// 	leadersInner.appendChild(table);
+		// });
 	} else {
 		const em = document.createElement('em');
 		em.textContent = 'Еще никто не установил рекорд. Вы можете быть первыми;)';

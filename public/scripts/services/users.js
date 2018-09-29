@@ -37,9 +37,9 @@ export default class Users {
             if (err) {
                 return callback(err, user);
             }
-            Users.user = user;
+            this.user = user;
             return callback(null, user);
-        }
+        }.bind(this);
         Http.Get(call, '/user');
     }
 
@@ -48,18 +48,18 @@ export default class Users {
             if (err) {
                 return callback(err, users);
             }
-            Users.users = users;
+            this.users = users;
 
-            if (Users.isLoggedIn()) {
-                Users.users = users.map(user => {
-                    if (Users.user.email === user.email) {
+            if (this.isLoggedIn()) {
+                this.users = users.map(user => {
+                    if (this.user.email === user.email) {
                         user.me = true;
                     }
                     return user;
                 });
             }
             return callback(null, users);
-        }
+        }.bind(this);
         Http.Get(call, '/leaderboard');
     }
 }
