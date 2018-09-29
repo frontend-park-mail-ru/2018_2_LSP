@@ -4,33 +4,41 @@ export default class Table extends Block {
     constructor(head = []) {
         const table = document.createElement('table');
         super(table);
+        this.table = table;
+        this.head = head;
     }
 
     _header() {
         const thead = document.createElement('thead');
         const tr = document.createElement('tr');
-        for (thName in head) {
+        tr.classList.add('head');
+        this.head.forEach(thName => {
             const th = document.createElement('th');
             th.textContent = thName;
             tr.appendChild(th);
-        }
+        });
         thead.appendChild(tr);
         this.table.appendChild(thead);
     }
 
     _data(data = []) {
         const tbody = document.createElement('tbody');
-        for (item in data) {
+        data.forEach(item => {
             const tr = document.createElement('tr');
-            for (text in Object.item.values()) {
-                const th = document.createElement('th');
-                th.textContent = item.text;
-                if (item.me) {
-                    tr.classList.add('me');
+            if (item.me) {
+                tr.classList.add('me');
+            }
+            for (const text in item) {
+                if (text == 'me') {
+                    continue;
                 }
+                const th = document.createElement('th');
+                th.textContent = item[text];
                 tr.appendChild(th);
             }
-        }
+            tbody.appendChild(tr);
+        });
+        this.table.appendChild(tbody);
     }
 
     clear() {

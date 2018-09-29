@@ -14,6 +14,10 @@ export default class Block {
         return new Block(element);
     }
 
+    getElement() {
+        return this.element;
+    }
+
     hide() {
         this.element.setAttribute('hidden', true);
     }

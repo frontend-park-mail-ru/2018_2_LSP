@@ -26,6 +26,34 @@ const users = {
 		password: '12345',
 		gamecount: 7,
 		score: 100500,
+	},
+	'l@yandex.ru': {
+        login: 'Molecada',
+		email: 'l@yandex.ru',
+		password: '12345',
+		gamecount: 7,
+		score: 100500,
+	},
+	'a@yandex.ru': {
+        login: 'Molecada',
+		email: 'a@yandex.ru',
+		password: '12345',
+		gamecount: 7,
+		score: 100500,
+	},
+	'u@yandex.ru': {
+        login: 'Molecada',
+		email: 'u@yandex.ru',
+		password: '12345',
+		gamecount: 7,
+		score: 100500,
+	},
+	'm@yandex.ru': {
+        login: 'Molecada',
+		email: 'm@yandex.ru',
+		password: '12345',
+		gamecount: 7,
+		score: 100500,
 	}
 };
 const ids = {};
