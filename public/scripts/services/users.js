@@ -18,8 +18,7 @@ export default class Users {
         Http.Get(callback, '/logout');
     }
 
-    static register(callback, login, email, password) {
-        const data = {login, email, password}
+    static register(callback, data = {}) {
         Http.Post(callback, '/register', data);
     }
 

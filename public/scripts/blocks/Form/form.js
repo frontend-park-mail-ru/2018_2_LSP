@@ -6,7 +6,8 @@ export default class Form extends Block {
         super(form);
         this.form = form;
         fields.forEach(field => {
-            const fieldElement = Block.Create('input', field.classes, field.attributes);
+            const fieldElement = Block.Create('p');
+            fieldElement.append(Block.Create('input', field.classes, field.attributes));
             this.append(fieldElement);
         });
     }
@@ -21,7 +22,7 @@ export default class Form extends Block {
             const formdata = {};
             const elements = this.form.elements;
             for (const element in elements) {
-                formdata[element] = elements[element].value;
+                formdata[elements[element].name] = elements[element].value;
             }
             callback(formdata);
         }.bind(this));

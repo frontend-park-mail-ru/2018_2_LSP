@@ -9,12 +9,6 @@ import Users from './services/users.js';
 import Table from './blocks/Table/table.js';
 import Form from './blocks/Form/form.js';
 
-//import someValue from './components/Board/Board.mjs';
-//console.log('someValue', someValue);
-
-//обращение к ajax с помощью данного модуля (get / post)
-//const AJAX = window.AjaxModule;
-
 const application = document.getElementById('application');
 
 //роутинг по страницам
@@ -30,26 +24,13 @@ application.addEventListener('click', function(event) {
 
 createLandingPage();
 
-//вспомогательные функции создания блоков
-// function makeInputField(input) {
-//     const p = document.createElement('p');
-// 	const field = document.createElement('input');
-// 	// field.required = true;	//отправка пустого поля запрещена
-    
-//     field.name = input.name;
-//     field.type = input.type;
-//     field.placeholder = input.placeholder;
-
-//     p.appendChild(field);
-//     return p;
-// }
-
 function errorHandler(error) {
 	const errors = {
 		'incorrect': 'Не верно указана почта и/или пароль',
 		'invalid': 'Невалидные данные',
 		'user': 'Пользователь уже существует',
-		'default': 'Ошибка... Попробуйте ввести данные еще раз'
+		'default': 'Ошибка... Попробуйте ввести данные еще раз',
+		'passwords': 'Необходимо, чтобы пароли различались'
 	};
 	return errors[error];
 
@@ -75,12 +56,10 @@ const pages = {
 	//rules: createRulesPage,
 	rulesLanding: createRulesFromLanding,
 	rulesMenu: createRulesFromMenu,
-
     profile: createProfilePage
 };
 
 function createLandingPage() {
-
 	const header = new Header({type: 'landing'})
 	header.render();
 
@@ -89,8 +68,6 @@ function createLandingPage() {
 }
 
 function createSigninPage() {
-	
-	
 	const header = new Header({type: 'backToLanding'})
 	header.render();
 
@@ -130,14 +107,14 @@ function createSigninPage() {
 			attributes: {
 				name: 'submit',
 				type: 'submit',
-				value: 'Вход'
+				value: 'Войти'
 			}
 		}
     ];
 
 	const form = new Form(inputs);
-	form.submit(function(data) {
-		Users.auth(function(err, response) {
+	form.submit(function(data) {	//добавляем по нажатию кнопки событие
+		Users.auth(function(err, response) {	//авторизации пользователя
 			console.log(err, response);
 			if (err === null) {
 				application.innerHTML = '';
@@ -147,7 +124,7 @@ function createSigninPage() {
 				errorLine.textContent = errorHandler(response.error)
 				errorLine.hidden = false;
 			}
-		}, data);
+		}, data);	//используем данные введенные в форму
 	});
 	
 	signinSection.appendChild(signinTitle);
@@ -159,30 +136,50 @@ function createSigninPage() {
 function createSignupPage() {
 	const inputs = [
 		{
-			name: 'login',
-			type: 'text',
-			placeholder: 'Логин'
+			classes: [],
+			attributes: {
+				name: 'login',
+				type: 'text',
+				placeholder: 'Логин',
+				required: 'required'
+			}
 		},
 		{
-			name: 'email',
-			type: 'email',
-			placeholder: 'Почта'
+			classes: [],
+			attributes: {
+				name: 'email',
+				type: 'email',
+				placeholder: 'Почта',
+				required: 'required'
+			}
 		},
 		{
-			name: 'password',
-			type: 'password',
-			placeholder: 'Пароль'
+			classes: [],
+			attributes: {
+				name: 'password',
+				type: 'password',
+				placeholder: 'Пароль',
+				required: 'required'
+			}
 		},
 		{
-			name: 'password_repeat',
-			type: 'password',
-			placeholder: 'Повторите пароль'
+			classes: [],
+			attributes: {
+				name: 'password_repeat',
+				type: 'password',
+				placeholder: 'Повторите пароль',
+				required: 'required'
+			}
 		},
 		{
-			name: 'submit',
-			type: 'submit'
+			classes: [],
+			attributes: {
+				name: 'submit',
+				type: 'submit',
+				value: 'Зарегистрироваться'
+			}
 		}
-    ];
+	];
     
 	const header = new Header({type: 'backToLanding'})
 	header.render();
@@ -197,46 +194,34 @@ function createSignupPage() {
 	errorLine.classList.add('errorLine');
 	errorLine.hidden = true
 
-	const form = document.createElement('form');
-
-	inputs.forEach((input) => {
-		form.appendChild(makeInputField(input));
-	});
-
-	form.addEventListener('submit', function(event) {
-		event.preventDefault();
-
-		const login = form.elements['login'].value;
-		const email = form.elements['email'].value;
-		const password = form.elements['password'].value;
-		const password_repeat = form.elements['password_repeat'].value;
-
-		if (password !== password_repeat) {
-			alert('Пароли не совпадают');
+	const form = new Form(inputs);
+	form.submit(function(data) {	//добавляем по нажатию кнопки событие
+		if (data[2] !== data[3]) {
+			const errorLine = document.getElementsByClassName('errorLine')[0];
+			errorLine.textContent = errorHandler('passwords')
+			errorLine.hidden = false;
 			return;
 		}
-
-		const callback = function(err, response) {
+		Users.register(function(err, response) {	//регистрации пользователя
 			console.log(err, response);
 			if (err === null) {
 				application.innerHTML = '';
-				createProfilePage(response);
+				createMenuPage();
 			} else {
-				let errorLine = document.getElementsByClassName('errorLine')[0];
+				const errorLine = document.getElementsByClassName('errorLine')[0];
 				errorLine.textContent = errorHandler(response.error)
 				errorLine.hidden = false;
 			}
-		}
-		Users.register(callback, login, email, password);
+		}, data);	//используем данные введенные в форму
 	});
+
 	signupSection.appendChild(signupTitle);
 	signupSection.appendChild(errorLine);
-    signupSection.appendChild(form);
+    signupSection.appendChild(form.getElement());
 	application.appendChild(signupSection);
 }
 
 function createMenuPage() {
-
 	const mainMenu = new Menu();
 	mainMenu.render();
 }

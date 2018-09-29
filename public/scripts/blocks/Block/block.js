@@ -32,7 +32,7 @@ export default class Block {
 
     append(block) {
         //в цикле добавлять сразу несколько элементов
-        this.element.appendChild(block.getElement());
+        this.element.appendChild(block.element);
     }
 
     event(type, callback) {
