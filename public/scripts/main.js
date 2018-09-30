@@ -4,7 +4,8 @@ import { Landing } from './components/Landing/Landing.mjs';
 import { Header } from './blocks/Header/Header.mjs';
 import { Menu } from './components/Menu/Menu.mjs';
 import { RulesPage } from './components/RulesPage/RulesPage.mjs';
-//import { Block } from './blocks/block.js';
+import { Block } from './blocks/Block/Block.mjs';
+import { Paginator } from './blocks/Paginator/Paginator.mjs';
 
 import Users from './services/users.js';
 import Table from './blocks/Table/Table.mjs';
@@ -31,7 +32,7 @@ function errorHandler(error) {
 		'invalid': 'Невалидные данные',
 		'user': 'Пользователь уже существует',
 		'default': 'Ошибка... Попробуйте ввести данные еще раз',
-		'passwords': 'Необходимо, чтобы пароли различались'
+		'passwords': 'Необходимо, чтобы пароли совпадали'
 	};
 	return errors[error];
 
@@ -136,7 +137,7 @@ function createSignupPage() {
 		{
 			classes: [],
 			attributes: {
-				name: 'login',
+				name: 'username',
 				type: 'text',
 				placeholder: 'Логин',
 				required: 'required'
@@ -238,10 +239,14 @@ function createLeadersPage(users) {
 	
 	const items = ['Логин', 'Почта', 'Сыграно', 'Рейтинг'];
 	const leaderBoard = new Table(items);
+	//const leaderBoardPaginator = new Paginator();
+
+	const numberPage = 0;
 
 	if (users) {
 		leaderBoard.update(users);
 		leadersInner.appendChild(leaderBoard.getElement());
+		//leadersInner.appendChild(leaderBoardPaginator.getElement());
 	} else {
 		const em = document.createElement('em');
 		em.textContent = 'Еще никто не установил рекорд. Вы можете быть первыми;)';
@@ -256,7 +261,7 @@ function createLeadersPage(users) {
 				alert(response.error);
 			}
 		}
-		Users.leaders(callback);
+		Users.leaders(callback, {page: numberPage});
     }
     leadersSection.appendChild(leadersTitle);
     leadersSection.appendChild(leadersInner);
@@ -285,16 +290,20 @@ function createProfilePage(profile) {
     profileTitle.textContent = "Профиль";
 
 	const profileInner = document.createElement('div');
+
+	//const button = Block.Create('a', [], {'href': 'menu'});
+	//button.setText('Выход');
 	
 	profileSection.appendChild(profileTitle);
-    profileSection.appendChild(profileInner);
+	profileSection.appendChild(profileInner);
+	//profileSection.appendChild(button.getElement());
 
 	if (profile) {
         const userParams = {
-            'Логин': profile.login,
-			'Почта': profile.email,
-			'Сыграно игр': profile.gamecount,
-            'Счет': profile.score
+            'Логин': profile.Username,
+			'Почта': profile.Email,
+			'Сыграно игр': profile.Gamecount,
+            'Счет': profile.Score
         }; 
 		Object.entries(userParams).forEach((param) => {
 			const pParam = document.createElement('p');
@@ -308,7 +317,10 @@ function createProfilePage(profile) {
 				application.innerHTML = '';
 				createProfilePage(response);
 			} else {
-				alert('Unauthorized');
+				// alert('Unauthorized');
+				// const errorLine = document.getElementsByClassName('errorLine')[0];
+				// errorLine.textContent = errorHandler(response.error)
+				// errorLine.hidden = false;
 				application.innerHTML = '';
 				createSigninPage();
 			}

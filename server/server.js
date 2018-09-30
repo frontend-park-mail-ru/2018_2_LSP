@@ -9,9 +9,23 @@ const morgan = require('morgan');
 const uuid = require('uuid/v4');
 const path = require('path');
 const express = require('express');
+const proxy = require('express-http-proxy');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+
+//======= PROXY ========
+// app.use('/auth', proxy('http://jackal.online/auth'));
+// app.use('*', proxy('http://jackal.online/', {
+// 	proxyReqPathResolver: function(req) {
+// 		return '/leaderboard';
+// 	}
+// }));
+// app.use('/user', proxy('http://jackal.online/user'));
+// app.use('/leaderboard', proxy('http://jackal.online/leaderboard'));
+//======================
+
 const users = {
 	'moleque@mail.ru': {
         login: 'Moleque',
@@ -64,68 +78,68 @@ app.use(body.json());
 app.use(cookie());
 
 //POST запросы
-app.post('/auth', function(request, response) {
-    const email = request.body.email;
-    const password = request.body.password;
-	if (!email || !password) {
-		return response.status(400).json({error: 'invalid'});
-	}
-	if (!users[email] || users[email].password !== password) {
-		return response.status(400).json({error: 'incorrect'});
-	}
+// app.post('/auth', function(request, response) {
+//     const email = request.body.email;
+//     const password = request.body.password;
+// 	if (!email || !password) {
+// 		return response.status(400).json({error: 'invalid'});
+// 	}
+// 	if (!users[email] || users[email].password !== password) {
+// 		return response.status(400).json({error: 'incorrect'});
+// 	}
 
-	const id = uuid();
-	ids[id] = email;
+// 	const id = uuid();
+// 	ids[id] = email;
 
-	response.cookie('session', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	response.status(200).json({id});
-});
+// 	response.cookie('session', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+// 	response.status(200).json({id});
+// });
 
 app.get('/logout', function(request, response) {
 	response.clearCookie('session').status(200).end();
 });
 
-app.post('/register', function(request, response) {
-	const login = request.body.login
-	const email = request.body.email;
-	const password = request.body.password;
-	if (!password || !email || !login || !email.match(/@/)) {
-		return response.status(400).json({error: 'invalid'});
-	}
-	if (users[email]) {
-		return response.status(400).json({error: 'user'});
-	}
+// app.post('/register', function(request, response) {
+// 	const login = request.body.login
+// 	const email = request.body.email;
+// 	const password = request.body.password;
+// 	if (!password || !email || !login || !email.match(/@/)) {
+// 		return response.status(400).json({error: 'invalid'});
+// 	}
+// 	if (users[email]) {
+// 		return response.status(400).json({error: 'user'});
+// 	}
 
-	const id = uuid();
-	ids[id] = email;
-	users[email] = {login, email, password, gamecount: 0, score: 0};
+// 	const id = uuid();
+// 	ids[id] = email;
+// 	users[email] = {login, email, password, gamecount: 0, score: 0};
 
-	response.cookie('session', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-	response.status(201).json({id});
-});
+// 	response.cookie('session', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+// 	response.status(201).json({id});
+// });
 
 //GET запросы
-app.get('/user', function(request, response) {
-	const id = request.cookies['session'];
-	const email = ids[id];
-	if (!email || !users[email]) {
-		return response.status(401).json({error: 'Нет такого пользователя'});
-	}
+// app.get('/user', function(request, response) {
+// 	const id = request.cookies['session'];
+// 	const email = ids[id];
+// 	if (!email || !users[email]) {
+// 		return response.status(401).json({error: 'Нет такого пользователя'});
+// 	}
 
-	response.status(200).json(users[email]);
-});
+// 	response.status(200).json(users[email]);
+// });
 
-app.get('/leaderboard', function (request, response) {
-	const scorelist = Object.values(users).sort((l, r) => r.score - l.score).map(user => {
-			return {
-				login: user.login, 
-				email: user.email,
-				gamecount: user.gamecount, 
-				score: user.score
-			};
-		});
-	response.json(scorelist);
-});
+// app.get('/leaderboard', function (request, response) {
+// 	const scorelist = Object.values(users).sort((l, r) => r.score - l.score).map(user => {
+// 			return {
+// 				login: user.login, 
+// 				email: user.email,
+// 				gamecount: user.gamecount, 
+// 				score: user.score
+// 			};
+// 		});
+// 	response.json(scorelist);
+// });
 
 //Сервер
 app.listen(PORT, function () {
