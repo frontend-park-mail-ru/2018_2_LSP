@@ -1,6 +1,6 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
 import Users from '/scripts/services/users.js';
-import { Block } from '/scripts/blocks/block.js';
+import { Block } from '/scripts/blocks/Block/Block.mjs';
 
 export class Profile {
     constructor(profile){
@@ -52,6 +52,6 @@ export class Profile {
             };
             Users.profile(callback);
         }
-        application.append(profileSection.getEl());
+        application.append(profileSection.getElement());
         }
 }
