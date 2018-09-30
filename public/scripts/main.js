@@ -5,7 +5,8 @@ import { Header } from './blocks/Header/Header.mjs';
 import { Menu } from './components/Menu/Menu.mjs';
 import { RulesPage } from './components/RulesPage/RulesPage.mjs';
 import { Profile } from './components/Profile/Profile.mjs';
-//import { Block } from './blocks/block.js';
+import { SignIn } from './components/SignIn/SignIn.mjs';
+import { SignUp } from './components/SignUp/SignUp.mjs';
 
 import Users from './services/users.js';
 import Table from './blocks/Table/Table.mjs';
@@ -26,28 +27,6 @@ application.addEventListener('click', function(event) {
 
 createLandingPage();
 
-function errorHandler(error) {
-	const errors = {
-		'incorrect': 'Не верно указана почта и/или пароль',
-		'invalid': 'Невалидные данные',
-		'user': 'Пользователь уже существует',
-		'default': 'Ошибка... Попробуйте ввести данные еще раз',
-		'passwords': 'Необходимо, чтобы пароли различались'
-	};
-	return errors[error];
-
-	// switch (error) {
-	// 	case 'email':
-	// 		return 'Не указана почта';
-	// 	case 'password':
-	// 		return 'Не указан пароль';
-	// 	case 'incorrect':
-	// 		return 'Не верно указана почта и/или пароль';
-	// 	default:
-	// 		return 'Ошибка... Попробуйте ввести данные еще раз';
-	// }
-}
-
 //функции создания страниц
 const pages = {
 	landing: createLandingPage,
@@ -67,157 +46,14 @@ function createLandingPage() {
 }
 
 function createSigninPage() {
-	const header = new Header({type: 'backToLanding'})
-	header.render();
-
-	const signinSection = document.createElement('section');
-	signinSection.dataset.sectionName = 'signin';
-
-	const signinTitle = document.createElement('h2');
-    signinTitle.textContent = "Вход";
-
-	const errorLine = document.createElement('p');
-	errorLine.classList.add('errorLine');
-	errorLine.hidden = true
-
-	//const form = document.createElement('form');
-
-	const inputs = [
-		{
-			classes: [],
-			attributes: {
-				name: 'email',
-				type: 'email',
-				placeholder: 'Почта',
-				required: 'required'
-			}
-		},
-		{
-			classes: [],
-			attributes: {
-				name: 'password',
-				type: 'password',
-				placeholder: 'Пароль',
-				required: 'required'
-			}
-		},
-		{
-			classes: [],
-			attributes: {
-				name: 'submit',
-				type: 'submit',
-				value: 'Войти'
-			}
-		}
-    ];
-
-	const form = new Form(inputs);
-	form.submit(function(data) {	//добавляем по нажатию кнопки событие
-		Users.auth(function(err, response) {	//авторизации пользователя
-			console.log(err, response);
-			if (err === null) {
-				application.innerHTML = '';
-				createMenuPage();
-			} else {
-				const errorLine = document.getElementsByClassName('errorLine')[0];
-				errorLine.textContent = errorHandler(response.error)
-				errorLine.hidden = false;
-			}
-		}, data);	//используем данные введенные в форму
-	});
-	
-	signinSection.appendChild(signinTitle);
-	signinSection.appendChild(errorLine);
-    signinSection.appendChild(form.getElement());
-	application.appendChild(signinSection);
+	const signInPage = new SignIn({});
+	signInPage.render();
 }
 
 function createSignupPage() {
-	const inputs = [
-		{
-			classes: [],
-			attributes: {
-				name: 'login',
-				type: 'text',
-				placeholder: 'Логин',
-				required: 'required'
-			}
-		},
-		{
-			classes: [],
-			attributes: {
-				name: 'email',
-				type: 'email',
-				placeholder: 'Почта',
-				required: 'required'
-			}
-		},
-		{
-			classes: [],
-			attributes: {
-				name: 'password',
-				type: 'password',
-				placeholder: 'Пароль',
-				required: 'required'
-			}
-		},
-		{
-			classes: [],
-			attributes: {
-				name: 'password_repeat',
-				type: 'password',
-				placeholder: 'Повторите пароль',
-				required: 'required'
-			}
-		},
-		{
-			classes: [],
-			attributes: {
-				name: 'submit',
-				type: 'submit',
-				value: 'Зарегистрироваться'
-			}
-		}
-	];
-    
-	const header = new Header({type: 'backToLanding'})
-	header.render();
 
-	const signupSection = document.createElement('section');
-	signupSection.dataset.sectionName = 'signup';
-
-	const signupTitle = document.createElement('h2');
-	signupTitle.textContent = 'Регистрация';
-
-	const errorLine = document.createElement('p');
-	errorLine.classList.add('errorLine');
-	errorLine.hidden = true
-
-	const form = new Form(inputs);
-	form.submit(function(data) {	//добавляем по нажатию кнопки событие
-		if (data['password'] !== data['password_repeat']) {
-			const errorLine = document.getElementsByClassName('errorLine')[0];
-			errorLine.textContent = errorHandler('passwords')
-			errorLine.hidden = false;
-			return;
-		}
-		Users.register(function(err, response) {	//регистрации пользователя
-			console.log(err, response);
-			if (err === null) {
-				application.innerHTML = '';
-				createMenuPage();
-			} else {
-				const errorLine = document.getElementsByClassName('errorLine')[0];
-				errorLine.textContent = errorHandler(response.error)
-				errorLine.hidden = false;
-			}
-		}, data);	//используем данные введенные в форму
-	});
-
-	signupSection.appendChild(signupTitle);
-	signupSection.appendChild(errorLine);
-    signupSection.appendChild(form.getElement());
-	application.appendChild(signupSection);
+	const signUpPage = new SignUp({});
+	signUpPage.render();
 }
 
 function createMenuPage() {
