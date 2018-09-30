@@ -10,8 +10,7 @@ export default class Users {
         this.users = {};
     }
 
-    static auth(callback, email, password) {
-        const data = {email, password}
+    static auth(callback, data = {}) {
         Http.Post(callback, '/auth', data);
     }
 
@@ -19,8 +18,7 @@ export default class Users {
         Http.Get(callback, '/logout');
     }
 
-    static register(callback, login, email, password) {
-        const data = {login, email, password}
+    static register(callback, data = {}) {
         Http.Post(callback, '/register', data);
     }
 
@@ -37,9 +35,9 @@ export default class Users {
             if (err) {
                 return callback(err, user);
             }
-            Users.user = user;
+            this.user = user;
             return callback(null, user);
-        }
+        }.bind(this);
         Http.Get(call, '/user');
     }
 
@@ -48,18 +46,18 @@ export default class Users {
             if (err) {
                 return callback(err, users);
             }
-            Users.users = users;
+            this.users = users;
 
-            if (Users.isLoggedIn()) {
-                Users.users = users.map(user => {
-                    if (Users.user.email === user.email) {
+            if (this.isLoggedIn()) {
+                this.users = users.map(user => {
+                    if (this.user.email === user.email) {
                         user.me = true;
                     }
                     return user;
                 });
             }
             return callback(null, users);
-        }
+        }.bind(this);
         Http.Get(call, '/leaderboard');
     }
 }

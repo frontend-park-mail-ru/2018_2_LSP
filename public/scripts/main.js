@@ -7,12 +7,8 @@ import { RulesPage } from './components/RulesPage/RulesPage.mjs';
 //import { Block } from './blocks/block.js';
 
 import Users from './services/users.js';
-
-//import someValue from './components/Board/Board.mjs';
-//console.log('someValue', someValue);
-
-//обращение к ajax с помощью данного модуля (get / post)
-//const AJAX = window.AjaxModule;
+import Table from './blocks/Table/table.js';
+import Form from './blocks/Form/form.js';
 
 const application = document.getElementById('application');
 
@@ -29,26 +25,13 @@ application.addEventListener('click', function(event) {
 
 createLandingPage();
 
-//вспомогательные функции создания блоков
-function makeInputField(input) {
-    const p = document.createElement('p');
-	const field = document.createElement('input');
-	// field.required = true;	//отправка пустого поля запрещена
-    
-    field.name = input.name;
-    field.type = input.type;
-    field.placeholder = input.placeholder;
-
-    p.appendChild(field);
-    return p;
-}
-
 function errorHandler(error) {
 	const errors = {
 		'incorrect': 'Не верно указана почта и/или пароль',
 		'invalid': 'Невалидные данные',
 		'user': 'Пользователь уже существует',
-		'default': 'Ошибка... Попробуйте ввести данные еще раз'
+		'default': 'Ошибка... Попробуйте ввести данные еще раз',
+		'passwords': 'Необходимо, чтобы пароли различались'
 	};
 	return errors[error];
 
@@ -74,7 +57,6 @@ const pages = {
 	//rules: createRulesPage,
 	rulesLanding: createRulesFromLanding,
 	rulesMenu: createRulesFromMenu,
-
     profile: createProfilePage
 };
 
@@ -84,23 +66,6 @@ function createLandingPage() {
 }
 
 function createSigninPage() {
-	const inputs = [
-		{
-			name: 'email',
-			type: 'email',
-			placeholder: 'Почта'
-		},
-		{
-			name: 'password',
-			type: 'password',
-			placeholder: 'Пароль'
-		},
-		{
-			name: 'submit',
-			type: 'submit'
-		}
-    ];
-	
 	const header = new Header({type: 'backToLanding'})
 	header.render();
 
@@ -114,18 +79,40 @@ function createSigninPage() {
 	errorLine.classList.add('errorLine');
 	errorLine.hidden = true
 
-	const form = document.createElement('form');
+	//const form = document.createElement('form');
 
-	inputs.forEach((input) => {
-		form.appendChild(makeInputField(input));
-	});
+	const inputs = [
+		{
+			classes: [],
+			attributes: {
+				name: 'email',
+				type: 'email',
+				placeholder: 'Почта',
+				required: 'required'
+			}
+		},
+		{
+			classes: [],
+			attributes: {
+				name: 'password',
+				type: 'password',
+				placeholder: 'Пароль',
+				required: 'required'
+			}
+		},
+		{
+			classes: [],
+			attributes: {
+				name: 'submit',
+				type: 'submit',
+				value: 'Войти'
+			}
+		}
+    ];
 
-	form.addEventListener('submit', function(event) {
-		event.preventDefault();
-
-		const email = form.elements['email'].value;
-		const password = form.elements['password'].value;
-		const callback = function(err, response) {
+	const form = new Form(inputs);
+	form.submit(function(data) {	//добавляем по нажатию кнопки событие
+		Users.auth(function(err, response) {	//авторизации пользователя
 			console.log(err, response);
 			if (err === null) {
 				application.innerHTML = '';
@@ -135,43 +122,62 @@ function createSigninPage() {
 				errorLine.textContent = errorHandler(response.error)
 				errorLine.hidden = false;
 			}
-		};
-		Users.auth(callback, email, password);
+		}, data);	//используем данные введенные в форму
 	});
 	
 	signinSection.appendChild(signinTitle);
 	signinSection.appendChild(errorLine);
-    signinSection.appendChild(form);
+    signinSection.appendChild(form.getElement());
 	application.appendChild(signinSection);
 }
 
 function createSignupPage() {
 	const inputs = [
 		{
-			name: 'login',
-			type: 'text',
-			placeholder: 'Логин'
+			classes: [],
+			attributes: {
+				name: 'login',
+				type: 'text',
+				placeholder: 'Логин',
+				required: 'required'
+			}
 		},
 		{
-			name: 'email',
-			type: 'email',
-			placeholder: 'Почта'
+			classes: [],
+			attributes: {
+				name: 'email',
+				type: 'email',
+				placeholder: 'Почта',
+				required: 'required'
+			}
 		},
 		{
-			name: 'password',
-			type: 'password',
-			placeholder: 'Пароль'
+			classes: [],
+			attributes: {
+				name: 'password',
+				type: 'password',
+				placeholder: 'Пароль',
+				required: 'required'
+			}
 		},
 		{
-			name: 'password_repeat',
-			type: 'password',
-			placeholder: 'Повторите пароль'
+			classes: [],
+			attributes: {
+				name: 'password_repeat',
+				type: 'password',
+				placeholder: 'Повторите пароль',
+				required: 'required'
+			}
 		},
 		{
-			name: 'submit',
-			type: 'submit'
+			classes: [],
+			attributes: {
+				name: 'submit',
+				type: 'submit',
+				value: 'Зарегистрироваться'
+			}
 		}
-    ];
+	];
     
 	const header = new Header({type: 'backToLanding'})
 	header.render();
@@ -186,46 +192,34 @@ function createSignupPage() {
 	errorLine.classList.add('errorLine');
 	errorLine.hidden = true
 
-	const form = document.createElement('form');
-
-	inputs.forEach((input) => {
-		form.appendChild(makeInputField(input));
-	});
-
-	form.addEventListener('submit', function(event) {
-		event.preventDefault();
-
-		const login = form.elements['login'].value;
-		const email = form.elements['email'].value;
-		const password = form.elements['password'].value;
-		const password_repeat = form.elements['password_repeat'].value;
-
-		if (password !== password_repeat) {
-			alert('Пароли не совпадают');
+	const form = new Form(inputs);
+	form.submit(function(data) {	//добавляем по нажатию кнопки событие
+		if (data[2] !== data[3]) {
+			const errorLine = document.getElementsByClassName('errorLine')[0];
+			errorLine.textContent = errorHandler('passwords')
+			errorLine.hidden = false;
 			return;
 		}
-
-		const callback = function(err, response) {
+		Users.register(function(err, response) {	//регистрации пользователя
 			console.log(err, response);
 			if (err === null) {
 				application.innerHTML = '';
-				createProfilePage(response);
+				createMenuPage();
 			} else {
 				const errorLine = document.getElementsByClassName('errorLine')[0];
 				errorLine.textContent = errorHandler(response.error)
 				errorLine.hidden = false;
 			}
-		}
-		Users.register(callback, login, email, password);
+		}, data);	//используем данные введенные в форму
 	});
+
 	signupSection.appendChild(signupTitle);
 	signupSection.appendChild(errorLine);
-    signupSection.appendChild(form);
+    signupSection.appendChild(form.getElement());
 	application.appendChild(signupSection);
 }
 
 function createMenuPage() {
-
 	const mainMenu = new Menu();
 	mainMenu.render();
 }
@@ -240,60 +234,14 @@ function createLeadersPage(users) {
 	const leadersTitle = document.createElement('h2');
     leadersTitle.textContent = "Лидеры";
 
-    const leadersInner = document.createElement('div');
+	const leadersInner = document.createElement('div');
+	
+	const items = ['Логин', 'Почта', 'Сыграно', 'Рейтинг'];
+	const leaderBoard = new Table(items);
 
 	if (users) {
-		//BOARD COMPONENT!!!
-		//board.data = user;
-		//console.log(board.data)
-		//==================
-
-		const table = document.createElement('table');
-		const thead = document.createElement('thead');
-		//%%%%%%%%%%%%%%
-		thead.innerHTML = `
-		<tr>
-			<td>Логин</td>
-			<td>Почта</td>
-            <td>Сыграно игр</td>
-            <td>Рейтинг</td>
-        </tr>
-		`;
-		const tbody = document.createElement('tbody');
-
-		table.appendChild(thead);
-		table.appendChild(tbody);
-		table.border = 1;
-		table.cellSpacing = table.cellPadding = 0;
-
-		users.forEach((user) => {
-			//нужно написать ф-цию генерации таблицы
-			const login = user.login;
-			const email = user.email;
-			const gamecount = user.gamecount;
-			const score = user.score;
-
-			const tr = document.createElement('tr');
-
-			const tdLogin = document.createElement('td');
-			const tdEmail = document.createElement('td');
-			const tdGameCount = document.createElement('td');
-			const tdScore = document.createElement('td');
-
-			tdLogin.textContent = login;
-			tdEmail.textContent = email;
-			tdGameCount.textContent = gamecount;
-			tdScore.textContent = score;
-
-			tr.appendChild(tdLogin);
-			tr.appendChild(tdEmail);
-			tr.appendChild(tdGameCount);
-			tr.appendChild(tdScore);
-
-			tbody.appendChild(tr);
-
-			leadersInner.appendChild(table);
-		});
+		leaderBoard.update(users);
+		leadersInner.appendChild(leaderBoard.getElement());
 	} else {
 		const em = document.createElement('em');
 		em.textContent = 'Еще никто не установил рекорд. Вы можете быть первыми;)';
