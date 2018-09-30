@@ -1,4 +1,4 @@
-import { Block } from '../block.js';
+import { Block } from '../Block/Block.mjs';
 
 export class Button {
     constructor (link = '', text = '', appendTo = '', classes = ['basicButton']) {
@@ -16,7 +16,7 @@ export class Button {
         const env = Block.Create('div',[], {});
 
         const button = Block.Create('a', this._classes, {'href': this._link});
-        button.getEl().dataset.href = this._link;
+        button.getElement().dataset.href = this._link;
         button.setText(this._text);
 
         env.append(button);

@@ -1,6 +1,6 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
 import { Button } from '/scripts/blocks/Button/Button.mjs';
-import { Block } from '/scripts/blocks/block.js';
+import { Block } from '/scripts/blocks/Block/Block.mjs';
 
 export class Menu {
     constructor({type = ''} = {}){
@@ -35,6 +35,6 @@ export class Menu {
 
         menuSection.append(menuTitle);
         menuSection.append(menuInner);
-        application.append(menuSection.getEl());
+        application.append(menuSection.getElement());
     }
 }

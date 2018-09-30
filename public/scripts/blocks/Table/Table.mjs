@@ -1,4 +1,4 @@
-import Block from '../Block/block.js'
+import { Block } from '../Block/Block.mjs';
 
 export default class Table extends Block {
     constructor(head = []) {

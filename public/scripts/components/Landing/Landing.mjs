@@ -1,6 +1,6 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
 import { Button } from '/scripts/blocks/Button/Button.mjs';
-import { Block } from '/scripts/blocks/block.js';
+import { Block } from '/scripts/blocks/Block/Block.mjs';
 
 export class Landing {
     constructor ({docBody = document.body, type = 'dom'} = {}) {
@@ -37,7 +37,7 @@ export class Landing {
 
         landingSection.append(logo);
         landingSection.append(landingInner);
-        application.append(landingSection.getEl());
+        application.append(landingSection.getElement());
     }
     
 }
