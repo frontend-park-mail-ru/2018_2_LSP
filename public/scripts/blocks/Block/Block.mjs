@@ -15,7 +15,7 @@ export class Block {
         return new Block(element);
     }
 
-    getEl() {
+    getElement() {
         return this.element;
     }
 

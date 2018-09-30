@@ -1,5 +1,5 @@
 import { Button } from '../Button/Button.mjs';
-import { Block } from '../block.js';
+import { Block } from '../Block/Block.mjs';
 
 export class Header {
     constructor ({type = ''} = {}) {
@@ -35,7 +35,7 @@ export class Header {
         const signInButton = new Button(links['Вход'], 'Вход', headerBlock);
         signInButton.render();      
 
-        application.append(headerBlock.getEl());
+        application.append(headerBlock.getElement());
     }
 
     _renderOnMenu() {
@@ -47,7 +47,7 @@ export class Header {
         const landingLink = new Button('landing','Назад', headerBlock);
         landingLink.render();    
 
-        application.append(headerBlock.getEl());
+        application.append(headerBlock.getElement());
     }
 
     _renderBackToMenu() {
@@ -55,6 +55,6 @@ export class Header {
         const landingLink = new Button('menu','Назад в меню', headerBlock);
         landingLink.render();    
 
-        application.append(headerBlock.getEl());
+        application.append(headerBlock.getElement());
     }
 }

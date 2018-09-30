@@ -1,5 +1,5 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
-import { Block } from '/scripts/blocks/block.js';
+import { Block } from '/scripts/blocks/Block/Block.mjs';
 
 export class RulesPage {
     constructor({type = ''} = {}){
@@ -31,6 +31,6 @@ export class RulesPage {
 
         rulesSection.append(rulesTitle);
         rulesSection.append(rulesInner);
-        application.append(rulesSection.getEl());
+        application.append(rulesSection.getElement());
     }
 }

@@ -7,8 +7,8 @@ import { RulesPage } from './components/RulesPage/RulesPage.mjs';
 //import { Block } from './blocks/block.js';
 
 import Users from './services/users.js';
-import Table from './blocks/Table/table.js';
-import Form from './blocks/Form/form.js';
+import Table from './blocks/Table/Table.mjs';
+import Form from './blocks/Form/Form.mjs';
 
 const application = document.getElementById('application');
 
@@ -194,7 +194,7 @@ function createSignupPage() {
 
 	const form = new Form(inputs);
 	form.submit(function(data) {	//добавляем по нажатию кнопки событие
-		if (data[2] !== data[3]) {
+		if (data['password'] !== data['password_repeat']) {
 			const errorLine = document.getElementsByClassName('errorLine')[0];
 			errorLine.textContent = errorHandler('passwords')
 			errorLine.hidden = false;
