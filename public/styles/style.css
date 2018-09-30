@@ -1,4 +1,20 @@
+@import '../scripts/blocks/Button/Button.css';
+@import '../scripts/blocks/Header/Header.css';
+@import '../scripts/components/Landing/Landing.css';
+
 section {
+    height: 200px;
+    width: 400px;
+
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    font-size: 30px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.centerSection {
     height: 200px;
     width: 400px;
 
@@ -21,10 +37,10 @@ h2 {
     color: brown;
 }
 
-a {
+/* a {
     font-size: 30px;
     color: darkkhaki;
-}
+} */
 
 table {
     width: 300px;
@@ -54,9 +70,9 @@ td, th {
     transform: translate(-50%, -50%);
 }
 
-nav {
+/* nav {
 	text-align: right
-}
+} */
 
 .inputs {
 	margin: 0 0 7px 0;

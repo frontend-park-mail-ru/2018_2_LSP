@@ -1,5 +1,6 @@
-import { Header } from '../Header/Header.mjs';
-import { MenuComponent } from '../MenuComponent/MenuComponent.mjs';
+import { Header } from '/scripts/blocks/Header/Header.mjs';
+import { Button } from '/scripts/blocks/Button/Button.mjs';
+import { Block } from '/scripts/blocks/block.js';
 
 export class Menu {
     constructor({type = ''} = {}){
@@ -21,21 +22,19 @@ export class Menu {
         
         const header = new Header({type: 'menu'})
         header.render();
-        
-        const menuSection = document.createElement('section');
-        menuSection.dataset.sectionName = 'menu';
-    
-        const menuTitle = document.createElement('h2');
-        menuTitle.textContent = "Меню";
-    
-        const menuInner = document.createElement('div');
-    
+
+        const menuSection = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'menu'});
+        const menuTitle = Block.Create('h2');
+        menuTitle.setText('Меню');
+
+        const menuInner = Block.Create('div');
         Object.entries(items).forEach((item) => {
-            const element = new MenuComponent({part: menuInner, name : item[0], value: item[1]});
+            const element = new Button(item[0], item[1], menuInner);
             element.render();
         });
-        menuSection.appendChild(menuTitle);
-        menuSection.appendChild(menuInner);
-        application.appendChild(menuSection);
+
+        menuSection.append(menuTitle);
+        menuSection.append(menuInner);
+        application.append(menuSection.getEl());
     }
 }

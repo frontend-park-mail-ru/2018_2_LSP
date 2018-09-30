@@ -1,9 +1,10 @@
 'use strict';
 
-import { LandingMenuContent } from './components/LandingContent/LandingContent.mjs';
-import { Header } from './components/Header/Header.mjs';
+import { Landing } from './components/Landing/Landing.mjs';
+import { Header } from './blocks/Header/Header.mjs';
 import { Menu } from './components/Menu/Menu.mjs';
 import { RulesPage } from './components/RulesPage/RulesPage.mjs';
+//import { Block } from './blocks/block.js';
 
 import Users from './services/users.js';
 
@@ -78,11 +79,7 @@ const pages = {
 };
 
 function createLandingPage() {
-
-	const header = new Header({type: 'landing'})
-	header.render();
-
-	const landingMenu = new LandingMenuContent({});
+	const landingMenu = new Landing({});
 	landingMenu.render();
 }
 

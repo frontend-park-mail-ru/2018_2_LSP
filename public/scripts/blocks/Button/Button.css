@@ -1,0 +1,24 @@
+
+/* div {
+    display: inline-block;
+} */
+
+.basicButton {
+    background-color: white;
+    border: solid 1px grey;
+    border-radius: 5px;
+    color: darkkhaki;
+    padding: 10px 8px; /*sizes*/
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-size: 25px;
+    margin: 4px 8px;
+    cursor: pointer;
+    float: right;
+}
+
+.basicButton:hover {
+    background-color: #b30000;
+    color: white;
+}

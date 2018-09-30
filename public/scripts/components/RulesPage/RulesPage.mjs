@@ -1,4 +1,5 @@
-import { Header } from '../Header/Header.mjs';
+import { Header } from '/scripts/blocks/Header/Header.mjs';
+import { Block } from '/scripts/blocks/block.js';
 
 export class RulesPage {
     constructor({type = ''} = {}){
@@ -16,22 +17,20 @@ export class RulesPage {
         } else if (this._type == 'fromMenu') {
             const header = new Header({type: 'backToMenu'});
             header.render();
-        }            
+        }
 
-        const rulesSection = document.createElement('section');
-        rulesSection.dataset.sectionName = 'rules';
-        
-        const rulesTitle = document.createElement('h2');
-        rulesTitle.textContent = "Правила";
-        
-        const rulesInner = document.createElement('div');
-        
-        const pTag = document.createElement('p');
-        pTag.textContent = 'Подробное описание правил игры...';
-        rulesInner.appendChild(pTag);
+        const rulesSection = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'rules'});
+        const rulesTitle = Block.Create('h2');
+        rulesTitle.setText('Правила');
 
-        rulesSection.appendChild(rulesTitle);
-        rulesSection.appendChild(rulesInner);
-        application.appendChild(rulesSection);
+        const rulesInner = Block.Create('div', [], {id:'landingInner'});
+
+        const pTag = Block.Create('p');
+        pTag.setText('Подробное описание правил игры...')
+        rulesInner.append(pTag);
+
+        rulesSection.append(rulesTitle);
+        rulesSection.append(rulesInner);
+        application.append(rulesSection.getEl());
     }
 }
