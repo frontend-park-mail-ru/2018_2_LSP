@@ -1,16 +1,12 @@
 'use strict';
 
 import { Landing } from './components/Landing/Landing.mjs';
-import { Header } from './blocks/Header/Header.mjs';
 import { Menu } from './components/Menu/Menu.mjs';
 import { RulesPage } from './components/RulesPage/RulesPage.mjs';
 import { Profile } from './components/Profile/Profile.mjs';
 import { SignIn } from './components/SignIn/SignIn.mjs';
 import { SignUp } from './components/SignUp/SignUp.mjs';
-
-import Users from './services/users.js';
-import Table from './blocks/Table/Table.mjs';
-import Form from './blocks/Form/Form.mjs';
+import { Leaders } from './components/Leaders/Leaders.mjs';
 
 const application = document.getElementById('application');
 
@@ -62,43 +58,8 @@ function createMenuPage() {
 }
 
 function createLeadersPage(users) {
-	const header = new Header({type: 'backToMenu'})
-	header.render();
-
-	const leadersSection = document.createElement('section');
-	leadersSection.dataset.sectionName = 'leaders';
-
-	const leadersTitle = document.createElement('h2');
-    leadersTitle.textContent = "Лидеры";
-
-	const leadersInner = document.createElement('div');
-	
-	const items = ['Логин', 'Почта', 'Сыграно', 'Рейтинг'];
-	const leaderBoard = new Table(items);
-
-	if (users) {
-		leaderBoard.update(users);
-		leadersInner.appendChild(leaderBoard.getElement());
-	} else {
-		const em = document.createElement('em');
-		em.textContent = 'Еще никто не установил рекорд. Вы можете быть первыми;)';
-		leadersInner.appendChild(em);
-
-		const callback = function(err, response) {
-			console.log(err, response);
-			if (err === null) {
-				application.innerHTML = '';
-				createLeadersPage(response);
-			} else {
-				alert(response.error);
-			}
-		}
-		Users.leaders(callback);
-    }
-    leadersSection.appendChild(leadersTitle);
-    leadersSection.appendChild(leadersInner);
-   // application.appendChild(headerBlock);
-	application.appendChild(leadersSection);
+	const leadersPage = new Leaders(users);
+	leadersPage.render();
 }
 
 function createRulesFromLanding() {
