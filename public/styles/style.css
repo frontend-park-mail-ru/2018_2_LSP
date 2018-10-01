@@ -1,0 +1,71 @@
+@import '../scripts/blocks/Button/Button.css';
+@import '../scripts/blocks/Table/Table.css';
+@import '../scripts/blocks/Header/Header.css';
+@import '../scripts/components/Landing/Landing.css';
+
+section {
+    height: 200px;
+    width: 400px;
+
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    font-size: 30px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.centerSection {
+    height: 200px;
+    width: 400px;
+
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    font-size: 30px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.errorLine {
+    background-color: brown;
+    color: white;
+    font-size: 20px;   
+}
+
+h2 {
+    font-size: 54px;
+    color: brown;
+}
+
+table {
+    width: 300px;
+    border-collapse: collapse;
+    border: 2px solid white;
+}
+
+td, th {
+    padding: 3px;
+    border: 1px solid maroon;
+    text-align: left;
+}
+
+/*-------------------------------------*/
+.gameName {
+	font-size: 70px;
+}
+
+.textSize {
+	font-size: 15
+}
+
+.formPage {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.inputs {
+	margin: 0 0 7px 0;
+}
