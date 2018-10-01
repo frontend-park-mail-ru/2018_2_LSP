@@ -82,7 +82,6 @@ export class SignUp {
                 console.log(err, response);
                 if (err === null) {
                     application.innerHTML = '';
-                    //createMenuPage();
                     const mainMenu = new Menu();
 	                mainMenu.render();
                 } else {

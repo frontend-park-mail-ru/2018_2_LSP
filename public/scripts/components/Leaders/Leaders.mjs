@@ -25,7 +25,7 @@ export class Leaders {
         
         const items = ['Логин', 'Почта', 'Сыграно', 'Рейтинг'];
         const leaderBoard = new Table(items);
-        const leaderBoardPaginator = new Paginator();
+        const leaderBoardPaginator = new Paginator(leaderBoard);
         const numberPage = 0;
 
         if (users) {

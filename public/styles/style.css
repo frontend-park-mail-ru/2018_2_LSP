@@ -38,11 +38,6 @@ h2 {
     color: brown;
 }
 
-/* a {
-    font-size: 30px;
-    color: darkkhaki;
-} */
-
 table {
     width: 300px;
     border-collapse: collapse;
@@ -70,10 +65,6 @@ td, th {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-/* nav {
-	text-align: right
-} */
 
 .inputs {
 	margin: 0 0 7px 0;

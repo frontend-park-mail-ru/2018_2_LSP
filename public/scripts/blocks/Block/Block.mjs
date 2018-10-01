@@ -32,7 +32,6 @@ export class Block {
     }
 
     append(block) {
-        //в цикле добавлять сразу несколько элементов
         this.element.appendChild(block.element);
     }
 

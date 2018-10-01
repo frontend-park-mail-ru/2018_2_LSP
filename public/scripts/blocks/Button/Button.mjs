@@ -21,6 +21,5 @@ export class Button {
 
         env.append(button);
         this._appendTo.append(env);
-        //application.appendChild(env.getEl());
     }
 }

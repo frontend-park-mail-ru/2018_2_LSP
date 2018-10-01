@@ -19,7 +19,9 @@ application.addEventListener('click', function(event) {
 	event.preventDefault();
 
 	application.innerHTML = '';
-	pages[event.target.dataset.href]();
+	if (pages[event.target.dataset.href] != null) {
+		pages[event.target.dataset.href]();
+	}
 });
 
 createLandingPage();
@@ -31,10 +33,9 @@ const pages = {
 	signup: createSignupPage,
 	menu: createMenuPage,
 	leaders: createLeadersPage,
-	//rules: createRulesPage,
 	rulesLanding: createRulesFromLanding,
 	rulesMenu: createRulesFromMenu,
-	profile: createProfilePage
+	profile: createProfilePage,
 };
 
 function createLandingPage() {
