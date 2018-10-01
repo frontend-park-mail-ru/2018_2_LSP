@@ -60,10 +60,9 @@ export class SignIn {
                     application.innerHTML = '';
                     const mainMenu = new Menu();
 	                mainMenu.render();
-                    //createMenuPage();
                 } else {
                     const errorLine = document.getElementsByClassName('errorLine')[0];
-                    errorLine.textContent = errorHandler(response.error)
+                    errorLine.textContent = errorHandler(response.Message);
                     errorLine.hidden = false;
                 }
             }, data);	//используем данные введенные в форму
@@ -78,22 +77,12 @@ export class SignIn {
 
 function errorHandler(error) {
 	const errors = {
-		'incorrect': 'Не верно указана почта и/или пароль',
+        'User not found': 'Пользователь не найден',
+		'Wrong password': 'Не верно указана почта и/или пароль',
 		'invalid': 'Невалидные данные',
 		'user': 'Пользователь уже существует',
 		'default': 'Ошибка... Попробуйте ввести данные еще раз',
-		'passwords': 'Ошибка в повторном вводе пароля'
+        'passwords': 'Ошибка в повторном вводе пароля',
 	};
 	return errors[error];
-
-	// switch (error) {
-	// 	case 'email':
-	// 		return 'Не указана почта';
-	// 	case 'password':
-	// 		return 'Не указан пароль';
-	// 	case 'incorrect':
-	// 		return 'Не верно указана почта и/или пароль';
-	// 	default:
-	// 		return 'Ошибка... Попробуйте ввести данные еще раз';
-	// }
 }

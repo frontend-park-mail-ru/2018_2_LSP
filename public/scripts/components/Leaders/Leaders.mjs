@@ -1,5 +1,6 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
 import { Block } from '/scripts/blocks/Block/Block.mjs';
+import { Paginator } from '/scripts/blocks/Paginator/Paginator.mjs';
 import Users from '/scripts/services/users.js';
 import Table from '/scripts/blocks/Table/Table.mjs';
 
@@ -24,16 +25,19 @@ export class Leaders {
         
         const items = ['Логин', 'Почта', 'Сыграно', 'Рейтинг'];
         const leaderBoard = new Table(items);
+        const leaderBoardPaginator = new Paginator();
+        const numberPage = 0;
 
         if (users) {
             leaderBoard.update(users);
             leadersInner.append(leaderBoard);
+            leadersInner.append(leaderBoardPaginator);
         } else {
             const em = Block.Create('em');
             em.setText('Еще никто не установил рекорд. Вы можете быть первыми;)');
             leadersInner.append(em);
 
-            const callback = function(err, response) {
+            Users.leaders((err, response) => {
                 console.log(err, response);
                 if (err === null) {
                     application.innerHTML = '';
@@ -42,8 +46,7 @@ export class Leaders {
                 } else {
                     alert(response.error);
                 }
-            }
-            Users.leaders(callback);
+            }, {page: numberPage});
         }
         leadersSection.append(leadersTitle);
         leadersSection.append(leadersInner);

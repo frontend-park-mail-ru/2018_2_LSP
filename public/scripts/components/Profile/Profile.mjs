@@ -12,7 +12,7 @@ export class Profile {
         this._renderProfile(this._profile);
     }
 
-    _renderProfile(data) {
+    _renderProfile(profileData) {
         const header = new Header({type: 'backToMenu'})
         header.render();
 
@@ -22,15 +22,19 @@ export class Profile {
 
         const profileInner = Block.Create('div', [], {id:'profileInner'});
         
+        //const button = Block.Create('a', [], {'href': 'menu'});
+	    //button.setText('Выход');
+
         profileSection.append(profileTitle);
         profileSection.append(profileInner);
+        //profileSection.appendChild(button.getElement());
 
-        if (data) {
+        if (profileData) {
             const userParams = {
-                'Логин': data.login,
-                'Почта': data.email,
-                'Сыграно игр': data.gamecount,
-                'Счет': data.score
+                'Логин': profileData.Username,
+                'Почта': profileData.Email,
+                'Сыграно игр': profileData.Gamecount,
+                'Счет': profileData.Score
             }; 
             Object.entries(userParams).forEach((param) => {
                 const pParam = Block.Create('p');
@@ -46,7 +50,6 @@ export class Profile {
                     const profilePage = new Profile(response);
 	                profilePage.render();
                 } else {
-                    alert('Unauthorized');
                     application.innerHTML = '';
                     const signInPage = new SignIn();
                     signInPage.render();

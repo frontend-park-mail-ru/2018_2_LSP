@@ -14,7 +14,7 @@ export class SignUp {
     }
 
     _renderSignUpPage() {
-        const header = new Header({type: 'backToLanding'})
+        const header = new Header({type: 'backToLanding'});
         header.render();
 
         const signUpSection  = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'signup'});
@@ -27,7 +27,7 @@ export class SignUp {
             {
                 classes: [],
                 attributes: {
-                    name: 'login',
+                    name: 'username',
                     type: 'text',
                     placeholder: 'Логин',
                     required: 'required'

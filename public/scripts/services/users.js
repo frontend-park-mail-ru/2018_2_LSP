@@ -11,15 +11,15 @@ export default class Users {
     }
 
     static auth(callback, data = {}) {
-        Http.Post(callback, '/auth', data);
+        Http.Post(callback, 'https://jackal.online/auth', data);
     }
 
     static logout(callback) {
-        Http.Get(callback, '/logout');
+        Http.Get(callback, 'https://jackal.online/logout');
     }
 
     static register(callback, data = {}) {
-        Http.Post(callback, '/register', data);
+        Http.Post(callback, 'https://jackal.online/register', data);
     }
 
     static isLoggedIn() {
@@ -38,10 +38,11 @@ export default class Users {
             this.user = user;
             return callback(null, user);
         }.bind(this);
-        Http.Get(call, '/user');
+        Http.Get(call, 'https://jackal.online/user');
     }
 
-    static leaders(callback) {
+    static leaders(callback, data = {}) {
+        const path ='https://jackal.online/leaderboard?page=' + data.page;
         const call = function(err, users) {
             if (err) {
                 return callback(err, users);
@@ -58,6 +59,6 @@ export default class Users {
             }
             return callback(null, users);
         }.bind(this);
-        Http.Get(call, '/leaderboard');
+        Http.Get(call, path, data);
     }
 }

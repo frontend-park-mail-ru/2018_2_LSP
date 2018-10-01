@@ -8,6 +8,7 @@ import { SignIn } from './components/SignIn/SignIn.mjs';
 import { SignUp } from './components/SignUp/SignUp.mjs';
 import { Leaders } from './components/Leaders/Leaders.mjs';
 
+
 const application = document.getElementById('application');
 
 //роутинг по страницам
@@ -47,7 +48,6 @@ function createSigninPage() {
 }
 
 function createSignupPage() {
-
 	const signUpPage = new SignUp({});
 	signUpPage.render();
 }
