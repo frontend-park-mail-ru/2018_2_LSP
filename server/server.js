@@ -17,7 +17,7 @@ app.use(cookie());
 
 
 //Сервер
-app.listen(PORT, function () {
+app.listen(PORT, () => {
 	console.log(`Server listening port ${PORT}`);
 });
 

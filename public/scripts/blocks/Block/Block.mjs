@@ -5,7 +5,7 @@ export class Block {
 
     static Create(tag = 'div', classes = [], attributes = {}) {
         const element = document.createElement(tag);
-        classes.forEach(function(oneClass) {
+        classes.forEach(oneClass => {
             element.classList.add(oneClass);
         });
 

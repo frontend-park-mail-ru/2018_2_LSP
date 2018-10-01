@@ -21,13 +21,9 @@ export class Profile {
         profileTitle.setText('Профиль');
 
         const profileInner = Block.Create('div', [], {id:'profileInner'});
-        
-        //const button = Block.Create('a', [], {'href': 'menu'});
-	    //button.setText('Выход');
 
         profileSection.append(profileTitle);
         profileSection.append(profileInner);
-        //profileSection.appendChild(button.getElement());
 
         if (profileData) {
             const userParams = {
@@ -42,11 +38,10 @@ export class Profile {
                 profileInner.append(pParam);
             });
         } else {
-            const callback = function(err, response) {
+            const callback = (err, response) => {
                 console.log(err, response);
                 if (err === null) {
                     application.innerHTML = '';
-                    //createProfilePage(response);
                     const profilePage = new Profile(response);
 	                profilePage.render();
                 } else {

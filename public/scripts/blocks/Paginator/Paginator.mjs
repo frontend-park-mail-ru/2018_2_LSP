@@ -10,7 +10,7 @@ export class Paginator extends Block {
         this.paginator = paginator;
         this.page = 1;
 
-        const callback = function(event, page) {
+        const callback = (event, page) => {
             console.log(event.target);
             if (event.href === 'pagePlus') {
                 event.preventDefault();

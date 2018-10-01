@@ -12,7 +12,7 @@ import { Leaders } from './components/Leaders/Leaders.mjs';
 const application = document.getElementById('application');
 
 //роутинг по страницам
-application.addEventListener('click', function(event) {
+application.addEventListener('click', event => {
 	if (!(event.target instanceof HTMLAnchorElement)) {
 		return;
 	}

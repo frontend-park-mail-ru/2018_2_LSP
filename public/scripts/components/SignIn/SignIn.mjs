@@ -53,8 +53,8 @@ export class SignIn {
         ];
 
         const form = new Form(inputs);
-        form.submit(function(data) {	//добавляем по нажатию кнопки событие
-            Users.auth(function(err, response) {	//авторизации пользователя
+        form.submit(data => {	//добавляем по нажатию кнопки событие
+            Users.auth((err, response) => {	//авторизации пользователя
                 console.log(err, response);
                 if (err === null) {
                     application.innerHTML = '';

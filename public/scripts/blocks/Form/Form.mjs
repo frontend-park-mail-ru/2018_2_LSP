@@ -21,7 +21,7 @@ export default class Form extends Block {
             event.preventDefault();
             const formdata = {};
             const elements = this.form.elements;
-            for (const element in elements) {
+            for (let element in elements) {
                 formdata[elements[element].name] = elements[element].value;
             }
             callback(formdata);

@@ -71,14 +71,14 @@ export class SignUp {
         ];
 
         const form = new Form(inputs);
-        form.submit(function(data) {	//добавляем по нажатию кнопки событие
+        form.submit(data => {	//добавляем по нажатию кнопки событие
             if (data['password'] !== data['password_repeat']) {
                 const errorLine = document.getElementsByClassName('errorLine')[0];
                 errorLine.textContent = errorHandler('passwords')
                 errorLine.hidden = false;
                 return;
             }
-            Users.register(function(err, response) {	//регистрация пользователя
+            Users.register((err, response) => {	//регистрация пользователя
                 console.log(err, response);
                 if (err === null) {
                     application.innerHTML = '';

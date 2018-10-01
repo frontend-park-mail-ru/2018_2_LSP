@@ -21,7 +21,7 @@ export default class Http {
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		}
     
-		xhr.onreadystatechange = function() {
+		xhr.onreadystatechange = () => {
 			if (xhr.readyState !== 4) {
 				return;
 			}
