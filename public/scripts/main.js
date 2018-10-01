@@ -29,12 +29,12 @@ const pages = {
 	landing: createLandingPage,
 	signin: createSigninPage,
 	signup: createSignupPage,
-    menu: createMenuPage,
+	menu: createMenuPage,
 	leaders: createLeadersPage,
 	//rules: createRulesPage,
 	rulesLanding: createRulesFromLanding,
 	rulesMenu: createRulesFromMenu,
-    profile: createProfilePage
+	profile: createProfilePage
 };
 
 function createLandingPage() {
@@ -63,12 +63,12 @@ function createLeadersPage(users) {
 }
 
 function createRulesFromLanding() {
-    const rulesPage = new RulesPage({type: 'fromLanding'});
+	const rulesPage = new RulesPage({type: 'fromLanding'});
 	rulesPage.render();
 }
 
 function createRulesFromMenu() {
-    const rulesPage = new RulesPage({type: 'fromMenu'});
+	const rulesPage = new RulesPage({type: 'fromMenu'});
 	rulesPage.render();
 }
 
