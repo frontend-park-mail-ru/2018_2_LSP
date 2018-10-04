@@ -11,15 +11,15 @@ export default class Users {
 	}
 
 	static auth(callback, data = {}) {
-		Http.Post(callback, 'https://127.0.0.1:8080/auth', data);
+		Http.Post(callback, 'http://127.0.0.1:8080/session', data);
 	}
 
 	static logout(callback) {
-		Http.Get(callback, 'https://127.0.0.1:8080/logout');
+		Http.Get(callback, 'http://127.0.0.1:8080/logout');
 	}
 
 	static register(callback, data = {}) {
-		Http.Post(callback, 'https://127.0.0.1:8080/register', data);
+		Http.Post(callback, 'http://127.0.0.1:8080/register', data);
 	}
 
 	static isLoggedIn() {
@@ -38,11 +38,11 @@ export default class Users {
 			this.user = user;
 			return callback(null, user);
 		}.bind(this);
-		Http.Get(call, 'https://127.0.0.1:8080/user');
+		Http.Get(call, 'http://127.0.0.1:8080/user');
 	}
 
 	static leaders(callback, data = {}) {
-		const path ='https://127.0.0.1:8080/leaderboard?page=' + data.page;
+		const path ='http://127.0.0.1:8080/user?page=' + data.page;
 		const call = function(err, users) {
 			if (err) {
 				return callback(err, users);
