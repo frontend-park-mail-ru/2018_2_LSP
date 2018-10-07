@@ -1,5 +1,7 @@
 import Http from '../modules/http.js';
 
+const path = 'https://jackal.online';
+
 /**
  * Сервис для работы с пользователями
  * @module Users
@@ -7,19 +9,21 @@ import Http from '../modules/http.js';
 export default class Users {
 	static constructor() {
 		this.user = null;
+		this.id = null;
 		this.users = {};
 	}
 
 	static auth(callback, data = {}) {
-		Http.Post(callback, 'http://127.0.0.1:8080/session', data);
+		Http.Post(callback, path + '/session', data);
 	}
 
-	static logout(callback) {
-		Http.Get(callback, 'http://127.0.0.1:8080/logout');
-	}
+	// static logout(callback) {
+	// 	Http.Get(callback, 'http://127.0.0.1:8080/logout');
+	// 	Http.Delete(callback, '/session');
+	// }
 
 	static register(callback, data = {}) {
-		Http.Post(callback, 'http://127.0.0.1:8080/register', data);
+		Http.Post(callback, path + '/users', data);
 	}
 
 	static isLoggedIn() {
@@ -38,11 +42,11 @@ export default class Users {
 			this.user = user;
 			return callback(null, user);
 		}.bind(this);
-		Http.Get(call, 'http://127.0.0.1:8080/user');
+		Http.Get(call, '/users&id=');
 	}
 
 	static leaders(callback, data = {}) {
-		const path ='http://127.0.0.1:8080/user?page=' + data.page;
+		const query = path + '/users?page=' + data.page + '&fields=email,rating&orderby=rating';
 		const call = function(err, users) {
 			if (err) {
 				return callback(err, users);
@@ -59,6 +63,6 @@ export default class Users {
 			}
 			return callback(null, users);
 		}.bind(this);
-		Http.Get(call, path, data);
+		Http.Get(call, query, data);
 	}
 }
