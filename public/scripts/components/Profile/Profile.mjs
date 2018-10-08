@@ -27,10 +27,10 @@ export class Profile {
 
         if (profileData) {
             const userParams = {
-                'Логин': profileData.Username,
-                'Почта': profileData.Email,
-                'Сыграно игр': profileData.Gamecount,
-                'Счет': profileData.Score
+                'Логин': profileData.username,
+                'Почта': profileData.email,
+                'Сыграно игр': profileData.gamecount,
+                'Счет': profileData.score
             }; 
             Object.entries(userParams).forEach((param) => {
                 const pParam = Block.Create('p');

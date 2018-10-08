@@ -1,6 +1,6 @@
 import { Http } from '../modules/http.mjs';
 
-const path = 'https://jackal.online';//'http://127.0.0.1:8080';
+const path = 'https://jackal.online'; //'http://127.0.0.1:8080';
 
 /**
  * Сервис для работы с пользователями
@@ -42,7 +42,7 @@ export class Users {
 			this.user = user;
 			return callback(null, user);
 		}.bind(this);
-		Http.Get(call, '/users&id=');
+		Http.Get(call, path + '/users');
 	}
 
 	static leaders(callback, data = {}) {
