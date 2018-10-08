@@ -1,6 +1,6 @@
 import { Block } from '../Block/Block.mjs';
 
-export default class Table extends Block {
+export class Table extends Block {
     constructor(head = []) {
         const table = document.createElement('table');
         super(table);

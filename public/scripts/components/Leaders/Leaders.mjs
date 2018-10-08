@@ -1,8 +1,8 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
 import { Block } from '/scripts/blocks/Block/Block.mjs';
 import { Paginator } from '/scripts/blocks/Paginator/Paginator.mjs';
-import Users from '/scripts/services/users.js';
-import Table from '/scripts/blocks/Table/Table.mjs';
+import { Users } from '/scripts/services/users.mjs';
+import { Table } from '/scripts/blocks/Table/Table.mjs';
 
 export class Leaders {
     constructor(users){

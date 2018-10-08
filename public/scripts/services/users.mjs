@@ -1,12 +1,12 @@
-import Http from '../modules/http.js';
+import { Http } from '../modules/http.mjs';
 
-const path = 'https://jackal.online';
+const path = 'https://jackal.online';//'http://127.0.0.1:8080';
 
 /**
  * Сервис для работы с пользователями
  * @module Users
  */
-export default class Users {
+export class Users {
 	static constructor() {
 		this.user = null;
 		this.id = null;

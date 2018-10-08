@@ -1,5 +1,5 @@
 import { Block } from '../Block/Block.mjs';
-import Users from '../../services/users.js';
+import { Users } from '../../services/users.mjs';
 import { Leaders } from '../../components/Leaders/Leaders.mjs';
 
 export class Paginator extends Block {

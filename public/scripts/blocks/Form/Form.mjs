@@ -1,6 +1,6 @@
-import {Block} from '../Block/Block.mjs';
+import { Block } from '../Block/Block.mjs';
 
-export default class Form extends Block {
+export class Form extends Block {
     constructor(fields = []) {
         const form = document.createElement('form');
         super(form);

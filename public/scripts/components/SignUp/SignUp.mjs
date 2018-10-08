@@ -1,8 +1,8 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
 import { Block } from '/scripts/blocks/Block/Block.mjs';
-import Form from '/scripts/blocks/Form/Form.mjs';
+import { Form } from '/scripts/blocks/Form/Form.mjs';
 import { Menu } from '../Menu/Menu.mjs';
-import Users from '/scripts/services/users.js';
+import { Users } from '/scripts/services/users.mjs';
 
 
 export class SignUp {

@@ -1,5 +1,5 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
-import Users from '/scripts/services/users.js';
+import { Users } from '/scripts/services/users.mjs';
 import { Block } from '/scripts/blocks/Block/Block.mjs';
 import { SignIn } from '../SignIn/SignIn.mjs';
 
@@ -53,5 +53,5 @@ export class Profile {
             Users.profile(callback);
         }
         application.append(profileSection.getElement());
-        }
+    }
 }
