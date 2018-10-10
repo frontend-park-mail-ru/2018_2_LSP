@@ -23,11 +23,11 @@ export class Menu {
         const header = new Header({type: 'menu'})
         header.render();
 
-        const menuSection = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'menu'});
-        const menuTitle = Block.Create('h2');
+        const menuSection = new Block('section', ['centerSection'], {'dataset.sectionName': 'menu'});
+        const menuTitle = new Block('h2');
         menuTitle.setText('Меню');
 
-        const menuInner = Block.Create('div');
+        const menuInner = new Block('div');
         Object.entries(items).forEach((item) => {
             const element = new Button(item[0], item[1], menuInner);
             element.render();

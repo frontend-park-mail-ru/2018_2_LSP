@@ -19,13 +19,13 @@ export class RulesPage {
             header.render();
         }
 
-        const rulesSection = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'rules'});
-        const rulesTitle = Block.Create('h2');
+        const rulesSection = new Block('section', ['centerSection'], {'dataset.sectionName': 'rules'});
+        const rulesTitle = new Block('h2');
         rulesTitle.setText('Правила');
 
-        const rulesInner = Block.Create('div', [], {id:'rulesInner'});
+        const rulesInner = new Block('div', [], {id:'rulesInner'});
 
-        const pTag = Block.Create('p');
+        const pTag = new Block('p');
         pTag.setText('Подробное описание правил игры...')
         rulesInner.append(pTag);
 

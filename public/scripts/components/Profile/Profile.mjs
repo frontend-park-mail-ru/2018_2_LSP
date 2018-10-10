@@ -16,11 +16,11 @@ export class Profile {
         const header = new Header({type: 'backToMenu'})
         header.render();
 
-        const profileSection  = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'profile'});
-        const profileTitle = Block.Create('h2');
+        const profileSection  = new Block('section', ['centerSection'], {'dataset.sectionName': 'profile'});
+        const profileTitle = new Block('h2');
         profileTitle.setText('Профиль');
 
-        const profileInner = Block.Create('div', [], {id:'profileInner'});
+        const profileInner = new Block('div', [], {id:'profileInner'});
 
         profileSection.append(profileTitle);
         profileSection.append(profileInner);
@@ -33,7 +33,7 @@ export class Profile {
                 'Счет': profileData.score
             }; 
             Object.entries(userParams).forEach((param) => {
-                const pParam = Block.Create('p');
+                const pParam = new Block('p');
                 pParam.setText(param[0] + ': ' + param[1]);
                 profileInner.append(pParam);
             });

@@ -2,12 +2,10 @@ import { Block } from '../Block/Block.mjs';
 
 export class Form extends Block {
     constructor(fields = []) {
-        const form = document.createElement('form');
-        super(form);
-        this.form = form;
+        super('form');
         fields.forEach(field => {
-            const fieldElement = Block.Create('p');
-            fieldElement.append(Block.Create('input', field.classes, field.attributes));
+            const fieldElement = new Block('p');
+            fieldElement.append(new Block('input', field.classes, field.attributes));
             this.append(fieldElement);
         });
     }
@@ -17,10 +15,10 @@ export class Form extends Block {
      * @param {*} callback 
      */
     submit(callback) {
-        this.form.addEventListener('submit', function(event) {
+        this.event('submit', function(event) {
             event.preventDefault();
             const formdata = {};
-            const elements = this.form.elements;
+            const elements = this.getElement().elements;
             for (let element in elements) {
                 formdata[elements[element].name] = elements[element].value;
             }

@@ -17,11 +17,11 @@ export class SignIn {
         const header = new Header({type: 'backToLanding'})
         header.render();
 
-        const signInSection  = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'signin'});
-        const  signInTitle = Block.Create('h2');
+        const signInSection  = new Block('section', ['centerSection'], {'dataset.sectionName': 'signin'});
+        const  signInTitle = new Block('h2');
         signInTitle.setText('Вход');
         
-        const errorLine = Block.Create('p',['errorLine'],{'hidden': true});
+        const errorLine = new Block('p',['errorLine'],{'hidden': true});
 
         const inputs = [
             {

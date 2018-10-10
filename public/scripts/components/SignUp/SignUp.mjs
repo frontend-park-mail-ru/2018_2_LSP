@@ -17,11 +17,11 @@ export class SignUp {
         const header = new Header({type: 'backToLanding'});
         header.render();
 
-        const signUpSection  = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'signup'});
-        const  signUpTitle = Block.Create('h2');
+        const signUpSection  = new Block('section', ['centerSection'], {'dataset.sectionName': 'signup'});
+        const  signUpTitle = new Block('h2');
         signUpTitle.setText('Регистрация');
 
-        const errorLine = Block.Create('p',['errorLine'],{'hidden': true});
+        const errorLine = new Block('p',['errorLine'],{'hidden': true});
 
         const inputs = [
             {

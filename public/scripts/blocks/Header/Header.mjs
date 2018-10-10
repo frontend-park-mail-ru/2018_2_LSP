@@ -28,7 +28,7 @@ export class Header {
             'Вход': 'signin',
             'Регистрация': 'signup' 
         }
-        const headerBlock = Block.Create('nav');
+        const headerBlock = new Block('nav');
         const signUpButton = new Button(links['Регистрация'], 'Регистрация', headerBlock);
         signUpButton.render();
 
@@ -43,7 +43,7 @@ export class Header {
     }
 
     _renderBackToLanding() {
-        const headerBlock = Block.Create('nav', ['backButton'], {});
+        const headerBlock = new Block('nav', ['backButton'], {});
         const landingLink = new Button('landing','Назад', headerBlock);
         landingLink.render();    
 
@@ -51,7 +51,7 @@ export class Header {
     }
 
     _renderBackToMenu() {
-        const headerBlock = Block.Create('nav', ['backButton'], {});
+        const headerBlock = new Block('nav', ['backButton'], {});
         const landingLink = new Button('menu','Назад в меню', headerBlock);
         landingLink.render();    
 

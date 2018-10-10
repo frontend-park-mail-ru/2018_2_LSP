@@ -1,6 +1,6 @@
 import { Http } from '../modules/http.mjs';
 
-const path = 'https://jackal.online'; //'http://127.0.0.1:8080';
+const path = 'https://jackal.online'; 
 
 /**
  * Сервис для работы с пользователями
@@ -18,7 +18,7 @@ export class Users {
 	}
 
 	// static logout(callback) {
-	// 	Http.Get(callback, 'http://127.0.0.1:8080/logout');
+	// 	Http.Get(callback, path + '/logout');
 	// 	Http.Delete(callback, '/session');
 	// }
 
