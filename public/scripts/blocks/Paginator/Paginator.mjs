@@ -1,13 +1,11 @@
 import { Block } from '../Block/Block.mjs';
-import Users from '../../services/users.js';
+import { Users } from '../../services/users.mjs';
 import { Leaders } from '../../components/Leaders/Leaders.mjs';
+import { Table } from '../Table/Table.mjs';
 
-export class Paginator extends Block {
+export class Paginator extends Table {
     constructor(table) {
-        const paginator = document.createElement('table');
-        super(paginator);
-        this.table = table;
-        this.paginator = paginator;
+        super(['<-', '->']);
         this.page = 1;
 
         const callback = (event, page) => {
@@ -35,18 +33,18 @@ export class Paginator extends Block {
         const tr = document.createElement('tr');
         tr.classList.add('head');
         const thleft = document.createElement('th');
-        const aleft = Block.Create('a', [], {'href':'pageMinus'});
+        const aleft = new Block('a', [], {'href':'pageMinus'});
         aleft.setText('<-');
         aleft.event('click', callback(event, this.page - 1));
         thleft.appendChild(aleft.getElement());
         tr.appendChild(thleft);
 
         const thright = document.createElement('th');
-        const aright = Block.Create('a', [], {'href':'pagePlus'});
+        const aright = new Block('a', [], {'href':'pagePlus'});
         aright.setText('->');
         aright.event('click', callback(event, this.page + 1));
         thright.appendChild(aright.getElement());
         tr.appendChild(thright);
-        this.paginator.appendChild(tr);
+        this.getElement().appendChild(tr);
     }
 }

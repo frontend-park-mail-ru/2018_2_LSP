@@ -23,11 +23,11 @@ export class Landing {
         const header = new Header({type: 'landing'})
         header.render();
     
-        const landingSection = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'landing'});
-        const logo = Block.Create('h2');
-        logo.setText('Шакал');
+        const landingSection = new Block('section', ['centerSection'], {'dataset.sectionName': 'landing'});
+        const logo = new Block('h2');
+        logo.setText('Пираты');
 
-        const landingInner = Block.Create('div', [], {id:'landingInner'});
+        const landingInner = new Block('div', [], {id:'landingInner'});
 
         const playButton = new Button(links['Играть'], 'Играть', landingInner, ['landingButtons']);
         playButton.render();

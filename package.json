@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "lint": "eslint public/ --ext js,mjs"
   },
   "repository": {
     "type": "git",
@@ -19,16 +20,17 @@
   },
   "homepage": "https://github.com/frontend-park-mail-ru/2018_2_LSP#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "cookie-parser": "^1.4.3",
-    "debug": "^3.1.0",
-    "express": "^4.16.3",
-    "express-http-proxy": "^1.4.0",
-    "fest": "^0.12.1",
-    "morgan": "^1.9.0",
-    "uuid": "^3.3.2"
+    "body-parser": "1.18.3",
+    "cookie-parser": "1.4.3",
+    "debug": "3.1.0",
+    "express": "4.16.3",
+    "express-http-proxy": "1.4.0",
+    "fest": "0.12.1",
+    "morgan": "1.9.0",
+    "now": "11.4.6",
+    "uuid": "3.3.2"
   },
   "devDependencies": {
-    "eslint": "^5.6.1"
+    "eslint": "5.6.1"
   }
 }

@@ -13,9 +13,9 @@ export class Button {
     }
 
     _createButton() {
-        const env = Block.Create('div',[], {});
+        const env = new Block('div',[], {});
 
-        const button = Block.Create('a', this._classes, {'href': this._link});
+        const button = new Block('a', this._classes, {'href': this._link});
         button.getElement().dataset.href = this._link;
         button.setText(this._text);
 

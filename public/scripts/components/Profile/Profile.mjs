@@ -1,5 +1,5 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
-import Users from '/scripts/services/users.js';
+import { Users } from '/scripts/services/users.mjs';
 import { Block } from '/scripts/blocks/Block/Block.mjs';
 import { SignIn } from '../SignIn/SignIn.mjs';
 
@@ -16,24 +16,24 @@ export class Profile {
         const header = new Header({type: 'backToMenu'})
         header.render();
 
-        const profileSection  = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'profile'});
-        const profileTitle = Block.Create('h2');
+        const profileSection  = new Block('section', ['centerSection'], {'dataset.sectionName': 'profile'});
+        const profileTitle = new Block('h2');
         profileTitle.setText('Профиль');
 
-        const profileInner = Block.Create('div', [], {id:'profileInner'});
+        const profileInner = new Block('div', [], {id:'profileInner'});
 
         profileSection.append(profileTitle);
         profileSection.append(profileInner);
 
         if (profileData) {
             const userParams = {
-                'Логин': profileData.Username,
-                'Почта': profileData.Email,
-                'Сыграно игр': profileData.Gamecount,
-                'Счет': profileData.Score
+                'Логин': profileData.username,
+                'Почта': profileData.email,
+                'Сыграно игр': profileData.gamecount,
+                'Счет': profileData.score
             }; 
             Object.entries(userParams).forEach((param) => {
-                const pParam = Block.Create('p');
+                const pParam = new Block('p');
                 pParam.setText(param[0] + ': ' + param[1]);
                 profileInner.append(pParam);
             });
@@ -53,5 +53,5 @@ export class Profile {
             Users.profile(callback);
         }
         application.append(profileSection.getElement());
-        }
+    }
 }

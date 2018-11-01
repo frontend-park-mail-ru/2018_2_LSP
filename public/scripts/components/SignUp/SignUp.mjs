@@ -1,8 +1,8 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
 import { Block } from '/scripts/blocks/Block/Block.mjs';
-import Form from '/scripts/blocks/Form/Form.mjs';
+import { Form } from '/scripts/blocks/Form/Form.mjs';
 import { Menu } from '../Menu/Menu.mjs';
-import Users from '/scripts/services/users.js';
+import { Users } from '/scripts/services/users.mjs';
 
 
 export class SignUp {
@@ -17,11 +17,11 @@ export class SignUp {
         const header = new Header({type: 'backToLanding'});
         header.render();
 
-        const signUpSection  = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'signup'});
-        const  signUpTitle = Block.Create('h2');
+        const signUpSection  = new Block('section', ['centerSection'], {'dataset.sectionName': 'signup'});
+        const  signUpTitle = new Block('h2');
         signUpTitle.setText('Регистрация');
 
-        const errorLine = Block.Create('p',['errorLine'],{'hidden': true});
+        const errorLine = new Block('p',['errorLine'],{'hidden': true});
 
         const inputs = [
             {

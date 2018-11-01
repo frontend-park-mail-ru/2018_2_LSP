@@ -1,25 +1,29 @@
-import Http from '../modules/http.js';
+import { Http } from '../modules/http.mjs';
+
+const path = 'https://jackal.online'; 
 
 /**
  * Сервис для работы с пользователями
  * @module Users
  */
-export default class Users {
+export class Users {
 	static constructor() {
 		this.user = null;
+		this.id = null;
 		this.users = {};
 	}
 
 	static auth(callback, data = {}) {
-		Http.Post(callback, 'https://jackal.online/auth', data);
+		Http.Post(callback, path + '/session', data);
 	}
 
-	static logout(callback) {
-		Http.Get(callback, 'https://jackal.online/logout');
-	}
+	// static logout(callback) {
+	// 	Http.Get(callback, path + '/logout');
+	// 	Http.Delete(callback, '/session');
+	// }
 
 	static register(callback, data = {}) {
-		Http.Post(callback, 'https://jackal.online/register', data);
+		Http.Post(callback, path + '/users', data);
 	}
 
 	static isLoggedIn() {
@@ -38,11 +42,11 @@ export default class Users {
 			this.user = user;
 			return callback(null, user);
 		}.bind(this);
-		Http.Get(call, 'https://jackal.online/user');
+		Http.Get(call, path + '/users');
 	}
 
 	static leaders(callback, data = {}) {
-		const path ='https://jackal.online/leaderboard?page=' + data.page;
+		const query = path + '/users?page=' + data.page + '&fields=email,rating&orderby=rating';
 		const call = function(err, users) {
 			if (err) {
 				return callback(err, users);
@@ -59,6 +63,6 @@ export default class Users {
 			}
 			return callback(null, users);
 		}.bind(this);
-		Http.Get(call, path, data);
+		Http.Get(call, query, data);
 	}
 }

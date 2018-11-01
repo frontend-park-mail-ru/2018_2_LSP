@@ -1,8 +1,8 @@
 import { Header } from '/scripts/blocks/Header/Header.mjs';
 import { Block } from '/scripts/blocks/Block/Block.mjs';
 import { Paginator } from '/scripts/blocks/Paginator/Paginator.mjs';
-import Users from '/scripts/services/users.js';
-import Table from '/scripts/blocks/Table/Table.mjs';
+import { Users } from '/scripts/services/users.mjs';
+import { Table } from '/scripts/blocks/Table/Table.mjs';
 
 export class Leaders {
     constructor(users){
@@ -17,11 +17,11 @@ export class Leaders {
         const header = new Header({type: 'backToMenu'});
         header.render();
 
-        const leadersSection = Block.Create('section', ['centerSection'], {'dataset.sectionName': 'leaders'});
-        const leadersTitle = Block.Create('h2');
+        const leadersSection = new Block('section', ['centerSection'], {'dataset.sectionName': 'leaders'});
+        const leadersTitle = new Block('h2');
         leadersTitle.setText('Лидеры');
 
-        const leadersInner = Block.Create('div', [], {id:'leadersInner'});
+        const leadersInner = new Block('div', [], {id:'leadersInner'});
         
         const items = ['Логин', 'Почта', 'Сыграно', 'Рейтинг'];
         const leaderBoard = new Table(items);
@@ -33,7 +33,7 @@ export class Leaders {
             leadersInner.append(leaderBoard);
             leadersInner.append(leaderBoardPaginator);
         } else {
-            const em = Block.Create('em');
+            const em = new Block('em');
             em.setText('Еще никто не установил рекорд. Вы можете быть первыми;)');
             leadersInner.append(em);
 
