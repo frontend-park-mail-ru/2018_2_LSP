@@ -20,6 +20,7 @@ export class Button {
         button.setText(this._text);
 
         env.append(button);
-        this._appendTo.append(env);
+        //this._appendTo.append(env);
+        this._appendTo.appendChild(env.getElement());
     }
 }

@@ -1,0 +1,23 @@
+extends ../BaseView/baseView.pug
+
+block content
+    input(
+    name= "email"
+    type= "email"
+    placeholder= "Введите почту"
+    )
+    p
+
+    input(
+    name= "password"
+    type= "password"
+    placeholder= "Пароль"
+    )
+    p
+
+    input(
+    name="updateButton"
+    type="button"
+    value="Обновить"
+    class="settingsButton"
+    )

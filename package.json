@@ -27,6 +27,7 @@
     "express-http-proxy": "1.4.0",
     "fest": "0.12.1",
     "morgan": "1.9.0",
+    "pug": "^2.0.3",
     "uuid": "3.3.2"
   },
   "devDependencies": {

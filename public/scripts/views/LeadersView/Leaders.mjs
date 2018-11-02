@@ -1,11 +1,14 @@
-import { Header } from '/scripts/blocks/Header/Header.mjs';
+import BaseView from '../BaseView/BaseView.mjs';
+
 import { Block } from '/scripts/blocks/Block/Block.mjs';
 import { Paginator } from '/scripts/blocks/Paginator/Paginator.mjs';
 import { Users } from '/scripts/services/users.mjs';
 import { Table } from '/scripts/blocks/Table/Table.mjs';
 
-export class Leaders {
+export default class Leaders extends BaseView{
     constructor(users){
+        const view = baseView({"headerType": "backToMenu","navClass": "backButton", "title": "Лидеры"});
+        super(view);
         this._users = users;
     }
 
@@ -14,15 +17,6 @@ export class Leaders {
     }
 
     _renderLeaders(users) {
-        const header = new Header({type: 'backToMenu'});
-        header.render();
-
-        const leadersSection = new Block('section', ['centerSection'], {'dataset.sectionName': 'leaders'});
-        const leadersTitle = new Block('h2');
-        leadersTitle.setText('Лидеры');
-
-        const leadersInner = new Block('div', [], {id:'leadersInner'});
-        
         const items = ['Логин', 'Почта', 'Сыграно', 'Рейтинг'];
         const leaderBoard = new Table(items);
         const leaderBoardPaginator = new Paginator(leaderBoard);
@@ -30,12 +24,12 @@ export class Leaders {
 
         if (users) {
             leaderBoard.update(users);
-            leadersInner.append(leaderBoard);
-            leadersInner.append(leaderBoardPaginator);
+            this.pageContent.append(leaderBoard.getElement());
+            this.pageContent.append(leaderBoardPaginator.getElement());
         } else {
             const em = new Block('em');
             em.setText('Еще никто не установил рекорд. Вы можете быть первыми;)');
-            leadersInner.append(em);
+            this.pageContent.appendChild(em.getElement())
 
             Users.leaders((err, response) => {
                 console.log(err, response);
@@ -48,8 +42,5 @@ export class Leaders {
                 }
             }, {page: numberPage});
         }
-        leadersSection.append(leadersTitle);
-        leadersSection.append(leadersInner);
-        application.append(leadersSection.getElement());
     }
 }

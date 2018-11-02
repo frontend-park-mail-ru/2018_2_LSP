@@ -1,10 +1,13 @@
-import { Header } from '/scripts/blocks/Header/Header.mjs';
+import BaseView from '../BaseView/BaseView.mjs';
+
 import { Users } from '/scripts/services/users.mjs';
 import { Block } from '/scripts/blocks/Block/Block.mjs';
-import { SignIn } from '../SignIn/SignIn.mjs';
+import SignIn from '../SignInView/SignIn.mjs';
 
-export class Profile {
+export default class Profile extends BaseView {
     constructor(profile){
+        const view = baseView({"headerType": "backToMenu","navClass": "backButton", "title": "Профиль"});
+        super(view);
         this._profile = profile;
     }
 
@@ -13,18 +16,6 @@ export class Profile {
     }
 
     _renderProfile(profileData) {
-        const header = new Header({type: 'backToMenu'})
-        header.render();
-
-        const profileSection  = new Block('section', ['centerSection'], {'dataset.sectionName': 'profile'});
-        const profileTitle = new Block('h2');
-        profileTitle.setText('Профиль');
-
-        const profileInner = new Block('div', [], {id:'profileInner'});
-
-        profileSection.append(profileTitle);
-        profileSection.append(profileInner);
-
         if (profileData) {
             const userParams = {
                 'Логин': profileData.username,
@@ -35,7 +26,7 @@ export class Profile {
             Object.entries(userParams).forEach((param) => {
                 const pParam = new Block('p');
                 pParam.setText(param[0] + ': ' + param[1]);
-                profileInner.append(pParam);
+                this.pageContent.appendChild(pParam.getElement());
             });
         } else {
             const callback = (err, response) => {
@@ -52,6 +43,5 @@ export class Profile {
             };
             Users.profile(callback);
         }
-        application.append(profileSection.getElement());
     }
 }

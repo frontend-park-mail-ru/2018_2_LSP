@@ -1,6 +1,6 @@
 import { Block } from '../Block/Block.mjs';
 import { Users } from '../../services/users.mjs';
-import { Leaders } from '../../components/Leaders/Leaders.mjs';
+import Leaders from '../../views/LeadersView/Leaders.mjs';
 import { Table } from '../Table/Table.mjs';
 
 export class Paginator extends Table {

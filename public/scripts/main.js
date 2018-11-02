@@ -1,13 +1,12 @@
 'use strict';
 
-import { Landing } from './components/Landing/Landing.mjs';
-import { Menu } from './components/Menu/Menu.mjs';
-import { RulesPage } from './components/RulesPage/RulesPage.mjs';
-import { Profile } from './components/Profile/Profile.mjs';
-import { SignIn } from './components/SignIn/SignIn.mjs';
-import { SignUp } from './components/SignUp/SignUp.mjs';
-import { Leaders } from './components/Leaders/Leaders.mjs';
-
+import Landing from './views/LandingView/Landing.mjs';
+import Menu from './views/MenuView/Menu.mjs';
+import RulesView from './views/RulesView/RulesView.mjs';
+import Profile from './views/ProfileView/Profile.mjs';
+import SignIn from './views/SignInView/SignIn.mjs';
+import SignUp from './views/SignUpView/SignUp.mjs';
+import Leaders from './views/LeadersView/Leaders.mjs';
 
 const application = document.getElementById('application');
 
@@ -64,12 +63,12 @@ function createLeadersPage(users) {
 }
 
 function createRulesFromLanding() {
-	const rulesPage = new RulesPage({type: 'fromLanding'});
+	const rulesPage = new RulesView({type: 'backToLanding'});
 	rulesPage.render();
 }
 
 function createRulesFromMenu() {
-	const rulesPage = new RulesPage({type: 'fromMenu'});
+	const rulesPage = new RulesView({type: 'backToMenu'});
 	rulesPage.render();
 }
 

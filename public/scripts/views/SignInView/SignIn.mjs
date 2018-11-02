@@ -1,12 +1,15 @@
-import { Header } from '/scripts/blocks/Header/Header.mjs';
+import BaseView from '../BaseView/BaseView.mjs';
+
 import { Block } from '/scripts/blocks/Block/Block.mjs';
 import { Form } from '/scripts/blocks/Form/Form.mjs';
-import { Menu } from '../Menu/Menu.mjs';
+import Menu from '../MenuView/Menu.mjs';
 import { Users } from '/scripts/services/users.mjs';
 
 
-export class SignIn {
-    constructor(){
+export default class SignIn extends BaseView {
+    constructor() {        
+        const view = baseView({"headerType": "backToLanding","navClass": "backButton", "title": "Вход"});
+        super(view);
     }
 
     render() {
@@ -14,13 +17,6 @@ export class SignIn {
     }
 
     _renderSignInPage() {
-        const header = new Header({type: 'backToLanding'})
-        header.render();
-
-        const signInSection  = new Block('section', ['centerSection'], {'dataset.sectionName': 'signin'});
-        const  signInTitle = new Block('h2');
-        signInTitle.setText('Вход');
-        
         const errorLine = new Block('p',['errorLine'],{'hidden': true});
 
         const inputs = [
@@ -68,10 +64,8 @@ export class SignIn {
             }, data);	//используем данные введенные в форму
         });
         
-        signInSection.append(signInTitle);
-        signInSection.append(errorLine);
-        signInSection.append(form);
-        application.append(signInSection.getElement());
+        this.pageContent.appendChild(errorLine.getElement());
+        this.pageContent.appendChild(form.getElement());
     }
 }
 
