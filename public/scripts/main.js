@@ -23,6 +23,17 @@ application.addEventListener('click', event => {
 	}
 });
 
+// проверка наличия service-worker
+if ("serviceWorker" in navigator) {
+	navigator.serviceWorker.register('scripts/sw.js')
+		.then(function(registration) {
+			console.log('Service worker registration OK:', registration);
+		})
+		.catch(function(error) {
+			console.log('Service worker registration FAIL:', error);
+		});
+}
+
 createLandingPage();
 
 //функции создания страниц
