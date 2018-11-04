@@ -49,10 +49,22 @@ export default class Router {
 
             console.log({
 				pathname: event.target.pathname
-			});
-            this.open(event.target.pathname);
+            });
+            
+            if(event.target.innerText == "Назад") {
+                window.history.back();
+            } else {
+                this.open(event.target.pathname);
+            }            
         });
+
+        //вперед, назад в браузере
+        window.addEventListener('popstate', event => {
+			const currentPath = window.location.pathname;
+			this.open(currentPath);
+        });
+        
         const currentPath = window.location.pathname;
-		this.open(currentPath);
+        this.open(currentPath);        
     }
 }

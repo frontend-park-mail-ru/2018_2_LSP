@@ -7,7 +7,7 @@ import { Users } from '/scripts/services/users.mjs';
 
 export default class SignIn extends BaseView {
     constructor(router) {
-        const view = baseView({"headerType": "backToLanding","navClass": "backButton", "title": "Вход"});
+        const view = baseView({'headerType': 'back','navClass': 'backButton', 'title': 'Вход'});
         super(view);
         this.router = router
     }
