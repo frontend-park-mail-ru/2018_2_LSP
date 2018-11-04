@@ -25,7 +25,7 @@ application.addEventListener('click', event => {
 
 // проверка наличия service-worker
 if ("serviceWorker" in navigator) {
-	navigator.serviceWorker.register('scripts/sw.js')
+	navigator.serviceWorker.register('sw.js')
 		.then(function(registration) {
 			console.log('Service worker registration OK:', registration);
 		})
