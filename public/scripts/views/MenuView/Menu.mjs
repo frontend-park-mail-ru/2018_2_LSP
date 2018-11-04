@@ -17,7 +17,7 @@ export default class Menu extends BaseView {
             multiplayer: 'Мультиплеер',
             singleplayer: 'Одиночная игра',
             leaders: 'Лидеры',
-            rulesMenu: 'Правила',
+            mainrules: 'Правила',
             profile: 'Профиль'
         };
 

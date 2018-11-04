@@ -7,72 +7,16 @@ import Profile from './views/ProfileView/Profile.mjs';
 import SignIn from './views/SignInView/SignIn.mjs';
 import SignUp from './views/SignUpView/SignUp.mjs';
 import Leaders from './views/LeadersView/Leaders.mjs';
+import Router from './modules/Router.mjs';
 
-const application = document.getElementById('application');
+const router = new Router();
 
-//роутинг по страницам
-application.addEventListener('click', event => {
-	if (!(event.target instanceof HTMLAnchorElement)) {
-		return;
-	}
-	event.preventDefault();
-
-	application.innerHTML = '';
-	if (pages[event.target.dataset.href] != null) {
-		pages[event.target.dataset.href]();
-	}
-});
-
-createLandingPage();
-
-//функции создания страниц
-const pages = {
-	landing: createLandingPage,
-	signin: createSigninPage,
-	signup: createSignupPage,
-	menu: createMenuPage,
-	leaders: createLeadersPage,
-	rulesLanding: createRulesFromLanding,
-	rulesMenu: createRulesFromMenu,
-	profile: createProfilePage,
-};
-
-function createLandingPage() {
-	const landingMenu = new Landing({});
-	landingMenu.render();
-}
-
-function createSigninPage() {
-	const signInPage = new SignIn({});
-	signInPage.render();
-}
-
-function createSignupPage() {
-	const signUpPage = new SignUp({});
-	signUpPage.render();
-}
-
-function createMenuPage() {
-	const mainMenu = new Menu();
-	mainMenu.render();
-}
-
-function createLeadersPage(users) {
-	const leadersPage = new Leaders(users);
-	leadersPage.render();
-}
-
-function createRulesFromLanding() {
-	const rulesPage = new RulesView({type: 'backToLanding'});
-	rulesPage.render();
-}
-
-function createRulesFromMenu() {
-	const rulesPage = new RulesView({type: 'backToMenu'});
-	rulesPage.render();
-}
-
-function createProfilePage(profile) {
-	const profilePage = new Profile(profile);
-	profilePage.render();
-}
+router.addPath('/', Landing);
+router.addPath('/signin', SignIn, router);
+router.addPath('/signup', SignUp, router);
+router.addPath('/rules', RulesView,{type: 'backToLanding'});
+router.addPath('/mainrules', RulesView,{type: 'backToMenu'});
+router.addPath('/menu', Menu);
+router.addPath('/leaders', Leaders);
+router.addPath('/profile', Profile, {profile: '', router: router});
+router.start();

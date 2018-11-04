@@ -2,14 +2,14 @@ import BaseView from '../BaseView/BaseView.mjs';
 
 import { Block } from '/scripts/blocks/Block/Block.mjs';
 import { Form } from '/scripts/blocks/Form/Form.mjs';
-import Menu from '../MenuView/Menu.mjs';
 import { Users } from '/scripts/services/users.mjs';
 
 
 export default class SignUp extends BaseView {
-    constructor() {
+    constructor(router) {
         const view = baseView({"headerType": "backToLanding","navClass": "backButton", "title": "Регистрация"});
         super(view);
+        this.router = router;
     }
 
     render() {
@@ -77,9 +77,7 @@ export default class SignUp extends BaseView {
             Users.register((err, response) => {	//регистрация пользователя
                 console.log(err, response);
                 if (err === null) {
-                    application.innerHTML = '';
-                    const mainMenu = new Menu();
-	                mainMenu.render();
+                    this.router.open('/menu');
                 } else {
                     const errorLine = document.getElementsByClassName('errorLine')[0];
                     errorLine.textContent = errorHandler(response.error)
