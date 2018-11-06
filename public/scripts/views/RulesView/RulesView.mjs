@@ -4,7 +4,7 @@ import { Block } from '/scripts/blocks/Block/Block.mjs';
 
 export default class RulesView extends BaseView {
     constructor({type = ''} = {}){
-        const view = baseView({"headerType": type,"navClass": "backButton", "title": "Правила"});
+        const view = baseView({'headerType': 'back','navClass': 'backButton', 'title': 'Правила'});
         super(view);
         this._type = type;
     }

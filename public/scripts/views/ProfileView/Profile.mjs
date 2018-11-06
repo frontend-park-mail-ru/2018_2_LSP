@@ -2,13 +2,13 @@ import BaseView from '../BaseView/BaseView.mjs';
 
 import { Users } from '/scripts/services/users.mjs';
 import { Block } from '/scripts/blocks/Block/Block.mjs';
-import SignIn from '../SignInView/SignIn.mjs';
 
 export default class Profile extends BaseView {
-    constructor(profile){
-        const view = baseView({"headerType": "backToMenu","navClass": "backButton", "title": "Профиль"});
+    constructor({profile, router}){
+        const view = baseView({'headerType': 'back','navClass': 'backButton', 'title': 'Профиль'});
         super(view);
         this._profile = profile;
+        this.router = router;
     }
 
     render() {
@@ -36,9 +36,7 @@ export default class Profile extends BaseView {
                     const profilePage = new Profile(response);
 	                profilePage.render();
                 } else {
-                    application.innerHTML = '';
-                    const signInPage = new SignIn();
-                    signInPage.render();
+                    this.router.open('/signin');
                 }
             };
             Users.profile(callback);
