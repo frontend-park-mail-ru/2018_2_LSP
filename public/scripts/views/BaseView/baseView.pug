@@ -1,6 +1,6 @@
 nav(class= navClass)
     include ../../blocks/Header/header.pug
-section(class="centerSection" dataset.sectioname="landing")
+section(class= mainSectionClass || "centerSection", id= mainSectionId || "mainSection")
     h2 #{title}
     div(id="content")
         block content

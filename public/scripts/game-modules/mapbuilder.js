@@ -21,7 +21,7 @@ array => [
 где левый столбец - номера в массиве, правый кортеж: первый элемент - ID карты, второй - количество карт
 */
   
-class MapBuilder {
+export default class MapBuilder {
     constructor(distribution)
     {
         this.setDistribution(distribution)

@@ -32,6 +32,6 @@ router.addPath('/rules', RulesView,{type: 'back'});
 router.addPath('/menu', Menu);
 router.addPath('/leaders', Leaders);
 router.addPath('/profile', Profile, {profile: '', router: router});
-router.addPath('/singleplayer', GameMap, {boardSide: 4}); //4x4
+router.addPath('/singleplayer', GameMap, {boardSide: 4}); //n x n, нечетные
 router.start();
 

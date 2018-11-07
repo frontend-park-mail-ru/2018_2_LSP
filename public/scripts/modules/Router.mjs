@@ -13,7 +13,7 @@ export default class Router {
     }
 
     open(path) {
-        const previousRoute = this.routes[window.location.pathname];
+        //const previousRoute = this.routes[window.location.pathname];
         let {View, view, param} = this.routes[path];
 
         if(path == '') {
@@ -21,18 +21,16 @@ export default class Router {
             return;
         }
 
-        if (previousRoute.view) {
-            application.innerHTML = '';
-        }
+        application.innerHTML = '';
 
         if (window.location.pathname != path) {
             window.history.pushState(null,'',path);
         }  
 
-        if (!view) {
-            view = new View(param);   
-            this.routes[path] = {View, view, param};
+        if (!view || path == '/singleplayer') {
+            view = new View(param);            
             view.render();
+            this.routes[path] = {View, view, param};
         } else {
             application.innerHTML = view.el;
             const pageContent = document.getElementById('content');
