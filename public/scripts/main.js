@@ -7,53 +7,23 @@ import Profile from './views/ProfileView/Profile.mjs';
 import SignIn from './views/SignInView/SignIn.mjs';
 import SignUp from './views/SignUpView/SignUp.mjs';
 import Leaders from './views/LeadersView/Leaders.mjs';
+import Socket from './modules/websocket.mjs';
 
 
 // авторизация service-worker
-// if ("serviceWorker" in navigator) {
-// 	navigator.serviceWorker.register('sw.js')
-// 		.then(function(registration) {
-// 			console.log('Service worker registration OK:', registration);
-// 		})
-// 		.catch(function(error) {
-// 			console.log('Service worker registration FAIL:', error);
-// 		});
-// }
-
-
-const address = ['https', 'https:'].includes(location.protocol)	//в зависимости отпротокола выбор wss или ws
-	? `wss://${location.host}/ws`
-	: `ws://${location.host}/ws`;
-
-const ws = new WebSocket(address);
-
-ws.onopen = function(event) {
-	console.log('Connected with WebSocket');
-	ws.send('Hi!');
-};
-
-ws.onclose = function(event) {
-	if (event.wasClean) {
-		alert('Соединение закрыто чисто');
-	} else {
-		alert('Обрыв соединения'); // например, "убит" процесс сервера
-	}
-	alert('Код: ' + event.code + ' причина: ' + event.reason);
-};
-
-ws.onmessage = function(event) {
-	console.log('WS:' + event.data);
-};
-
-ws.onerror = function(error) {
-	console.log("Error WS:" + error.message);
-};
-
-
+if ("serviceWorker" in navigator) {
+	navigator.serviceWorker.register('sw.js')
+		.then(function(registration) {
+			console.log('Service worker registration OK:', registration);
+		})
+		.catch(function(error) {
+			console.log('Service worker registration FAIL:', error);
+		});
+}
 
 const application = document.getElementById('application');
 
-//роутинг по страницам
+// роутинг по страницам
 application.addEventListener('click', event => {
 	if (!(event.target instanceof HTMLAnchorElement)) {
 		return;
@@ -68,7 +38,7 @@ application.addEventListener('click', event => {
 
 createLandingPage();
 
-//функции создания страниц
+// функции создания страниц
 const pages = {
 	landing: createLandingPage,
 	signin: createSigninPage,

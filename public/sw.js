@@ -1,6 +1,6 @@
-const CACHE_KEY = 'cache-v1'; //название кэша
+const CACHE_KEY = 'cache-v1'; // название кэша
 
-const cacheUrls = [ //кэшируемые файлы
+const cacheUrls = [ // кэшируемые файлы
     '/',
     '/index.html',
     '/scripts/main.js',
@@ -16,7 +16,9 @@ const cacheUrls = [ //кэшируемые файлы
     '/scripts/blocks/Table/Table.css',
     '/scripts/blocks/Table/Table.mjs',
 
+    '/scripts/modules/eventBus.mjs',
     '/scripts/modules/http.mjs',
+    '/scripts/modules/websocket.mjs',
 
     '/scripts/services/users.mjs',
 
@@ -45,27 +47,27 @@ const cacheUrls = [ //кэшируемые файлы
 
 this.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_KEY)  //открываем кэш
+        caches.open(CACHE_KEY)  // открываем кэш
             .then(function(cache) {
-                return cache.addAll(cacheUrls); //записываем url
+                return cache.addAll(cacheUrls); // записываем url
             })
     );
 });
 
 this.addEventListener('fetch', event => {
-    event.respondWith(   //собственно получение нужного ресурса
-        caches.match(event.request) //ищем запрошенные данные
+    event.respondWith(   // собственно получение нужного ресурса
+        caches.match(event.request) // ищем запрошенные данные
             .then(function(cacheedResponse) {
                 return cacheedResponse || fetch(event.request).then(function(response) {
                     cloning = response.clone();
-                    caches.open(CACHE_KEY).then(function(cache) {    //если получили новые данные - кэшируем
+                    caches.open(CACHE_KEY).then(function(cache) {    // если получили новые данные - кэшируем
                         cache.put(event.request, cloning);
                     });
                     return response;
                 });
             })
             .catch(function() {
-                return caches.match('404.html');
+                return caches.match('index.html');
             })
     );
 });
