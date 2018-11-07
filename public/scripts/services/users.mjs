@@ -42,7 +42,8 @@ export class Users {
 			this.user = user;
 			return callback(null, user);
 		}.bind(this);
-		Http.Get(call, path + '/users/' + document.cookie.split('=')[1] + '?fields=firstname,lastname,avatar,rating,email');
+		const decoded = jwt_decode(this._cookieParser('header.payload'));
+		Http.Get(call, path + '/users/' + decoded + '?fields=firstname,lastname,avatar,rating,email,avatar');
 	}
 
 	static leaders(callback, data = {}) {
@@ -64,5 +65,10 @@ export class Users {
 			return callback(null, users);
 		}.bind(this);
 		Http.Get(call, query, data);
+	}
+
+	static _cookieParser(name) {
+		const matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
 	}
 }

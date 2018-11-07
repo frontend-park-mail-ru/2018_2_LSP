@@ -8,6 +8,10 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const ws = require('express-ws');
+const tls = require('tls');
+const fs = require('fs');
+// const http = require('http');
+const https = require('https');
 const PORT = process.env.PORT || 3000;
 
 const dir = path.resolve(__dirname, '..', 'public');
@@ -34,8 +38,15 @@ app.ws('/ws', function(socket) {
 app.use(fallback('index.html', {root: dir}));
 
 //Сервер
-app.listen(PORT, () => {
-	console.log(`Server listening port ${PORT}`);
-});
+// app.listen(PORT, () => {
+// 	console.log(`Server listening port ${PORT}`);
+// });
+
+const privateKey = fs.readFileSync('server/privatekey.pem').toString();
+const certificate = fs.readFileSync('server/certificate.pem').toString();
+
+const credentials = {key: privateKey, cert: certificate};
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(PORT);
 
 console.log('Server started!');
