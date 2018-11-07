@@ -14,11 +14,8 @@
   /* border: 1px solid black; */
 }
 
+.land-block,
 .card {
-/*  width: calc(25%); /* Размер карточки. Равняется 100 / кол-во карточек
-  height: calc(25%); Размер карточки. Равняется 100 / кол-во карточек */
-  /* width: calc(100% / 3);
-  height: calc(100% / 3); */
   position: relative;
   transform: scale(1);
   transform-style: preserve-3d;
@@ -45,4 +42,12 @@
 
 .front-face {
   transform: rotateY(180deg);
+}
+
+.land-card {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: rgb(255, 228, 209);
+  transform: rotateY(180deg)
 }
