@@ -9,19 +9,20 @@ import SignUp from './views/SignUpView/SignUp.mjs';
 import Leaders from './views/LeadersView/Leaders.mjs';
 import Router from './modules/Router.mjs';
 import GameMap from './game-modules/GameMap.mjs';
+import Socket from './modules/websocket.mjs';
 
 const application = document.getElementById('application');
 
-// проверка наличия service-worker
-if ("serviceWorker" in navigator) {
-	navigator.serviceWorker.register('sw.js')
-		.then(function(registration) {
-			console.log('Service worker registration OK:', registration);
-		})
-		.catch(function(error) {
-			console.log('Service worker registration FAIL:', error);
-		});
-}
+// авторизация service-worker
+// if ("serviceWorker" in navigator) {
+// 	navigator.serviceWorker.register('sw.js')
+// 		.then(function(registration) {
+// 			console.log('Service worker registration OK:', registration);
+// 		})
+// 		.catch(function(error) {
+// 			console.log('Service worker registration FAIL:', error);
+// 		});
+// }
 
 const router = new Router();
 router.addPath('/', Landing);
@@ -33,3 +34,4 @@ router.addPath('/leaders', Leaders);
 router.addPath('/profile', Profile, {profile: '', router: router});
 router.addPath('/singleplayer', GameMap, {boardSide: 4}); //4x4
 router.start();
+

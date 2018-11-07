@@ -42,7 +42,7 @@ export class Users {
 			this.user = user;
 			return callback(null, user);
 		}.bind(this);
-		Http.Get(call, path + '/users');
+		Http.Get(call, path + '/users/' + document.cookie.split('=')[1] + '?fields=firstname,lastname,avatar,rating,email');
 	}
 
 	static leaders(callback, data = {}) {
