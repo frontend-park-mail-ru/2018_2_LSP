@@ -15,7 +15,7 @@ export default class RulesView extends BaseView {
 
     _renderRules() {
         const pTag = new Block('p');
-        pTag.setText('Подробное описание правил игры...')
+        pTag.setText('Подробное описание правил игры...');
         this.pageContent.appendChild(pTag.getElement());
     }
 }

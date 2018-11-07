@@ -42,8 +42,12 @@ export class Users {
 			this.user = user;
 			return callback(null, user);
 		}.bind(this);
-		const decoded = jwt_decode(this._cookieParser('header.payload'));
-		Http.Get(call, path + '/users/' + decoded + '?fields=firstname,lastname,avatar,rating,email,avatar');
+
+		let payload = this._cookieParser('header.payload');
+		if (payload) {
+			payload = jwt_decode(payload)['id'];
+		}
+		Http.Get(call, path + '/users/' + payload + '?fields=firstname,lastname,avatar,rating,email,avatar');
 	}
 
 	static leaders(callback, data = {}) {
