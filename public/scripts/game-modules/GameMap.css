@@ -17,8 +17,8 @@
 .card {
 /*  width: calc(25%); /* Размер карточки. Равняется 100 / кол-во карточек
   height: calc(25%); Размер карточки. Равняется 100 / кол-во карточек */
-  width: calc(25%);
-  height: calc(25%);
+  /* width: calc(100% / 3);
+  height: calc(100% / 3); */
   position: relative;
   transform: scale(1);
   transform-style: preserve-3d;

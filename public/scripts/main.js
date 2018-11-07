@@ -8,6 +8,7 @@ import SignIn from './views/SignInView/SignIn.mjs';
 import SignUp from './views/SignUpView/SignUp.mjs';
 import Leaders from './views/LeadersView/Leaders.mjs';
 import Router from './modules/Router.mjs';
+import GameMap from './game-modules/GameMap.mjs';
 
 const application = document.getElementById('application');
 
@@ -30,4 +31,5 @@ router.addPath('/rules', RulesView,{type: 'back'});
 router.addPath('/menu', Menu);
 router.addPath('/leaders', Leaders);
 router.addPath('/profile', Profile, {profile: '', router: router});
+router.addPath('/singleplayer', GameMap, {boardSide: 4}); //4x4
 router.start();
