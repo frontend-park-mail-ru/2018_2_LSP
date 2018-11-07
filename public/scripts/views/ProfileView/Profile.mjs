@@ -21,7 +21,7 @@ export default class Profile extends BaseView {
                 'Логин': profileData.username,
                 'Почта': profileData.email,
                 'Сыграно игр': profileData.gamecount,
-                'Счет': profileData.score
+                'Счет': profileData.rating
             }; 
             Object.entries(userParams).forEach((param) => {
                 const pParam = new Block('p');
@@ -32,9 +32,8 @@ export default class Profile extends BaseView {
             const callback = (err, response) => {
                 console.log(err, response);
                 if (err === null) {
-                    application.innerHTML = '';
-                    const profilePage = new Profile(response);
-	                profilePage.render();
+                    this._profile = response;
+	                this.render();
                 } else {
                     this.router.open('/signin');
                 }
