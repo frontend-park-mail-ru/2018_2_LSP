@@ -1,4 +1,9 @@
-class CardBuilder {
+let CARDTYPES = {}
+CARDTYPES.DEFAULT = 0;
+CARDTYPES.GOLD = 1;
+CARDTYPES.KILL = 2;
+
+export class CardBuilder {
   constructor() {}
   static build(id) {
     switch (id) {
@@ -12,7 +17,7 @@ class CardBuilder {
   }
 }
 
-class GoldCard {
+export class GoldCard {
   constructor() {}
   apply(game) {
     let cardID = game.playersCardId[game.currentPlayer];
@@ -24,12 +29,12 @@ class GoldCard {
   }
 }
 
-class EmptyCard {
+export class EmptyCard {
   constructor() {}
   apply(game) {}
 }
 
-class KillCard {
+export class KillCard {
     constructor() {}
     apply(game) {
       let cardData = UI.getAreaData("ship-" + game.currentPlayer)

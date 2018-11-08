@@ -1,3 +1,8 @@
+let CARDTYPES = {}
+CARDTYPES.DEFAULT = 0;
+CARDTYPES.GOLD = 1;
+CARDTYPES.KILL = 2;
+
 export default class Map {
   constructor(matrix, size) {
     this.size = size;
