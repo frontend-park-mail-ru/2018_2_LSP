@@ -22,8 +22,8 @@ export default class GameView extends BaseView {
         }
         //GameBus.emit('cardsDistribution', cardsDistribution);
 
-        const mapBuilder = new MapBuilder(cardsDistribution);
-        const cardsMap = mapBuilder.generateMap();
+        const mapBuilder = new MapBuilder();
+        const cardsMap = mapBuilder.generateMap(cardsDistribution);
 
         const boardSide = this.mapSide + 2; //с землей вокруг
         const gameBoard = gameMap({'cardsMap': cardsMap, 'boardSide': boardSide});
@@ -45,39 +45,40 @@ export default class GameView extends BaseView {
         for(let i = 1; i <= game.map.size * game.map.size; ++i) {
           document.getElementById("gamecard-" + i).style.opacity = 1;
         }
-    }
+      }
     
-    static setLowOpacity() {
+      static setLowOpacity() {
         for(let i = 1; i <= game.map.size * game.map.size; ++i) {
           document.getElementById("gamecard-" + i).style.opacity = 0.7;
         }
-    }
+      }
       
-    static placeDiv(id, x_pos, y_pos) {
+      static placeDiv(id, x_pos, y_pos) {
         let d = document.getElementById(id);
         d.style.left = x_pos+'px';
         d.style.top = y_pos+'px';
-    }
+      }
       
-    static getAreaData(id) {
+      static getAreaData(id) {
         let area = document.getElementById(id);
-        let rect = area.getBoundingClientRect();
-        return [rect.left, rect.top, area.offsetWidth, area.offsetHeight]
+        return [area.offsetLeft, area.offsetTop, area.offsetWidth, area.offsetHeight]
+      }
+      
+      static setEventListener(type, id, listener) {
+        document.getElementById(id).addEventListener(type, listener)
+      }
     }
     
-    static setEventListener(type, id, listener) {
-        document.getElementById(id).addEventListener(type, listener)
-    }
-}
 
 
-
-function flipCard() {
-    if (game.flipCard(this.id)) {
-      this.classList.add('flip');
-    }
-}
 
 function playerClick() {
     game.playerClick(this.id);
-}
+  }
+  
+  function flipCard() {
+    if (game.flipCard(this.id)) {
+      this.classList.add('flip');
+    }
+  }
+  

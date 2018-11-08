@@ -1,6 +1,15 @@
 import GameView from '/scripts/views/GameView/GameView.mjs';
 import Map from '/scripts/game/Map.mjs';
 
+
+let CARDTYPES = {}
+CARDTYPES.DEFAULT = 0;
+CARDTYPES.GOLD = 1;
+CARDTYPES.KILL = 2;
+
+const distribution = [[CARDTYPES.DEFAULT, 17], [CARDTYPES.GOLD, 6], [CARDTYPES.KILL, 2]];
+
+
 export default class Game {
     constructor(mapSize, playersCount) {
       this.map = MapBGameViewlder.generateMap(distribution)
