@@ -1,7 +1,7 @@
 import BaseView from '/scripts/views/BaseView/BaseView.mjs';
-import MapBuilder from '/scripts/game-modules/MapBuilder.mjs';
-// import Map from '/scripts/game-modules/Map.js';
-// import GameBus from '/scripts/game-modules/gameBus.mjs';
+import MapBuilder from '/scripts/game/MapBuilder.mjs';
+// import Map from '/scripts/game/Map.js';
+import GameBus from '/scripts/game/gameBus.mjs';
 
 export default class GameView extends BaseView {
     constructor({mapSide} = {}){
@@ -31,7 +31,10 @@ export default class GameView extends BaseView {
         const cards = document.querySelectorAll('.card, .land-block');
         cards.forEach(card => {
             card.style.width = card.style.height = 'calc(100% / ' + boardSide + ')';
-            cards.forEach(card => card.addEventListener('click', flipCard));
+            cards.forEach(card => {
+                card.addEventListener('click', flipCard);
+                GameBus.on('open-card', flipCard);
+            });
         });
     }
 }

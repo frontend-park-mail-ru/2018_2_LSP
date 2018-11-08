@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  entry: '.js',
+  entry: 'public/scripts/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'build.js'
