@@ -1,9 +1,9 @@
 import BaseView from '../BaseView/BaseView.mjs';
 
-import { Block } from '/scripts/blocks/Block/Block.mjs';
-import { Paginator } from '/scripts/blocks/Paginator/Paginator.mjs';
-import { Users } from '/scripts/services/users.mjs';
-import { Table } from '/scripts/blocks/Table/Table.mjs';
+import { Block } from '../../blocks/Block/Block.mjs';
+import { Paginator } from '../../blocks/Paginator/Paginator.mjs';
+import { Users } from '../../services/users.mjs';
+import { Table } from '../../blocks/Table/Table.mjs';
 
 export default class Leaders extends BaseView{
     constructor(users){

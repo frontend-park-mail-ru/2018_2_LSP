@@ -1,5 +1,5 @@
-import GameView from '/scripts/views/GameView/GameView.mjs';
-import Map from '/scripts/game/Map.mjs';
+import GameView from '../views/GameView/GameView.mjs';
+import Map from '../game/Map.mjs';
 
 export default class Game {
     constructor(mapSize, playersCount) {

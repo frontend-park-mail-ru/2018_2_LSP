@@ -1,8 +1,8 @@
-import BaseView from '/scripts/views/BaseView/BaseView.mjs';
-import MapBuilder from '/scripts/game/MapBuilder.mjs';
-// import Map from '/scripts/game/Map.js';
-import GameBus from '/scripts/game/gameBus.mjs';
-import Game from '/scripts/game/Game.mjs';
+import BaseView from '../../views/BaseView/BaseView.mjs';
+import MapBuilder from '../../game/MapBuilder.mjs';
+// import Map from '../../game/Map.js';
+import GameBus from '../../game/gameBus.mjs';
+import Game from '../../game/Game.mjs';
 
 export default class GameView extends BaseView {
     constructor({mapSide} = {}){

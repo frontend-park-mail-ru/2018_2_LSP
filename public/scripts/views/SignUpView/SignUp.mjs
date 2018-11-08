@@ -1,8 +1,8 @@
 import BaseView from '../BaseView/BaseView.mjs';
 
-import { Block } from '/scripts/blocks/Block/Block.mjs';
-import { Form } from '/scripts/blocks/Form/Form.mjs';
-import { Users } from '/scripts/services/users.mjs';
+import { Block } from '../../blocks/Block/Block.mjs';
+import { Form } from '../../blocks/Form/Form.mjs';
+import { Users } from '../../services/users.mjs';
 
 
 export default class SignUp extends BaseView {
