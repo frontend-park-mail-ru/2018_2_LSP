@@ -2,6 +2,7 @@ import BaseView from '/scripts/views/BaseView/BaseView.mjs';
 import MapBuilder from '/scripts/game/MapBuilder.mjs';
 // import Map from '/scripts/game/Map.js';
 import GameBus from '/scripts/game/gameBus.mjs';
+import Game from '/scripts/game/Game.mjs';
 
 export default class GameView extends BaseView {
     constructor({mapSide} = {}){
@@ -36,9 +37,46 @@ export default class GameView extends BaseView {
                 GameBus.on('open-card', flipCard);
             });
         });
+
+        let game = new Game(5, 2);
+    }
+
+    static resetOpacity() {
+        for(let i = 1; i <= game.map.size * game.map.size; ++i) {
+          document.getElementById("gamecard-" + i).style.opacity = 1;
+        }
+    }
+    
+    static setLowOpacity() {
+        for(let i = 1; i <= game.map.size * game.map.size; ++i) {
+          document.getElementById("gamecard-" + i).style.opacity = 0.7;
+        }
+    }
+      
+    static placeDiv(id, x_pos, y_pos) {
+        let d = document.getElementById(id);
+        d.style.left = x_pos+'px';
+        d.style.top = y_pos+'px';
+    }
+      
+    static getAreaData(id) {
+        let area = document.getElementById(id);
+        return [area.offsetLeft, area.offsetTop, area.offsetWidth, area.offsetHeight]
+    }
+      
+    static setEventListener(type, id, listener) {
+        document.getElementById(id).addEventListener(type, listener)
     }
 }
 
+
+
 function flipCard() {
-    this.classList.add('flip');
+    if (game.flipCard(this.id)) {
+      this.classList.add('flip');
+    }
+}
+
+function playerClick() {
+    game.playerClick(this.id);
 }
