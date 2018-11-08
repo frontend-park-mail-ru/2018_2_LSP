@@ -7,7 +7,7 @@ import { Users } from '/scripts/services/users.mjs';
 
 export default class SignIn extends BaseView {
     constructor(router) {
-        const view = baseView({'headerType': 'back','navClass': 'backButton', 'title': 'Вход'});
+        const view = baseView({'headerType': 'back','navClass': 'navigation_left', 'title': 'Вход'});
         super(view);
         this.router = router
     }
@@ -55,7 +55,7 @@ export default class SignIn extends BaseView {
             Users.auth((err, response) => {	//авторизации пользователя
                 console.log(err, response);
                 if (!err) {
-                    this.router.open('/menu');
+                    this.router.open('/profile');
                 } else {
                     const errorLine = document.getElementsByClassName('errorLine')[0];
                     errorLine.textContent = errorHandler(response.Message);

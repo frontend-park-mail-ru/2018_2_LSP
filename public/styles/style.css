@@ -4,7 +4,10 @@
 @import '../scripts/views/LandingView/Landing.css';
 @import '/scripts/views/GameView/GameView.css';
 
-.centerSection {
+
+.application
+
+.mainSection {
     height: 200px;
     width: 400px;
 
@@ -16,15 +19,16 @@
     transform: translate(-50%, -50%);
 }
 
+.mainSection__title {
+    font-size: 54px;
+    color: brown;
+}
+
+
 .errorLine {
     background-color: brown;
     color: white;
     font-size: 20px;   
-}
-
-h2 {
-    font-size: 54px;
-    color: brown;
 }
 
 table {
@@ -37,24 +41,4 @@ td, th {
     padding: 3px;
     border: 1px solid maroon;
     text-align: left;
-}
-
-/*-------------------------------------*/
-.gameName {
-	font-size: 70px;
-}
-
-.textSize {
-	font-size: 15
-}
-
-.formPage {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.inputs {
-	margin: 0 0 7px 0;
 }

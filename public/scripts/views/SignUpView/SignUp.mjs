@@ -7,7 +7,7 @@ import { Users } from '/scripts/services/users.mjs';
 
 export default class SignUp extends BaseView {
     constructor(router) {
-        const view = baseView({'headerType': 'back','navClass': 'backButton', 'title': 'Регистрация'});
+        const view = baseView({'headerType': 'back','navClass': 'navigation_left', 'title': 'Регистрация'});
         super(view);
         this.router = router;
     }

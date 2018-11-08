@@ -30,8 +30,8 @@ export default class Router {
 
         if (window.location.pathname != path) {
             window.history.pushState(null,'',path);
-        }  
-        
+        }
+
         view = new View(param);            
         view.render();
         this.routes[path] = {View, view, param};

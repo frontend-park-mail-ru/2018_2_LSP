@@ -5,7 +5,7 @@ import GameBus from '/scripts/game/gameBus.mjs';
 
 export default class GameView extends BaseView {
     constructor({mapSide} = {}){
-        const view = baseView({'headerType': 'back', 'navClass': 'backButton'});
+        const view = baseView({'headerType': 'back', 'navClass': 'navigation_left'});
         super(view);
         this.mapSide = mapSide;
     }

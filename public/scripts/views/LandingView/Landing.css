@@ -1,4 +1,4 @@
-.landingButtons {
+.mainSection__content__landingButton {
     background-color: white;
     border: solid 1px grey;
     border-radius: 5px;
@@ -14,7 +14,7 @@
     width: 250px;
 }
 
-.landingButtons:hover {
+.mainSection__content__landingButton:hover {
     background-color: #b30000;
     color: white;
 }

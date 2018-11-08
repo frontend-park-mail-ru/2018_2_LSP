@@ -5,7 +5,7 @@ import { Block } from '/scripts/blocks/Block/Block.mjs';
 
 export default class Profile extends BaseView {
     constructor({profile, router}){
-        const view = baseView({'headerType': 'back','navClass': 'backButton', 'title': 'Профиль'});
+        const view = baseView({'headerType': 'back','navClass': 'navigation_left', 'title': 'Профиль'});
         super(view);
         this._profile = profile;
         this.router = router;

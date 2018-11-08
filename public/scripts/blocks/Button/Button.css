@@ -1,3 +1,5 @@
+
+.navigation__basicButton,
 .basicButton {
     background-color: white;
     border: solid 1px grey;
@@ -6,7 +8,6 @@
     padding: 10px 8px; /*sizes*/
     text-align: center;
     text-decoration: none;
-    /* display: inline-block; */
     font-size: 25px;
     margin: 4px 8px;
     cursor: pointer;
@@ -17,3 +18,4 @@
     background-color: #b30000;
     color: white;
 }
+
