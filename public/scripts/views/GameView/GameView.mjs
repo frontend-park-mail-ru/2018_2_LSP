@@ -61,9 +61,10 @@ export default class GameView extends BaseView {
       
     static getAreaData(id) {
         let area = document.getElementById(id);
-        return [area.offsetLeft, area.offsetTop, area.offsetWidth, area.offsetHeight]
+        let rect = area.getBoundingClientRect();
+        return [rect.left, rect.top, area.offsetWidth, area.offsetHeight]
     }
-      
+    
     static setEventListener(type, id, listener) {
         document.getElementById(id).addEventListener(type, listener)
     }
