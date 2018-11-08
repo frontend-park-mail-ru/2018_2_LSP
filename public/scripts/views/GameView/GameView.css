@@ -16,6 +16,8 @@
 
 .land-block,
 .card {
+  width: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
+  height: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
   position: relative;
   transform: scale(1);
   transform-style: preserve-3d;
