@@ -13,29 +13,28 @@ export default class Router {
     }
 
     open(path) {
-        //const previousRoute = this.routes[window.location.pathname];
+        const previousPath = window.location.pathname;
         let {View, view, param} = this.routes[path];
 
         if(path == '') {
-            this.open('/')
+            this.open('/');
             return;
         }
 
         application.innerHTML = '';
 
+        if (previousPath == '/profile' && path == '/profile') {
+            window.history.go(-1);
+            return;
+        }
+
         if (window.location.pathname != path) {
             window.history.pushState(null,'',path);
-        }  
-
-        if (!view || path == '/singleplayer' || path == '/profile' || path == '/leaders') {
-            view = new View(param);            
-            view.render();
-            this.routes[path] = {View, view, param};
-        } else {
-            application.innerHTML = view.el;
-            const pageContent = document.getElementById('content');
-            pageContent.innerHTML = view.pageContent.innerHTML;
         }
+
+        view = new View(param);            
+        view.render();
+        this.routes[path] = {View, view, param};
     }
 
     start() {

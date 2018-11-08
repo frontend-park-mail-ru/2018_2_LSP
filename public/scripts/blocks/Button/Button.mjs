@@ -9,10 +9,10 @@ export class Button {
     }
 
     render() {
-        this._createButton();
+        this._createLink();
     }
 
-    _createButton() {
+    _createLink() {
         const env = new Block('div',[], {});
 
         const button = new Block('a', this._classes, {'href': this._link});

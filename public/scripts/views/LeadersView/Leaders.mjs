@@ -7,7 +7,7 @@ import { Table } from '/scripts/blocks/Table/Table.mjs';
 
 export default class Leaders extends BaseView{
     constructor(users){
-        const view = baseView({'headerType': 'back','navClass': 'backButton', 'title': 'Лидеры'});
+        const view = baseView({'headerType': 'back','navClass': 'navigation_left', 'title': 'Лидеры'});
         super(view);
         this._users = users;
     }

@@ -7,7 +7,7 @@ import { Users } from '/scripts/services/users.mjs';
 
 export default class SignUp extends BaseView {
     constructor(router) {
-        const view = baseView({'headerType': 'back','navClass': 'backButton', 'title': 'Регистрация'});
+        const view = baseView({'headerType': 'back','navClass': 'navigation_left', 'title': 'Регистрация'});
         super(view);
         this.router = router;
     }
@@ -76,7 +76,7 @@ export default class SignUp extends BaseView {
             }
             Users.register((err, response) => {	//регистрация пользователя
                 console.log(err, response);
-                if (err === null) {
+                if (!err) {
                     this.router.open('/menu');
                 } else {
                     const errorLine = document.getElementsByClassName('errorLine')[0];
