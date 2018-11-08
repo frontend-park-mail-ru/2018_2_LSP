@@ -2,7 +2,7 @@
 @import '../scripts/blocks/Table/Table.css';
 @import '../scripts/blocks/Header/Header.css';
 @import '../scripts/views/LandingView/Landing.css';
-@import '../scripts/game-modules/GameMap.css';
+@import '/scripts/views/GameView/GameView.css';
 
 .centerSection {
     height: 200px;

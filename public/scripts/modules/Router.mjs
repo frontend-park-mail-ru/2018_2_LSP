@@ -27,7 +27,7 @@ export default class Router {
             window.history.pushState(null,'',path);
         }  
 
-        if (!view || path == '/singleplayer' || path == '/profile' || path == '/liderboard') {
+        if (!view || path == '/singleplayer' || path == '/profile' || path == '/leaders') {
             view = new View(param);            
             view.render();
             this.routes[path] = {View, view, param};

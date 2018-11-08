@@ -8,7 +8,7 @@ import SignIn from './views/SignInView/SignIn.mjs';
 import SignUp from './views/SignUpView/SignUp.mjs';
 import Leaders from './views/LeadersView/Leaders.mjs';
 import Router from './modules/Router.mjs';
-import GameMap from './game-modules/GameMap.mjs';
+import GameView from './views/GameView/GameView.mjs';
 import Socket from './modules/websocket.mjs';
 
 const application = document.getElementById('application');
@@ -32,6 +32,6 @@ router.addPath('/rules', RulesView,{type: 'back'});
 router.addPath('/menu', Menu);
 router.addPath('/leaders', Leaders);
 router.addPath('/profile', Profile, {profile: '', router: router});
-router.addPath('/singleplayer', GameMap, {mapSide: 3}); //n x n, нечетные
+router.addPath('/singleplayer', GameView, {mapSide: 3}); //n x n, нечетные
 router.start();
 
