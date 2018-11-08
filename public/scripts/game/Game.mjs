@@ -12,7 +12,7 @@ const distribution = [[CARDTYPES.DEFAULT, 17], [CARDTYPES.GOLD, 6], [CARDTYPES.K
 
 export default class Game {
     constructor(mapSize, playersCount) {
-      this.map = MapBGameViewlder.generateMap(distribution)
+      this.map = MapBuilder.generateMap(distribution);
       this.currentPlayer = 1;
       this.playersCardId = [0, -1, -2];
       this.hovered = false;
