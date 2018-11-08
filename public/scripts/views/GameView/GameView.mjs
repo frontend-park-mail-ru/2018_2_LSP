@@ -41,8 +41,4 @@ export default class GameView extends BaseView {
 
 function flipCard() {
     this.classList.add('flip');
-    
-    // setTimeout(() => {
-    //   this.classList.remove('flip');
-    // }, 1500);
 }

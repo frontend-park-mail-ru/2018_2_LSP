@@ -76,7 +76,7 @@ export default class SignUp extends BaseView {
             }
             Users.register((err, response) => {	//регистрация пользователя
                 console.log(err, response);
-                if (err === null) {
+                if (!err) {
                     this.router.open('/menu');
                 } else {
                     const errorLine = document.getElementsByClassName('errorLine')[0];

@@ -31,7 +31,7 @@ export default class Profile extends BaseView {
         } else {
             const callback = (err, response) => {
                 console.log(err, response);
-                if (err === null) {
+                if (!err) {
                     this._profile = response;
 	                this.render();
                 } else {

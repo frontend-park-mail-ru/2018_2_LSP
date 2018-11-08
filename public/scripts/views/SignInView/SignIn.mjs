@@ -54,7 +54,7 @@ export default class SignIn extends BaseView {
         form.submit(data => {	//добавляем по нажатию кнопки событие
             Users.auth((err, response) => {	//авторизации пользователя
                 console.log(err, response);
-                if (err === null) {
+                if (!err) {
                     this.router.open('/menu');
                 } else {
                     const errorLine = document.getElementsByClassName('errorLine')[0];
