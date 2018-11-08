@@ -3,7 +3,29 @@ const CACHE_KEY = 'cache-v1'; // название кэша
 const cacheUrls = [ // кэшируемые файлы
     '/',
     '/index.html',
+    
+    '/img/ships/blue.png',
+    '/img/ships/green.png',
+    '/img/ships/red.png',
+    '/img/ships/yellow.png',
+
+    '/img/base.png',
+    '/img/empty.png',
+    '/img/gold.png',
+    '/img/grass.png',
+    '/img/plant.png',
+    '/img/unopened.png',
+    '/img/water.png',
+
     '/scripts/main.js',
+
+    '/scripts/game/Boat.mjs',
+    '/scripts/game/Card.mjs',
+    '/scripts/game/Game.mjs',
+    '/scripts/game/gameBus.mjs',
+    '/scripts/game/Map.mjs',
+    '/scripts/game/MapBuilder.mjs',
+    '/scripts/game/Player.mjs',
 
     '/scripts/blocks/Block/Block.mjs',
     '/scripts/blocks/Button/Button.css',
@@ -19,6 +41,8 @@ const cacheUrls = [ // кэшируемые файлы
     '/scripts/modules/eventBus.mjs',
     '/scripts/modules/http.mjs',
     '/scripts/modules/websocket.mjs',
+    '/scripts/modeles/Router.mjs',
+    '/scripts/modeles/jwt-decoder.mjs',
 
     '/scripts/services/users.mjs',
 
@@ -41,6 +65,9 @@ const cacheUrls = [ // кэшируемые файлы
     '/scripts/views/SignInView/SignIn.mjs',
     '/scripts/views/SignUpView/SignUp.css',
     '/scripts/views/SignUpView/SignUp.mjs',
+    '/scripts/views/GameView/gameMap.js',
+    '/scripts/views/GameView/gameMap.pug',
+    '/scripts/views/GameView/GameView.mjs',
 
     '/styles/style.css',
 ];

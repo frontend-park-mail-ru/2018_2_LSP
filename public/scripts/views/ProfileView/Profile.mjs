@@ -5,7 +5,7 @@ import { Block } from '/scripts/blocks/Block/Block.mjs';
 
 export default class Profile extends BaseView {
     constructor({profile, router}){
-        const view = baseView({'headerType': 'back','navClass': 'backButton', 'title': 'Профиль'});
+        const view = baseView({'headerType': 'back','navClass': 'navigation_left', 'title': 'Профиль'});
         super(view);
         this._profile = profile;
         this.router = router;
@@ -20,6 +20,8 @@ export default class Profile extends BaseView {
             const userParams = {
                 'Логин': profileData.username,
                 'Почта': profileData.email,
+                'Имя' : profileData.firstname,
+                'Фамилия' : profileData.lastname,
                 'Сыграно игр': profileData.gamecount,
                 'Счет': profileData.rating
             }; 
@@ -31,7 +33,7 @@ export default class Profile extends BaseView {
         } else {
             const callback = (err, response) => {
                 console.log(err, response);
-                if (err === null) {
+                if (!err) {
                     this._profile = response;
 	                this.render();
                 } else {

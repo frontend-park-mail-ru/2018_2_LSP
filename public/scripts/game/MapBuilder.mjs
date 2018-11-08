@@ -1,4 +1,5 @@
-Array.prototype.remove = function(from, to) {
+Array.prototype.remove = function(from, to)
+{
     var rest = this.slice((to || from) + 1 || this.length);
     this.length = from < 0 ? this.length + from : from;
     return this.push.apply(this, rest);
@@ -16,42 +17,45 @@ array => [
 */
   
 export default class MapBuilder {
-    constructor(distribution) {
-        this.distribution = distribution;
-    }
-
-    generateMap() {
+    constructor() {}
+    
+    static generateMap(distribution)
+    {
         let totalCards = 0;
-        for (let i = 0; i < this.distribution.length; i++) {    // подсчет общего кол-ва карт
-            totalCards += this.distribution[i][1];
+        for (let i = 0; i < distribution.length; i++)
+        {
+            totalCards += distribution[i][1];
         }
-        let mapSize = Math.sqrt(totalCards);    //размерность карты
-
+        let mapSize = Math.sqrt(totalCards);
         let x = 0;
         let y = 0;
         let matrix = [];
         for (let i=0; i < mapSize; i++) {
             matrix[i] = new Array(mapSize);
         }
-
-        while (this.distribution.length > 0) {
-            let index = this._getRandomInt(0, this.distribution.length - 1);
-            let cardType = this.distribution[index][0];
-            this.distribution[index][1]--;
-            if (this.distribution[index][1] == 0) {
-                this.distribution.remove(index);
+        while (distribution.length > 0)
+        {
+            let index = getRandomInt(0, distribution.length - 1);
+            let cardType = distribution[index][0];
+            distribution[index][1]--;
+            if (distribution[index][1] == 0)
+            {
+                distribution.remove(index)
             }
             matrix[x][y] = cardType;
             x++;
-            if (x == mapSize) {
+            if (x == mapSize)
+            {
                 x = 0;
                 y++;
             }
         }
-        return matrix;
-    }
-
-    _getRandomInt(min, max) {   // генерируем значение для получения случайной карты
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+        let map = new Map(matrix, mapSize);
+        return map;
     }
 };
+
+function getRandomInt(min, max)
+{
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
