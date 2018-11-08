@@ -1,199 +1,307 @@
-function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function gameMap(locals) {var pug_html = "", pug_mixins = {}, pug_interp;var pug_debug_filename, pug_debug_line;try {var pug_debug_sources = {"gameMap.pug":"mixin landEmptyRow\n    - for (var i = 0; i \u003C boardSide; ++i) {        \n        div(class='land-block', id='gameCard')\n            if i == (boardSide-1) \u002F 2\n                img(class='land-card', src='img\u002Fbase.png')\n            else\n                img(class='land-card', src='img\u002Fempty.png')\n    - }\n\nmixin emptyTile\n    div(class='land-block', id='gameCard')\n        img(class='land-card', src='img\u002Fempty.png') \n\nsection(class='board', id='gameBoard')\n    +landEmptyRow\n    each row in cardsMap\n        +emptyTile      \n        each val in row\n            div(class='card', id='gameCard')\n                case val\n                    when 0\n                        img(class='front-face', src='img\u002Fgold.png')\n                    when 1\n                        img(class='front-face', src='img\u002Fwater.png')\n                    when 2\n                        img(class='front-face', src='img\u002Fgrass.png')\n                    when 3\n                        img(class='front-face', src='img\u002Fplant.png')\n                img(class='back-face', src='img\u002Funopened.png')\n        +emptyTile\n    +landEmptyRow"};
-;var locals_for_with = (locals || {});(function (boardSide, cardsMap) {;pug_debug_line = 1;pug_debug_filename = "gameMap.pug";
-pug_mixins["landEmptyRow"] = pug_interp = function(){
-var block = (this && this.block), attributes = (this && this.attributes) || {};
+function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function gameMap(locals) {var pug_html = "", pug_mixins = {}, pug_interp;var pug_debug_filename, pug_debug_line;try {var pug_debug_sources = {"gameMap.pug":"div(style=\"width:20px;height:20px;background-color:coral;position:absolute;z-index: 1\" id=\"player-1\")\ndiv(style=\"width:20px;height:20px;background-color:chartreuse;position:absolute;z-index: 1\" id=\"player-2\")\nsection(class='board', id='gameBoard')\n    div(class='card', id='gameCard')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id='gameCard')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id='gameCard')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id='gameCard')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card',  id=\"ship-1\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Fship.png')\n    div(class='card', id='gameCard')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id='gameCard')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id='gameCard')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id='gameCard')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n\n    div(class='card', id=\"gamecard-1\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id=\"gamecard-2\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id=\"gamecard-3\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id=\"gamecard-4\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id=\"gamecard-5\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id=\"gamecard-6\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-7\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-8\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-9\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-10\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    \n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id=\"gamecard-11\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-12\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-13\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-14\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-15\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    \n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id=\"gamecard-16\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-17\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-18\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-19\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-20\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    \n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card', id=\"gamecard-21\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-22\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-23\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-24\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    div(class='card', id=\"gamecard-25\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funopened.png')\n    \n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card',  id=\"ship-2\")\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Fship.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')\n    div(class='card')\n        img(class='front-face', src='img\u002Fwater.png')\n        img(class='back-face', src='img\u002Funused.png')"};
+;pug_debug_line = 1;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv style=\"width:20px;height:20px;background-color:coral;position:absolute;z-index: 1\" id=\"player-1\"\u003E\u003C\u002Fdiv\u003E";
 ;pug_debug_line = 2;pug_debug_filename = "gameMap.pug";
-for (var i = 0; i < boardSide; ++i) {        
-{
+pug_html = pug_html + "\u003Cdiv style=\"width:20px;height:20px;background-color:chartreuse;position:absolute;z-index: 1\" id=\"player-2\"\u003E\u003C\u002Fdiv\u003E";
 ;pug_debug_line = 3;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cdiv class=\"land-block\" id=\"gameCard\"\u003E";
-;pug_debug_line = 4;pug_debug_filename = "gameMap.pug";
-if (i == (boardSide-1) / 2) {
-;pug_debug_line = 5;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"land-card\" src=\"img\u002Fbase.png\"\u002F\u003E";
-}
-else {
-;pug_debug_line = 7;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"land-card\" src=\"img\u002Fempty.png\"\u002F\u003E";
-}
-pug_html = pug_html + "\u003C\u002Fdiv\u003E";
-}
-;pug_debug_line = 8;pug_debug_filename = "gameMap.pug";
-}
-};
-;pug_debug_line = 10;pug_debug_filename = "gameMap.pug";
-pug_mixins["emptyTile"] = pug_interp = function(){
-var block = (this && this.block), attributes = (this && this.attributes) || {};
-;pug_debug_line = 11;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cdiv class=\"land-block\" id=\"gameCard\"\u003E";
-;pug_debug_line = 12;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"land-card\" src=\"img\u002Fempty.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
-};
-;pug_debug_line = 14;pug_debug_filename = "gameMap.pug";
 pug_html = pug_html + "\u003Csection class=\"board\" id=\"gameBoard\"\u003E";
+;pug_debug_line = 4;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gameCard\"\u003E";
+;pug_debug_line = 5;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 6;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 7;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gameCard\"\u003E";
+;pug_debug_line = 8;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 9;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 10;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gameCard\"\u003E";
+;pug_debug_line = 11;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 12;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 13;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gameCard\"\u003E";
+;pug_debug_line = 14;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
 ;pug_debug_line = 15;pug_debug_filename = "gameMap.pug";
-pug_mixins["landEmptyRow"]();
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
 ;pug_debug_line = 16;pug_debug_filename = "gameMap.pug";
-// iterate cardsMap
-;(function(){
-  var $$obj = cardsMap;
-  if ('number' == typeof $$obj.length) {
-      for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
-        var row = $$obj[pug_index0];
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"ship-1\"\u003E";
 ;pug_debug_line = 17;pug_debug_filename = "gameMap.pug";
-pug_mixins["emptyTile"].call({
-block: function(){
-;pug_debug_line = 17;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "     ";
-}
-});
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
 ;pug_debug_line = 18;pug_debug_filename = "gameMap.pug";
-// iterate row
-;(function(){
-  var $$obj = row;
-  if ('number' == typeof $$obj.length) {
-      for (var pug_index1 = 0, $$l = $$obj.length; pug_index1 < $$l; pug_index1++) {
-        var val = $$obj[pug_index1];
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Fship.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
 ;pug_debug_line = 19;pug_debug_filename = "gameMap.pug";
 pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gameCard\"\u003E";
 ;pug_debug_line = 20;pug_debug_filename = "gameMap.pug";
-switch (val){
-case 0:
-;pug_debug_line = 22;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fgold.png\"\u002F\u003E";
-  break;
-case 1:
-;pug_debug_line = 24;pug_debug_filename = "gameMap.pug";
 pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
-  break;
-case 2:
-;pug_debug_line = 26;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fgrass.png\"\u002F\u003E";
-  break;
-case 3:
-;pug_debug_line = 28;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fplant.png\"\u002F\u003E";
-  break;
-}
-;pug_debug_line = 29;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
-      }
-  } else {
-    var $$l = 0;
-    for (var pug_index1 in $$obj) {
-      $$l++;
-      var val = $$obj[pug_index1];
-;pug_debug_line = 19;pug_debug_filename = "gameMap.pug";
+;pug_debug_line = 21;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 22;pug_debug_filename = "gameMap.pug";
 pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gameCard\"\u003E";
-;pug_debug_line = 20;pug_debug_filename = "gameMap.pug";
-switch (val){
-case 0:
-;pug_debug_line = 22;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fgold.png\"\u002F\u003E";
-  break;
-case 1:
-;pug_debug_line = 24;pug_debug_filename = "gameMap.pug";
+;pug_debug_line = 23;pug_debug_filename = "gameMap.pug";
 pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
-  break;
-case 2:
+;pug_debug_line = 24;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 25;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gameCard\"\u003E";
 ;pug_debug_line = 26;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fgrass.png\"\u002F\u003E";
-  break;
-case 3:
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 27;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
 ;pug_debug_line = 28;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fplant.png\"\u002F\u003E";
-  break;
-}
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gameCard\"\u003E";
 ;pug_debug_line = 29;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
-    }
-  }
-}).call(this);
-
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
 ;pug_debug_line = 30;pug_debug_filename = "gameMap.pug";
-pug_mixins["emptyTile"]();
-      }
-  } else {
-    var $$l = 0;
-    for (var pug_index0 in $$obj) {
-      $$l++;
-      var row = $$obj[pug_index0];
-;pug_debug_line = 17;pug_debug_filename = "gameMap.pug";
-pug_mixins["emptyTile"].call({
-block: function(){
-;pug_debug_line = 17;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "     ";
-}
-});
-;pug_debug_line = 18;pug_debug_filename = "gameMap.pug";
-// iterate row
-;(function(){
-  var $$obj = row;
-  if ('number' == typeof $$obj.length) {
-      for (var pug_index2 = 0, $$l = $$obj.length; pug_index2 < $$l; pug_index2++) {
-        var val = $$obj[pug_index2];
-;pug_debug_line = 19;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gameCard\"\u003E";
-;pug_debug_line = 20;pug_debug_filename = "gameMap.pug";
-switch (val){
-case 0:
-;pug_debug_line = 22;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fgold.png\"\u002F\u003E";
-  break;
-case 1:
-;pug_debug_line = 24;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 32;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-1\"\u003E";
+;pug_debug_line = 33;pug_debug_filename = "gameMap.pug";
 pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
-  break;
-case 2:
-;pug_debug_line = 26;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fgrass.png\"\u002F\u003E";
-  break;
-case 3:
-;pug_debug_line = 28;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fplant.png\"\u002F\u003E";
-  break;
-}
-;pug_debug_line = 29;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
-      }
-  } else {
-    var $$l = 0;
-    for (var pug_index2 in $$obj) {
-      $$l++;
-      var val = $$obj[pug_index2];
-;pug_debug_line = 19;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gameCard\"\u003E";
-;pug_debug_line = 20;pug_debug_filename = "gameMap.pug";
-switch (val){
-case 0:
-;pug_debug_line = 22;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fgold.png\"\u002F\u003E";
-  break;
-case 1:
-;pug_debug_line = 24;pug_debug_filename = "gameMap.pug";
+;pug_debug_line = 34;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 35;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-2\"\u003E";
+;pug_debug_line = 36;pug_debug_filename = "gameMap.pug";
 pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
-  break;
-case 2:
-;pug_debug_line = 26;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fgrass.png\"\u002F\u003E";
-  break;
-case 3:
-;pug_debug_line = 28;pug_debug_filename = "gameMap.pug";
-pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fplant.png\"\u002F\u003E";
-  break;
-}
-;pug_debug_line = 29;pug_debug_filename = "gameMap.pug";
+;pug_debug_line = 37;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 38;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-3\"\u003E";
+;pug_debug_line = 39;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 40;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 41;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-4\"\u003E";
+;pug_debug_line = 42;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 43;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 44;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-5\"\u003E";
+;pug_debug_line = 45;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 46;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 47;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 48;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 49;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 50;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 51;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 52;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 53;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-6\"\u003E";
+;pug_debug_line = 54;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 55;pug_debug_filename = "gameMap.pug";
 pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
-    }
-  }
-}).call(this);
-
-;pug_debug_line = 30;pug_debug_filename = "gameMap.pug";
-pug_mixins["emptyTile"]();
-    }
-  }
-}).call(this);
-
-;pug_debug_line = 31;pug_debug_filename = "gameMap.pug";
-pug_mixins["landEmptyRow"]();
-pug_html = pug_html + "\u003C\u002Fsection\u003E";}.call(this,"boardSide" in locals_for_with?locals_for_with.boardSide:typeof boardSide!=="undefined"?boardSide:undefined,"cardsMap" in locals_for_with?locals_for_with.cardsMap:typeof cardsMap!=="undefined"?cardsMap:undefined));} catch (err) {pug_rethrow(err, pug_debug_filename, pug_debug_line, pug_debug_sources[pug_debug_filename]);};return pug_html;}
+;pug_debug_line = 56;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-7\"\u003E";
+;pug_debug_line = 57;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 58;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 59;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-8\"\u003E";
+;pug_debug_line = 60;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 61;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 62;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-9\"\u003E";
+;pug_debug_line = 63;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 64;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 65;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-10\"\u003E";
+;pug_debug_line = 66;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 67;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 69;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 70;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 71;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 72;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 73;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 74;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 75;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-11\"\u003E";
+;pug_debug_line = 76;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 77;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 78;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-12\"\u003E";
+;pug_debug_line = 79;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 80;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 81;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-13\"\u003E";
+;pug_debug_line = 82;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 83;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 84;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-14\"\u003E";
+;pug_debug_line = 85;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 86;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 87;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-15\"\u003E";
+;pug_debug_line = 88;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 89;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 91;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 92;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 93;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 94;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 95;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 96;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 97;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-16\"\u003E";
+;pug_debug_line = 98;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 99;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 100;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-17\"\u003E";
+;pug_debug_line = 101;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 102;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 103;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-18\"\u003E";
+;pug_debug_line = 104;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 105;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 106;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-19\"\u003E";
+;pug_debug_line = 107;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 108;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 109;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-20\"\u003E";
+;pug_debug_line = 110;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 111;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 113;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 114;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 115;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 116;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 117;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 118;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 119;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-21\"\u003E";
+;pug_debug_line = 120;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 121;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 122;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-22\"\u003E";
+;pug_debug_line = 123;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 124;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 125;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-23\"\u003E";
+;pug_debug_line = 126;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 127;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 128;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-24\"\u003E";
+;pug_debug_line = 129;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 130;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 131;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"gamecard-25\"\u003E";
+;pug_debug_line = 132;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 133;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funopened.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 135;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 136;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 137;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 138;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 139;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 140;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 141;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 142;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 143;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 144;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 145;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 146;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 147;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\" id=\"ship-2\"\u003E";
+;pug_debug_line = 148;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 149;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Fship.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 150;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 151;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 152;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 153;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 154;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 155;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+;pug_debug_line = 156;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cdiv class=\"card\"\u003E";
+;pug_debug_line = 157;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"front-face\" src=\"img\u002Fwater.png\"\u002F\u003E";
+;pug_debug_line = 158;pug_debug_filename = "gameMap.pug";
+pug_html = pug_html + "\u003Cimg class=\"back-face\" src=\"img\u002Funused.png\"\u002F\u003E\u003C\u002Fdiv\u003E\u003C\u002Fsection\u003E";} catch (err) {pug_rethrow(err, pug_debug_filename, pug_debug_line, pug_debug_sources[pug_debug_filename]);};return pug_html;}

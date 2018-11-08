@@ -30,6 +30,6 @@ router.addPath('/rules', RulesView,{type: 'back'});
 router.addPath('/menu', Menu);
 router.addPath('/leaders', Leaders);
 router.addPath('/profile', Profile, {profile: '', router: router});
-router.addPath('/singleplayer', GameView, {mapSide: 3}); //n x n, нечетные
+router.addPath('/singleplayer', GameView, {mapSide: 5}); //n x n, нечетные
 router.start();
 
