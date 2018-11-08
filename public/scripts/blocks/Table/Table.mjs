@@ -1,10 +1,8 @@
 import { Block } from '../Block/Block.mjs';
 
-export default class Table extends Block {
+export class Table extends Block {
     constructor(head = []) {
-        const table = document.createElement('table');
-        super(table);
-        this.table = table;
+        super('table');
         this.head = head;
     }
 
@@ -18,7 +16,7 @@ export default class Table extends Block {
             tr.appendChild(th);
         });
         thead.appendChild(tr);
-        this.table.appendChild(thead);
+        this.getElement().appendChild(thead);
     }
 
     _data(data = []) {
@@ -38,11 +36,7 @@ export default class Table extends Block {
             }
             tbody.appendChild(tr);
         });
-        this.table.appendChild(tbody);
-    }
-
-    clear() {
-        this.table.innerHTML = '';
+        this.getElement().appendChild(tbody);
     }
 
     update(data = []) {

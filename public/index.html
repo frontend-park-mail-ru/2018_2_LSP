@@ -1,14 +1,16 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Шакал</title>
+        <title>Пираты</title>
         <link rel="stylesheet" href="/styles/style.css"/>
     </head>
 
     <body>
-        <div id="application"></div>
-        <script type="module" src="/scripts/modules/http.js"></script>
-        <script type="module" src="/scripts/services/users.js"></script>
+        <div class="application" id="application"></div>
+        <script src="scripts/modules/jwt-decoder.mjs"></script>        
+        <script src="scripts/views/BaseView/baseView.js"></script>
+        <script src="scripts/views/LandingView/landingView.js"></script>
+        <script src="scripts/views/GameView/gameMap.js"></script>
         <script type="module" src="/scripts/main.js"></script>
     </body>
 </html>

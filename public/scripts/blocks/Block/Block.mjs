@@ -1,18 +1,13 @@
 export class Block {
-    constructor(element) {
-        this.element = element;
-    }
-
-    static Create(tag = 'div', classes = [], attributes = {}) {
-        const element = document.createElement(tag);
+    constructor(tag = 'div', classes = [], attributes = {}) {
+        this.element = document.createElement(tag);
         classes.forEach(oneClass => {
-            element.classList.add(oneClass);
+            this.element.classList.add(oneClass);
         });
 
         for (let attribute in attributes) {
-            element.setAttribute(attribute, attributes[attribute]);
+            this.element.setAttribute(attribute, attributes[attribute]);
         }
-        return new Block(element);
     }
 
     getElement() {
@@ -25,6 +20,10 @@ export class Block {
 
     show() {
         this.element.removeAttribute('hidden', true);
+    }
+
+    clear() {
+        this.element.innerHTML = '';
     }
 
     setText(text = '') {

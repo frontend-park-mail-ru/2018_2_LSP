@@ -9,17 +9,18 @@ export class Button {
     }
 
     render() {
-        this._createButton();
+        this._createLink();
     }
 
-    _createButton() {
-        const env = Block.Create('div',[], {});
+    _createLink() {
+        const env = new Block('div',[], {});
 
-        const button = Block.Create('a', this._classes, {'href': this._link});
+        const button = new Block('a', this._classes, {'href': this._link});
         button.getElement().dataset.href = this._link;
         button.setText(this._text);
 
         env.append(button);
-        this._appendTo.append(env);
+        //this._appendTo.append(env);
+        this._appendTo.appendChild(env.getElement());
     }
 }

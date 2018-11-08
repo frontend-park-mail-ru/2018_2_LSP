@@ -1,79 +1,35 @@
 'use strict';
 
-import { Landing } from './components/Landing/Landing.mjs';
-import { Menu } from './components/Menu/Menu.mjs';
-import { RulesPage } from './components/RulesPage/RulesPage.mjs';
-import { Profile } from './components/Profile/Profile.mjs';
-import { SignIn } from './components/SignIn/SignIn.mjs';
-import { SignUp } from './components/SignUp/SignUp.mjs';
-import { Leaders } from './components/Leaders/Leaders.mjs';
+import Landing from './views/LandingView/Landing.mjs';
+import Menu from './views/MenuView/Menu.mjs';
+import RulesView from './views/RulesView/RulesView.mjs';
+import Profile from './views/ProfileView/Profile.mjs';
+import SignIn from './views/SignInView/SignIn.mjs';
+import SignUp from './views/SignUpView/SignUp.mjs';
+import Leaders from './views/LeadersView/Leaders.mjs';
+import Router from './modules/Router.mjs';
+import GameView from './views/GameView/GameView.mjs';
+import Socket from './modules/websocket.mjs';
 
-
-const application = document.getElementById('application');
-
-//роутинг по страницам
-application.addEventListener('click', event => {
-	if (!(event.target instanceof HTMLAnchorElement)) {
-		return;
-	}
-	event.preventDefault();
-
-	application.innerHTML = '';
-	if (pages[event.target.dataset.href] != null) {
-		pages[event.target.dataset.href]();
-	}
-});
-
-createLandingPage();
-
-//функции создания страниц
-const pages = {
-	landing: createLandingPage,
-	signin: createSigninPage,
-	signup: createSignupPage,
-	menu: createMenuPage,
-	leaders: createLeadersPage,
-	rulesLanding: createRulesFromLanding,
-	rulesMenu: createRulesFromMenu,
-	profile: createProfilePage,
-};
-
-function createLandingPage() {
-	const landingMenu = new Landing({});
-	landingMenu.render();
+// авторизация service-worker
+if ("serviceWorker" in navigator) {
+	navigator.serviceWorker.register('ServiceWorcker.js')
+		.then(function(registration) {
+			console.log('Service worker registration OK:', registration);
+		})
+		.catch(function(error) {
+			console.log('Service worker registration FAIL:', error);
+		});
 }
 
-function createSigninPage() {
-	const signInPage = new SignIn({});
-	signInPage.render();
-}
+const router = new Router();
+router.addPath('/', Landing);
+router.addPath('/signin', SignIn, router);
+router.addPath('/signup', SignUp, router);
+router.addPath('/rules', RulesView,{type: 'back'});
+router.addPath('/menu', Menu);
+router.addPath('/leaders', Leaders);
+router.addPath('/profile', Profile, {profile: '', router: router});
+router.addPath('/singleplayer', GameView, {mapSide: 3}); //n x n, нечетные
+router.start();
 
-function createSignupPage() {
-	const signUpPage = new SignUp({});
-	signUpPage.render();
-}
-
-function createMenuPage() {
-	const mainMenu = new Menu();
-	mainMenu.render();
-}
-
-function createLeadersPage(users) {
-	const leadersPage = new Leaders(users);
-	leadersPage.render();
-}
-
-function createRulesFromLanding() {
-	const rulesPage = new RulesPage({type: 'fromLanding'});
-	rulesPage.render();
-}
-
-function createRulesFromMenu() {
-	const rulesPage = new RulesPage({type: 'fromMenu'});
-	rulesPage.render();
-}
-
-function createProfilePage(profile) {
-	const profilePage = new Profile(profile);
-	profilePage.render();
-}
