@@ -3,6 +3,18 @@ const CACHE_KEY = 'cache-v1'; // название кэша
 const cacheUrls = [ // кэшируемые файлы
     '/',
     '/index.html',
+    
+    '/img/ships/blue.png',
+    '/img/ships/green.png',
+    '/img/ships/red.png',
+    '/img/ships/yellow.png',
+
+    '/img/base.png',
+    '/img/empty.png',
+    '/img/gold.png',
+    '/img/.png',
+
+
     '/scripts/main.js',
 
     '/scripts/blocks/Block/Block.mjs',

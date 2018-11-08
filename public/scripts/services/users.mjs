@@ -47,7 +47,7 @@ export class Users {
 		if (payload) {
 			payload = jwt_decode(payload)['id'];
 		}
-		Http.Get(call, path + '/users/' + payload + '?fields=firstname,lastname,avatar,rating,email,avatar');
+		Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar');
 	}
 
 	static leaders(callback, data = {}) {

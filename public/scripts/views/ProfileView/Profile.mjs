@@ -20,6 +20,8 @@ export default class Profile extends BaseView {
             const userParams = {
                 'Логин': profileData.username,
                 'Почта': profileData.email,
+                'Имя' : profileData.firstname,
+                'Фамилия' : profileData.lastname,
                 'Сыграно игр': profileData.gamecount,
                 'Счет': profileData.rating
             }; 
