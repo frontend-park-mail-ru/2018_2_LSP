@@ -19,20 +19,10 @@ export default class GameView extends BaseView {
 
         const mapSize = 5;
         const playersCount = 2;
-        game = new Game(document, mapSize, playersCount); 
+        window.game = new Game(document, mapSize, playersCount); 
         // const mapSize = 5;
         // const playersCount = 2;
         // game = new Game(document, mapSize, playersCount);        
-        }
-
-        playerClick() {
-            game.playerClick(this.id);
-        }
-
-        flipCard() {
-            if (game.flipCard(this.id)) {
-              this.classList.add('flip');
-            }
         }
     }
 

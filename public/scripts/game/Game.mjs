@@ -1,6 +1,5 @@
 import MapBuilder from '/scripts/game/MapBuilder.mjs'
 import {CardBuilder, GoldCard, EmptyCard, KillCard} from '/scripts/game/CardBuilder.mjs'
-// import GameView from '/scripts/view/GameView.mjs';
 
 let CARDTYPES = {}
 CARDTYPES.DEFAULT = 0;
@@ -11,6 +10,15 @@ const distribution = [[CARDTYPES.DEFAULT, 17], [CARDTYPES.GOLD, 6], [CARDTYPES.K
 
 let document;
 
+function playerClick() {
+  window.game.playerClick(this.id);
+}
+
+function flipCard() {
+  if (window.game.flipCard(this.id)) {
+    this.classList.add('flip');
+  }
+}
 
 export default class Game {
     constructor(doc, mapSize, playersCount) {
@@ -31,8 +39,8 @@ export default class Game {
       }
   
       for (let i = 1; i <= playersCount; i++) {
-        let ship = UI.getAreaData(document, "ship-" + i);
-        UI.placeDiv(document, "player-" + i, ship[0], ship[1]);
+        let ship = UI.getAreaData("ship-" + i);
+        UI.placeDiv("player-" + i, ship[0], ship[1]);
         UI.setEventListener(document, 'click', 'player-' + i, playerClick)
       }
     }
@@ -40,6 +48,7 @@ export default class Game {
     checkForWin() {
       for (let i = 1; i < this.playersCount; i++) {
         if (this.scores[i] > this.totalGoldCount / 2) {
+          alert("Игрок " + this.currentPlayer + " выиграл! Вы можете продолжать игру (тестовый режим).");
           return true;
         }
       }
@@ -48,11 +57,11 @@ export default class Game {
   
     startTimer() {
       return window.setTimeout(function() {
-        game.currentPlayer++;
-        if (game.currentPlayer % (game.playersCount + 1) == 0) {
-          game.currentPlayer = 1;
+        window.game.currentPlayer++;
+        if (window.game.currentPlayer % (window.game.playersCount + 1) == 0) {
+          window.game.currentPlayer = 1;
         }
-        game.hovered = false;
+        window.game.hovered = false;
         UI.resetOpacity(document);
         alert("Время вашего хода истекло");
       }, 10000);
@@ -100,13 +109,13 @@ export default class Game {
         }
       }
   
-      let cardData = UI.getAreaData(document, "gamecard-" + cardID)
-      UI.placeDiv(document, "player-" + this.currentPlayer, cardData[0], cardData[1])
+      let cardData = UI.getAreaData("gamecard-" + cardID)
+      UI.placeDiv("player-" + this.currentPlayer, cardData[0], cardData[1])
       this.playersCardId[this.currentPlayer] = cardID;
   
   
       let cardType = this.map.getCardType(cardID);
-      let cardObject = CardBGameViewlder.bGameViewld(cardType)
+      let cardObject = CardBuilder.build(cardType);
       cardObject.apply(this);
   
       if (this.checkForWin()) {
@@ -121,13 +130,13 @@ export default class Game {
   
       switch (cardType) {
         case CARDTYPES.GOLD:
-          document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'gold.png';
+          document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'img/gold.png';
           break;
         case CARDTYPES.KILL:
-          document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'kill.png';
+          document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'img/kill.png';
           break;
         default:
-          document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'water.png';
+          document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'img/water.png';
           break;
       }
   
@@ -143,7 +152,7 @@ export default class Game {
     return parseInt(n.match(/\d+/)[0]);
   }
 
-  class UI {
+  export class UI {
     static resetOpacity(document) {
       for(let i = 1; i <= game.map.size * game.map.size; ++i) {
           document.getElementById("gamecard-" + i).style.opacity = 1;
@@ -156,16 +165,17 @@ export default class Game {
       }
     }
     
-    static placeDiv(document, id, x_pos, y_pos) {
+    static placeDiv(id, x_pos, y_pos) {
       let d = document.getElementById(id);
       d.style.left = x_pos+'px';
       d.style.top = y_pos+'px';
     }
     
-    static getAreaData(document, id) {
+    static getAreaData(id) {
       let area = document.getElementById(id);
-      return [area.offsetLeft, area.offsetTop, area.offsetWidth, area.offsetHeight]
-    }
+      let rect = area.getBoundingClientRect();
+      return [rect.left, rect.top, area.offsetWidth, area.offsetHeight]
+    }  
     
     static setEventListener(document, type, id, listener) {
       console.log(document)
