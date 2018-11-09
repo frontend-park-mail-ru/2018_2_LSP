@@ -10,7 +10,6 @@ const app = express();
 const ws = require('express-ws');
 const tls = require('tls');
 const fs = require('fs');
-// const http = require('http');
 const https = require('https');
 const PORT = process.env.PORT || 3000;
 

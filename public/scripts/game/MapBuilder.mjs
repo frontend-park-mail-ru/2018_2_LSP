@@ -1,7 +1,6 @@
 import Map from '/scripts/game/Map.mjs';
 
-Array.prototype.remove = function(from, to)
-{
+Array.prototype.remove = function(from, to) {
     var rest = this.slice((to || from) + 1 || this.length);
     this.length = from < 0 ? this.length + from : from;
     return this.push.apply(this, rest);
@@ -21,11 +20,9 @@ array => [
 export default class MapBuilder {
     constructor() {}
     
-    static generateMap(distribution)
-    {
+    static generateMap(distribution) {
         let totalCards = 0;
-        for (let i = 0; i < distribution.length; i++)
-        {
+        for (let i = 0; i < distribution.length; i++) {
             totalCards += distribution[i][1];
         }
         let mapSize = Math.sqrt(totalCards);
@@ -35,19 +32,16 @@ export default class MapBuilder {
         for (let i=0; i < mapSize; i++) {
             matrix[i] = new Array(mapSize);
         }
-        while (distribution.length > 0)
-        {
+        while (distribution.length > 0) {
             let index = getRandomInt(0, distribution.length - 1);
             let cardType = distribution[index][0];
             distribution[index][1]--;
-            if (distribution[index][1] == 0)
-            {
-                distribution.remove(index)
+            if (distribution[index][1] == 0) {
+                distribution.remove(index);
             }
             matrix[x][y] = cardType;
             x++;
-            if (x == mapSize)
-            {
+            if (x == mapSize) {
                 x = 0;
                 y++;
             }
@@ -57,7 +51,6 @@ export default class MapBuilder {
     }
 };
 
-function getRandomInt(min, max)
-{
+function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
