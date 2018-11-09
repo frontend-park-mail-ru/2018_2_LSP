@@ -1,5 +1,6 @@
 import MapBuilder from '/scripts/game/MapBuilder.mjs'
 import {CardBuilder, GoldCard, EmptyCard, KillCard} from '/scripts/game/CardBuilder.mjs'
+// import GameView from '/scripts/view/GameView.mjs';
 
 let CARDTYPES = {}
 CARDTYPES.DEFAULT = 0;
@@ -140,16 +141,6 @@ export default class Game {
 
   function extractNumber(n) {
     return parseInt(n.match(/\d+/)[0]);
-  }  
-
-  function playerClick() {
-    game.playerClick(this.id);
-  }
-  
-  function flipCard() {
-    if (game.flipCard(this.id)) {
-      this.classList.add('flip');
-    }
   }
 
   class UI {
