@@ -14,6 +14,7 @@ export default class GameView extends BaseView {
     }
 
     render() {
+<<<<<<< HEAD
         // let cardsDistribution = [];
         // if (this.mapSide == 3) {
         //     cardsDistribution = [[0,1], [1,5], [2,2], [3,1]]; //3x3
@@ -29,27 +30,23 @@ export default class GameView extends BaseView {
 
         // const boardSide = this.mapSide + 2; //с землей вокруг
 
+=======
+>>>>>>> 04f7b7caae481ba1af6b6c9551385fedc0dd33e8
         const gameBoard = gameMap();
         application.insertAdjacentHTML('beforeend', gameBoard);
 
-        // const cards = document.querySelectorAll('.card, .land-block');
-        // cards.forEach(card => {
-        //     card.style.width = card.style.height = 'calc(100% / ' + boardSide + ')';
-        //     cards.forEach(card => {
-        //         card.addEventListener('click', flipCard);
-        //         GameBus.on('open-card', flipCard);
-        //     });
-        // });
-
         const mapSize = 5;
         const playersCount = 2;
-
-        game = new Game(document, mapSize, playersCount);
-        
+        window.game = new Game(document, mapSize, playersCount); 
+        // const mapSize = 5;
+        // const playersCount = 2;
+        // game = new Game(document, mapSize, playersCount);        
+        }
     }
 
-    
-    }
+
+      
+
     
 
 

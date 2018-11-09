@@ -1,3 +1,5 @@
+import {UI} from '/scripts/game/Game.mjs'
+
 let CARDTYPES = {}
 CARDTYPES.DEFAULT = 0;
 CARDTYPES.GOLD = 1;
