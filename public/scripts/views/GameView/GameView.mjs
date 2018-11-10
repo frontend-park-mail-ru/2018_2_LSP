@@ -1,8 +1,8 @@
-import BaseView from '/scripts/views/BaseView/BaseView.mjs';
-// import MapBuilder from '/scripts/game/MapBuilder.mjs';
-// import Map from '/scripts/game/Map.js';
-// import GameBus from '/scripts/game/gameBus.mjs';
-import Game from '/scripts/game/Game.mjs';
+import BaseView from '../../views/BaseView/BaseView.mjs';
+// import MapBuilder from '../../game/MapBuilder.mjs';
+// import Map from '../../game/Map.js';
+// import GameBus from '../../game/gameBus.mjs';
+import Game from '../../game/Game.mjs';
 
 let game;
 
@@ -19,7 +19,7 @@ export default class GameView extends BaseView {
 
         const mapSize = 5;
         const playersCount = 2;
-        window.game = new Game(document, mapSize, playersCount);       
+        window.game = new Game(document, mapSize, playersCount, 2);       
     }
 }
 

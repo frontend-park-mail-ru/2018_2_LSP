@@ -1,5 +1,6 @@
 import MapBuilder from '/scripts/game/MapBuilder.mjs';
-import {CardBuilder, GoldCard, EmptyCard, KillCard} from '/scripts/game/CardBuilder.mjs';
+import {CardBuilder} from '/scripts/game/CardBuilder.mjs';
+import Player from '/scripts/game/Player.mjs';
 
 let CARDTYPES = {};
 CARDTYPES.DEFAULT = 0;
@@ -21,11 +22,11 @@ function flipCard() {
 }
 
 export default class Game {
-    constructor(doc, mapSize, playersCount) {
+    constructor(doc, mapSize, playersCount, pirateCount) {
 		document = doc;
-		UI.document = doc;
+		this.UI = new UI(doc);
 		this.map = MapBuilder.generateMap(distribution);
-		this.currentPlayer = 1;
+		this.currentPlayer = 0; //1?
 		this.playersCardId = [0, -1, -2];
 		this.hovered = false;
 		this.playersCount = playersCount;
@@ -33,23 +34,33 @@ export default class Game {
 		this.timeOut = this.startTimer();
 		this.totalGoldCount = this.map.getTotalGoldCount();
 		console.log(this.totalGoldCount);
+		this.currentSelectedPirate = -1; // TODO убрать
+
+
+		this.players = Array(playersCount);
+		for(let i = 0; i < playersCount; i++) {
+			this.players[i] = new Player();
+			this.players[i].addPirates(pirateCount, -i);
+		}
+
 	
 		for(let i = 1; i <= mapSize*mapSize; ++i) {
-			UI.setEventListener(document, 'click', "gamecard-" + i, flipCard);
+			UI.setEventListener('click', "gamecard-" + i, flipCard);
 		}
 	
-		for (let i = 1; i <= playersCount; i++) {
+		for (let i = 0; i < this.players.length; i++) {
 			let ship = UI.getAreaData("ship-" + i);
-			UI.placeDiv("player-" + i, ship[0], ship[1]);
-			UI.setEventListener(document, 'click', 'player-' + i, playerClick);
+			for (let j = 0; j < this.players[i].getPirates().length; j++) {
+				UI.placeDiv("player-" + i + "-" + j, ship[0], ship[1]);
+				UI.setEventListener('click', "player-" + i + "-" + j, playerClick);
+			}
 		}
     }
   
     checkForWin() {
-		for (let i = 1; i < this.playersCount; i++) {
-			if (this.scores[i] > this.totalGoldCount / 2) {
-				alert("Игрок " + this.currentPlayer + " выиграл! Вы можете продолжать игру (тестовый режим).");
-				return true;
+		for (let i = 0; i < this.players.length; i++) {
+			if (this.players[i].getScore() > this.totalGoldCount / 2) {
+			  	return true;
 			}
 		}
 		return false;
@@ -57,32 +68,33 @@ export default class Game {
   
     startTimer() {
 		return window.setTimeout(function() {
-			window.game.currentPlayer++;
-			if (window.game.currentPlayer % (window.game.playersCount + 1) == 0) {
-				window.game.currentPlayer = 1;
-			}
-			window.game.hovered = false;
-			UI.resetOpacity(document);
+			this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
+			this.hovered = false;
+			UI.resetOpacity();
 			alert("Время вашего хода истекло");
-		}, 10000);
+		}, 30000);
     }
   
     playerClick(id) {
-		if (extractNumber(id) != this.currentPlayer) {
+		if (extractFirstNumber(id) != this.currentPlayer) {
 			return;
-		}
-		
-		if (!this.hovered) {
+	  	}
+	
+	  	if (!this.hovered) {
 			this.hovered = true;
-			UI.setLowOpacity(document);
-			let moveableCards = this.map.getMoveableCards(this.playersCardId[this.currentPlayer]);
+			UI.setLowOpacity();
+			let pirateID = extractAllNumbers(id)[1];
+			let currentCard = this.players[this.currentPlayer].getPirate(pirateID).getCard();
+			let moveableCards = this.map.getMoveableCards(currentCard)
 			moveableCards.forEach(function(id) {
-			document.getElementById("gamecard-" + id).style.opacity = 1;
+				document.getElementById("gamecard-" + id).style.opacity = 1;
 			});
-		} 
+	
+			this.currentSelectedPirate = pirateID; // TODO убрать
+	  	} 
 		else {
 			this.hovered = false;
-			UI.resetOpacity(document);
+			UI.resetOpacity();
 		}
     }
   
@@ -91,53 +103,55 @@ export default class Game {
 			return false;
 		}
 		let cardID = parseInt(id.match(/\d+/)[0]);
-		let moveableCards = this.map.getMoveableCards(this.playersCardId[this.currentPlayer]);
+		let pirateID = this.currentSelectedPirate; // TODO убрать
+		let currentCard = this.players[this.currentPlayer].getPirate(pirateID).getCard();
+		let moveableCards = this.map.getMoveableCards(currentCard);
 		if (moveableCards.indexOf(cardID) == -1) {
 			return false;
 		}
 	
 		window.clearTimeout(this.timeOut);
 	
-		for (let i = 1; i < this.playersCount + 1; i++) {
-			if (this.playersCardId[i] == cardID) {
-				let cardData = UI.getAreaData("ship-" + i);
-				UI.placeDiv(document, "player-" + i, cardData[0], cardData[1]);
-				this.playersCardId[i] = -i;
+		for (let i = 0; i < this.players.length; i++) {
+			for (let j = 0; j < this.players[i].getPirates().length; j++) {
+				if (this.players[i].getPirates()[j].getCard() == cardID) {
+					let cardData = UI.getAreaData("ship-" + i);
+					UI.placeDiv("player-" + i + "-" + this.currentSelectedPirate, cardData[0], cardData[1]);
+					this.players[i].getPirates()[j].setCard(-i);
+				}
 			}
 		}
 	
 		let cardData = UI.getAreaData("gamecard-" + cardID);
-		UI.placeDiv("player-" + this.currentPlayer, cardData[0], cardData[1]);
-		this.playersCardId[this.currentPlayer] = cardID;
-	
+	  	UI.placeDiv("player-" + this.currentPlayer + "-" + this.currentSelectedPirate, cardData[0], cardData[1]);
+	  	this.players[this.currentPlayer].getPirate(this.currentSelectedPirate).setCard(cardID);
 	
 		let cardType = this.map.getCardType(cardID);
 		let cardObject = CardBuilder.build(cardType);
 		cardObject.apply(this);
-	
+
 		if (this.checkForWin()) {
-			alert("Игрок " + this.currentPlayer + " выиграл! Вы можете продолжать игру.");
+			if (this.done === undefined) {
+			  	alert("Игрок " + this.currentPlayer + " выиграл! Вы можете продолжать игру (тестовый режим).");
+			 	this.done = true;
+			}
 		}
 	
-	
-		this.currentPlayer++;
-		if (this.currentPlayer % (this.playersCount + 1) == 0) {
-			this.currentPlayer = 1;
-		}
+		this.currentPlayer = (game.currentPlayer + 1) % game.players.length;
 	
 		switch (cardType) {
 			case CARDTYPES.GOLD:
-			document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'img/gold.png';
-			break;
+				document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'img/gold.png';
+				break;
 			case CARDTYPES.KILL:
-			document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'img/kill.png';
-			break;
+				document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'img/kill.png';
+				break;
 			default:
-			document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'img/water.png';
-			break;
+				document.getElementById("gamecard-" + cardID).getElementsByTagName('img')[0].src = 'img/water.png';
+				break;
 		}
 	
-		UI.resetOpacity(document);
+		UI.resetOpacity();
 	
 		this.hovered = false;
 		this.timeOut = this.startTimer();
@@ -149,8 +163,45 @@ function extractNumber(n) {
 	return parseInt(n.match(/\d+/)[0]);
 }
 
+// export class UI {
+// 	static resetOpacity(document) {
+// 		for(let i = 1; i <= game.map.size * game.map.size; ++i) {
+// 			document.getElementById("gamecard-" + i).style.opacity = 1;
+// 		}
+// 	}
+
+// 	static setLowOpacity(document) {
+// 		for(let i = 1; i <= game.map.size * game.map.size; ++i) {
+// 			document.getElementById("gamecard-" + i).style.opacity = 0.7;
+// 		}
+// 	}
+
+// 	static placeDiv(id, x_pos, y_pos) {
+// 		let d = document.getElementById(id);
+// 		d.style.left = x_pos+'px';
+// 		d.style.top = y_pos+'px';
+// 	}
+
+// 	static getAreaData(id) {
+// 		let area = document.getElementById(id);
+// 		let rect = area.getBoundingClientRect();
+// 		return [rect.left, rect.top, area.offsetWidth, area.offsetHeight]
+// 	}  
+
+// 	static setEventListener(document, type, id, listener) {
+// 		console.log(document)
+// 		document.getElementById(id).addEventListener(type, listener)
+// 	}
+// }
+
+
+
 export class UI {
-	static resetOpacity(document) {
+    constructor(doc) {
+		document = doc;
+	}
+
+	static resetOpacity() {
 		for(let i = 1; i <= game.map.size * game.map.size; ++i) {
 			document.getElementById("gamecard-" + i).style.opacity = 1;
 		}
@@ -171,11 +222,10 @@ export class UI {
 	static getAreaData(id) {
 		let area = document.getElementById(id);
 		let rect = area.getBoundingClientRect();
-		return [rect.left, rect.top, area.offsetWidth, area.offsetHeight]
+		return [rect.left, rect.top, area.offsetWidth, area.offsetHeight];
 	}  
 
-	static setEventListener(document, type, id, listener) {
-		console.log(document)
-		document.getElementById(id).addEventListener(type, listener)
+	static setEventListener(type, id, listener) {
+		document.getElementById(id).addEventListener(type, listener);
 	}
 }

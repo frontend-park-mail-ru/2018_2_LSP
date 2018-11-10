@@ -1,10 +1,20 @@
-class Boat {
-    constructor() {
-        const img = new Image();
-        img.src = 'img/ships/green.png';
-    }
+export default class Pirate {
+	constructor(card) {
+	  	if (card === undefined) {
+			this.card = 0;
+	  	}
+	  	this.card = card;
+	}
 
-    step() {
-        
-    }
+	move(card) {
+	  	this.card = card;
+	}
+	
+	getCard() {
+	  	return this.card;
+	}
+	
+	setCard(card) {
+	  	this.card = card;
+	}
 }

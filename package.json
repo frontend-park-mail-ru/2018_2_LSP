@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
-    "lint": "eslint public/ --ext js,mjs"
+    "lint": "eslint public/ --ext js,mjs",
+    "build": "webpack --mode production --display-error-details"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,11 @@
     "uuid": "3.3.2"
   },
   "devDependencies": {
-    "eslint": "5.6.1"
+    "eslint": "5.6.1",
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
+    "babel-loader": "^8.0.4",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
   }
 }
