@@ -12,15 +12,15 @@ import GameView from './views/GameView/GameView.mjs';
 import Socket from './modules/websocket.mjs';
 
 // авторизация service-worker
-// if ("serviceWorker" in navigator) {
-// 	navigator.serviceWorker.register('ServiceWorcker.js')
-// 		.then(function(registration) {
-// 			console.log('Service worker registration OK:', registration);
-// 		})
-// 		.catch(function(error) {
-// 			console.log('Service worker registration FAIL:', error);
-// 		});
-// }
+if ("serviceWorker" in navigator) {
+	navigator.serviceWorker.register('ServiceWorcker.js')
+		.then(function(registration) {
+			console.log('Service worker registration OK:', registration);
+		})
+		.catch(function(error) {
+			console.log('Service worker registration FAIL:', error);
+		});
+}
 
 const router = new Router();
 router.addPath('/', Landing);

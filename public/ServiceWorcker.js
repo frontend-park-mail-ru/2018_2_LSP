@@ -13,14 +13,18 @@ const cacheUrls = [ // кэшируемые файлы
     '/img/empty.png',
     '/img/gold.png',
     '/img/grass.png',
+    '/img/kill.png',
     '/img/plant.png',
+    '/img/ship.png',
     '/img/unopened.png',
+    '/img/unused.png',
     '/img/water.png',
 
     '/scripts/main.js',
 
     '/scripts/game/Boat.mjs',
     '/scripts/game/Card.mjs',
+    '/scripts/game/CardBuilder.mjs',
     '/scripts/game/Game.mjs',
     '/scripts/game/gameBus.mjs',
     '/scripts/game/Map.mjs',
