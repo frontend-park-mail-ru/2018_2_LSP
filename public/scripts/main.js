@@ -1,5 +1,3 @@
-'use strict';
-
 import Landing from './views/LandingView/Landing.mjs';
 import Menu from './views/MenuView/Menu.mjs';
 import RulesView from './views/RulesView/RulesView.mjs';

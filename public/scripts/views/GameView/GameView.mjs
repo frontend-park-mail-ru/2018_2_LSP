@@ -14,8 +14,8 @@ export default class GameView extends BaseView {
     }
 
     render() {
-        const gameBoard = gameMap();
-        application.insertAdjacentHTML('beforeend', gameBoard);
+        const bord = gameMap();
+        application.insertAdjacentHTML('beforeend', bord); // gameMap как-то создает карту... хз...
 
         const mapSize = 5;
         const playersCount = 2;
