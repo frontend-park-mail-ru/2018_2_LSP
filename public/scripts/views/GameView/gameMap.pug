@@ -1,31 +1,34 @@
-mixin landEmptyRow
-    - for (var i = 0; i < boardSide; ++i) {        
-        div(class='land-block', id='gameCard')
-            if i == (boardSide-1) / 2
-                img(class='land-card', src='img/base.png')
-            else
-                img(class='land-card', src='img/empty.png')
-    - }
+mixin card(id, type)
+    div(class= 'card', id= id)
+        img(class= 'front-face', src= 'img/water.png')
+        img(class= 'back-face', src= 'img/'+ type + '.png')
 
-mixin emptyTile
-    div(class='land-block', id='gameCard')
-        img(class='land-card', src='img/empty.png') 
+mixin base_row(id, type)
+    - var length = 3
+    - for (var card = 0; card < length; card++)
+        +card('gameCard', 'base')
+    +card(id, type)
+    - for (var card = 0; card < length; card++)
+        +card('gameCard', 'base')
 
+mixin field(size)
+    - for (var row = 0; row < size; row++)
+        +card('gameCard', 'base')
+        - for (var card = 1; card <= size; card++)
+            +card('gamecard-'+ ((row*size)+card), 'unopened')
+        +card('gameCard', 'base')
+
+div(style= "position:absolute;z-index: 1" id= "player-0-0")
+    img(src="img/ships/red.png", style= "width:45px")
+div(style= "position:absolute;z-index: 1" id= "player-0-1")
+    img(src="img/ships/red.png", style= "width:45px")
+div(style= "position:absolute;z-index: 1" id= "player-1-0")
+    img(src="img/ships/green.png", style= "width:45px")
+div(style= "position:absolute;z-index: 1" id= "player-1-1")
+    img(src="img/ships/green.png", style= "width:45px")
 section(class='board', id='gameBoard')
-    +landEmptyRow
-    each row in cardsMap
-        +emptyTile      
-        each val in row
-            div(class='card', id='gameCard')
-                case val
-                    when 0
-                        img(class='front-face', src='img/gold.png')
-                    when 1
-                        img(class='front-face', src='img/water.png')
-                    when 2
-                        img(class='front-face', src='img/grass.png')
-                    when 3
-                        img(class='front-face', src='img/plant.png')
-                img(class='back-face', src='img/unopened.png')
-        +emptyTile
-    +landEmptyRow
+    +base_row('ship-0', 'ship')
+    +field(5)
+    +base_row('ship-1', 'ship')
+    
+    

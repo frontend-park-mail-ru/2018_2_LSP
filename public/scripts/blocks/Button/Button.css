@@ -13,7 +13,7 @@
     cursor: pointer;
     float: right;
 }
-
+.navigation__basicButton:hover,
 .basicButton:hover {
     background-color: #b30000;
     color: white;
