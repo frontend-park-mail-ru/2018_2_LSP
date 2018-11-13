@@ -50,45 +50,45 @@ export default class Map {
 		return this.matrix[i][j];
 	}
 
-	getMoveableCards(cardID) {
-		let res = [];
+	getMoveableCards(cardID) {	// получить массив игровых карт на которые можно попасть
+		let cards = [];
 		if (cardID < 0) {
 			if (cardID == -1) {
 				let temp = Math.ceil(this.size/2);
-				res = [temp-1, temp, temp+1];
+				cards = [temp-1, temp, temp+1];
 			}
 			else if (cardID == -2) {
 				let temp = this.size*this.size - Math.floor(this.size/2)
-				res = [temp-1, temp, temp+1];
+				cards = [temp-1, temp, temp+1];
 			}
 		}
 		else {
 			if ((cardID + 1) % this.size != 1) {
-				res.push(cardID + 1);
+				cards.push(cardID + 1);
 			}
 			if ((cardID - 1) % this.size != 0) {
-				res.push(cardID - 1);
+				cards.push(cardID - 1);
 			}
 			if (cardID - 5 >= 1) {
-				res.push(cardID - 5);
+				cards.push(cardID - 5);
 			}
 			if (cardID - 6 >= 1 && (cardID - 6) % this.size != 0) {
-				res.push(cardID - 6);
+				cards.push(cardID - 6);
 			}
 			if (cardID - 4 >= 1 && (cardID - 4) % this.size != 1) {
-				res.push(cardID - 4);
+				cards.push(cardID - 4);
 			}
 			if (cardID + 5 <= this.size * this.size) {
-				res.push(cardID + 5);
+				cards.push(cardID + 5);
 			}
 			if (cardID + 6 <= this.size * this.size  && (cardID + 6) % this.size != 1) {
-				res.push(cardID + 6);
+				cards.push(cardID + 6);
 			}
 			if (cardID + 4 <= this.size * this.size  && (cardID + 4) % this.size != 0) {
-				res.push(cardID + 4);
+				cards.push(cardID + 4);
 			}
 		}
-		return res;
+		return cards;
 	}
 	
 }

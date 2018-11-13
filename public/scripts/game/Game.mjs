@@ -1,6 +1,8 @@
 import MapBuilder from '/scripts/game/MapBuilder.mjs';
-import {CardBuilder} from '/scripts/game/CardBuilder.mjs';
+import CardBuilder from '/scripts/game/CardBuilder.mjs';
 import Player from '/scripts/game/Player.mjs';
+import UI from '/scripts/game/UI.mjs';
+
 
 let CARDTYPES = {};
 CARDTYPES.DEFAULT = 0;
@@ -8,8 +10,6 @@ CARDTYPES.GOLD = 1;
 CARDTYPES.KILL = 2;
 
 const distribution = [[CARDTYPES.DEFAULT, 17], [CARDTYPES.GOLD, 6], [CARDTYPES.KILL, 2]];
-
-let document;
 
 function playerClick() {
 	window.game.playerClick(this.id);
@@ -22,28 +22,27 @@ function flipCard() {
 }
 
 export default class Game {
-    constructor(doc, mapSize, playersCount, pirateCount) {
-		document = doc;
-		this.UI = new UI(doc);
+    constructor(mapSize, playersCount, pirateCount) {
 		this.map = MapBuilder.generateMap(distribution);
-		this.currentPlayer = 0; //1?
+
+		this.currentPlayer = 0;
 		this.playersCardId = [0, -1, -2];
-		this.hovered = false;
 		this.playersCount = playersCount;
+
 		this.scores = [0, 0, 0];
 		this.timeOut = this.startTimer();
 		this.totalGoldCount = this.map.getTotalGoldCount();
-		console.log(this.totalGoldCount);
 		this.currentSelectedPirate = -1; // TODO убрать
 
+		this.hovered = false;
 
 		this.players = Array(playersCount);
 		for(let i = 0; i < playersCount; i++) {
 			this.players[i] = new Player();
-			this.players[i].addPirates(pirateCount, -i);
+			this.players[i].addPirates(pirateCount, -i - 1);
 		}
 
-	
+		// оптимизация через Ивент Басс
 		for(let i = 1; i <= mapSize*mapSize; ++i) {
 			UI.setEventListener('click', "gamecard-" + i, flipCard);
 		}
@@ -83,10 +82,15 @@ export default class Game {
 	  	if (!this.hovered) {
 			this.hovered = true;
 			UI.setLowOpacity();
+			console.log(id);
 			let pirateID = extractAllNumbers(id)[1];
+			console.log(pirateID);
 			let currentCard = this.players[this.currentPlayer].getPirate(pirateID).getCard();
-			let moveableCards = this.map.getMoveableCards(currentCard)
+			console.log(currentCard);
+			let moveableCards = this.map.getMoveableCards(currentCard);
+			console.log(moveableCards);
 			moveableCards.forEach(function(id) {
+				console.log(id);
 				document.getElementById("gamecard-" + id).style.opacity = 1;
 			});
 	
@@ -159,8 +163,17 @@ export default class Game {
     } 
 }
 
-function extractNumber(n) {
-	return parseInt(n.match(/\d+/)[0]);
+// function extractNumber(n) {
+// 	return parseInt(n.match(/\d+/)[0]);
+// }
+
+function extractFirstNumber(n) {
+	return n.match(/\d+/g).map(Number)[0];
+}
+
+function extractAllNumbers(n) {
+	console.log(n.match(/\d+/g).map(Number));
+	return n.match(/\d+/g).map(Number);
 }
 
 // export class UI {
@@ -193,39 +206,3 @@ function extractNumber(n) {
 // 		document.getElementById(id).addEventListener(type, listener)
 // 	}
 // }
-
-
-
-export class UI {
-    constructor(doc) {
-		document = doc;
-	}
-
-	static resetOpacity() {
-		for(let i = 1; i <= game.map.size * game.map.size; ++i) {
-			document.getElementById("gamecard-" + i).style.opacity = 1;
-		}
-	}
-
-	static setLowOpacity(document) {
-		for(let i = 1; i <= game.map.size * game.map.size; ++i) {
-			document.getElementById("gamecard-" + i).style.opacity = 0.7;
-		}
-	}
-
-	static placeDiv(id, x_pos, y_pos) {
-		let d = document.getElementById(id);
-		d.style.left = x_pos+'px';
-		d.style.top = y_pos+'px';
-	}
-
-	static getAreaData(id) {
-		let area = document.getElementById(id);
-		let rect = area.getBoundingClientRect();
-		return [rect.left, rect.top, area.offsetWidth, area.offsetHeight];
-	}  
-
-	static setEventListener(type, id, listener) {
-		document.getElementById(id).addEventListener(type, listener);
-	}
-}

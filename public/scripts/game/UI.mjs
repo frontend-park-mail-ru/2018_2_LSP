@@ -1,13 +1,11 @@
-export class UI {
-    constructor() {}
-
-	static resetOpacity(document) {
+export default class UI {
+	static resetOpacity() {
 		for(let i = 1; i <= game.map.size * game.map.size; ++i) {
 			document.getElementById("gamecard-" + i).style.opacity = 1;
 		}
 	}
 
-	static setLowOpacity(document) {
+	static setLowOpacity() {
 		for(let i = 1; i <= game.map.size * game.map.size; ++i) {
 			document.getElementById("gamecard-" + i).style.opacity = 0.7;
 		}
@@ -25,7 +23,7 @@ export class UI {
 		return [rect.left, rect.top, area.offsetWidth, area.offsetHeight];
 	}  
 
-	static setEventListener(document, type, id, listener) {
+	static setEventListener(type, id, listener) {
 		document.getElementById(id).addEventListener(type, listener);
 	}
 }

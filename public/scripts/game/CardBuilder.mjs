@@ -5,7 +5,7 @@ CARDTYPES.DEFAULT = 0;
 CARDTYPES.GOLD = 1;
 CARDTYPES.KILL = 2;
 
-export class CardBuilder {
+export default class CardBuilder {
 	constructor() {}
 
 	static build(id) {

@@ -14,12 +14,12 @@ export default class GameView extends BaseView {
     }
 
     render() {
-        const bord = gameMap();
-        application.insertAdjacentHTML('beforeend', bord); // gameMap как-то создает карту... хз...
+        application.insertAdjacentHTML('beforeend', gameMap());
 
         const mapSize = 5;
         const playersCount = 2;
-        window.game = new Game(document, mapSize, playersCount, 2);       
+        const unitsCount = 2;
+        window.game = new Game(mapSize, playersCount, unitsCount);       
     }
 }
 
