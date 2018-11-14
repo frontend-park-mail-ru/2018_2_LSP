@@ -3,32 +3,38 @@ mixin card(id, type)
         img(class= 'front-face', src= 'img/water.png')
         img(class= 'back-face', src= 'img/'+ type + '.png')
 
-mixin base_row(id, type)
+mixin base(player, color, count)
+    div(class= 'card', id= 'base-' + player)
+        img(class= 'front-face', src= 'img/water.png')
+        img(class= 'back-face', src= 'img/base.png')
+        - for (var pirate = 0; pirate < count; pirate++)
+            img(id= 'pirate-' + player + '-' + pirate, class= 'pirate', src='img/ships/' + color + '.png')
+
+mixin base_row(player, color, count)
     - var length = 3
     - for (var card = 0; card < length; card++)
-        +card('gameCard', 'base')
-    +card(id, type)
+        +card('gameCard', 'sand')
+    +base(player, color, count)
     - for (var card = 0; card < length; card++)
-        +card('gameCard', 'base')
+        +card('gameCard', 'sand')
 
 mixin field(size)
     - for (var row = 0; row < size; row++)
-        +card('gameCard', 'base')
+        +card('gameCard', 'sand')
         - for (var card = 1; card <= size; card++)
             +card('gamecard-'+ ((row*size)+card), 'unopened')
-        +card('gameCard', 'base')
+        +card('gameCard', 'sand')
 
-div(style= "position:absolute;z-index: 1" id= "player-0-0")
-    img(src="img/ships/red.png", style= "width:45px")
-div(style= "position:absolute;z-index: 1" id= "player-0-1")
-    img(src="img/ships/red.png", style= "width:45px")
-div(style= "position:absolute;z-index: 1" id= "player-1-0")
-    img(src="img/ships/green.png", style= "width:45px")
-div(style= "position:absolute;z-index: 1" id= "player-1-1")
-    img(src="img/ships/green.png", style= "width:45px")
+
 section(class='board', id='gameBoard')
-    +base_row('ship-0', 'ship')
+    +base_row('0', 'red', 2)
     +field(5)
-    +base_row('ship-1', 'ship')
+    +base_row('1', 'green', 2)
     
+section(id='gamePlayers')
+    div Игрок 1
+    div Игрок 2
+
+section(id='gameTimer')
+    div(id='timer') 0
     

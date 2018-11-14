@@ -17,9 +17,7 @@ array => [
 где левый столбец - номера в массиве, правый кортеж: первый элемент - ID карты, второй - количество карт
 */
   
-export default class MapBuilder {
-    constructor() {}
-    
+export default class MapBuilder {    
     static generateMap(distribution) {
         let totalCards = 0;
         for (let i = 0; i < distribution.length; i++) { // подсчет общего кол-ва карт 
@@ -35,9 +33,9 @@ export default class MapBuilder {
         let x = 0;
         let y = 0;
         while (distribution.length > 0) {
-            let index = this._getRandomInt(0, distribution.length - 1);
-            let cardType = distribution[index][0];
-            distribution[index][1]--;
+            let index = this._getRandomInt(0, distribution.length - 1); // получение индекса типа карты
+            let cardType = distribution[index][0];  // тип карты
+            distribution[index][1]--;   // уменьшение кол-ва
             if (distribution[index][1] == 0) {
                 distribution.remove(index);
             }
