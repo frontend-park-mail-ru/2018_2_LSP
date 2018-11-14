@@ -1,4 +1,4 @@
-export class Block {
+export default class Block {
     constructor(tag = 'div', classes = [], attributes = {}) {
         this.element = document.createElement(tag);
         classes.forEach(oneClass => {

@@ -1,9 +1,9 @@
-import { Block } from '../Block/Block.mjs';
-import { Users } from '../../services/users.mjs';
+import Block from '../Block/Block.mjs';
+import Users from '../../services/users.mjs';
 import Leaders from '../../views/LeadersView/Leaders.mjs';
-import { Table } from '../Table/Table.mjs';
+import Table from '../Table/Table.mjs';
 
-export class Paginator extends Table {
+export default class Paginator extends Table {
     constructor(table) {
         super(['<-', '->']);
         this.page = 1;

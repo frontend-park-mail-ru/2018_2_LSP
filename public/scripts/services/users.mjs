@@ -1,4 +1,4 @@
-import { Http } from '../modules/http.mjs';
+import Http from '../modules/http.mjs';
 
 const path = 'https://jackal.online'; 
 
@@ -6,13 +6,18 @@ const path = 'https://jackal.online';
  * Сервис для работы с пользователями
  * @module Users
  */
-export class Users {
-	static constructor() {
-		this.user = null;
-		this.id = null;
-		this.users = {};
-	}
+export default class Users {
+	// static constructor() {
+	// 	this.user = null;
+	// 	this.id = null;
+	// 	this.users = {};
+	// }
 
+	/**
+	 * Авторизация пользователя
+	 * @param callback 
+	 * @param data 
+	 */
 	static auth(callback, data = {}) {
 		Http.Post(callback, path + '/session', data);
 	}
@@ -22,14 +27,26 @@ export class Users {
 	// 	Http.Delete(callback, '/session');
 	// }
 
+	/**
+	 * Регистрация пользователя
+	 * @param callback 
+	 * @param data 
+	 */
 	static register(callback, data = {}) {
 		Http.Post(callback, path + '/users', data);
 	}
 
+	/**
+	 * Проверка, является-ли пользователь авторизованным
+	 */
 	static isLoggedIn() {
 		return !!this.user;
 	}
 
+	/**
+	 * Получение данных профиля пользователя
+	 * @param callback 
+	 */
 	static profile(callback) {
 		if (this.isLoggedIn()) {
 			return callback(null, this.user);
@@ -50,6 +67,11 @@ export class Users {
 		Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar');
 	}
 
+	/**
+	 * Получение данных таблицы лидеров
+	 * @param callback 
+	 * @param data 
+	 */
 	static leaders(callback, data = {}) {
 		const query = path + '/users?page=' + data.page + '&fields=email,rating&orderby=rating';
 		const call = function(err, users) {
@@ -71,6 +93,10 @@ export class Users {
 		Http.Get(call, query, data);
 	}
 
+	/**
+	 * Парсинг кук
+	 * @param name 
+	 */
 	static _cookieParser(name) {
 		const matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
 		return matches ? decodeURIComponent(matches[1]) : undefined;

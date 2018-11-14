@@ -80,7 +80,7 @@ export default class SignUp extends BaseView {
                     this.router.open('/menu');
                 } else {
                     const errorLine = document.getElementsByClassName('errorLine')[0];
-                    errorLine.textContent = errorHandler(response.error)
+                    errorLine.textContent = errorHandler(response.error);
                     errorLine.hidden = false;
                 }
             }, data);	//используем данные введенные в форму

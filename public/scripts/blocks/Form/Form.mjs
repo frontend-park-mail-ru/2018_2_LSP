@@ -1,6 +1,6 @@
-import { Block } from '../Block/Block.mjs';
+import Block from '../Block/Block.mjs';
 
-export class Form extends Block {
+export default class Form extends Block {
     constructor(fields = []) {
         super('form');
         fields.forEach(field => {

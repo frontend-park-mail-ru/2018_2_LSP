@@ -1,6 +1,6 @@
-import { Block } from '../Block/Block.mjs';
+import Block from '../Block/Block.mjs';
 
-export class Button {
+export default class Button {
     constructor (link = '', text = '', appendTo = '', classes = ['basicButton']) {
         this._link = link;
         this._text = text;
@@ -20,7 +20,6 @@ export class Button {
         button.setText(this._text);
 
         env.append(button);
-        //this._appendTo.append(env);
         this._appendTo.appendChild(env.getElement());
     }
 }
