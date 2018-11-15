@@ -60,11 +60,16 @@ export default class Users {
 			return callback(null, user);
 		}.bind(this);
 
-		let payload = this._cookieParser('header.payload');
+		let payload = jwt_decode(this._cookieParser('header.payload'))['id'];
+		// if (payload) {
+		// 	payload = jwt_decode(payload)['id'];
+		// }
 		if (payload) {
-			payload = jwt_decode(payload)['id'];
-		}
-		Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar');
+			Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar');
+		} 
+		// else {
+		// 	router.open('/profile');
+		// }
 	}
 
 	/**

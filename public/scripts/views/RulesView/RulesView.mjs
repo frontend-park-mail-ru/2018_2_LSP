@@ -1,6 +1,5 @@
 import BaseView from '../BaseView/BaseView.mjs';
-
-import { Block } from '../../blocks/Block/Block.mjs';
+import Block from '../../blocks/Block/Block.mjs';
 
 export default class RulesView extends BaseView {
     constructor({type = ''} = {}){
