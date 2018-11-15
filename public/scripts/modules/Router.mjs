@@ -29,14 +29,7 @@ export default class Router {
         const gameSection = document.getElementsByClassName("gameSection");
         if (gameSection.length != 0) {
             gameSection[0].innerHTML = "";
-        }
-
-        //application.innerHTML = '';
-
-        if (previousPath == '/profile' && path == '/profile') {
-            window.history.go(-1);
-            return;
-        }
+        }    
 
         if (window.location.pathname != path) {
             window.history.pushState(null,'',path);
