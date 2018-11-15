@@ -4,7 +4,7 @@ const noop = () => null;
  * Модуль для работы с HTTP-запросами
  * @module Http
  */
-export class Http {
+export default class Http {
 	/**
      * Приватный метод отправки запроса (является базовым)
      * @param {function} callback - функция-коллбек

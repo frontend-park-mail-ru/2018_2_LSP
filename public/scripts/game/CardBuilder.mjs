@@ -6,8 +6,6 @@ CARDTYPES.GOLD = 1;
 CARDTYPES.KILL = 2;
 
 export default class CardBuilder {
-	constructor() {}
-
 	static build(id) {
 		switch (id) {
 			case CARDTYPES.GOLD:

@@ -1,4 +1,4 @@
-import Pirate from '/scripts/game/Boat.mjs';
+import Pirate from '/scripts/game/Pirate.mjs';
 
 export default class Player {
 	constructor() {

@@ -1,7 +1,5 @@
 import BaseView from '../BaseView/BaseView.mjs';
-import { Button } from '../../blocks/Button/Button.mjs';
-import { Users } from '../../services/users.mjs';
-import bus from '/scripts/modules/eventBus.mjs';
+import Button from '../../blocks/Button/Button.mjs';
 
 export default class Menu extends BaseView {
     constructor(){

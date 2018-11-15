@@ -1,6 +1,14 @@
-import { Block } from '../Block/Block.mjs';
+import Block from '../Block/Block.mjs';
 
-export class Form extends Block {
+/**
+ * Класс формы (наследуется от Block)
+ * @module Form
+ */
+export default class Form extends Block {
+    /**
+     * Создать новую форму
+     * @param {Array} fields поля формы
+     */
     constructor(fields = []) {
         super('form');
         fields.forEach(field => {

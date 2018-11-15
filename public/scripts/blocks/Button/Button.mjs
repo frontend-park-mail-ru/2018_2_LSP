@@ -1,6 +1,17 @@
-import { Block } from '../Block/Block.mjs';
+import Block from '../Block/Block.mjs';
 
-export class Button {
+/**
+ * Класс кнопки (наследуется от Block)
+ * @module Button
+ */
+export default class Button {
+    /**
+     * Создать новую кнопку
+     * @param {string} link адрес ссылки
+     * @param {string} text текст кнопки
+     * @param {string} appendTo 
+     * @param {Array} classes 
+     */
     constructor (link = '', text = '', appendTo = '', classes = ['basicButton']) {
         this._link = link;
         this._text = text;
@@ -20,7 +31,6 @@ export class Button {
         button.setText(this._text);
 
         env.append(button);
-        //this._appendTo.append(env);
         this._appendTo.appendChild(env.getElement());
     }
 }

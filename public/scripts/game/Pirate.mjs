@@ -1,8 +1,5 @@
 export default class Pirate {
-	constructor(card) {
-	  	if (card === undefined) {
-			this.card = 0;
-	  	}
+	constructor(card = 'base') {
 	  	this.card = card;
 	}
 

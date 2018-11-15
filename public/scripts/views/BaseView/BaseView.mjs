@@ -20,11 +20,9 @@ export default class BaseView {
 
     hide() {        
         document.getElementById("application").hidden = true;
-        //this.el.hidden = true;
     }
 
-    show() {
-        //this.el.hidden = false;        
+    show() {     
         document.getElementById("application").hidden = false;
         this.render();
     }

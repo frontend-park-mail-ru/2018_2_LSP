@@ -1,59 +1,74 @@
 
 .board {
-  width: 640px; /* тут в релизе надо изменить на 100% */
-  height: 640px; /*тут в релизе надо изменить на 100% */
-  position: absolute;
-  margin: auto;
-  top: 0;
-  bottom:0;
-  left: 0;
-  right: 0; 
-  display: flex;
-  flex-wrap: wrap;
-  perspective: 1000px;
-  /* border: 1px solid black; */
+	width: 640px; /* тут в релизе надо изменить на 100% */
+	height: 640px; /*тут в релизе надо изменить на 100% */
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom:0;
+	left: 0;
+	right: 0; 
+	display: flex;
+	flex-wrap: wrap;
+	perspective: 1000px;
+	/* border: 1px solid black; */
 }
 
 .land-block,
 .card {
-  width: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
-  height: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
-  position: relative;
-  transform: scale(1);
-  transform-style: preserve-3d;
-  transition: transform .5s;
+	width: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
+	height: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
+	position: relative;
+	transform: scale(1);
+	transform-style: preserve-3d;
+	transition: transform .5s;
 }
 
 .card:active {
-  transform: scale(0.97);
-  transition: transform .2s;
+ 	transform: scale(0.97);
+  	transition: transform .2s;
 }
 
 .card.flip {
-  transform: rotateY(180deg);
+  	transform: rotateY(180deg);
 }
 
 .front-face,
 .back-face {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: url(/img/water.png) #b0e9fc;
-  backface-visibility: hidden;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: url(/img/water.png) #b0e9fc;
+	backface-visibility: hidden;
+}
+
+.pirate {
+	width: 50%; 
+	/* height: 20px;  */
+	/* background-color: coral;  */
+	position: absolute; 
+	z-index: 1; 
+	/* backface-visibility: hidden; */
+	/* left: 602.619px;  */
+	/* top: 107.259px; */
+}
+
+.pirate.flip {
+	transform: rotateY(180deg);
 }
 
 .front-face {
-  transform: rotateY(180deg);
+  	transform: rotateY(180deg);
 }
 
 .land-card {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: rgb(255, 228, 209);
-  transform: rotateY(180deg)
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: rgb(255, 228, 209);
+	transform: rotateY(180deg)
 }
 
 /* body {
-    background: url(/img/grass.png)
+	background: url(/img/grass.png)
 } */
