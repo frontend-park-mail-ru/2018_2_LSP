@@ -1,8 +1,21 @@
 export default class BaseView {
     constructor (el) {
         this.el = el;
-        application.insertAdjacentHTML('beforeend', el);
-        this.pageContent = document.getElementById("content");
+        this.mainSection = document.getElementById("mainSection");
+        //application.insertAdjacentHTML('beforeend', el);
+
+        if (this.mainSection) {
+            const backButton = document.getElementsByClassName('basicButton_back');
+            backButton[0].hidden = false;
+            this.mainSection.insertAdjacentHTML('beforeend', el);
+        } else {
+            application.insertAdjacentHTML('beforeend', el);
+            const menuHeader = header({"headerType": 'notLoggedIn'});
+            const navigationPart = document.getElementsByTagName("nav");
+            navigationPart[0].innerHTML = "";
+            navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
+        }
+        this.pageContent = document.getElementById('content');        
     }
 
     hide() {        

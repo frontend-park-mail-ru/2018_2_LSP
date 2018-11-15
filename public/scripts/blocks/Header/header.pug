@@ -1,7 +1,10 @@
 case headerType
-    when "landing"
+    when "notLoggedIn"
+        a(class="navigation__basicButton basicButton_back" ) Назад
         a(class="navigation__basicButton" href="signup" data-href="signup") Регистрация
         a(class="navigation__basicButton" href="signin" data-href="signin") Вход
-    when "menu"
-    when "back"
-        a(class="navigation__basicButton") Назад
+    when "loggedIn"
+        a(class="navigation__basicButton basicButton_back") Назад
+        a(class="navigation__basicButton" href="logout" data-href="logout") Выйти
+        a(class="navigation__basicButton" href="profile" data-href="profile") Профиль
+        

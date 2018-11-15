@@ -3,13 +3,13 @@ import BaseView from '../BaseView/BaseView.mjs';
 import { Block } from '../../blocks/Block/Block.mjs';
 import { Form } from '../../blocks/Form/Form.mjs';
 import { Users } from '../../services/users.mjs';
-
+import bus from '/scripts/modules/eventBus.mjs';
 
 export default class SignIn extends BaseView {
     constructor(router) {
         const view = baseView({'headerType': 'back','navClass': 'navigation_left', 'title': 'Вход'});
         super(view);
-        this.router = router
+        this.router = router;
     }
 
     render() {
@@ -55,7 +55,8 @@ export default class SignIn extends BaseView {
             Users.auth((err, response) => {	//авторизации пользователя
                 console.log(err, response);
                 if (!err) {
-                    this.router.open('/profile');
+                    bus.emit("user:logged-in");
+                    this.router.open('/menu');                    
                 } else {
                     const errorLine = document.getElementsByClassName('errorLine')[0];
                     errorLine.textContent = errorHandler(response.Message);

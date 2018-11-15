@@ -8,13 +8,18 @@ let game;
 
 export default class GameView extends BaseView {
     constructor({mapSide} = {}){
-        const view = baseView({'headerType': 'back', 'navClass': 'navigation_left'});
+        const view = baseView({'headerType': ''});
         super(view);
         this.mapSide = mapSide;
     }
 
     render() {
-        application.insertAdjacentHTML('beforeend', gameMap());
+        const gameSection = document.getElementsByClassName("gameSection");
+        if (gameSection.length != 0) {
+            gameSection[0].insertAdjacentHTML('beforeend', gameMap());
+        } else {
+            application.insertAdjacentHTML('beforeend', gameMap());
+        }       
 
         const mapSize = 5;
         const playersCount = 2;

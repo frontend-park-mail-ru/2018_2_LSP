@@ -21,7 +21,17 @@ export default class Router {
             return;
         }
 
-        application.innerHTML = '';
+        const mainSection = document.getElementsByClassName("mainSection");
+        if (mainSection.length != 0) {
+            mainSection[0].innerHTML = "";
+        }
+        
+        const gameSection = document.getElementsByClassName("gameSection");
+        if (gameSection.length != 0) {
+            gameSection[0].innerHTML = "";
+        }
+
+        //application.innerHTML = '';
 
         if (previousPath == '/profile' && path == '/profile') {
             window.history.go(-1);

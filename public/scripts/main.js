@@ -8,6 +8,8 @@ import Leaders from './views/LeadersView/Leaders.mjs';
 import Router from './modules/Router.mjs';
 import GameView from './views/GameView/GameView.mjs';
 import Socket from './modules/websocket.mjs';
+import bus from '/scripts/modules/eventBus.mjs';
+import { Users } from '/scripts/services/users.mjs';
 
 // авторизация service-worker
 // if ("serviceWorker" in navigator) {
@@ -31,3 +33,13 @@ router.addPath('/profile', Profile, {profile: '', router: router});
 router.addPath('/singleplayer', GameView, {mapSide: 5}); //n x n, нечетные
 router.start();
 
+bus.on("user:logged-in", user => {         
+    const menuHeader = header({"headerType": "loggedIn"});
+    const navigationPart = document.getElementsByTagName("nav");
+    navigationPart[0].innerHTML = "";
+    navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
+})
+
+// if (Users.isLoggedIn()) {
+//     bus.emit("user:logged-in");
+// }

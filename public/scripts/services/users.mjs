@@ -14,7 +14,7 @@ export class Users {
 	}
 
 	static auth(callback, data = {}) {
-		Http.Post(callback, path + '/session', data);
+		Http.Post(callback, path + '/session', data);		
 	}
 
 	// static logout(callback) {

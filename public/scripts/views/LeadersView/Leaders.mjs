@@ -7,7 +7,7 @@ import { Table } from '../../blocks/Table/Table.mjs';
 
 export default class Leaders extends BaseView{
     constructor(users){
-        const view = baseView({'headerType': 'back','navClass': 'navigation_left', 'title': 'Лидеры'});
+        const view = baseView({'title': 'Лидеры'});
         super(view);
         this._users = users;
     }
@@ -34,7 +34,7 @@ export default class Leaders extends BaseView{
             Users.leaders((err, response) => {
                 console.log(err, response);
                 if (err === null) {
-                    application.innerHTML = '';
+                    //application.innerHTML = '';
                     const leadersPage = new Leaders(response);
 	                leadersPage.render();
                 } else {
