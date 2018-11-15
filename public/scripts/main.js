@@ -9,7 +9,6 @@ import Router from './modules/Router.mjs';
 import GameView from './views/GameView/GameView.mjs';
 import Socket from './modules/websocket.mjs';
 import bus from '/scripts/modules/eventBus.mjs';
-import Users from '/scripts/services/users.mjs';
 
 // авторизация service-worker
 // if ("serviceWorker" in navigator) {
@@ -38,8 +37,13 @@ bus.on("user:logged-in", user => {
     const navigationPart = document.getElementsByTagName("nav");
     navigationPart[0].innerHTML = "";
     navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
+
+    if(window.location.pathname == '/') {
+        const backButton = document.getElementsByClassName('basicButton_back');
+        backButton[0].hidden = true;
+    }
 })
 
-// if (Users.isLoggedIn()) {
-//     bus.emit("user:logged-in");
-// }
+if (document.cookie) {
+    bus.emit("user:logged-in");
+}
