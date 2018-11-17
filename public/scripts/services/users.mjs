@@ -22,10 +22,10 @@ export default class Users {
 		Http.Post(callback, path + '/session', data);		
 	}
 
-	// static logout(callback) {
-	// 	Http.Get(callback, path + '/logout');
-	// 	Http.Delete(callback, '/session');
-	// }
+	static logout(callback) {
+		//Http.Get(callback, path + '/logout');
+		Http.Delete(callback, path +'/session');
+	}
 
 	/**
 	 * Регистрация пользователя

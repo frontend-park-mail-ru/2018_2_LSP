@@ -7,7 +7,7 @@ import Bus from '../../modules/eventBus.mjs';
 
 export default class SignIn extends BaseView {
     constructor(router) {
-        const view = baseView({'headerType': 'back','navClass': 'navigation_left', 'title': 'Вход'});
+        const view = baseView({'title': 'Вход'});
         super(view);
         this.router = router;
     }

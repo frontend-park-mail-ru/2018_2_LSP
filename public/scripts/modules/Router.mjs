@@ -1,4 +1,4 @@
-export default class Router {
+class Router {
     constructor() {
         this.routes = {}
     }
@@ -68,3 +68,5 @@ export default class Router {
         this.open(currentPath);        
     }
 }
+
+export default new Router();
