@@ -1,5 +1,7 @@
 import Block from '../Block/Block.mjs';
-import Button from '../Button/Button.mjs';
+import Paginator from '../Paginator/Paginator.mjs';
+import Users from '../../services/users.mjs';
+import Bus from '../../modules/eventBus.mjs';
 
 export default class Table extends Block {
     /**
@@ -8,16 +10,16 @@ export default class Table extends Block {
      * @param page номер страницы
      * @param callback функция-коллбек пагинации
      */
-    constructor(head = [], page = 0, callback) {
+    constructor(head = [], page = 0) {
         super('table');
-        this.page = page;
+        this._page = page;
 
         // thead
         const thead = new Block('thead');
         const trhead = new Block('tr', ['head']);
         head.forEach(thName => {
             const th = new Block('th');
-            th.setText(thName)
+            th.setText(thName);
             trhead.append(th);
         });
         thead.append(trhead);
@@ -27,42 +29,32 @@ export default class Table extends Block {
         const tfoot = new Block('tfoot');
         const trfoot = new Block('tr', ['head']);
         const thfoot = new Block('th', [], {'colspan': 3});
-
-        const aright = new Button('pagePlus', '>');
-        thfoot.append(aright);
-
-        // this.pageView = new Block('div');
-        // this.pageView.setText(this.page);
-        // thfoot.append(this.pageView);
-
-        const aleft = new Button('pageMinus', '<');
-        thfoot.append(aleft);
-
-        // const pg = this.page - 1;
-        // aleft.event('click', (pg) => {
-        //     Users.leaders((err, response) => {
-        //         // console.log(err, response);
-        //         if (err === null) {
-        //             //application.innerHTML = '';
-        //             // const leadersPage = new Leaders(response);
-        //             this.update(response);
-	    //             // leadersPage.render();
-        //         } else {
-        //             alert(response.error);
-        //         }
-        //     }, {page: pg});
-        // });
+        const paginator = new Paginator(function(page) {
+            Users.leaders((err, response) => {
+                if (!err) {
+					Bus.emit('paginator-update', response);
+                } else {
+                    alert(response.error);
+                }
+            }, {page: page});
+        });
+        thfoot.append(paginator);
 
         trfoot.append(thfoot);
         tfoot.append(trfoot);
         this.append(tfoot);
 
         // tbody
-        this.tbody = new Block('tbody');
-        this.append(this.tbody);
+        this._tbody = new Block('tbody');
+        this._tbody.setText("sdfsdaf");
+        this.append(this._tbody);
+
+
+        Bus.on('paginator-update', this.update.bind(this));
     }
 
     _data(data = []) {
+        console.log(this._tbody);
         data.forEach(item => {
             const tr = document.createElement('tr');
             if (item.me) {
@@ -76,12 +68,12 @@ export default class Table extends Block {
                 th.textContent = item[text];
                 tr.appendChild(th);
             }
-            this.tbody.getElement().appendChild(tr);
+            this._tbody.getElement().appendChild(tr);
         });
     }
 
     update(data = []) {
-        this.tbody.innerHTML = '';
+        this._tbody.clear();
         this._data(data);
     }
 }

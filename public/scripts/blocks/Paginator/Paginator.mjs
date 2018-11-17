@@ -1,50 +1,27 @@
 import Block from '../Block/Block.mjs';
+import Button from '../Button/Button.mjs';
+import Bus from '../../modules/eventBus.mjs';
 import Users from '../../services/users.mjs';
-import Leaders from '../../views/LeadersView/Leaders.mjs';
-import Table from '../Table/Table.mjs';
 
-export default class Paginator extends Table {
-	constructor(table) {
-		super(['<-', '->']);
-		this.page = 1;
+export default class Paginator extends Block {
+	constructor(callback) {
+		super('div');
+		this._currentPage = 0;
 
-		const callback = (event, page) => {
-			console.log(event.target);
-			if (event.href === 'pagePlus') {
-				event.preventDefault();
-				console.log('plus');
-			} else if (event.href === 'minusPlus') {
-				event.preventDefault();
-				console.log('minus');
-			} else {
-				return;
-			}
+		const aright = new Button('', '>');
+        this.append(aright);
 
-			Users.leaders((err, leadersData) => {
-				console.log(err, leadersData);
-				if (err === null) {
-					this.table.update(leadersData);
-				} else {
-					alert(leadersData.error);
-				}
-			}, {page:page});
-		};
+        // this.pageView = new Block('div');
+        // this.pageView.setText(this._currentPage);
+        // this.append(this.pageView);
 
-		// const tr = document.createElement('tr');
-		// tr.classList.add('head');
-		// const thleft = document.createElement('th');
-		// const aleft = new Block('a', [], {'href':'pageMinus'});
-		// aleft.setText('<-');
-		// aleft.event('click', callback(event, this.page - 1));
-		// thleft.appendChild(aleft.getElement());
-		// tr.appendChild(thleft);
+        const aleft = new Button('', '<');
+        this.append(aleft);
 
-		// const thright = document.createElement('th');
-		// const aright = new Block('a', [], {'href':'pagePlus'});
-		// aright.setText('->');
-		// aright.event('click', callback(event, this.page + 1));
-		// thright.appendChild(aright.getElement());
-		// tr.appendChild(thright);
-		// this.getElement().appendChild(tr);
+
+        aright.event('click', () => {
+			this._currentPage += 1;
+			callback(this._currentPage);
+		});
 	}
 }

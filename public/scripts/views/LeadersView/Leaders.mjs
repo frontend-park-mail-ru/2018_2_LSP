@@ -5,10 +5,11 @@ import Users from '../../services/users.mjs';
 import Table from '../../blocks/Table/Table.mjs';
 
 export default class Leaders extends BaseView {
-    constructor(users){
+    constructor(){
         const view = baseView({'title': 'Лидеры'});
         super(view);
-        this._users = users;
+        // this._users = users;
+        // this._page
     }
 
     render() {
