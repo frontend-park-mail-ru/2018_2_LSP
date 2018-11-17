@@ -1,24 +1,46 @@
+/**
+ * Реализация патерна Observer (синглтон)
+ * @module EventBus
+ */
 class EventBus {
-    constructor() {
-        this.listeners = {};
-    }
+	/**
+     * Создать новый Event bus без событий
+     */
+	constructor() {
+		this.listeners = {};
+	}
     
-    on(event, callback) {   //подписываемся на событие
-        (this.listeners[event] || (this.listeners[event] = [])).push(callback);
-    }
+	/**
+     * Подписаться на событие
+     * @param {string} event тип события
+     * @param {Function} callback коллбек-функция
+     */
+	on(event, callback) {
+		(this.listeners[event] || (this.listeners[event] = [])).push(callback);
+	}
     
-    off(event, callback) {  //отписываемся от события
-        this.listeners[event] = this.listeners[event].filter(function(listener) {
-            return listener !== callback; 
-        });
-    }
+	/**
+     * Отписываемся от события
+     * @param {string} event тип события
+     * @param {Function} callback коллбек-функция
+     */
+	off(event, callback) {
+		this.listeners[event] = this.listeners[event].filter(function(listener) {
+			return listener !== callback; 
+		});
+	}
 
-    emit(event, data) { //эмитим событие
-        if (!this.listeners[event]) return;
-        this.listeners[event].forEach(function(listener) {
-            listener(data);
-        });
-    }
+	/**
+     * Активация события
+     * @param {string} event тип события
+     * @param {any} data данные
+     */
+	emit(event, data) {
+		if (!this.listeners[event]) return;
+		this.listeners[event].forEach(function(listener) {  // выполнить для всех, кто подписан
+			listener(data);
+		});
+	}
 }
 
 export default new EventBus();

@@ -86,7 +86,7 @@ this.addEventListener('fetch', event => {
 		caches.match(event.request) // ищем запрошенные данные
 			.then(function(cacheedResponse) {
 				return cacheedResponse || fetch(event.request).then(function(response) {
-					cloning = response.clone();
+					const cloning = response.clone();
 					caches.open(CACHE_KEY).then(function(cache) {    // если получили новые данные - кэшируем
 						cache.put(event.request, cloning);
 					});

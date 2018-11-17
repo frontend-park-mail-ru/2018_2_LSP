@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
-    "lint": "eslint public/ --ext js,mjs",
-    "build": "webpack --mode production --display-error-details"
+    "lint": "eslint public/ --fix --ext js,mjs",
+    "build": "webpack --mode production --display-error-details",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",

@@ -21,29 +21,29 @@ import bus from '/scripts/modules/eventBus.mjs';
 // 		});
 // }
 
-const router = new Router();
-router.addPath('/', Landing);
-router.addPath('/signin', SignIn, router);
-router.addPath('/signup', SignUp, router);
-router.addPath('/rules', RulesView,{type: 'back'});
-router.addPath('/menu', Menu);
-router.addPath('/leaders', Leaders);
-router.addPath('/profile', Profile, {profile: '', router: router});
-router.addPath('/singleplayer', GameView, {mapSide: 5}); // n x n, нечетные
-router.start();
+// const router = new Router();
+Router.addPath('/', Landing);
+Router.addPath('/signin', SignIn);
+Router.addPath('/signup', SignUp);
+Router.addPath('/rules', RulesView, {type: 'back'});
+Router.addPath('/menu', Menu);
+Router.addPath('/leaders', Leaders);
+Router.addPath('/profile', Profile, {profile: ''});
+Router.addPath('/singleplayer', GameView, {mapSide: 5}); // n x n, нечетные
+Router.start();
 
-bus.on("user:logged-in", user => {         
-    const menuHeader = header({"headerType": "loggedIn"});
-    const navigationPart = document.getElementsByTagName("nav");
-    navigationPart[0].innerHTML = "";
-    navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
+bus.on('user:logged-in', user => {         
+	const menuHeader = header({'headerType': 'loggedIn'});
+	const navigationPart = document.getElementsByTagName('nav');
+	navigationPart[0].innerHTML = '';
+	navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
 
-    if(window.location.pathname == '/') {
-        const backButton = document.getElementsByClassName('basicButton_back');
-        backButton[0].hidden = true;
-    }
-})
+	if(window.location.pathname == '/') {
+		const backButton = document.getElementsByClassName('basicButton_back');
+		backButton[0].hidden = true;
+	}
+});
 
 if (document.cookie) {
-    bus.emit("user:logged-in");
+	bus.emit('user:logged-in');
 }
