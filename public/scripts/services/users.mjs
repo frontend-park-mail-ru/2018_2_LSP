@@ -1,6 +1,6 @@
 import Http from '../modules/http.mjs';
 
-const path = 'https://jackal.online'; 
+const path = 'https://jackal.online/api'; 
 
 /**
  * Сервис для работы с пользователями
