@@ -10,9 +10,8 @@ export default class Table extends Block {
      * @param page номер страницы
      * @param callback функция-коллбек пагинации
      */
-    constructor(fields = {}, page = 0) {
+    constructor(fields = {}) {
         super('table');
-        this._page = page;
         this._fields = fields;
 
         // thead
@@ -33,7 +32,6 @@ export default class Table extends Block {
         const paginator = new Paginator(function(page) {
             Users.leaders((err, response) => {
                 if (!err) {
-                    console.log(response);
 					Bus.emit('paginator-update', response);
                 } else {
                     alert(response.error);
@@ -48,15 +46,13 @@ export default class Table extends Block {
 
         // tbody
         this._tbody = new Block('tbody');
-        // this._tbody.setText("");
+        this._tbody.setText("");
         this.append(this._tbody);
-
 
         Bus.on('paginator-update', this.update.bind(this));
     }
 
     _data(data = []) {
-        console.log(this._tbody);
         data.forEach(item => {
             const tr = document.createElement('tr');
             if (item.me) {  // если запись принадлежит данному пользователю, выделяем поле

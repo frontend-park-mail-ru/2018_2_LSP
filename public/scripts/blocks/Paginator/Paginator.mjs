@@ -1,21 +1,19 @@
 import Block from '../Block/Block.mjs';
 import Button from '../Button/Button.mjs';
-import Bus from '../../modules/eventBus.mjs';
-import Users from '../../services/users.mjs';
 
 export default class Paginator extends Block {
-	constructor(callback) {
+	constructor(callback, classes) {
 		super('div');
 		this._currentPage = 0;
 
-		const aright = new Button('', '>');
+		const aright = new Button('right', '>', classes);
         this.append(aright);
 
-        // this.pageView = new Block('div');
+        // this.pageView = new Block('span');
         // this.pageView.setText(this._currentPage);
         // this.append(this.pageView);
 
-        const aleft = new Button('', '<');
+        const aleft = new Button('left', '<', classes);
         this.append(aleft);
 
 

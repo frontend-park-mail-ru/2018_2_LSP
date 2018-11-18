@@ -12,7 +12,16 @@ export default class Leaders extends BaseView {
 
     render() {
         const items = {'Логин': 'username', 'Сыграно': 'totalgames', 'Рейтинг': 'rating'};
-        const leaderBoard = new Table(items, 0);
+        const leaderBoard = new Table(items); 
+        //     function(page) {
+        //     Users.leaders((err, response) => {
+        //         if (!err) {
+        //             Bus.emit('paginator-update', response);
+        //         } else {
+        //             alert(response.error);
+        //         }
+        //     }, {page: page});
+        // });
 
         this.pageContent.appendChild(leaderBoard.getElement());
     }
