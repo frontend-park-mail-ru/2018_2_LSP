@@ -10,18 +10,19 @@ export default class Table extends Block {
      * @param page номер страницы
      * @param callback функция-коллбек пагинации
      */
-    constructor(head = [], page = 0) {
+    constructor(fields = {}, page = 0) {
         super('table');
         this._page = page;
+        this._fields = fields;
 
         // thead
         const thead = new Block('thead');
         const trhead = new Block('tr', ['head']);
-        head.forEach(thName => {
+        for (header in this._fields) {
             const th = new Block('th');
-            th.setText(thName);
+            th.setText(header);
             trhead.append(th);
-        });
+        }
         thead.append(trhead);
         this.append(thead);
 
@@ -32,6 +33,7 @@ export default class Table extends Block {
         const paginator = new Paginator(function(page) {
             Users.leaders((err, response) => {
                 if (!err) {
+                    console.log(response);
 					Bus.emit('paginator-update', response);
                 } else {
                     alert(response.error);
@@ -46,7 +48,7 @@ export default class Table extends Block {
 
         // tbody
         this._tbody = new Block('tbody');
-        this._tbody.setText("sdfsdaf");
+        // this._tbody.setText("");
         this.append(this._tbody);
 
 
@@ -57,19 +59,17 @@ export default class Table extends Block {
         console.log(this._tbody);
         data.forEach(item => {
             const tr = document.createElement('tr');
-            if (item.me) {
+            if (item.me) {  // если запись принадлежит данному пользователю, выделяем поле
                 tr.classList.add('me');
-            }
-            for (const text in item) {
-                if (text == 'me') {
-                    continue;
-                }
+            }            
+            for (const header in this._fields) {
                 const th = document.createElement('th');
-                th.textContent = item[text];
+                th.textContent = item[this._fields[header]];
                 tr.appendChild(th);
             }
             this._tbody.getElement().appendChild(tr);
         });
+        // this.getElement().appendChild(tbody);
     }
 
     update(data = []) {

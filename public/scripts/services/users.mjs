@@ -65,7 +65,7 @@ export default class Users {
 		// 	payload = jwt_decode(payload)['id'];
 		// }
 		if (payload) {
-			Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar');
+			Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar,totalgames');
 		} 
 		// else {
 		// 	router.open('/profile');
@@ -78,7 +78,7 @@ export default class Users {
 	 * @param {Object} data 
 	 */
 	static leaders(callback, data = {}) {
-		const query = path + '/users?page=' + data.page + '&fields=email,rating&orderby=rating';
+		const query = path + '/users?page=' + data.page + '&fields=username,rating,totalgames&orderby=rating';
 		const call = function(err, users) {
 			if (err) {
 				return callback(err, users);

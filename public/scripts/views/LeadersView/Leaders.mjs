@@ -11,7 +11,7 @@ export default class Leaders extends BaseView {
     }
 
     render() {
-        const items = ['Логин', 'Сыграно', 'Рейтинг'];
+        const items = {'Логин': 'username', 'Сыграно': 'totalgames', 'Рейтинг': 'rating'};
         const leaderBoard = new Table(items, 0);
 
         this.pageContent.appendChild(leaderBoard.getElement());
