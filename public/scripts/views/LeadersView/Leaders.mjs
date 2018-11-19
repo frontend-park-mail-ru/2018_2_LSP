@@ -1,8 +1,8 @@
 import BaseView from '../BaseView/BaseView.mjs';
-import Block from '../../blocks/Block/Block.mjs';
-import Paginator from '../../blocks/Paginator/Paginator.mjs';
 import Users from '../../services/users.mjs';
 import Table from '../../blocks/Table/Table.mjs';
+import Bus from '../../modules/eventBus.mjs';
+
 
 export default class Leaders extends BaseView {
     constructor(){
@@ -12,16 +12,15 @@ export default class Leaders extends BaseView {
 
     render() {
         const items = {'Логин': 'username', 'Сыграно': 'totalgames', 'Рейтинг': 'rating'};
-        const leaderBoard = new Table(items); 
-        //     function(page) {
-        //     Users.leaders((err, response) => {
-        //         if (!err) {
-        //             Bus.emit('paginator-update', response);
-        //         } else {
-        //             alert(response.error);
-        //         }
-        //     }, {page: page});
-        // });
+        const leaderBoard = new Table(items, function(page) {
+            Users.leaders((err, response) => {  // через промис?
+                if (!err) {
+                    Bus.emit('paginator-update', response);
+                } else {
+                    Bus.emit('');   //ПОПРАВИТЬ!!!
+                }
+            }, {page: page});
+        });
 
         this.pageContent.appendChild(leaderBoard.getElement());
     }

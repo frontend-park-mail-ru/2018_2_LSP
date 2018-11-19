@@ -57,6 +57,26 @@ export default class Block {
 	}
 
 	/**
+	 * Установить классы элемента
+	 * @param {Array} classes классы элемента
+	 */
+	setClasses(classes = []) {
+		classes.forEach(oneClass => {
+			this.element.classList.add(oneClass);
+		});
+	}
+
+	/**
+	 * Установить атрибуты элемента
+	 * @param {Object} attributes атрибуты элемента
+	 */
+	setAttributes(attributes = {}) {
+		for (let attribute in attributes) {
+			this.element.setAttribute(attribute, attributes[attribute]);
+		}
+	}
+
+	/**
      * Вложить сторонний блок в текущий
      * @param {Block} block сторонний блок
      */

@@ -8,9 +8,9 @@ export default class Table extends Block {
      * Создание новой таблицы
      * @param head заголовки столбцов таблицы
      * @param page номер страницы
-     * @param callback функция-коллбек пагинации
+     * @param callback функция-коллбек получения i-ой страницы (аргумент - номер страницы)
      */
-    constructor(fields = {}) {
+    constructor(fields = {}, callback) {
         super('table');
         this._fields = fields;
 
@@ -28,16 +28,8 @@ export default class Table extends Block {
         // tfoot
         const tfoot = new Block('tfoot');
         const trfoot = new Block('tr', ['head']);
-        const thfoot = new Block('th', [], {'colspan': 3});
-        const paginator = new Paginator(function(page) {
-            Users.leaders((err, response) => {
-                if (!err) {
-					Bus.emit('paginator-update', response);
-                } else {
-                    alert(response.error);
-                }
-            }, {page: page});
-        });
+        const thfoot = new Block('th', [], {'colspan': Object.keys(this._fields).length});
+        const paginator = new Paginator(callback);
         thfoot.append(paginator);
 
         trfoot.append(thfoot);
@@ -46,10 +38,10 @@ export default class Table extends Block {
 
         // tbody
         this._tbody = new Block('tbody');
-        this._tbody.setText("");
         this.append(this._tbody);
 
         Bus.on('paginator-update', this.update.bind(this));
+        callback(0);
     }
 
     _data(data = []) {
@@ -65,11 +57,13 @@ export default class Table extends Block {
             }
             this._tbody.getElement().appendChild(tr);
         });
-        // this.getElement().appendChild(tbody);
     }
 
     update(data = []) {
         this._tbody.clear();
+        // if (data === []) {
+        //     alert('Нет данных в таблице');
+        // }
         this._data(data);
     }
 }
