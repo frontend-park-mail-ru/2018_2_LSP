@@ -22,7 +22,7 @@ export default class Game {
 	 * @param {number} playersCount количество игроков (2 или 4)
 	 * @param {number} pirateCount количество фишек на игрока
 	 */
-    constructor(mapSize, playersCount, pirateCount) {
+	constructor(mapSize, playersCount, pirateCount) {
 		this.map = MapBuilder.generateMap(distribution);	// получение карты в виде матрицы
 
 		this.currentPlayer = 0;
@@ -57,21 +57,21 @@ export default class Game {
 				});
 			}
 		}
-    }
+	}
 
 	/**
 	 * Проверка выиграша какого-либо игрока
 	 */
-    checkForWin() {
+	checkForWin() {
 		for (let i = 0; i < this.players.length; i++) {
 			if (this.players[i].getScore() > this.totalGoldCount / 2) {
 			  	return true;
 			}
 		}
 		return false;
-    }
+	}
   
-    startTimer() {
+	startTimer() {
 		// window.setInterval(function() {
 		// 	UI.setTimer(1);
 		// }, 1000);
@@ -79,15 +79,15 @@ export default class Game {
 			this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
 			this.hovered = false;
 			UI.resetOpacity();
-			alert("Время вашего хода истекло");
+			alert('Время вашего хода истекло');
 		}, 30000);
-    }
+	}
 
 	/**
 	 * Обработка нажатия на пирата
 	 * @param {string} id id пирата на которого нажали
 	 */
-    playerClick(id) {
+	playerClick(id) {
 		if (this._getPlayerNumber(id) != this.currentPlayer) {
 			return;
 	  	}
@@ -99,7 +99,7 @@ export default class Game {
 			let currentCard = this.players[this.currentPlayer].getPirate(pirateID).getCard();
 			let moveableCards = this.map.getMoveableCards(currentCard);
 			moveableCards.forEach(function(id) {
-				document.getElementById("gamecard-" + id).style.opacity = 1;
+				document.getElementById('gamecard-' + id).style.opacity = 1;
 			});
 			this.currentSelectedPirate = pirateID; // TODO убрать
 	  	} 
@@ -107,13 +107,13 @@ export default class Game {
 			this.hovered = false;
 			UI.resetOpacity();
 		}
-    }
+	}
 
 	/**
 	 * Обработка нажатия на карточку
 	 * @param {string} id id нажатой карточки
 	 */
-    flipCard(id) {
+	flipCard(id) {
 		if (!this.hovered) {
 			return false;
 		}
@@ -134,26 +134,26 @@ export default class Game {
 	
 		const card = document.getElementById(id);
 		switch (cardType) {
-			case CARDTYPES.GOLD:
-				card.getElementsByTagName('img')[0].src = 'img/gold.png';
-				break;
-			case CARDTYPES.KILL:
-				card.getElementsByTagName('img')[0].src = 'img/kill.png';
-				break;
-			default:
-				card.getElementsByTagName('img')[0].src = 'img/water.png';
-				break;
+		case CARDTYPES.GOLD:
+			card.getElementsByTagName('img')[0].src = 'img/gold.png';
+			break;
+		case CARDTYPES.KILL:
+			card.getElementsByTagName('img')[0].src = 'img/kill.png';
+			break;
+		default:
+			card.getElementsByTagName('img')[0].src = 'img/water.png';
+			break;
 		}
 		card.classList.add('flip');
 
-		const pirate = "pirate-" + this.currentPlayer + "-" + this.currentSelectedPirate;
+		const pirate = 'pirate-' + this.currentPlayer + '-' + this.currentSelectedPirate;
 		document.getElementById(pirate).classList.add('flip');
 		UI.moveToCard(pirate, id);
 		UI.resetOpacity();
 
 		if (this.checkForWin()) {
 			if (this.done === undefined) {
-			  	alert("Игрок " + this.currentPlayer + " выиграл! Вы можете продолжать игру (тестовый режим).");
+			  	alert('Игрок ' + this.currentPlayer + ' выиграл! Вы можете продолжать игру (тестовый режим).');
 			 	this.done = true;
 			}
 		}

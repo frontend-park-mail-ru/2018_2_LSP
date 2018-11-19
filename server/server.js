@@ -1,5 +1,3 @@
-'use strict';
-
 const fallback = require('express-history-api-fallback');
 const body = require('body-parser');
 const cookie = require('cookie-parser');

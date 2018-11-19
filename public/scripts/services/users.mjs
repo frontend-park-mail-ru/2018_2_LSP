@@ -1,6 +1,6 @@
 import Http from '../modules/http.mjs';
 
-const path = 'https://jackal.online'; 
+const path = 'https://jackal.online/api'; 
 
 /**
  * Сервис для работы с пользователями
@@ -15,7 +15,7 @@ export default class Users {
 
 	/**
 	 * Авторизация пользователя
-	 * @param callback 
+	 * @param {Function} callback функция-коллбек
 	 * @param data 
 	 */
 	static auth(callback, data = {}) {
@@ -29,7 +29,7 @@ export default class Users {
 
 	/**
 	 * Регистрация пользователя
-	 * @param callback 
+	 * @param {Function} callback функция-коллбек
 	 * @param data 
 	 */
 	static register(callback, data = {}) {
@@ -45,7 +45,7 @@ export default class Users {
 
 	/**
 	 * Получение данных профиля пользователя
-	 * @param callback 
+	 * @param {Function} callback функция-коллбек
 	 */
 	static profile(callback) {
 		if (this.isLoggedIn()) {
@@ -65,7 +65,7 @@ export default class Users {
 		// 	payload = jwt_decode(payload)['id'];
 		// }
 		if (payload) {
-			Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar');
+			Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar,totalgames');
 		} 
 		// else {
 		// 	router.open('/profile');
@@ -74,11 +74,11 @@ export default class Users {
 
 	/**
 	 * Получение данных таблицы лидеров
-	 * @param callback 
-	 * @param data 
+	 * @param {Function} callback функция-коллбек
+	 * @param {Object} data 
 	 */
 	static leaders(callback, data = {}) {
-		const query = path + '/users?page=' + data.page + '&fields=email,rating&orderby=rating';
+		const query = path + '/users?page=' + data.page + '&fields=username,rating,totalgames&orderby=rating';
 		const call = function(err, users) {
 			if (err) {
 				return callback(err, users);
@@ -100,10 +100,10 @@ export default class Users {
 
 	/**
 	 * Парсинг кук
-	 * @param name 
+	 * @param {string} name название поля
 	 */
 	static _cookieParser(name) {
-		const matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+		const matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
 		return matches ? decodeURIComponent(matches[1]) : undefined;
 	}
 }

@@ -1,4 +1,4 @@
-let CARDTYPES = {}
+let CARDTYPES = {};
 CARDTYPES.DEFAULT = 0;
 CARDTYPES.GOLD = 1;
 CARDTYPES.KILL = 2;
@@ -53,14 +53,14 @@ export default class Map {
 	getMoveableCards(cardID) {	// получить массив игровых карт на которые можно попасть
 		let cards = [];
 		// if (cardID < 0) {
-			if (cardID === 'base-0') {
-				let temp = Math.ceil(this.size/2);
-				cards = [temp-1, temp, temp+1];
-			}
-			else if (cardID === 'base-1') {
-				let temp = this.size*this.size - Math.floor(this.size/2);
-				cards = [temp-1, temp, temp+1];
-			}
+		if (cardID === 'base-0') {
+			let temp = Math.ceil(this.size/2);
+			cards = [temp-1, temp, temp+1];
+		}
+		else if (cardID === 'base-1') {
+			let temp = this.size*this.size - Math.floor(this.size/2);
+			cards = [temp-1, temp, temp+1];
+		}
 		// }
 		else {
 			if ((cardID + 1) % this.size != 1) {
