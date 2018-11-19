@@ -22,7 +22,7 @@ export default class Paginator extends Block {
 			callback(this._currentPage);
 		});
 
-        const aleft = new Button('left', '<', classes);
+		const aleft = new Button('left', '<', classes);
 		this.append(aleft);
 		aleft.event('click', () => {
 			if (this._currentPage == 0) {

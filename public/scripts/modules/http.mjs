@@ -60,7 +60,7 @@ export default class Http {
 		this._request(callback, 'POST', path, body);
 	}
 
-		/**
+	/**
      * Функция Delete-запроса
      * @param {function} callback - коллбек-функция
      * @param {string} path - адрес запроса

@@ -33,7 +33,7 @@ export default class Profile extends BaseView {
 			const callback = (err, response) => {
 				if (!err) {
 					this._profile = response;
-	                this.render();
+					this.render();
 				} else {
 					Router.open('/signin');
 				}

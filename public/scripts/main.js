@@ -48,24 +48,24 @@ Bus.on('user:logged-in', user => {
 });
 
 if (document.cookie) {
-    Bus.emit('user:logged-in');
+	Bus.emit('user:logged-in');
 }
 
 Bus.on('user:logged-out', user => {         
-    const menuHeader = header({'headerType': 'notLoggedIn'});
-    const navigationPart = document.getElementsByTagName('nav');
-    navigationPart[0].innerHTML = '';
-    navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
+	const menuHeader = header({'headerType': 'notLoggedIn'});
+	const navigationPart = document.getElementsByTagName('nav');
+	navigationPart[0].innerHTML = '';
+	navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
 
-    if(window.location.pathname == '/') {
-        const backButton = document.getElementsByClassName('basicButton_back');
-        backButton[0].hidden = true;
-    }
+	if(window.location.pathname == '/') {
+		const backButton = document.getElementsByClassName('basicButton_back');
+		backButton[0].hidden = true;
+	}
     
-    Users.logout((err, response) => {
-        if (err) {
-            errorLine.setText(Errors.getErrorString(response.error));
-            errorLine.show();
-        }
-    });
-})
+	Users.logout((err, response) => {
+		if (err) {
+			errorLine.setText(Errors.getErrorString(response.error));
+			errorLine.show();
+		}
+	});
+});
