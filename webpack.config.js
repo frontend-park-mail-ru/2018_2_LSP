@@ -1,32 +1,32 @@
 const path = require('path');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const PATHS = {
+	scripts: path.resolve(__dirname, 'public/scripts'),
+	build: path.resolve(__dirname, 'public/build')
+}
 
 module.exports = {
-	// entry: {
-	// 	main: [
-	// 		path.resolve(__dirname, 'public') + '/scripts/main.js',
-	// 	],
-	// },
-	// module: {
-	// 	rules: [
-	// 		{
-	// 			test : /\.(js|jsx|mjs)$/,
-	// 			exclude: /node_modules/,
-	// 			use: {
-	// 				loader: 'babel-loader',
-	// 				options: {
-	// 					presets: [['@babel/preset-env']]
-	// 				}
-	// 			}
-	// 		},
-	// 	],
-	// },
-
-	entry: './public/scripts/main.js',
+	entry: PATHS.scripts + '/main.js',
 	output: {
-		path: path.resolve(__dirname, 'build'),
-		filename: 'bundle.js',
-		publicPath: '/build/'
+		path: PATHS.build,
+		filename: 'bundle.js'
 	},
+
+	// plugins: [
+	// 	new HtmlWebpackPlugin({
+	// 		filename: 'header.js',
+	// 		template: PATHS.scripts + '/blocks/Header/header.pug',
+	// 	}),
+	// 	new HtmlWebpackPlugin({
+	// 		filename: 'baseView.js',
+	// 		template: PATHS.scripts + '/views/BaseView/baseView.pug',
+	// 	}),
+	// 	new HtmlWebpackPlugin({
+	// 		filename: 'landingView.js',
+	// 		template: PATHS.scripts + '/views/LandingView/landingView.pug',
+	// 	})
+	// ],
 
 	module: {
 		rules: [
@@ -35,16 +35,15 @@ module.exports = {
 				use: [
 					{
 						loader: 'babel-loader',
-						options: {presets: ['env']}
+						options: {presets: [['@babel/preset-env']]}
 					}
 				]
 			},
 			{
-				test: /\.pug$/,
+				test: /\.(pug|jade)$/,
 				use: [
 					{
-						loader: 'pug-loader',
-						options: {pretty: true}
+						loader: 'pug-loader'
 					}
 				]
 			}

@@ -1,4 +1,4 @@
-import {GoldCard, KillCard, EmptyCard} from '/scripts/game/Card.mjs';
+import {GoldCard, KillCard, EmptyCard} from './Card.mjs';
 
 let CARDTYPES = {};
 CARDTYPES.DEFAULT = 0;

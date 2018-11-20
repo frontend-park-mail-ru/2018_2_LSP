@@ -1,5 +1,5 @@
 import BaseView from '../BaseView/BaseView.mjs';
-// import baseView from '../BaseView/baseView.js';	//???
+import baseView from '../BaseView/baseView.pug';
 import Block from '../../blocks/Block/Block.mjs';
 import Form from '../../blocks/Form/Form.mjs';
 import Users from '../../services/users.mjs';

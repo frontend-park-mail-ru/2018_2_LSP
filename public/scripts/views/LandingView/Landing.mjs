@@ -1,4 +1,5 @@
 import BaseView from '../BaseView/BaseView.mjs';
+import landingView from '../LandingView/landingView.pug';
 
 export default class Landing extends BaseView {
 	constructor() {

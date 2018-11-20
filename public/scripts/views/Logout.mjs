@@ -1,5 +1,5 @@
-import Bus from '/scripts/modules/eventBus.mjs';
-import Router from '/scripts/modules/Router.mjs';
+import Bus from '../modules/eventBus.mjs';
+import Router from '../modules/Router.mjs';
 
 export default class Logout {
 	constructor () {

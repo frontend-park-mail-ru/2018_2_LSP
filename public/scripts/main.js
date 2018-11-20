@@ -9,8 +9,8 @@ import Router from './modules/Router.mjs';
 import GameView from './views/GameView/GameView.mjs';
 import Logout from './views/Logout.mjs';
 import Socket from './modules/websocket.mjs';
-import Bus from '/scripts/modules/eventBus.mjs';
-import Users from '/scripts/services/users.mjs';
+import Bus from './modules/eventBus.mjs';
+import Users from './services/users.mjs';
 
 // авторизация service-worker
 // if ("serviceWorker" in navigator) {

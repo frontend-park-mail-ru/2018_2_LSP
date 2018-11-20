@@ -5,6 +5,7 @@ import Users from '../../services/users.mjs';
 import Errors from '../../services/errors.mjs';
 import Bus from '../../modules/eventBus.mjs';
 import Router from '../../modules/Router.mjs';
+import baseView from '../BaseView/baseView.pug';
 
 export default class SignIn extends BaseView {
 	constructor() {

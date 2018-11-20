@@ -1,3 +1,5 @@
+import header from '../../blocks/Header/header.pug';
+
 export default class BaseView {
 	constructor (el) {
 		this.el = el;

@@ -1,5 +1,6 @@
 import BaseView from '../BaseView/BaseView.mjs';
 import Button from '../../blocks/Button/Button.mjs';
+import baseView from '../BaseView/baseView.pug';
 
 export default class Menu extends BaseView {
 	constructor(){

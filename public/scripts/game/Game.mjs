@@ -1,7 +1,7 @@
-import MapBuilder from '/scripts/game/MapBuilder.mjs';
-import CardBuilder from '/scripts/game/CardBuilder.mjs';
-import Player from '/scripts/game/Player.mjs';
-import UI from '/scripts/game/UI.mjs';
+import MapBuilder from './MapBuilder.mjs';
+import CardBuilder from './CardBuilder.mjs';
+import Player from './Player.mjs';
+import UI from './UI.mjs';
 
 
 let CARDTYPES = {};

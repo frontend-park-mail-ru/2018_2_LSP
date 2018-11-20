@@ -1,4 +1,4 @@
-import UI from '/scripts/game/UI.mjs';
+import UI from './UI.mjs';
 
 class Card {
 	constructor() {}
