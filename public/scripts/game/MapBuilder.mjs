@@ -1,4 +1,4 @@
-import Map from '/scripts/game/Map.mjs';
+import Map from './Map.mjs';
 
 Array.prototype.remove = function(from, to) {
 	var rest = this.slice((to || from) + 1 || this.length);

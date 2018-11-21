@@ -32,18 +32,20 @@
     "fest": "0.12.1",
     "https": "1.0.0",
     "jsdoc": "3.5.5",
-    "morgan": "1.9.0",
-    "normalize.css": "^8.0.1",
+    "morgan": "1.9.1",
+    "normalize.css": "8.0.1",
     "now": "11.4.6",
     "pug": "2.0.3",
+    "pug-loader": "2.4.0",
     "tls": "0.0.1",
     "uuid": "3.3.2"
   },
   "devDependencies": {
-    "eslint": "5.6.1",
     "@babel/core": "7.1.5",
     "@babel/preset-env": "7.1.5",
     "babel-loader": "8.0.4",
+    "eslint": "5.6.1",
+    "html-webpack-plugin": "3.2.0",
     "webpack": "4.25.1",
     "webpack-cli": "3.1.2"
   }

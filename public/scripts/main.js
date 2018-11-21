@@ -9,8 +9,8 @@ import Router from './modules/Router.mjs';
 import GameView from './views/GameView/GameView.mjs';
 import Logout from './views/Logout.mjs';
 import Socket from './modules/websocket.mjs';
-import Bus from '/scripts/modules/eventBus.mjs';
-import Users from '/scripts/services/users.mjs';
+import Bus from './modules/eventBus.mjs';
+import Users from './services/users.mjs';
 
 // авторизация service-worker
 // if ("serviceWorker" in navigator) {
@@ -48,24 +48,24 @@ Bus.on('user:logged-in', user => {
 });
 
 if (document.cookie) {
-    Bus.emit('user:logged-in');
+	Bus.emit('user:logged-in');
 }
 
 Bus.on('user:logged-out', user => {         
-    const menuHeader = header({'headerType': 'notLoggedIn'});
-    const navigationPart = document.getElementsByTagName('nav');
-    navigationPart[0].innerHTML = '';
-    navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
+	const menuHeader = header({'headerType': 'notLoggedIn'});
+	const navigationPart = document.getElementsByTagName('nav');
+	navigationPart[0].innerHTML = '';
+	navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
 
-    if(window.location.pathname == '/') {
-        const backButton = document.getElementsByClassName('basicButton_back');
-        backButton[0].hidden = true;
-    }
+	if(window.location.pathname == '/') {
+		const backButton = document.getElementsByClassName('basicButton_back');
+		backButton[0].hidden = true;
+	}
     
-    Users.logout((err, response) => {
-        if (err) {
-            errorLine.setText(Errors.getErrorString(response.error));
-            errorLine.show();
-        }
-    });
-})
+	Users.logout((err, response) => {
+		if (err) {
+			errorLine.setText(Errors.getErrorString(response.error));
+			errorLine.show();
+		}
+	});
+});

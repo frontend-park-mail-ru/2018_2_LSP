@@ -1,7 +1,8 @@
 import BaseView from '../BaseView/BaseView.mjs';
 import Users from '../../services/users.mjs';
 import Block from '../../blocks/Block/Block.mjs';
-import Router from '/scripts/modules/Router.mjs';
+import Router from '../../modules/Router.mjs';
+import baseView from '../BaseView/baseView.pug';
 
 export default class Profile extends BaseView {
 	constructor({profile}) {
@@ -33,7 +34,7 @@ export default class Profile extends BaseView {
 			const callback = (err, response) => {
 				if (!err) {
 					this._profile = response;
-	                this.render();
+					this.render();
 				} else {
 					Router.open('/signin');
 				}
