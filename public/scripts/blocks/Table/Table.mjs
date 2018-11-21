@@ -1,6 +1,5 @@
 import Block from '../Block/Block.mjs';
 import Paginator from '../Paginator/Paginator.mjs';
-import Users from '../../services/users.mjs';
 import Bus from '../../modules/eventBus.mjs';
 
 export default class Table extends Block {

@@ -8,9 +8,10 @@ import Leaders from './views/LeadersView/Leaders.mjs';
 import Router from './modules/Router.mjs';
 import GameView from './views/GameView/GameView.mjs';
 import Logout from './views/Logout.mjs';
-import Socket from './modules/websocket.mjs';
+// import Socket from './modules/websocket.mjs';
 import Bus from './modules/eventBus.mjs';
 import Users from './services/users.mjs';
+import header from './blocks/Header/header.pug';
 
 // авторизация service-worker
 // if ("serviceWorker" in navigator) {
@@ -35,7 +36,7 @@ Router.addPath('/singleplayer', GameView, {mapSide: 5}); // n x n, нечетн�
 Router.addPath('/logout', Logout);
 Router.start();
 
-Bus.on('user:logged-in', user => {         
+Bus.on('user:logged-in', () => {         
 	const menuHeader = header({'headerType': 'loggedIn'});
 	const navigationPart = document.getElementsByTagName('nav');
 	navigationPart[0].innerHTML = '';
@@ -51,7 +52,7 @@ if (document.cookie) {
 	Bus.emit('user:logged-in');
 }
 
-Bus.on('user:logged-out', user => {         
+Bus.on('user:logged-out', () => {         
 	const menuHeader = header({'headerType': 'notLoggedIn'});
 	const navigationPart = document.getElementsByTagName('nav');
 	navigationPart[0].innerHTML = '';
@@ -64,8 +65,7 @@ Bus.on('user:logged-out', user => {
     
 	Users.logout((err, response) => {
 		if (err) {
-			errorLine.setText(Errors.getErrorString(response.error));
-			errorLine.show();
+			alert(response.error);
 		}
 	});
 });
