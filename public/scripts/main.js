@@ -29,7 +29,7 @@ Router.addPath('/signin', SignIn);
 Router.addPath('/signup', SignUp);
 Router.addPath('/rules', RulesView, {type: 'back'});
 Router.addPath('/menu', Menu);
-Router.addPath('/leaders', Leaders);
+Router.addPath('/leaders', Leaders, {page: 0});
 Router.addPath('/profile', Profile, {profile: ''});
 Router.addPath('/singleplayer', GameView, {mapSide: 5}); // n x n, нечетные
 Router.addPath('/logout', Logout);

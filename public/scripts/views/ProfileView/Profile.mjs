@@ -1,7 +1,7 @@
 import BaseView from '../BaseView/BaseView.mjs';
 import Users from '../../services/users.mjs';
 import Block from '../../blocks/Block/Block.mjs';
-import Router from '../../modules/Router.mjs';
+import Router from '/scripts/modules/Router.mjs';
 
 export default class Profile extends BaseView {
 	constructor({profile}) {
