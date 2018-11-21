@@ -2,8 +2,8 @@ import Pirate from './Pirate.mjs';
 
 export default class Player {
 	constructor() {
-	  	this.pirates = [];
-	  	this.score = 0;
+		this.pirates = [];
+		this.score = 0;
 	}
   
 	incScore() {
@@ -11,11 +11,11 @@ export default class Player {
 	}
   
 	getScore() {
-	  	return this.score;
+		return this.score;
 	}
   
 	addPirate(card) {
-	  	this.pirates.push(new Pirate(card));
+		this.pirates.push(new Pirate(card));
 	}
   
 	addPirates(n, card) {
@@ -25,14 +25,14 @@ export default class Player {
 	}
   
 	movePirate(i, card) {
-	  	this.pirates[i].move(card);
+		this.pirates[i].move(card);
 	}
   
 	getPirates() {
-	  	return this.pirates;
+		return this.pirates;
 	}
   
 	getPirate(i) {
-	  	return this.pirates[i];
+		return this.pirates[i];
 	}
 }

@@ -1,17 +1,17 @@
 export default class Pirate {
 	constructor(card = 'base') {
-	  	this.card = card;
+		this.card = card;
 	}
 
 	move(card) {
-	  	this.card = card;
+		this.card = card;
 	}
 	
 	getCard() {
-	  	return this.card;
+		return this.card;
 	}
 	
 	setCard(card) {
-	  	this.card = card;
+		this.card = card;
 	}
 }

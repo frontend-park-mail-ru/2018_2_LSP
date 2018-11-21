@@ -17,7 +17,7 @@ export default class Table extends Block {
 		// thead
 		const thead = new Block('thead');
 		const trhead = new Block('tr', ['head']);
-		for (header in this._fields) {
+		for (let header in this._fields) {
 			const th = new Block('th');
 			th.setText(header);
 			trhead.append(th);
@@ -50,7 +50,7 @@ export default class Table extends Block {
 			if (item.me) {  // если запись принадлежит данному пользователю, выделяем поле
 				tr.classList.add('me');
 			}            
-			for (const header in this._fields) {
+			for (let header in this._fields) {
 				const th = document.createElement('th');
 				th.textContent = item[this._fields[header]];
 				tr.appendChild(th);

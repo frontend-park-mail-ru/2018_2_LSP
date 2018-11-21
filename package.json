@@ -8,7 +8,7 @@
     "start": "node server/server.js",
     "lint": "eslint public/ --fix --ext js,mjs",
     "build": "webpack --mode production --display-error-details",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch --mode production --display-error-details"
   },
   "repository": {
     "type": "git",

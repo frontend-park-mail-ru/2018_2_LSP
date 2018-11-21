@@ -43,8 +43,7 @@ export default class Game {
 		// навешиваем событие переворота карточки
 		for(let i = 1; i <= mapSize * mapSize; ++i) {
 			UI.setEventListener('click', 'gamecard-' + i, function() {
-				if (window.game.flipCard(this.id)) {
-				}
+				window.game.flipCard(this.id);
 			});
 		}
 	
@@ -65,7 +64,7 @@ export default class Game {
 	checkForWin() {
 		for (let i = 0; i < this.players.length; i++) {
 			if (this.players[i].getScore() > this.totalGoldCount / 2) {
-			  	return true;
+				return true;
 			}
 		}
 		return false;
@@ -90,9 +89,9 @@ export default class Game {
 	playerClick(id) {
 		if (this._getPlayerNumber(id) != this.currentPlayer) {
 			return;
-	  	}
+		}
 	
-	  	if (!this.hovered) {
+		if (!this.hovered) {
 			this.hovered = true;
 			UI.setLowOpacity();
 			let pirateID = this._getPirateNumber(id);
@@ -102,7 +101,7 @@ export default class Game {
 				document.getElementById('gamecard-' + id).style.opacity = 1;
 			});
 			this.currentSelectedPirate = pirateID; // TODO убрать
-	  	} 
+		} 
 		else {
 			this.hovered = false;
 			UI.resetOpacity();
@@ -153,8 +152,8 @@ export default class Game {
 
 		if (this.checkForWin()) {
 			if (this.done === undefined) {
-			  	alert('Игрок ' + this.currentPlayer + ' выиграл! Вы можете продолжать игру (тестовый режим).');
-			 	this.done = true;
+				alert('Игрок ' + this.currentPlayer + ' выиграл! Вы можете продолжать игру (тестовый режим).');
+				this.done = true;
 			}
 		}
 		this.currentPlayer = (game.currentPlayer + 1) % game.players.length;	

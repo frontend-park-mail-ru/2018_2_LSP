@@ -3,7 +3,7 @@ import UI from './UI.mjs';
 class Card {
 	constructor() {}
 
-	apply(game) {}
+	apply() {}
 }
 
 export class EmptyCard extends Card {
@@ -11,7 +11,7 @@ export class EmptyCard extends Card {
 		super();
 	}
 	
-	apply(game) {}
+	apply() {}
 }
 
 export class GoldCard extends Card {
@@ -23,9 +23,9 @@ export class GoldCard extends Card {
 		const id = game.players[game.currentPlayer].getPirate(game.currentSelectedPirate).getCard();
 		const cardID = game.getCardNumber(id);
 		if (game.map.getGoldOnTitle(cardID) > 0) {
-		  	game.map.decreaseGold(cardID);
-		  	game.players[game.currentPlayer].incScore();
-		  	alert('Вы нашли сундук! Получите пироженку в подарок. Теперь у вас ' + game.players[game.currentPlayer].getScore() + ' пирожен(?)');
+			game.map.decreaseGold(cardID);
+			game.players[game.currentPlayer].incScore();
+			alert('Вы нашли сундук! Получите пироженку в подарок. Теперь у вас ' + game.players[game.currentPlayer].getScore() + ' пирожен(?)');
 		}
 	}
 }
