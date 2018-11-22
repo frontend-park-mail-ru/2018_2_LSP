@@ -2,14 +2,11 @@ import BaseView from '../BaseView/BaseView.mjs';
 import Users from '../../services/users.mjs';
 import Table from '../../blocks/Table/Table.mjs';
 import Bus from '../../modules/eventBus.mjs';
-import baseView from '../BaseView/baseView.pug';
 import Router from '../../modules/Router.mjs';
-
 
 export default class Leaders extends BaseView {
     constructor(){
-        const view = baseView({'title': 'Лидеры'});
-        super(view);
+        super('Лидеры');
     }
 
     render() {

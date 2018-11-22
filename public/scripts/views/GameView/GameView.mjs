@@ -1,17 +1,15 @@
 import BaseView from '../../views/BaseView/BaseView.mjs';
 import Game from '../../game/Game.mjs';
-import baseView from '../BaseView/baseView.pug';
 import gameMap from './gameMap.pug';
 
 export default class GameView extends BaseView {
 	constructor({mapSide} = {}){
-		const view = baseView({'headerType': ''});
-		super(view);
+		super();
 		this.mapSide = mapSide;
 	}
 
 	render() {
-		const gameSection = document.getElementsByClassName('gameSection');
+		const gameSection = document.getElementsByClassName('game-section');
 		if (gameSection.length != 0) {
 			gameSection[0].insertAdjacentHTML('beforeend', gameMap());
 		} else {

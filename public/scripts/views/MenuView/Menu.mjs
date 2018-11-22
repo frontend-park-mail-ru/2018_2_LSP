@@ -1,18 +1,9 @@
 import BaseView from '../BaseView/BaseView.mjs';
 import Button from '../../blocks/Button/Button.mjs';
-import baseView from '../BaseView/baseView.pug';
 
 export default class Menu extends BaseView {
 	constructor(){
-		// let headerType = "";
-		// if (Users.isLoggedIn()) {
-		//     headerType = "menu";
-		// } else {
-		//     headerType = "landing";
-		// }
-
-		const view = baseView({'title': 'Меню'});
-		super(view);
+		super('Меню');
 	}
 
 	render() {
@@ -24,7 +15,7 @@ export default class Menu extends BaseView {
 		};
 
 		Object.entries(items).forEach((item) => {
-			const element = new Button(item[0], item[1]);
+			const element = new Button(item[0], item[1], ['basic-button', 'basic-button_right']);
 			this.pageContent.appendChild(element.getElement());
 		});
 	}

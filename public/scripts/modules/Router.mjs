@@ -34,12 +34,12 @@ class Router {
 		} 
 		let {View, view, param} = this.routes[path];
 
-		const mainSection = document.getElementsByClassName('mainSection');
+		const mainSection = document.getElementsByClassName('main-section');
 		if (mainSection.length != 0) {
 			mainSection[0].innerHTML = '';
 		}
         
-		const gameSection = document.getElementsByClassName('gameSection');
+		const gameSection = document.getElementsByClassName('game-section');
 		if (gameSection.length != 0) {
 			gameSection[0].innerHTML = '';
 		}    

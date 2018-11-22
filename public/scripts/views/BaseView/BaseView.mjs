@@ -1,22 +1,28 @@
 import header from '../../blocks/Header/header.pug';
+import baseView from '../BaseView/baseView.pug';
+import baseContent from '../BaseView/baseContent.pug';
 
 export default class BaseView {
-	constructor (el) {
-		this.el = el;
-		this.mainSection = document.getElementById('mainSection');
-		//application.insertAdjacentHTML('beforeend', el);
+	constructor (title) {
+		this.title = title;
+		//this.mainSection = document.getElementById('main-section');
+		this.mainSection = document.getElementsByClassName('main-section')[0];
 
 		if (this.mainSection) {
-			const backButton = document.getElementsByClassName('basicButton_back');
+			const backButton = document.getElementsByClassName('basic-button_back');
 			backButton[0].hidden = false;
-			this.mainSection.insertAdjacentHTML('beforeend', el);
+			const contentView = baseContent({'title': title});
+			this.mainSection.insertAdjacentHTML('beforeend', contentView);
 		} else {
-			application.insertAdjacentHTML('beforeend', el);
+			const contentView = baseView({'title': title});
+			application.insertAdjacentHTML('beforeend', contentView);
+
 			const menuHeader = header({'headerType': 'notLoggedIn'});
 			const navigationPart = document.getElementsByTagName('nav');
 			navigationPart[0].innerHTML = '';
 			navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
 		}
+		
 		this.pageContent = document.getElementById('content');
 	}
 
@@ -30,7 +36,7 @@ export default class BaseView {
 	}
 
 	get active() {
-		return !this.el.hidden;
+		return !this.title.hidden;
 	}
 
 	render() {

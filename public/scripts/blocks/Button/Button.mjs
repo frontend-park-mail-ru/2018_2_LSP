@@ -11,7 +11,7 @@ export default class Button extends Block {
      * @param {string} text текст кнопки
      * @param {Array} classes классы кнопки
      */
-	constructor (link = '', text = '', classes = ['basicButton']) {
+	constructor (link = '', text = '', classes = ['basic-button']) {
 		super('a', classes, {'href': link});
 		this.setText(text);
 	}

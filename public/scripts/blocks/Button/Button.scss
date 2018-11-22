@@ -1,0 +1,31 @@
+$button_text_color: darkkhaki;
+$button_bg: white;
+$button_border: grey;
+$button_hover_bg: #b30000;
+$button_hover_text_color: white;
+
+.basic-button {
+    background-color: $button_bg;
+    border: solid 1px $button_border;
+    border-radius: 5px;
+    color: $button_text_color;
+    padding: 10px 8px; /*sizes*/
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    margin: 4px 8px;
+    cursor: pointer;    
+
+    &:hover {
+        background-color: $button_hover_bg;
+        color: $button_hover_text_color;
+    }
+
+    &_back{
+        float: left; 
+    }
+
+    &_right{
+        float: right;
+    }
+}

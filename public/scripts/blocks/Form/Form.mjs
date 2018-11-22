@@ -10,10 +10,9 @@ export default class Form extends Block {
      * @param {Array} fields поля формы
      */
 	constructor(fields = []) {
-		super('form');
+		super('form', ['basic-form']);
 		fields.forEach(field => {
-			const fieldElement = new Block('p');
-			fieldElement.append(new Block('input', field.classes, field.attributes));
+			const fieldElement = new Block('input', field.classes = ['basic-form__input'], field.attributes)
 			this.append(fieldElement);
 		});
 	}

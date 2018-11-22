@@ -12,7 +12,7 @@ export default class Paginator extends Block {
 	 * @param callback функция-коллбек получения i-ой страницы (аргумент - номер страницы)
 	 * @param classes классы, накладоваемые на кнопки пагинации
 	 */
-	constructor(callback, classes) {
+	constructor(callback, classes=['basic-button', 'basic-button_right']) {
 		super('div');
 		this._currentPage = 0;
 
@@ -24,7 +24,7 @@ export default class Paginator extends Block {
 			callback(this._currentPage);
 		});
 
-        const aleft = new Button('', '<', classes);
+        const aleft = new Button('', '<', classes=['basic-button', 'basic-button_right']);
 		this.append(aleft);
 		aleft.event('click', () => {
 			if (this._currentPage == 0) {
