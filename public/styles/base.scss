@@ -7,6 +7,7 @@ $error_text_color: white;
 @import '../scripts/blocks/Table/Table.scss';
 @import '../scripts/views/LandingView/Landing.scss';
 @import '../scripts/views/GameView/GameView.scss';
+@import './normalize.css';
 
 .main-section {
     height: 200px;

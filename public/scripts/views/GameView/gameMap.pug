@@ -1,14 +1,14 @@
 mixin card(id, type)
     div(class= 'game__card', id= id)
-        img(class= 'game__card_front-face', src= 'img/water.png')
-        img(class= 'game__card_back-face', src= 'img/'+ type + '.png')
+        img(class= 'game__card_front-face', src= require('../../../img/water.png'))
+        img(class= 'game__card_back-face', src= require('../../../img/'+ type + '.png'))
 
 mixin base(player, color, count)
     div(class= 'game__card', id= 'base-' + player)
-        img(class= 'game__card_front-face', src= 'img/water.png')
-        img(class= 'game__card_back-face', src= 'img/base.png')
+        img(class= 'game__card_front-face', src= require('../../../img/water.png'))
+        img(class= 'game__card_back-face', src= require('../../../img/base.png'))
         - for (var pirate = 0; pirate < count; pirate++)
-            img(id= 'pirate-' + player + '-' + pirate, class= 'game__pirate', src='img/ships/' + color + '.png')
+            img(id= 'pirate-' + player + '-' + pirate, class= 'game__pirate', src=require('../../../img/ships/' + color + '.png'))
 
 mixin base_row(player, color, count)
     - var length = 3
