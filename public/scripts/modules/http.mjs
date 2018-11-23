@@ -22,7 +22,7 @@ export default class Http {
 		}
     
 		xhr.onreadystatechange = () => {
-			if (xhr.readyState !== 4) {
+			if (xhr.readyState !== xhr.DONE) {
 				return;
 			}
 			const response = JSON.parse(xhr.responseText);

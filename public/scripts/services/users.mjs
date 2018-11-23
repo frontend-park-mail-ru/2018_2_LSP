@@ -103,7 +103,7 @@ export default class Users {
 	 * @param {string} name название поля
 	 */
 	static _cookieParser(name) {
-		const matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
+		const matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)'));
 		return matches ? decodeURIComponent(matches[1]) : undefined;
 	}
 }

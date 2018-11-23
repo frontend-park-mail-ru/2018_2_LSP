@@ -18,7 +18,7 @@ class Socket {
 			console.log('Connected with WebSocket');
 			this.socket.send('ping');
 		}.bind(this);
-
+		
 		this.socket.onmessage = function(event) {
 			console.log('WS:' + event.data);
 			bus.emit('sw-message', event.data);

@@ -74,7 +74,7 @@ export default class SignUp extends BaseView {
 				errorLine.show();
 				return;
 			}
-			if (data['email'].search('^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,8}$') === -1) {
+			if (data['email'].search('^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+.)+[a-z]{2,8}$') === -1) {
 				errorLine.setText(Errors.getErrorString('email'));
 				errorLine.show();
 				return;

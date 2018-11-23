@@ -1,8 +1,35 @@
-const CACHE_KEY = 'cache-v1'; // название кэша
+const CACHE_KEY = 'cache-v1'; // версия кэша
+
+
+// console.log(...global.serviceWorkerOption.assets.map(asset => '/' + asset))
+
+// console.log(global.serviceWorkerOption);
+
+// const { assets } = global.serviceWorkerOption;
+// // console.log(assets);
+
+// let cacheUrls = [...assets, '/build'];
+// // console.log(cacheUrls);
+
+// cacheUrls = cacheUrls.map(path => {
+// 	return new URL(path, global.location).toString();
+// });
+// console.log(cacheUrls);
+
 
 const cacheUrls = [ // кэшируемые файлы
-	// '/',
+	...global.serviceWorkerOption.assets.map( asset => '.' + asset),
+// 	'/',
+	// '/build/bundle.js.map',
+	'/favicon.ico',
+// 	'/about',
+// 	'/profile'
+
+	'/',
 	// '/index.html',
+	// '/build/bundle.js.map',
+	// '/build/style.js.map',
+	// '/build/sw.js.map',
     
 	// '/img/ships/blue.png',
 	// '/img/ships/green.png',
@@ -72,29 +99,49 @@ const cacheUrls = [ // кэшируемые файлы
 	// '/styles/style.css',
 ];
 
-this.addEventListener('install', event => {
+self.addEventListener('install', event => {
+	console.log(cacheUrls);
 	event.waitUntil(
-		caches.open(CACHE_KEY)  // открываем кэш
-			.then(function(cache) {
+		global.caches
+			.open(CACHE_KEY)  // открываем кэш
+			.then(cache => {
 				return cache.addAll(cacheUrls); // записываем url
 			})
 	);
 });
 
-this.addEventListener('fetch', event => {
+// self.addEventListener('activate', event => {
+// 	event.waitUntil(
+// 		global.caches.keys()
+// 			.then(cacheNames => {
+//             return Promise.all(
+//                 cacheNames.map(cacheName => {
+//                     if (cacheName.indexOf(CACHE_KEY) === 0) {
+//                         return null
+//                     }
+
+//                     return global.caches.delete(cacheName)
+//                 })
+//             )
+//         })
+//     )
+// });
+
+self.addEventListener('fetch', event => {
+	console.log('kkk', event.response);
 	event.respondWith(   // собственно получение нужного ресурса
-		caches.match(event.request) // ищем запрошенные данные
+		global.caches.match(event.request) // ищем запрошенные данные
 			.then(function(cacheedResponse) {
 				return cacheedResponse || fetch(event.request).then(function(response) {
 					const cloning = response.clone();
-					caches.open(CACHE_KEY).then(function(cache) {    // если получили новые данные - кэшируем
+					global.caches.open(CACHE_KEY).then(function(cache) {    // если получили новые данные - кэшируем
 						cache.put(event.request, cloning);
 					});
 					return response;
 				});
 			})
 			.catch(function() {
-				return caches.match('index.html');
+				return global.caches.match('index.html');
 			})
 	);
 });

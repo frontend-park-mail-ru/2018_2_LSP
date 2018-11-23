@@ -2,7 +2,8 @@
 @import '../scripts/blocks/Table/Table.css';
 @import '../scripts/blocks/Header/Header.css';
 @import '../scripts/views/LandingView/Landing.css';
-@import '/scripts/views/GameView/GameView.css';
+@import '../scripts/views/GameView/GameView.css';
+
 
 
 .mainSection {

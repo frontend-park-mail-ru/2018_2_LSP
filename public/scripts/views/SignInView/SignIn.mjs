@@ -54,7 +54,7 @@ export default class SignIn extends BaseView {
 		const form = new Form(inputs);
 		form.submit(data => {	// добавляем по нажатию кнопки событие
 			// проверка на валидность вводимых данных
-			if (data['email'].search('^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,8}$') === -1) {
+			if (data['email'].search('^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+.)+[a-z]{2,8}$') === -1) {
 				errorLine.setText(Errors.getErrorString('email'));
 				errorLine.show();
 				return;
