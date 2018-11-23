@@ -37,7 +37,7 @@ class Router {
 			mainSection[0].innerHTML = '';
 		}
         
-		const gameSection = document.getElementsByClassName('game-section');
+		const gameSection = document.getElementsByClassName('game');
 		if (gameSection.length != 0) {
 			gameSection[0].innerHTML = '';
 		}    

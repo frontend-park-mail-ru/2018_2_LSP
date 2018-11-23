@@ -15,7 +15,6 @@ import header from './blocks/Header/header.pug';
 import '../img/favicon/favicon.ico';
 import '../styles/base.scss';
 
-
 // авторизация service-worker
 if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {	
 	navigator.serviceWorker.register('sw.js')

@@ -9,7 +9,7 @@ export default class GameView extends BaseView {
 	}
 
 	render() {
-		const gameSection = document.getElementsByClassName('game-section');
+		const gameSection = document.getElementsByClassName('game');
 		if (gameSection.length != 0) {
 			gameSection[0].insertAdjacentHTML('beforeend', gameMap());
 		} else {

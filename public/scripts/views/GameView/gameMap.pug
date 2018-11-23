@@ -1,14 +1,14 @@
 mixin card(id, type)
-    div(class= 'card', id= id)
-        img(class= 'front-face', src= 'img/water.png')
-        img(class= 'back-face', src= 'img/'+ type + '.png')
+    div(class= 'game__card', id= id)
+        img(class= 'game__card_front-face', src= 'img/water.png')
+        img(class= 'game__card_back-face', src= 'img/'+ type + '.png')
 
 mixin base(player, color, count)
-    div(class= 'card', id= 'base-' + player)
-        img(class= 'front-face', src= 'img/water.png')
-        img(class= 'back-face', src= 'img/base.png')
+    div(class= 'game__card', id= 'base-' + player)
+        img(class= 'game__card_front-face', src= 'img/water.png')
+        img(class= 'game__card_back-face', src= 'img/base.png')
         - for (var pirate = 0; pirate < count; pirate++)
-            img(id= 'pirate-' + player + '-' + pirate, class= 'pirate', src='img/ships/' + color + '.png')
+            img(id= 'pirate-' + player + '-' + pirate, class= 'game__pirate', src='img/ships/' + color + '.png')
 
 mixin base_row(player, color, count)
     - var length = 3
@@ -25,16 +25,16 @@ mixin field(size)
             +card('gamecard-'+ ((row*size)+card), 'unopened')
         +card('gameCard', 'sand')
 
-secion(class='game-section')
-    section(class='board', id='gameBoard')
+section(class='game')
+    section(class='game__board', id='gameBoard')
         +base_row('0', 'red', 2)
         +field(5)
         +base_row('1', 'green', 2)
         
-    section(id='gamePlayers')
+    section(class='game__players')
         div Игрок 1
         div Игрок 2
 
-    section(id='gameTimer')
+    section(class='game__timer')
         div(id='timer') 0
     

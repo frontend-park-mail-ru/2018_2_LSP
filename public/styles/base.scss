@@ -6,7 +6,7 @@ $error_text_color: white;
 @import '../scripts/blocks/Button/Button.scss';
 @import '../scripts/blocks/Table/Table.scss';
 @import '../scripts/views/LandingView/Landing.scss';
-@import '../scripts/views/GameView/GameView.css';
+@import '../scripts/views/GameView/GameView.scss';
 
 .main-section {
     height: 200px;
@@ -31,4 +31,8 @@ $error_text_color: white;
         color: $error_text_color;
         font-size: 20px;   
     }
+}
+
+body {
+	background: url(../img/water.png)
 }
