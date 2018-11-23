@@ -38,7 +38,7 @@
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	background: url(/img/water.png) #b0e9fc;
+	background: url(../../../img/water.png) #b0e9fc;
 	backface-visibility: hidden;
 }
 
@@ -69,6 +69,6 @@
 	transform: rotateY(180deg)
 }
 
-/* body {
-	background: url(/img/grass.png)
-} */
+body {
+	background: url(../../../img/grass.png)
+}

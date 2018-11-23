@@ -13,6 +13,7 @@ import Bus from './modules/eventBus.mjs';
 import Users from './services/users.mjs';
 import header from './blocks/Header/header.pug';
 import '../styles/style.css';
+import '../img/favicon/favicon.ico';
 // import '../img/';
 // import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 

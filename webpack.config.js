@@ -52,17 +52,17 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.(png|jpg|gif)$/,
+				test: /\.(png|jpg|gif|ico)$/,
 				use: [
 					{
-						loader: 'url-loader?limit=3000',
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+							context: ''
+						}
 					}
 				]
-			},
-			{
-				test: /\.(ico)$/,
-				loader: 'url-loader?limit=10&name=[name].[ext]',
-			},
+			}
 		]
 	},
 

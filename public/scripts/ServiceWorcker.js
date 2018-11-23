@@ -21,7 +21,7 @@ const cacheUrls = [ // кэшируемые файлы
 	...global.serviceWorkerOption.assets.map( asset => '.' + asset),
 // 	'/',
 	// '/build/bundle.js.map',
-	'/favicon.ico',
+	// '/favicon.ico',
 // 	'/about',
 // 	'/profile'
 
