@@ -12,7 +12,7 @@ import Logout from './views/Logout.mjs';
 import Bus from './modules/eventBus.mjs';
 import Users from './services/users.mjs';
 import header from './blocks/Header/header.pug';
-import '../img/favicon/favicon.ico';
+import '../img/favicon.ico'; //?????
 import '../styles/base.scss';
 
 

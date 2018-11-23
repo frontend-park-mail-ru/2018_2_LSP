@@ -55,13 +55,23 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.(png|jpg|gif|ico)$/,
+				test: /\.(png|jpg|gif)$/,
 				use: [
 					{
 						loader: 'file-loader',
 						options: {
 							name: 'img/[name].[ext]',
-							context: ''
+						}
+					}
+				]
+			},
+			{
+				test: /\.(ico)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
 						}
 					}
 				]
