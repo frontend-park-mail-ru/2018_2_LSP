@@ -10,10 +10,10 @@ export default class Landing extends BaseView{
 	}
 
 	render() {
-		const element1 = new Button('menu', 'Играть', ['main-section__landing-button', 'basic-button']);
+		const element1 = new Button('menu', 'Играть', ['page-content__landing-button', 'basic-button']);
 		this.pageContent.appendChild(element1.getElement());
 
-		const element2 = new Button('rules', 'Правила', ['main-section__landing-button', 'basic-button']);
+		const element2 = new Button('rules', 'Правила', ['page-content__landing-button', 'basic-button']);
 		this.pageContent.appendChild(element2.getElement());
 	}
 }

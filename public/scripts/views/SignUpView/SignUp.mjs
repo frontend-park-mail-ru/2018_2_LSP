@@ -15,7 +15,7 @@ export default class SignUp extends BaseView {
 	}
 
 	_renderSignUpPage() {
-		const errorLine = new Block('p', ['main-section__error-line'], {'hidden': true});
+		const errorLine = new Block('p', ['page-content__error-line'], {'hidden': true});
 
 		const inputs = [
 			{

@@ -13,7 +13,7 @@ export default class Leaders extends BaseView {
         //Router.go({state:'/leaders/', params: {page: 1}});
         Router.go('/leaders/0');
         const items = {'Логин': 'username', 'Сыграно': 'totalgames', 'Рейтинг': 'rating'};
-        const leaderBoard = new Table(items, function(pPage) {
+        const leaderBoard = new Table(items, ['leaders-table'], function(pPage) {
             Users.leaders((err, response) => {  // через промис?
                 if (!err) {
                     Bus.emit('paginator-update', response);

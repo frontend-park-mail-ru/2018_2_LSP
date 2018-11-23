@@ -16,7 +16,7 @@ export default class SignIn extends BaseView {
 	}
 
 	_renderSignInPage() {
-		const errorLine = new Block('p',['main-section__error-line'],{'hidden': true});
+		const errorLine = new Block('p',['page-content__error-line'],{'hidden': true});
 
 		const inputs = [
 			{
