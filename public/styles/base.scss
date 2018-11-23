@@ -1,0 +1,34 @@
+$text_color: brown;
+$error_line_bgcolor: brown;
+$error_text_color: white;
+
+@import '../scripts/blocks/Form/Form.scss';
+@import '../scripts/blocks/Button/Button.scss';
+@import '../scripts/blocks/Table/Table.scss';
+@import '../scripts/views/LandingView/Landing.scss';
+@import '../scripts/views/GameView/GameView.css';
+
+.main-section {
+    height: 200px;
+    width: 400px;
+
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    font-size: 30px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+
+    &__title {
+        font-size: 54px;
+        color:$text_color;
+    }
+}
+
+.page-content {
+    &__error-line {
+        background-color:$error_line_bgcolor;
+        color: $error_text_color;
+        font-size: 20px;   
+    }
+}

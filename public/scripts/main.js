@@ -12,47 +12,13 @@ import Logout from './views/Logout.mjs';
 import Bus from './modules/eventBus.mjs';
 import Users from './services/users.mjs';
 import header from './blocks/Header/header.pug';
-import '../styles/style.css';
 import '../img/favicon/favicon.ico';
-// import '../img/';
-// import runtime from 'serviceworker-webpack-plugin/lib/runtime';
+import '../styles/base.scss';
 
-// import registerEvents from 'serviceworker-webpack-plugin/lib/browser/registerEvents';
 
 // авторизация service-worker
-if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
-	// const registration = 
-	// runtime.register()
-	// 	.then(function(registration) {
-	// 		console.log('Service worker registration OK:', registration);
-	// 	})
-		// .catch(function(error) {
-		// 	console.log('Service worker registration FAIL:', error);
-		// });
-
-
-	// registerEvents(registration, {
-    //     onInstalled: () => {
-    // 		console.log('onInstalled');
-	// 	}
-	// });
-    //     onUpdateReady: () => {
-	// 		console.log('onUpdateReady')
-    //     },
-
-    //     onUpdating: () => {
-	// 		console.log('onUpdating')
-    //     },
-    //     onUpdateFailed: () => {
-	// 		console.log('onUpdateFailed')
-    //     },
-    //     onUpdated: () => {
-	// 		console.log('onUpdated')
-    //     },
-    //   });
-
+if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {	
 	navigator.serviceWorker.register('sw.js')
-		// 'ServiceWorcker.js')
 		.then(function(registration) {
 			console.log('Service worker registration OK:', registration);
 		})
@@ -67,7 +33,7 @@ Router.addPath('/signin', SignIn);
 Router.addPath('/signup', SignUp);
 Router.addPath('/rules', RulesView, {type: 'back'});
 Router.addPath('/menu', Menu);
-Router.addPath('/leaders', Leaders);
+Router.addPath('/leaders', Leaders, {page: 0});
 Router.addPath('/profile', Profile, {profile: ''});
 Router.addPath('/singleplayer', GameView, {mapSide: 5}); // n x n, нечетные
 Router.addPath('/logout', Logout);

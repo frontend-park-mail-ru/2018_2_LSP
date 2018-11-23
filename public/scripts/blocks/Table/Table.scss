@@ -1,0 +1,36 @@
+$light_font_color: white;
+$header_footer_bgcolor: brown;
+
+.leaders-table {
+    width: 300px;
+    border-collapse: collapse;
+    border: 2px solid white;
+    margin: auto;
+
+    &__header {
+        background: $header_footer_bgcolor;
+        color: $light_font_color;
+    }
+
+    &__footer {
+        background: $header_footer_bgcolor;
+        color: $light_font_color;
+        display: table-footer-group;
+    }
+
+    &__row {
+        background: white;
+        color:black;
+
+        &_me {
+            background: darkkhaki;
+            color: $light_font_color;
+        }
+    }
+
+    &__cell {
+        padding: 3px;
+        border: 1px solid maroon;
+        text-align: left;
+    }
+}

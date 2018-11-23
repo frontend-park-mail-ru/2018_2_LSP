@@ -33,13 +33,16 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.css$/,
+				test: /\.scss$/,
 				use: [
 					{
 						loader: CssExtractPlugin.loader
 					},
 					{
 						loader: 'css-loader'
+					},
+					{
+						loader: 'sass-loader'
 					}
 				]
 			},
@@ -57,7 +60,7 @@ module.exports = {
 					{
 						loader: 'file-loader',
 						options: {
-							name: '[name].[ext]',
+							name: 'img/[name].[ext]',
 							context: ''
 						}
 					}

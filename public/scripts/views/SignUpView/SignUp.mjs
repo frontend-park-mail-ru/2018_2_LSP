@@ -1,5 +1,4 @@
 import BaseView from '../BaseView/BaseView.mjs';
-import baseView from '../BaseView/baseView.pug';
 import Block from '../../blocks/Block/Block.mjs';
 import Form from '../../blocks/Form/Form.mjs';
 import Users from '../../services/users.mjs';
@@ -8,8 +7,7 @@ import Router from '../../modules/Router.mjs';
 
 export default class SignUp extends BaseView {
 	constructor() {
-		const view = baseView({'title': 'Регистрация'});
-		super(view);
+		super('Регистрация');
 	}
 
 	render() {
@@ -17,7 +15,7 @@ export default class SignUp extends BaseView {
 	}
 
 	_renderSignUpPage() {
-		const errorLine = new Block('p', ['errorLine'], {'hidden': true});
+		const errorLine = new Block('p', ['page-content__error-line'], {'hidden': true});
 
 		const inputs = [
 			{

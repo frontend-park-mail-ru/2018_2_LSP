@@ -13,20 +13,33 @@ class Router {
 	}
 
 	open(path) {
-		const previousPath = window.location.pathname;
-		let {View, view, param} = this.routes[path];
+		//const previousPath = window.location.pathname;
+		let pathParts = {first: '', name: '', page: ''};
+		const pathPartsArr = path.split('/');
 
 		if(path == '') {
 			this.open('/');
 			return;
 		}
 
-		const mainSection = document.getElementsByClassName('mainSection');
+		pathParts.name = '/' + pathPartsArr[1];
+
+		if (pathPartsArr.length == 3) {
+			pathParts.page = pathPartsArr[2];
+		}
+
+		//let {View, view, param} = this.routes[pathParts.name];		
+		if (this.routes[path] == null) {
+			return;
+		} 
+		let {View, view, param} = this.routes[path];
+
+		const mainSection = document.getElementsByClassName('main-section');
 		if (mainSection.length != 0) {
 			mainSection[0].innerHTML = '';
 		}
         
-		const gameSection = document.getElementsByClassName('gameSection');
+		const gameSection = document.getElementsByClassName('game-section');
 		if (gameSection.length != 0) {
 			gameSection[0].innerHTML = '';
 		}    
@@ -37,6 +50,7 @@ class Router {
 
 		view = new View(param);            
 		view.render();
+		//this.routes[pathParts.name] = {View, view, param};
 		this.routes[path] = {View, view, param};
 	}
 
@@ -66,6 +80,10 @@ class Router {
         
 		const currentPath = window.location.pathname;
 		this.open(currentPath);        
+	}
+
+	go(path) {
+		window.history.replaceState({}, '', path);
 	}
 }
 
