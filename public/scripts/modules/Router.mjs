@@ -13,7 +13,6 @@ class Router {
 	}
 
 	open(path) {
-		//const previousPath = window.location.pathname;
 		let pathParts = {first: '', name: '', page: ''};
 		const pathPartsArr = path.split('/');
 
@@ -27,8 +26,7 @@ class Router {
 		if (pathPartsArr.length == 3) {
 			pathParts.page = pathPartsArr[2];
 		}
-
-		//let {View, view, param} = this.routes[pathParts.name];		
+		
 		if (this.routes[path] == null) {
 			return;
 		} 
@@ -50,7 +48,6 @@ class Router {
 
 		view = new View(param);            
 		view.render();
-		//this.routes[pathParts.name] = {View, view, param};
 		this.routes[path] = {View, view, param};
 	}
 
@@ -75,7 +72,11 @@ class Router {
 		//вперед, назад в браузере
 		window.addEventListener('popstate', event => {
 			const currentPath = window.location.pathname;
-			this.open(currentPath);
+			if(currentPath.includes('leaders/')) {
+				this.open('/leaders');
+			} else {
+				this.open(currentPath);
+			}
 		});
         
 		const currentPath = window.location.pathname;
