@@ -16,13 +16,7 @@ import '../styles/base.scss';
 
 // авторизация service-worker
 if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {	
-	navigator.serviceWorker.register('sw.js')
-		.then(function(registration) {
-			console.log('Service worker registration OK:', registration);
-		})
-		.catch(function(error) {
-			console.log('Service worker registration FAIL:', error);
-		});
+	navigator.serviceWorker.register('sw.js');
 }
 
 Router.addPath('/', Landing);
@@ -58,7 +52,7 @@ Bus.on('user:logged-out', () => {
 	navigationPart[0].innerHTML = '';
 	navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
 
-	if(window.location.pathname == '/') {
+	if(window.location.pathname === '/') {
 		const backButton = document.getElementsByClassName('basicButton_back');
 		backButton[0].hidden = true;
 	}

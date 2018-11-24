@@ -64,8 +64,8 @@ export default class Game {
 	 * Проверка выиграша какого-либо игрока
 	 */
 	checkForWin() {
-		for (let i = 0; i < this.players.length; i++) {
-			if (this.players[i].getScore() > this.totalGoldCount / 2) {
+		for (let player in this.players) {
+			if (player.getScore() > this.totalGoldCount / 2) {
 				return true;
 			}
 		}
@@ -144,7 +144,7 @@ export default class Game {
 		}
 		card.classList.add('flip');
 
-		const pirate = 'pirate-' + this.currentPlayer + '-' + this.currentSelectedPirate;
+		const pirate = `pirate-${this.currentPlayer}-${this.currentSelectedPirate}`;
 		document.getElementById(pirate).classList.add('flip');
 		this.UI.moveToCard(pirate, id);
 		this.UI.resetOpacity();
