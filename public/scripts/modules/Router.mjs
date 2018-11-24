@@ -58,10 +58,6 @@ class Router {
 				return;
 			}
 			event.preventDefault();
-
-			console.log({
-				pathname: event.target.pathname
-			});
             
 			if(event.target.innerText == 'Назад') {
 				window.history.back();

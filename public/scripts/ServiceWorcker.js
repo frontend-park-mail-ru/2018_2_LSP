@@ -4,7 +4,6 @@ const CACHE_KEY = 'cache-v1'; // версия кэша
 const cacheUrls = [...global.serviceWorkerOption.assets.map( asset => '.' + asset), '/index.html'];	// кэшируемые файлы
 
 self.addEventListener('install', event => {
-	console.log(cacheUrls);
 	event.waitUntil(
 		global.caches
 			.open(CACHE_KEY)  // открываем кэш

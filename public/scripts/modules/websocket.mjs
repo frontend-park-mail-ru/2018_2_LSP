@@ -15,26 +15,11 @@ class Socket {
 		this.socket = new WebSocket(address);
 
 		this.socket.onopen = function() {
-			console.log('Connected with WebSocket');
 			this.socket.send('ping');
 		}.bind(this);
 		
 		this.socket.onmessage = function(event) {
-			console.log('WS:' + event.data);
 			bus.emit('sw-message', event.data);
-		};
-        
-		this.socket.onclose = function(event) {
-			if (event.wasClean) {
-				console.log('Connection closed');
-			} else {
-				console.log('Connection broke');
-			}
-			console.log('Code: ' + event.code + ' reason: ' + event.reason);
-		};
-
-		this.socket.onerror = function(error) {
-			console.log('Error WS:' + error.message);
 		};
 
 		bus.on('sw-send', (data) => {
