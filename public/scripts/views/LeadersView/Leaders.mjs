@@ -5,23 +5,22 @@ import Bus from '../../modules/eventBus.mjs';
 import Router from '../../modules/Router.mjs';
 
 export default class Leaders extends BaseView {
-    constructor(){
-        super('Лидеры');
-    }
+	constructor(){
+		super('Лидеры');
+	}
 
-    render() {
-        //Router.go({state:'/leaders/', params: {page: 1}});
-        Router.go('/leaders/0');
-        const items = {'Логин': 'username', 'Сыграно': 'totalgames', 'Рейтинг': 'rating'};
-        const leaderBoard = new Table(items, ['leaders-table'], function(pPage) {
-            Users.leaders((err, response) => {  // через промис?
-                if (!err) {
-                    Bus.emit('paginator-update', response);
-                } else {
-                    Bus.emit('');   //ПОПРАВИТЬ!!!
-                }
-            }, {page: pPage});
-        });
+	render() {
+		Router.go('/leaders/0');
+		const items = {'Логин': 'username', 'Сыграно': 'totalgames', 'Рейтинг': 'rating'};
+		const leaderBoard = new Table(items, ['leaders-table'], function(pPage) {
+			Users.leaders((err, response) => {
+				if (!err) {
+					Bus.emit('paginator-update', response);
+				} else {
+					Bus.emit('');
+				}
+			}, {page: pPage});
+		});
 
 		this.pageContent.appendChild(leaderBoard.getElement());
 	}

@@ -1,6 +1,7 @@
+/*global global*/
 const CACHE_KEY = 'cache-v1'; // версия кэша
 
-const cacheUrls = [...global.serviceWorkerOption.assets.map( asset => '.' + asset), '/'];	// кэшируемые файлы
+const cacheUrls = [...global.serviceWorkerOption.assets.map( asset => '.' + asset), '/index.html'];	// кэшируемые файлы
 
 self.addEventListener('install', event => {
 	console.log(cacheUrls);
@@ -26,7 +27,7 @@ self.addEventListener('fetch', event => {
 				});
 			})
 			.catch(function() {
-				return global.caches.match('index.html');
+				return global.caches.match('/index.html');
 			})
 	);
 });

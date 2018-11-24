@@ -8,11 +8,10 @@ import Leaders from './views/LeadersView/Leaders.mjs';
 import Router from './modules/Router.mjs';
 import GameView from './views/GameView/GameView.mjs';
 import Logout from './views/Logout.mjs';
-// import Socket from './modules/websocket.mjs';
 import Bus from './modules/eventBus.mjs';
 import Users from './services/users.mjs';
 import header from './blocks/Header/header.pug';
-import '../img/favicon.ico'; //?????
+import '../img/favicon.ico';
 import '../styles/base.scss';
 
 // авторизация service-worker
@@ -25,7 +24,6 @@ if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || wi
 			console.log('Service worker registration FAIL:', error);
 		});
 }
-
 
 Router.addPath('/', Landing);
 Router.addPath('/signin', SignIn);

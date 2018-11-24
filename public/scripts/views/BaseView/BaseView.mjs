@@ -5,7 +5,6 @@ import baseContent from '../BaseView/baseContent.pug';
 export default class BaseView {
 	constructor (title) {
 		this.title = title;
-		//this.mainSection = document.getElementById('main-section');
 		this.mainSection = document.getElementsByClassName('main-section')[0];
 
 		if (this.mainSection) {
@@ -15,6 +14,7 @@ export default class BaseView {
 			this.mainSection.insertAdjacentHTML('beforeend', contentView);
 		} else {
 			const contentView = baseView({'title': title});
+			const application = document.getElementById('application');
 			application.insertAdjacentHTML('beforeend', contentView);
 
 			const menuHeader = header({'headerType': 'notLoggedIn'});

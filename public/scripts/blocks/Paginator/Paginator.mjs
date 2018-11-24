@@ -24,7 +24,7 @@ export default class Paginator extends Block {
 			callback(this._currentPage);
 		});
 
-        const aleft = new Button('', '<', classes=['basic-button', 'basic-button_right']);
+		const aleft = new Button('', '<', classes=['basic-button', 'basic-button_right']);
 		this.append(aleft);
 		aleft.event('click', () => {
 			if (this._currentPage == 0) {

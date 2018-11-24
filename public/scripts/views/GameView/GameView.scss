@@ -11,7 +11,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		perspective: 1000px;
-		/* border: 1px solid black; */
 	}
 }
 
@@ -56,13 +55,8 @@
 
 .game__pirate {
 	width: 50%; 
-	/* height: 20px;  */
-	/* background-color: coral;  */
 	position: absolute; 
 	z-index: 1; 
-	/* backface-visibility: hidden; */
-	/* left: 602.619px;  */
-	/* top: 107.259px; */
 
 	&.flip {
 		transform: rotateY(180deg);

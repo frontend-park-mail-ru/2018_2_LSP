@@ -40,9 +40,11 @@ export default class Game {
 			this.players[i].addPirates(pirateCount, 'base-' + i);
 		}
 
+		this.UI = new UI(mapSize, this.timeOut);
+
 		// навешиваем событие переворота карточки
 		for(let i = 1; i <= mapSize * mapSize; ++i) {
-			UI.setEventListener('click', 'gamecard-' + i, function() {
+			this.UI.setEventListener('click', 'gamecard-' + i, function() {
 				window.game.flipCard(this.id);
 			});
 		}
@@ -51,7 +53,7 @@ export default class Game {
 		for (let i = 0; i < this.players.length; i++) {
 			for (let j = 0; j < this.players[i].getPirates().length; j++) {
 				const id = 'pirate-' + i + '-' + j;
-				UI.setEventListener('click', id, function() {
+				this.UI.setEventListener('click', id, function() {
 					window.game.playerClick(this.id);
 				});
 			}
@@ -71,13 +73,10 @@ export default class Game {
 	}
   
 	startTimer() {
-		// window.setInterval(function() {
-		// 	UI.setTimer(1);
-		// }, 1000);
 		return window.setTimeout(function() {
-			this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
+			this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
 			this.hovered = false;
-			UI.resetOpacity();
+			this.UI.resetOpacity();
 			alert('Время вашего хода истекло');
 		}, 30000);
 	}
@@ -93,7 +92,7 @@ export default class Game {
 	
 		if (!this.hovered) {
 			this.hovered = true;
-			UI.setLowOpacity();
+			this.UI.setLowOpacity();
 			let pirateID = this._getPirateNumber(id);
 			let currentCard = this.players[this.currentPlayer].getPirate(pirateID).getCard();
 			let moveableCards = this.map.getMoveableCards(currentCard);
@@ -104,7 +103,7 @@ export default class Game {
 		} 
 		else {
 			this.hovered = false;
-			UI.resetOpacity();
+			this.UI.resetOpacity();
 		}
 	}
 
@@ -147,8 +146,8 @@ export default class Game {
 
 		const pirate = 'pirate-' + this.currentPlayer + '-' + this.currentSelectedPirate;
 		document.getElementById(pirate).classList.add('flip');
-		UI.moveToCard(pirate, id);
-		UI.resetOpacity();
+		this.UI.moveToCard(pirate, id);
+		this.UI.resetOpacity();
 
 		if (this.checkForWin()) {
 			if (this.done === undefined) {
@@ -156,7 +155,7 @@ export default class Game {
 				this.done = true;
 			}
 		}
-		this.currentPlayer = (game.currentPlayer + 1) % game.players.length;	
+		this.currentPlayer = (this.currentPlayer + 1) % this.players.length;	
 		this.hovered = false;
 		this.timeOut = this.startTimer();
 		return true;

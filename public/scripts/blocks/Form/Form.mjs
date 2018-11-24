@@ -12,7 +12,7 @@ export default class Form extends Block {
 	constructor(fields = []) {
 		super('form', ['basic-form']);
 		fields.forEach(field => {
-			const fieldElement = new Block('input', field.classes = ['basic-form__input'], field.attributes)
+			const fieldElement = new Block('input', field.classes = ['basic-form__input'], field.attributes);
 			this.append(fieldElement);
 		});
 	}

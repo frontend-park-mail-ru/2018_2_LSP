@@ -14,27 +14,21 @@ export default class Table extends Block {
 		this._fields = fields;
 
 		// thead
-		//const thead = new Block('thead');
 		const trhead = new Block('tr', ['leaders-table__header']);
 		for (let header in this._fields) {
 			const th = new Block('th');
 			th.setText(header);
 			trhead.append(th);
 		}
-		//thead.append(trhead);
-		//this.append(thead);
 		this.append(trhead);
 
 		// tfoot
-		//const tfoot = new Block('tfoot');
 		const trfoot = new Block('tr', ['leaders-table__footer']);
 		const thfoot = new Block('th', [], {'colspan': Object.keys(this._fields).length});
 		const paginator = new Paginator(callback);
 		thfoot.append(paginator);
 
 		trfoot.append(thfoot);
-		//tfoot.append(trfoot);
-		//this.append(tfoot);
 		this.append(trfoot);
 
 		// tbody
@@ -64,9 +58,6 @@ export default class Table extends Block {
 
 	update(data = []) {
 		this._tbody.clear();
-		// if (data === []) {
-		//     alert('Нет данных в таблице');
-		// }
 		this._data(data);
 	}
 }

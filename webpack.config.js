@@ -87,8 +87,7 @@ module.exports = {
 			entry: PATHS.scripts + '/ServiceWorcker.js',
 			excludes: [
 				'**/.*',
-				'**/*.map',
-				'*.html',
+				'**/*.map'
 			],
 		}),
 		new HtmlWebpackPlugin({

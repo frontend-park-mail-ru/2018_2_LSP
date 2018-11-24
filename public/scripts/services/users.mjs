@@ -1,4 +1,5 @@
 import Http from '../modules/http.mjs';
+import jwtDecode from 'jwt-decode';
 
 const path = 'https://jackal.online/api'; 
 
@@ -7,12 +8,6 @@ const path = 'https://jackal.online/api';
  * @module Users
  */
 export default class Users {
-	// static constructor() {
-	// 	this.user = null;
-	// 	this.id = null;
-	// 	this.users = {};
-	// }
-
 	/**
 	 * Авторизация пользователя
 	 * @param {Function} callback функция-коллбек
@@ -25,6 +20,9 @@ export default class Users {
 	static logout(callback) {
 		Http.Get(callback, path + '/logout');
 		Http.Delete(callback, path +'/session');
+		const date = new Date(0);
+		document.cookie = 'name=; path=/; expires=' + date.toUTCString();
+		// TODO удаление из кэша
 	}
 
 	/**
@@ -60,16 +58,10 @@ export default class Users {
 			return callback(null, user);
 		}.bind(this);
 
-		let payload = jwt_decode(this._cookieParser('header.payload'))['id'];
-		// if (payload) {
-		// 	payload = jwt_decode(payload)['id'];
-		// }
+		let payload = jwtDecode(this._cookieParser('header.payload'))['id'];
 		if (payload) {
 			Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar,totalgames');
 		} 
-		// else {
-		// 	router.open('/profile');
-		// }
 	}
 
 	/**

@@ -52,6 +52,7 @@ class Router {
 	}
 
 	start() {
+		const application = document.getElementById('application');
 		application.addEventListener('click', event => {
 			if (!(event.target instanceof HTMLAnchorElement)) {
 				return;
@@ -70,7 +71,7 @@ class Router {
 		});
 
 		//вперед, назад в браузере
-		window.addEventListener('popstate', event => {
+		window.addEventListener('popstate', () => {
 			const currentPath = window.location.pathname;
 			if(currentPath.includes('leaders/')) {
 				this.open('/leaders');
