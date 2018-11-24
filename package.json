@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
-    "lint": "eslint public/ --ext js,mjs"
+    "lint": "eslint public/ --fix --ext js,mjs",
+    "build": "webpack --mode production --display-error-details",
+    "watch": "webpack --watch --mode production --display-error-details"
   },
   "repository": {
     "type": "git",
@@ -29,13 +31,32 @@
     "express-ws": "4.0.0",
     "fest": "0.12.1",
     "https": "1.0.0",
-    "morgan": "1.9.0",
+    "jsdoc": "3.5.5",
+    "jwt-decode": "2.2.0",
+    "mini-css-extract-plugin": "0.4.5",
+    "morgan": "1.9.1",
+    "normalize.css": "8.0.1",
     "now": "11.4.6",
     "pug": "2.0.3",
+    "pug-loader": "2.4.0",
+    "serviceworker-webpack-plugin": "1.0.1",
+    "style-loader": "0.23.1",
     "tls": "0.0.1",
     "uuid": "3.3.2"
   },
   "devDependencies": {
-    "eslint": "5.6.1"
+    "@babel/core": "7.1.5",
+    "@babel/preset-env": "7.1.5",
+    "babel-loader": "8.0.4",
+    "css-loader": "1.0.1",
+    "eslint": "5.6.1",
+    "file-loader": "2.0.0",
+    "html-loader": "0.5.5",
+    "html-webpack-plugin": "3.2.0",
+    "url-loader": "1.1.2",
+    "webpack": "4.25.1",
+    "node-sass": "4.10.0",
+    "sass-loader": "7.1.0",
+    "webpack-cli": "3.1.2"
   }
 }

@@ -1,47 +1,63 @@
-import { Block } from '../Block/Block.mjs';
+import Block from '../Block/Block.mjs';
+import Paginator from '../Paginator/Paginator.mjs';
+import Bus from '../../modules/eventBus.mjs';
 
-export class Table extends Block {
-    constructor(head = []) {
-        super('table');
-        this.head = head;
-    }
+export default class Table extends Block {
+	/**
+     * Создание новой таблицы
+     * @param head заголовки столбцов таблицы
+     * @param page номер страницы
+     * @param callback функция-коллбек получения i-ой страницы (аргумент - номер страницы)
+     */
+	constructor(fields = {}, tableClass = [], callback) {
+		super('table', tableClass);
+		this._fields = fields;
 
-    _header() {
-        const thead = document.createElement('thead');
-        const tr = document.createElement('tr');
-        tr.classList.add('head');
-        this.head.forEach(thName => {
-            const th = document.createElement('th');
-            th.textContent = thName;
-            tr.appendChild(th);
-        });
-        thead.appendChild(tr);
-        this.getElement().appendChild(thead);
-    }
+		// thead
+		const trhead = new Block('tr', ['leaders-table__header']);
+		for (let header in this._fields) {
+			const th = new Block('th');
+			th.setText(header);
+			trhead.append(th);
+		}
+		this.append(trhead);
 
-    _data(data = []) {
-        const tbody = document.createElement('tbody');
-        data.forEach(item => {
-            const tr = document.createElement('tr');
-            if (item.me) {
-                tr.classList.add('me');
-            }
-            for (const text in item) {
-                if (text == 'me') {
-                    continue;
-                }
-                const th = document.createElement('th');
-                th.textContent = item[text];
-                tr.appendChild(th);
-            }
-            tbody.appendChild(tr);
-        });
-        this.getElement().appendChild(tbody);
-    }
+		// tfoot
+		const trfoot = new Block('tr', ['leaders-table__footer']);
+		const thfoot = new Block('th', [], {'colspan': Object.keys(this._fields).length});
+		const paginator = new Paginator(callback);
+		thfoot.append(paginator);
 
-    update(data = []) {
-        this.clear();
-        this._header();
-        this._data(data);
-    }
+		trfoot.append(thfoot);
+		this.append(trfoot);
+
+		// tbody
+		this._tbody = new Block('tbody');
+		this.append(this._tbody);
+
+		Bus.on('paginator-update', this.update.bind(this));
+		callback(0);
+	}
+
+	_data(data = []) {
+		data.forEach(item => {
+			const tr = document.createElement('tr');
+			tr.classList.add('leaders-table__row');
+			if (item.me) {  // если запись принадлежит данному пользователю, выделяем поле
+				tr.classList.add('leaders-table__row_me');
+			}            
+			for (let header in this._fields) {
+				const th = document.createElement('th');
+				th.classList.add('leaders-table__cell');
+				th.textContent = item[this._fields[header]];
+				tr.appendChild(th);
+			}
+			this._tbody.getElement().appendChild(tr);
+		});
+	}
+
+	update(data = []) {
+		this._tbody.clear();
+		this._data(data);
+	}
 }

@@ -1,50 +1,38 @@
-import { Block } from '../Block/Block.mjs';
-import { Users } from '../../services/users.mjs';
-import Leaders from '../../views/LeadersView/Leaders.mjs';
-import { Table } from '../Table/Table.mjs';
+import Block from '../Block/Block.mjs';
+import Button from '../Button/Button.mjs';
+import Router from '../../modules/Router.mjs';
 
-export class Paginator extends Table {
-    constructor(table) {
-        super(['<-', '->']);
-        this.page = 1;
+/**
+ * Блок пагинации (наследуется от Block)
+ * @module Paginator
+ */
+export default class Paginator extends Block {
+	/**
+	 * Создание пагинатора
+	 * @param callback функция-коллбек получения i-ой страницы (аргумент - номер страницы)
+	 * @param classes классы, накладоваемые на кнопки пагинации
+	 */
+	constructor(callback, classes=['basic-button', 'basic-button_right']) {
+		super('div');
+		this._currentPage = 0;
 
-        const callback = (event, page) => {
-            console.log(event.target);
-            if (event.href === 'pagePlus') {
-                event.preventDefault();
-                console.log('plus');
-            } else if (event.href === 'minusPlus') {
-                event.preventDefault();
-                console.log('minus');
-            } else {
-                return;
-            }
+		const aright = new Button('', '>', classes);
+		this.append(aright);
+		aright.event('click', () => {
+			this._currentPage += 1;
+			Router.go('/leaders/' + this._currentPage);
+			callback(this._currentPage);
+		});
 
-            Users.leaders((err, leadersData) => {
-                console.log(err, leadersData);
-                if (err === null) {
-                    this.table.update(leadersData);
-                } else {
-                    alert(leadersData.error);
-                }
-            }, {page:page});
-        }
-
-        const tr = document.createElement('tr');
-        tr.classList.add('head');
-        const thleft = document.createElement('th');
-        const aleft = new Block('a', [], {'href':'pageMinus'});
-        aleft.setText('<-');
-        aleft.event('click', callback(event, this.page - 1));
-        thleft.appendChild(aleft.getElement());
-        tr.appendChild(thleft);
-
-        const thright = document.createElement('th');
-        const aright = new Block('a', [], {'href':'pagePlus'});
-        aright.setText('->');
-        aright.event('click', callback(event, this.page + 1));
-        thright.appendChild(aright.getElement());
-        tr.appendChild(thright);
-        this.getElement().appendChild(tr);
-    }
+		const aleft = new Button('', '<', classes=['basic-button', 'basic-button_right']);
+		this.append(aleft);
+		aleft.event('click', () => {
+			if (this._currentPage === 0) {
+				return;
+			}
+			this._currentPage -= 1;
+			Router.go('/leaders/' + this._currentPage);
+			callback(this._currentPage);
+		});
+	}
 }

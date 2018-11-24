@@ -1,43 +1,98 @@
-export class Block {
-    constructor(tag = 'div', classes = [], attributes = {}) {
-        this.element = document.createElement(tag);
-        classes.forEach(oneClass => {
-            this.element.classList.add(oneClass);
-        });
+/**
+ * Базовый класс элемента страницы
+ * @module Block
+ */
+export default class Block {
+	/**
+     * Создать новый html элемент
+     * @param {string} tag тег создаваемого элемента
+     * @param {Array} classes классы элемента
+     * @param {Object} attributes атрибуты элемента
+     */
+	constructor(tag = 'div', classes = [], attributes = {}) {
+		this.element = document.createElement(tag);
+		classes.forEach(oneClass => {
+			this.element.classList.add(oneClass);
+		});
 
-        for (let attribute in attributes) {
-            this.element.setAttribute(attribute, attributes[attribute]);
-        }
-    }
+		for (let attribute in attributes) {
+			this.element.setAttribute(attribute, attributes[attribute]);
+		}
+	}
 
-    getElement() {
-        return this.element;
-    }
+	/**
+     * Получить элемент
+     */
+	getElement() {
+		return this.element;
+	}
 
-    hide() {
-        this.element.setAttribute('hidden', true);
-    }
+	/**
+     * Скрыть элемент
+     */
+	hide() {
+		this.element.setAttribute('hidden', true);
+	}
 
-    show() {
-        this.element.removeAttribute('hidden', true);
-    }
+	/**
+     * Отобразить элемент
+     */
+	show() {
+		this.element.removeAttribute('hidden', true);
+	}
 
-    clear() {
-        this.element.innerHTML = '';
-    }
+	/**
+     * Очистить содержимое элемента
+     */
+	clear() {
+		this.element.innerHTML = '';
+	}
 
-    setText(text = '') {
-        this.element.textContent = text;
-    }
+	/**
+     * Установить текст элемента
+     * @param {string} text текст устанавливаемый в элемент 
+     */
+	setText(text = '') {
+		this.element.textContent = text;
+	}
 
-    append(block) {
-        this.element.appendChild(block.element);
-    }
+	/**
+	 * Установить классы элемента
+	 * @param {Array} classes классы элемента
+	 */
+	setClasses(classes = []) {
+		classes.forEach(oneClass => {
+			this.element.classList.add(oneClass);
+		});
+	}
 
-    event(type, callback) {
-        this.element.addEventListener(type, callback);
-        return function() {
-            this.element.removeAttribute(type, callback);
-        }.bind(this);
-    }
+	/**
+	 * Установить атрибуты элемента
+	 * @param {Object} attributes атрибуты элемента
+	 */
+	setAttributes(attributes = {}) {
+		for (let attribute in attributes) {
+			this.element.setAttribute(attribute, attributes[attribute]);
+		}
+	}
+
+	/**
+     * Вложить сторонний блок в текущий
+     * @param {Block} block сторонний блок
+     */
+	append(block) {
+		this.element.appendChild(block.element);
+	}
+
+	/**
+     * Навесить на блок событие
+     * @param {string} type тип события
+     * @param {Function} callback функция-коллбек
+     */
+	event(type, callback) {
+		this.element.addEventListener(type, callback);
+		return function() {
+			this.element.removeAttribute(type, callback);
+		}.bind(this);
+	}
 }

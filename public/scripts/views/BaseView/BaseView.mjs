@@ -1,25 +1,44 @@
+import header from '../../blocks/Header/header.pug';
+import baseView from '../BaseView/baseView.pug';
+import baseContent from '../BaseView/baseContent.pug';
+
 export default class BaseView {
-    constructor (el) {
-        this.el = el;
-        application.insertAdjacentHTML('beforeend', el);
-        this.pageContent = document.getElementById("content");
-    }
+	constructor (title) {
+		this.title = title;
+		this.mainSection = document.getElementsByClassName('main-section')[0];
 
-    hide() {        
-        document.getElementById("application").hidden = true;
-        //this.el.hidden = true;
-    }
+		if (this.mainSection) {
+			const backButton = document.getElementsByClassName('basic-button_back');
+			backButton[0].hidden = false;
+			const contentView = baseContent({'title': title});
+			this.mainSection.insertAdjacentHTML('beforeend', contentView);
+		} else {
+			const contentView = baseView({'title': title});
+			const application = document.getElementById('application');
+			application.insertAdjacentHTML('beforeend', contentView);
 
-    show() {
-        //this.el.hidden = false;        
-        document.getElementById("application").hidden = false;
-        this.render();
-    }
-
-    get active() {
-		return !this.el.hidden;
+			const menuHeader = header({'headerType': 'notLoggedIn'});
+			const navigationPart = document.getElementsByTagName('nav');
+			navigationPart[0].innerHTML = '';
+			navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
+		}
+		
+		this.pageContent = document.getElementById('content');
 	}
 
-    render() {
-    }    
+	hide() {        
+		document.getElementById('application').hidden = true;
+	}
+
+	show() {     
+		document.getElementById('application').hidden = false;
+		this.render();
+	}
+
+	get active() {
+		return !this.title.hidden;
+	}
+
+	render() {
+	}    
 }

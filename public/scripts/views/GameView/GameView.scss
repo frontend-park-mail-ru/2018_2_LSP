@@ -1,0 +1,64 @@
+.game {
+	&__board {
+		width: 640px; /* тут в релизе надо изменить на 100% */
+		height: 640px; /*тут в релизе надо изменить на 100% */
+		position: absolute;
+		margin: auto;
+		top: 0;
+		bottom:0;
+		left: 0;
+		right: 0; 
+		display: flex;
+		flex-wrap: wrap;
+		perspective: 1000px;
+	}
+}
+
+.game__card {
+	width: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
+	height: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
+	position: relative;
+	transform: scale(1);
+	transform-style: preserve-3d;
+	transition: transform .5s;
+
+	&:active {
+		transform: scale(0.97);
+		 transition: transform .2s;
+	}
+
+	&.flip {
+		transform: rotateY(180deg);
+    }
+
+    &_front-face,
+	&_back-face {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background: url(../img/water.png) #b0e9fc;
+		backface-visibility: hidden;
+	}
+
+	&_front-face {
+		transform: rotateY(180deg);
+	}
+	
+	&_land {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background: rgb(255, 228, 209);
+		transform: rotateY(180deg)
+	}
+}
+
+.game__pirate {
+	width: 50%; 
+	position: absolute; 
+	z-index: 1; 
+
+	&.flip {
+		transform: rotateY(180deg);
+	}
+}

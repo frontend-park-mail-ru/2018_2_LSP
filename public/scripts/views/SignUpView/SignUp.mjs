@@ -1,104 +1,99 @@
 import BaseView from '../BaseView/BaseView.mjs';
-
-import { Block } from '/scripts/blocks/Block/Block.mjs';
-import { Form } from '/scripts/blocks/Form/Form.mjs';
-import { Users } from '/scripts/services/users.mjs';
-
+import Block from '../../blocks/Block/Block.mjs';
+import Form from '../../blocks/Form/Form.mjs';
+import Users from '../../services/users.mjs';
+import Errors from '../../services/errors.mjs';
+import Router from '../../modules/Router.mjs';
 
 export default class SignUp extends BaseView {
-    constructor(router) {
-        const view = baseView({'headerType': 'back','navClass': 'navigation_left', 'title': 'Регистрация'});
-        super(view);
-        this.router = router;
-    }
+	constructor() {
+		super('Регистрация');
+	}
 
-    render() {
-        this._renderSignUpPage();
-    }
+	render() {
+		this._renderSignUpPage();
+	}
 
-    _renderSignUpPage() {
-        const errorLine = new Block('p',['errorLine'],{'hidden': true});
+	_renderSignUpPage() {
+		const errorLine = new Block('p', ['page-content__error-line'], {'hidden': true});
 
-        const inputs = [
-            {
-                classes: [],
-                attributes: {
-                    name: 'username',
-                    type: 'text',
-                    placeholder: 'Логин',
-                    required: 'required'
-                }
-            },
-            {
-                classes: [],
-                attributes: {
-                    name: 'email',
-                    type: 'email',
-                    placeholder: 'Почта',
-                    required: 'required'
-                }
-            },
-            {
-                classes: [],
-                attributes: {
-                    name: 'password',
-                    type: 'password',
-                    placeholder: 'Пароль',
-                    required: 'required'
-                }
-            },
-            {
-                classes: [],
-                attributes: {
-                    name: 'password_repeat',
-                    type: 'password',
-                    placeholder: 'Повторите пароль',
-                    required: 'required'
-                }
-            },
-            {
-                classes: [],
-                attributes: {
-                    name: 'submit',
-                    type: 'submit',
-                    value: 'Зарегистрироваться'
-                }
-            }
-        ];
+		const inputs = [
+			{
+				classes: [],
+				attributes: {
+					name: 'username',
+					type: 'text',
+					placeholder: 'Логин',
+					required: 'required'
+				}
+			},
+			{
+				classes: [],
+				attributes: {
+					name: 'email',
+					type: 'text',
+					placeholder: 'Почта',
+					required: 'required'
+				}
+			},
+			{
+				classes: [],
+				attributes: {
+					name: 'password',
+					type: 'password',
+					placeholder: 'Пароль',
+					required: 'required'
+				}
+			},
+			{
+				classes: [],
+				attributes: {
+					name: 'password_repeat',
+					type: 'password',
+					placeholder: 'Повторите пароль',
+					required: 'required'
+				}
+			},
+			{
+				classes: [],
+				attributes: {
+					name: 'submit',
+					type: 'submit',
+					value: 'Зарегистрироваться'
+				}
+			}
+		];
 
-        const form = new Form(inputs);
-        form.submit(data => {	//добавляем по нажатию кнопки событие
-            if (data['password'] !== data['password_repeat']) {
-                const errorLine = document.getElementsByClassName('errorLine')[0];
-                errorLine.textContent = errorHandler('passwords')
-                errorLine.hidden = false;
-                return;
-            }
-            Users.register((err, response) => {	//регистрация пользователя
-                console.log(err, response);
-                if (!err) {
-                    this.router.open('/menu');
-                } else {
-                    const errorLine = document.getElementsByClassName('errorLine')[0];
-                    errorLine.textContent = errorHandler(response.error)
-                    errorLine.hidden = false;
-                }
-            }, data);	//используем данные введенные в форму
-        });
+		const form = new Form(inputs);
+		form.submit(data => {	// добавляем по нажатию кнопки событие
+			// проверка на валидность вводимых данных
+			if (data['username'].length < 4 || data['username'].length > 25) {
+				errorLine.setText(Errors.getErrorString('username'));
+				errorLine.show();
+				return;
+			}
+			if (data['email'].search('^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+.)+[a-z]{2,8}$') === -1) {
+				errorLine.setText(Errors.getErrorString('email'));
+				errorLine.show();
+				return;
+			}
+			if (data['password'] !== data['password_repeat']) {
+				errorLine.setText(Errors.getErrorString('passwords'));
+				errorLine.show();
+				return;
+			}
 
-        this.pageContent.appendChild(errorLine.getElement());
-        this.pageContent.appendChild(form.getElement());
-    }
-}
+			Users.register((err, response) => {	// регистрация пользователя
+				if (!err) {
+					Router.open('/menu');
+				} else {
+					errorLine.setText(Errors.getErrorString(response.error));
+					errorLine.show();
+				}
+			}, data);	// используем данные введенные в форму
+		});
 
-
-function errorHandler(error) {
-	const errors = {
-		'incorrect': 'Не верно указана почта и/или пароль',
-		'invalid': 'Невалидные данные',
-		'user': 'Пользователь уже существует',
-		'default': 'Ошибка... Попробуйте ввести данные еще раз',
-		'passwords': 'Ошибка в повторном вводе пароля'
-	};
-	return errors[error];
+		this.pageContent.appendChild(errorLine.getElement());
+		this.pageContent.appendChild(form.getElement());
+	}
 }

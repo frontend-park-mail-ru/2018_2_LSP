@@ -1,5 +1,3 @@
-'use strict';
-
 const fallback = require('express-history-api-fallback');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
@@ -12,9 +10,10 @@ const fs = require('fs');
 const https = require('https');
 const PORT = process.env.PORT || 3000;
 
-const dir = path.resolve(__dirname, '..', 'public');
+const dir = path.resolve(__dirname, '..', 'public/build');
 app.use(morgan('dev'));
 app.use(express.static(dir));
+app.use(fallback('/index.html', {root: dir}));
 app.use(body.json());
 app.use(cookie());
 
@@ -32,8 +31,6 @@ app.ws('/ws', function(socket) {
 		console.log('WebSocket is closed');
 	});
 });
-
-app.use(fallback('index.html', {root: dir}));
 
 //Сервер
 app.listen(PORT, () => {

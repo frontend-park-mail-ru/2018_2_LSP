@@ -1,6 +1,5 @@
 nav(class= navClass)
-    include ../../blocks/Header/header.pug
-section(class= mainSectionClass || "mainSection", id= mainSectionId || "mainSection")
-    h2(class="mainSection__title") #{title}
-    div(class="mainSection__content", id="content")
+section(class= mainSectionClass || "main-section")
+    h2(class="main-section__title") #{title}
+    div(class="page-content", id="content")
         block content

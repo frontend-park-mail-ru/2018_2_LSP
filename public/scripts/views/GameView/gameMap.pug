@@ -1,31 +1,40 @@
-mixin landEmptyRow
-    - for (var i = 0; i < boardSide; ++i) {        
-        div(class='land-block', id='gameCard')
-            if i == (boardSide-1) / 2
-                img(class='land-card', src='img/base.png')
-            else
-                img(class='land-card', src='img/empty.png')
-    - }
+mixin card(id, type)
+    div(class= 'game__card', id= id)
+        img(class= 'game__card_front-face', src= require('../../../img/water.png'))
+        img(class= 'game__card_back-face', src= require('../../../img/'+ type + '.png'))
 
-mixin emptyTile
-    div(class='land-block', id='gameCard')
-        img(class='land-card', src='img/empty.png') 
+mixin base(player, color, count)
+    div(class= 'game__card', id= 'base-' + player)
+        img(class= 'game__card_front-face', src= require('../../../img/water.png'))
+        img(class= 'game__card_back-face', src= require('../../../img/base.png'))
+        - for (var pirate = 0; pirate < count; pirate++)
+            img(id= 'pirate-' + player + '-' + pirate, class= 'game__pirate', src=require('../../../img/ships/' + color + '.png'))
 
-section(class='board', id='gameBoard')
-    +landEmptyRow
-    each row in cardsMap
-        +emptyTile      
-        each val in row
-            div(class='card', id='gameCard')
-                case val
-                    when 0
-                        img(class='front-face', src='img/gold.png')
-                    when 1
-                        img(class='front-face', src='img/water.png')
-                    when 2
-                        img(class='front-face', src='img/grass.png')
-                    when 3
-                        img(class='front-face', src='img/plant.png')
-                img(class='back-face', src='img/unopened.png')
-        +emptyTile
-    +landEmptyRow
+mixin base_row(player, color, count)
+    - var length = 3
+    - for (var card = 0; card < length; card++)
+        +card('gameCard', 'sand')
+    +base(player, color, count)
+    - for (var card = 0; card < length; card++)
+        +card('gameCard', 'sand')
+
+mixin field(size)
+    - for (var row = 0; row < size; row++)
+        +card('gameCard', 'sand')
+        - for (var card = 1; card <= size; card++)
+            +card('gamecard-'+ ((row*size)+card), 'unopened')
+        +card('gameCard', 'sand')
+
+section(class='game')
+    section(class='game__board', id='gameBoard')
+        +base_row('0', 'green', 2)
+        +field(5)
+        +base_row('1', 'red', 2)
+        
+    section(class='game__players')
+        div Игрок 1
+        div Игрок 2
+
+    section(class='game__timer')
+        div(id='timer') 0
+    

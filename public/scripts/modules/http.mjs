@@ -4,7 +4,7 @@ const noop = () => null;
  * Модуль для работы с HTTP-запросами
  * @module Http
  */
-export class Http {
+export default class Http {
 	/**
      * Приватный метод отправки запроса (является базовым)
      * @param {function} callback - функция-коллбек
@@ -22,7 +22,7 @@ export class Http {
 		}
     
 		xhr.onreadystatechange = () => {
-			if (xhr.readyState !== 4) {
+			if (xhr.readyState !== xhr.DONE) {
 				return;
 			}
 			const response = JSON.parse(xhr.responseText);
@@ -58,5 +58,15 @@ export class Http {
      */
 	static Post(callback, path, body) {
 		this._request(callback, 'POST', path, body);
+	}
+
+	/**
+     * Функция Delete-запроса
+     * @param {function} callback - коллбек-функция
+     * @param {string} path - адрес запроса
+     * @param {Object} body - тело запроса
+     */
+	static Delete(callback, path, body) {
+		this._request(callback, 'DELETE', path, body);
 	}
 }
