@@ -1,4 +1,5 @@
-import header from '../../blocks/Header/header.pug';
+import header from '../../blocks/PageParts/header.pug';
+import footer from '../../blocks/PageParts/footer.pug';
 import baseView from '../BaseView/baseView.pug';
 import baseContent from '../BaseView/baseContent.pug';
 
@@ -21,6 +22,9 @@ export default class BaseView {
 			const navigationPart = document.getElementsByTagName('nav');
 			navigationPart[0].innerHTML = '';
 			navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
+
+			const pageFooter = footer();
+			application.insertAdjacentHTML('beforeend', pageFooter);
 		}
 		
 		this.pageContent = document.getElementById('content');
