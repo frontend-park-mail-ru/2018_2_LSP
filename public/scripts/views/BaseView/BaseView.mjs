@@ -27,6 +27,16 @@ export default class BaseView {
 			const pageFooter = footer();
 			application.insertAdjacentHTML('beforeend', pageFooter);
 
+			const callFrameButton = document.getElementById('callFrameButton');
+			callFrameButton.onclick = function() {
+				const iframe = document.getElementsByTagName('iframe');
+				if(iframe[0].hidden) {
+					iframe[0].hidden = false;
+				} else {
+					iframe[0].hidden = true;
+				}
+			};
+		
 			const iframeChat = iframe();
 			application.insertAdjacentHTML('beforeend', iframeChat);
 		}

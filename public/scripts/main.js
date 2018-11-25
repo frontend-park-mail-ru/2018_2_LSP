@@ -67,3 +67,8 @@ Bus.on('user:logged-out', () => {
 		}
 	});
 });
+
+Bus.on('Call iframe', () => {         
+	const iframe = document.getElementsByTagName('iframe');
+	iframe[0].hidden = false;
+});

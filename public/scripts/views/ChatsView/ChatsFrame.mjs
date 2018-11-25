@@ -9,7 +9,6 @@ import Bus from '../../modules/eventBus.mjs';
 
 export default class ChatsFrame extends Block {
 	constructor() {
-		console.log('sdd');
         super('div');
 	}
 	
