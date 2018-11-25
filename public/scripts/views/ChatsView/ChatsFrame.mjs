@@ -9,8 +9,11 @@ import Bus from '../../modules/eventBus.mjs';
 
 export default class ChatsFrame extends Block {
 	constructor() {
+		console.log('sdd');
         super('div');
-
+	}
+	
+	render() {
         const items = {'Чаты': 'chat-name'};
 		
 		const addChatButton = new Button('', '+');
@@ -28,7 +31,10 @@ export default class ChatsFrame extends Block {
 			}, {page: page});
 		});
 		const chatsList = new Table(items, ['leaders-table'], [addChatButton, paginator]);
-        
-        this.append(chatsList);
-    }
+		this.append(chatsList);
+		
+		console.log(this);
+		console.log(document.getElementById('application'));
+		document.getElementById('application').appendChild(this.getElement());
+	}
 }
