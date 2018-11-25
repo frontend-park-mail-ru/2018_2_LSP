@@ -5,6 +5,7 @@ import Profile from './views/ProfileView/Profile.mjs';
 import SignIn from './views/SignInView/SignIn.mjs';
 import SignUp from './views/SignUpView/SignUp.mjs';
 import Leaders from './views/LeadersView/Leaders.mjs';
+import ChatsView from './views/ChatsView/ChatsView.mjs';
 import Router from './modules/Router.mjs';
 import GameView from './views/GameView/GameView.mjs';
 import Logout from './views/Logout.mjs';
@@ -28,6 +29,7 @@ Router.addPath('/leaders', Leaders, {page: 0});
 Router.addPath('/profile', Profile, {profile: ''});
 Router.addPath('/singleplayer', GameView, {mapSide: 5}); // n x n, нечетные
 Router.addPath('/logout', Logout);
+Router.addPath('/chats', ChatsView);
 Router.start();
 
 Bus.on('user:logged-in', () => {         

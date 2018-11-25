@@ -1,5 +1,4 @@
 import Block from '../Block/Block.mjs';
-import Paginator from '../Paginator/Paginator.mjs';
 import Bus from '../../modules/eventBus.mjs';
 
 export default class Table extends Block {
@@ -9,7 +8,7 @@ export default class Table extends Block {
      * @param page номер страницы
      * @param callback функция-коллбек получения i-ой страницы (аргумент - номер страницы)
      */
-	constructor(fields = {}, tableClass = [], callback) {
+	constructor(fields = {}, tableClass = [], components = []) {
 		super('table', tableClass);
 		this._fields = fields;
 
@@ -25,8 +24,10 @@ export default class Table extends Block {
 		// tfoot
 		const trfoot = new Block('tr', ['leaders-table__footer']);
 		const thfoot = new Block('th', [], {'colspan': Object.keys(this._fields).length});
-		const paginator = new Paginator(callback);
-		thfoot.append(paginator);
+		// const paginator = new Paginator(callback);
+		for (let component in components) {	// добавление компонентов
+			thfoot.append(component);
+		}
 
 		trfoot.append(thfoot);
 		this.append(trfoot);

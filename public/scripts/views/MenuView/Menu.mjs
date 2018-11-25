@@ -12,6 +12,7 @@ export default class Menu extends BaseView {
 			singleplayer: 'Одиночная игра',
 			leaders: 'Лидеры',
 			rules: 'Правила',
+			chats: 'Чаты'
 		};
 
 		Object.entries(items).forEach((item) => {
