@@ -22,10 +22,16 @@ $button_hover_text_color: white;
     }
 
     &_back{
-        float: left; 
+        position: absolute;
     }
 
     &_right{
         float: right;
+    }
+
+
+    &_chat {
+        position: absolute;
+        bottom: 0;
     }
 }
