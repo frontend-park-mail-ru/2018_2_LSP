@@ -15,9 +15,9 @@ import '../img/favicon.ico';
 import '../styles/base.scss';
 
 // авторизация service-worker
-if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {	
-	navigator.serviceWorker.register('sw.js');
-}
+// if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {	
+// 	navigator.serviceWorker.register('sw.js');
+// }
 
 Router.addPath('/', Landing);
 Router.addPath('/signin', SignIn);

@@ -14,9 +14,15 @@
 	}
 }
 
-.game__card {
+.game__square {
 	width: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
 	height: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
+	position: relative;
+}
+
+.game__card {
+	width: 100%;
+	height: 100%;
 	position: relative;
 	transform: scale(1);
 	transform-style: preserve-3d;
@@ -55,10 +61,7 @@
 
 .game__pirate {
 	width: 50%; 
-	position: absolute; 
-	z-index: 1; 
-
-	&.flip {
-		transform: rotateY(180deg);
-	}
+	position: absolute;
+	top: 0;
+	z-index: 1;
 }
