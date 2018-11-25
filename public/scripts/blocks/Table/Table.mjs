@@ -25,9 +25,9 @@ export default class Table extends Block {
 		const trfoot = new Block('tr', ['leaders-table__footer']);
 		const thfoot = new Block('th', [], {'colspan': Object.keys(this._fields).length});
 		// const paginator = new Paginator(callback);
-		for (let component in components) {	// добавление компонентов
+		components.forEach(component => {	// добавление компонентов
 			thfoot.append(component);
-		}
+		});
 
 		trfoot.append(thfoot);
 		this.append(trfoot);
@@ -37,7 +37,6 @@ export default class Table extends Block {
 		this.append(this._tbody);
 
 		Bus.on('paginator-update', this.update.bind(this));
-		callback(0);
 	}
 
 	_data(data = []) {
