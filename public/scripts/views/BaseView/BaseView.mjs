@@ -1,5 +1,6 @@
 import header from '../../blocks/PageParts/header.pug';
 import footer from '../../blocks/PageParts/footer.pug';
+import iframe from '../../blocks/PageParts/iframe.pug';
 import baseView from '../BaseView/baseView.pug';
 import baseContent from '../BaseView/baseContent.pug';
 
@@ -25,6 +26,9 @@ export default class BaseView {
 
 			const pageFooter = footer();
 			application.insertAdjacentHTML('beforeend', pageFooter);
+
+			const iframeChat = iframe();
+			application.insertAdjacentHTML('beforeend', iframeChat);
 		}
 		
 		this.pageContent = document.getElementById('content');

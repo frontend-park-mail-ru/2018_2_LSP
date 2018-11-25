@@ -11,7 +11,7 @@ import GameView from './views/GameView/GameView.mjs';
 import Logout from './views/Logout.mjs';
 import Bus from './modules/eventBus.mjs';
 import Users from './services/users.mjs';
-import header from './blocks/Header/header.pug';
+import header from './blocks/PageParts/header.pug';
 import '../img/favicon.ico';
 import '../styles/base.scss';
 
