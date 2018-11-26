@@ -36,9 +36,10 @@ export default class BaseView {
 					iframe[0].hidden = true;
 				}
 			};
-		
+			
+			const footerTag = document.getElementsByTagName('footer');
 			const iframeChat = iframe();
-			application.insertAdjacentHTML('beforeend', iframeChat);
+			footerTag[0].insertAdjacentHTML('beforeend', iframeChat);
 		}
 		
 		this.pageContent = document.getElementById('content');

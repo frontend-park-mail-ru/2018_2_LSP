@@ -30,8 +30,8 @@ $button_hover_text_color: white;
     }
 
 
-    &_chat {
-        position: absolute;
-        bottom: 0;
+    &_send {
+        margin: 10;
+        padding: 7px 5px;
     }
 }
