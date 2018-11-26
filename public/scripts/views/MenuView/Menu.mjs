@@ -15,7 +15,7 @@ export default class Menu extends BaseView {
 		};
 
 		Object.entries(items).forEach((item) => {
-			const element = new Button(item[0], item[1], ['basic-button', 'basic-button_right']);
+			const element = new Button(item[0], item[1], ['basic-button', 'page-content__menu-button']);
 			this.pageContent.appendChild(element.getElement());
 		});
 	}
