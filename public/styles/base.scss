@@ -37,3 +37,24 @@ $error_text_color: white;
 body {
 	background: url(../img/water.png)
 }
+
+.page-footer {
+    position: absolute;
+    bottom:0;
+}
+
+.input-field {
+    height: 30;
+    width: 150;
+}
+
+.message {
+    background-color: aquamarine;
+    border: solid 1px $button_border;
+    border-radius: 10px;
+    padding: 8px 5px;
+    text-align: center;
+    text-decoration: none;
+    margin: 4px 8px;
+}
+
