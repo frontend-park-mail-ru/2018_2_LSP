@@ -12,7 +12,7 @@ export default class Chats {
 	 * @param {Function} callback функция-коллбек
 	 * @param data 
 	 */
-	static create(callback, data = {}) {
+	static add(callback, data = {}) {
 		Http.Post(callback, path + '/chat', data);		
 	}
 
@@ -41,7 +41,8 @@ export default class Chats {
 	 * @param {Object} data 
 	 */
 	static list(callback, data = {}) {
-		const query = path + '/chat?page=' + data.page + '&fields=username,rating,totalgames&orderby=rating';
+        const query = path + '/chats';
+        //  + data.page;
 		const call = function(err, chats) {
 			if (err) {
 				return callback(err, chats);

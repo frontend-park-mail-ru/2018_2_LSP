@@ -39,7 +39,8 @@ export default class Table extends Block {
 		Bus.on('paginator-update', this.update.bind(this));
 	}
 
-	_data(data = []) {
+	update(data = []) {
+		this._tbody.clear();
 		data.forEach(item => {
 			const tr = document.createElement('tr');
 			tr.classList.add('leaders-table__row');
@@ -54,10 +55,5 @@ export default class Table extends Block {
 			}
 			this._tbody.getElement().appendChild(tr);
 		});
-	}
-
-	update(data = []) {
-		this._tbody.clear();
-		this._data(data);
 	}
 }

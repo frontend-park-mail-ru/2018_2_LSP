@@ -2,6 +2,7 @@
 import Chats from '../../services/chats.mjs';
 import Block from '../../blocks/Block/Block.mjs';
 import Button from '../../blocks/Button/Button.mjs';
+import Item from '../../blocks/Chat/Item.mjs';
 import Table from '../../blocks/Table/Table.mjs';
 import Paginator from '../../blocks/Paginator/Paginator.mjs';
 import Bus from '../../modules/eventBus.mjs';
@@ -9,31 +10,52 @@ import Bus from '../../modules/eventBus.mjs';
 
 export default class ChatsFrame extends Block {
 	constructor() {
-        super('div');
+		super('div');
+		this.chats = [];
+
+		const addChatButton = new Item('+', () => {
+			this.chatsList();
+		});
+
+		this.myChats = new Table({'Чаты': 'my-chats'}, ['leaders-table'], [addChatButton]);
+		this.append(this.myChats);
+		
+		document.getElementById('application').appendChild(this.getElement());
 	}
 	
 	render() {
-        const items = {'Чаты': 'chat-name'};
+        
 		
-		const addChatButton = new Button('', '+');
-		addChatButton.event({
-			
-		});
+		
+		
+		
+	}
 
-		const paginator = new Paginator(function(page) {
+	addChat() {
+
+	}
+
+	chatsList() {
+		this.myChats.hide();
+		
+		const paginator = new Paginator((page) => {
 			Chats.list((err, response) => {
 				if (!err) {
-					Bus.emit('paginator-update', response);
-				} else {
-					Bus.emit('');
+					response['chats'].forEach(chat => {
+						const tbody = document.getElementsByTagName('tbody')[0];
+						const item = new Item(chat['title'], () => {
+							Chats.add((err, response) => {
+								if (!err) {
+									this.hide();
+								}
+							}, chat['title']);
+						});
+						tbody.appendChild(item.getElement());
+					});
 				}
 			}, {page: page});
 		});
-		const chatsList = new Table(items, ['leaders-table'], [addChatButton, paginator]);
-		this.append(chatsList);
-		
-		console.log(this);
-		console.log(document.getElementById('application'));
-		document.getElementById('application').appendChild(this.getElement());
+		this.list = new Table({'Добавить чат': 'chats-list'}, ['leaders-table'], [paginator]);
+		this.append(this.list);
 	}
 }
