@@ -64,11 +64,12 @@ export default class Game {
 	 * Проверка выиграша какого-либо игрока
 	 */
 	checkForWin() {
-		for (let player in this.players) {
+		// for (let player in 
+		this.players.forEach(player => {
 			if (player.getScore() > this.totalGoldCount / 2) {
 				return true;
 			}
-		}
+		});
 		return false;
 	}
   
@@ -145,8 +146,7 @@ export default class Game {
 		card.classList.add('flip');
 
 		const pirate = `pirate-${this.currentPlayer}-${this.currentSelectedPirate}`;
-		document.getElementById(pirate).classList.add('flip');
-		this.UI.moveToCard(pirate, id);
+		this.UI.moveToCard(pirate, `square-${cardID}`);
 		this.UI.resetOpacity();
 
 		if (this.checkForWin()) {

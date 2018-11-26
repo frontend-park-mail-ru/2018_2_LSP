@@ -5,12 +5,14 @@ import Profile from './views/ProfileView/Profile.mjs';
 import SignIn from './views/SignInView/SignIn.mjs';
 import SignUp from './views/SignUpView/SignUp.mjs';
 import Leaders from './views/LeadersView/Leaders.mjs';
+import ChatsFrame from './views/ChatsView/ChatsFrame.mjs';
+import ChatsView from './views/ChatsView/ChatsView.mjs';
 import Router from './modules/Router.mjs';
 import GameView from './views/GameView/GameView.mjs';
 import Logout from './views/Logout.mjs';
 import Bus from './modules/eventBus.mjs';
 import Users from './services/users.mjs';
-import header from './blocks/Header/header.pug';
+import header from './blocks/PageParts/header.pug';
 import '../img/favicon.ico';
 import '../styles/base.scss';
 
@@ -28,6 +30,8 @@ Router.addPath('/leaders', Leaders, {page: 0});
 Router.addPath('/profile', Profile, {profile: ''});
 Router.addPath('/singleplayer', GameView, {mapSide: 5}); // n x n, нечетные
 Router.addPath('/logout', Logout);
+Router.addPath('/chatsframe', ChatsFrame);
+Router.addPath('/chats', ChatsView);
 Router.start();
 
 Bus.on('user:logged-in', () => {         
@@ -62,4 +66,9 @@ Bus.on('user:logged-out', () => {
 			alert(response.error);
 		}
 	});
+});
+
+Bus.on('Call iframe', () => {         
+	const iframe = document.getElementsByTagName('iframe');
+	iframe[0].hidden = false;
 });

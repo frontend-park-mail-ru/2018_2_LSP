@@ -55,12 +55,11 @@ export default class Map {
 		if (cardID === 'base-0') {
 			let temp = Math.ceil(this.size/2);
 			cards = [temp-1, temp, temp+1];
-		}
-		else if (cardID === 'base-1') {
+		} else if (cardID === 'base-1') {
 			let temp = this.size*this.size - Math.floor(this.size/2);
 			cards = [temp-1, temp, temp+1];
-		}
-		else {
+		} else {
+			cardID = Number(this.getCardNumber(cardID));
 			if ((cardID + 1) % this.size != 1) {
 				cards.push(cardID + 1);
 			}
@@ -87,5 +86,9 @@ export default class Map {
 			}
 		}
 		return cards;
+	}
+
+	getCardNumber(id) {
+		return id.match(/\d+/)[0];
 	}
 }

@@ -1,6 +1,5 @@
 import Block from '../Block/Block.mjs';
 import Button from '../Button/Button.mjs';
-import Router from '../../modules/Router.mjs';
 
 /**
  * Блок пагинации (наследуется от Block)
@@ -12,15 +11,17 @@ export default class Paginator extends Block {
 	 * @param callback функция-коллбек получения i-ой страницы (аргумент - номер страницы)
 	 * @param classes классы, накладоваемые на кнопки пагинации
 	 */
-	constructor(callback, classes=['basic-button', 'basic-button_right']) {
+	constructor(callback = {}, page = 0, classes=['basic-button', 'basic-button_right']) {
 		super('div');
-		this._currentPage = 0;
+		this._currentPage = page;
+
+		callback(this._currentPage);
 
 		const aright = new Button('', '>', classes);
 		this.append(aright);
 		aright.event('click', () => {
 			this._currentPage += 1;
-			Router.go('/leaders/' + this._currentPage);
+			// Router.go('/leaders/' + this._currentPage);
 			callback(this._currentPage);
 		});
 
@@ -31,7 +32,7 @@ export default class Paginator extends Block {
 				return;
 			}
 			this._currentPage -= 1;
-			Router.go('/leaders/' + this._currentPage);
+			// Router.go('/leaders/' + this._currentPage);
 			callback(this._currentPage);
 		});
 	}
