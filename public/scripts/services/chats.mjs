@@ -32,7 +32,7 @@ export default class Chats {
 			this.user = user;
 			return callback(null, user);
 		}.bind(this);
-		Http.Get(call, path + '/chat/' + payload + '?fields=username,email,firstname,lastname,rating,avatar,totalgames');
+		Http.Get(call, path + '/chat?fields=username,email,firstname,lastname,rating,avatar,totalgames');
 	}
 
 	/**
@@ -41,8 +41,7 @@ export default class Chats {
 	 * @param {Object} data 
 	 */
 	static list(callback, data = {}) {
-        const query = path + '/chats';
-        //  + data.page;
+		const query = path + '/chats';
 		const call = function(err, chats) {
 			if (err) {
 				return callback(err, chats);

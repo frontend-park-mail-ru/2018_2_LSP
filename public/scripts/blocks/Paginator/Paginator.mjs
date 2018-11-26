@@ -1,6 +1,5 @@
 import Block from '../Block/Block.mjs';
 import Button from '../Button/Button.mjs';
-import Router from '../../modules/Router.mjs';
 
 /**
  * Блок пагинации (наследуется от Block)

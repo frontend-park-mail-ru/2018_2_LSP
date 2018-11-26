@@ -33,7 +33,6 @@ $error_text_color: white;
             font-size: 45px;
         }
         color:$text_color;
-        //margin-top:3em;
     }
 }
 
@@ -61,7 +60,7 @@ body {
 
 .page-footer {
     position: absolute;
-    bottom:0;
+    bottom: 10;
 }
 
 .input-field {

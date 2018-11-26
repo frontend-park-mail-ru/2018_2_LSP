@@ -13,9 +13,9 @@ export default class Item extends Block {
      * @param {Array} classes классы кнопки
      */
 	constructor (name = '', callback, classes = ['basic-button']) {
-        super('div', classes);
+		super('div', classes);
 
-        this.setText(name);
-        this.event('click', callback);
+		this.setText(name);
+		this.event('click', callback);
 	}
 }

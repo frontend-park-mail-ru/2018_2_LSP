@@ -146,7 +146,6 @@ export default class Game {
 		card.classList.add('flip');
 
 		const pirate = `pirate-${this.currentPlayer}-${this.currentSelectedPirate}`;
-		// document.getElementById(pirate).classList.add('flip');
 		this.UI.moveToCard(pirate, `square-${cardID}`);
 		this.UI.resetOpacity();
 
