@@ -32,7 +32,7 @@ app.ws('/ws', function(socket) {
 	});
 });
 
-//Сервер
+// //Сервер
 // app.listen(PORT, () => {
 // 	console.log(`Server listening port ${PORT}`);
 // });

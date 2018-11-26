@@ -15,6 +15,7 @@ import Users from './services/users.mjs';
 import header from './blocks/PageParts/header.pug';
 import '../img/favicon.ico';
 import '../styles/base.scss';
+// import '../build/style.css';
 
 // авторизация service-worker
 // if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {	
