@@ -1,0 +1,10 @@
+.page-content__menu-button {
+    @media(orientation: landscape),(min-width:760) {
+        float: right;
+    }
+
+    @media(orientation: portrait) {
+        display: inline-block;
+        width: 250px;
+    }
+}
