@@ -6,13 +6,17 @@ $error_text_color: white;
 @import '../scripts/blocks/Button/Button.scss';
 @import '../scripts/blocks/Table/Table.scss';
 @import '../scripts/views/LandingView/Landing.scss';
+@import '../scripts/views/MenuView/MenuView.scss';
 @import '../scripts/views/GameView/GameView.scss';
 @import './normalize.css';
+
+@viewport {
+    width: device-width;
+}
 
 .main-section {
     height: 200px;
     width: 400px;
-
     position: absolute;
     top: 40%;
     left: 50%;
@@ -21,8 +25,15 @@ $error_text_color: white;
     transform: translate(-50%, -50%);
 
     &__title {
-        font-size: 54px;
+        @media (min-width: 350px) {
+            font-size: 54px;
+        }
+
+        @media (max-width: 350px) {
+            font-size: 45px;
+        }
         color:$text_color;
+        //margin-top:3em;
     }
 }
 
