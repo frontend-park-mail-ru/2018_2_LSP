@@ -11,6 +11,10 @@
 		display: flex;
 		flex-wrap: wrap;
 		perspective: 1000px;
+	
+		&__relation {
+			padding-top: 50%;
+		}
 	}
 }
 

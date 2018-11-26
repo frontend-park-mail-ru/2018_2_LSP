@@ -34,6 +34,16 @@ $error_text_color: white;
     }
 }
 
+.grid {
+    display: grid;
+    grid-template: 100px auto 100px / 200px 1fr 200px;
+
+    &-item {
+        padding: 5px;
+        border: 1px solid red;
+    }
+}
+
 body {
 	background: url(../img/water.png)
 }

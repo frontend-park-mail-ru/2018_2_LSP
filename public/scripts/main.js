@@ -13,12 +13,12 @@ import Users from './services/users.mjs';
 import header from './blocks/Header/header.pug';
 import '../img/favicon.ico';
 import '../styles/base.scss';
-import '../build/style.css';
+// import '../build/style.css';
 
 // авторизация service-worker
-if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {	
-	navigator.serviceWorker.register('sw.js');
-}
+// if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {	
+// 	navigator.serviceWorker.register('sw.js');
+// }
 
 Router.addPath('/', Landing);
 Router.addPath('/signin', SignIn);
