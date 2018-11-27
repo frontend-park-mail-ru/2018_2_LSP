@@ -1,4 +1,5 @@
 import Block from '../Block/Block.mjs';
+import './Form.scss';
 
 /**
  * Класс формы (наследуется от Block)

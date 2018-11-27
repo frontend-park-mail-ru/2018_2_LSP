@@ -2,12 +2,6 @@ $text_color: brown;
 $error_line_bgcolor: brown;
 $error_text_color: white;
 
-@import '../scripts/blocks/Form/Form.scss';
-@import '../scripts/blocks/Button/Button.scss';
-@import '../scripts/blocks/Table/Table.scss';
-@import '../scripts/views/LandingView/Landing.scss';
-@import '../scripts/views/MenuView/MenuView.scss';
-@import '../scripts/views/GameView/GameView.scss';
 @import './normalize.css';
 
 @viewport {
@@ -70,7 +64,7 @@ body {
 
 .message {
     background-color: aquamarine;
-    border: solid 1px $button_border;
+    border: solid 1px gray;
     border-radius: 10px;
     padding: 8px 5px;
     text-align: center;

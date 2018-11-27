@@ -2,6 +2,7 @@ const path = require('path');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const CssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 const PATHS = {
 	public: path.resolve(__dirname, 'public'),
@@ -42,6 +43,17 @@ module.exports = {
 						loader: 'css-loader'
 					},
 					{
+						loader: 'postcss-loader',
+						options: {
+							plugins: [
+								autoprefixer({
+									browsers:['ie >= 8', 'last 4 version']
+								})
+							],
+							sourceMap: true
+						}
+					},
+					{
 						loader: 'sass-loader'
 					}
 				]
@@ -75,25 +87,7 @@ module.exports = {
 						}
 					}
 				]
-			},
-			{
-				test: /\.css$/,
-				exclude: /node_modules/,
-				use: [
-				  {
-					loader: 'style-loader',
-				  },
-				  {
-					loader: 'css-loader',
-					options: {
-					  importLoaders: 1,
-					}
-				  },
-				  {
-					loader: 'postcss-loader'
-				  }
-				]
-			  }
+			}
 		]
 	},
 

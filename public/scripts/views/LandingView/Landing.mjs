@@ -1,5 +1,6 @@
 import BaseView from '../BaseView/BaseView.mjs';
 import Button from '../../blocks/Button/Button.mjs';
+import './Landing.scss';
 
 export default class Landing extends BaseView{
 	constructor() {

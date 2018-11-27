@@ -1,5 +1,6 @@
 import Block from '../Block/Block.mjs';
 import Bus from '../../modules/eventBus.mjs';
+import './Table.scss';
 
 export default class Table extends Block {
 	/**

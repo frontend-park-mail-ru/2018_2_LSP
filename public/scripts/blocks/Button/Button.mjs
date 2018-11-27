@@ -1,4 +1,5 @@
 import Block from '../Block/Block.mjs';
+import './Button.scss';
 
 /**
  * Класс кнопки (наследуется от Block)

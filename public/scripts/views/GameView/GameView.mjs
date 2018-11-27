@@ -1,6 +1,7 @@
 import BaseView from '../../views/BaseView/BaseView.mjs';
 import Game from '../../game/Game.mjs';
 import gameMap from './gameMap.pug';
+import './GameView.scss';
 
 export default class GameView extends BaseView {
 	constructor({mapSide} = {}){
