@@ -81,7 +81,7 @@ export default class Game {
 		return window.setTimeout(function() {
 			this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
 			this.hovered = false;
-			this.UI.resetOpacity();
+			this.UI.resetSelected();
 			alert('Время вашего хода истекло');
 		}, 30000);
 	}
@@ -100,17 +100,13 @@ export default class Game {
 			this.UI.setLowOpacity();
 			let pirateID = this._getPirateNumber(id);
 			let currentCard = this.players[this.currentPlayer].getPirate(pirateID).getCard();
-			let moveableCards = this.map.getMoveableCards(currentCard);
-			moveableCards.forEach(function(id) {
-				document.getElementById('gamecard-' + id).style.opacity = 1;
-				document.getElementById('gamecard-' + id).style.outline = 'solid 10px lawngreen';
-				document.getElementById('gamecard-' + id).style.outlineOffset = '-10px';
-			});
+			const moveableCards = this.map.getMoveableCards(currentCard);
+			this.UI.selectCards(moveableCards);
 			this.currentSelectedPirate = pirateID; // TODO убрать
 		} 
 		else {
 			this.hovered = false;
-			this.UI.resetOpacity();
+			this.UI.resetSelected();
 		}
 	}
 
@@ -153,7 +149,7 @@ export default class Game {
 
 		const pirate = `pirate-${this.currentPlayer}-${this.currentSelectedPirate}`;
 		this.UI.moveToCard(pirate, `square-${cardID}`);
-		this.UI.resetOpacity();
+		this.UI.resetSelected();
 
 		if (this.checkForWin()) {
 			if (this.done === undefined) {

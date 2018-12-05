@@ -4,17 +4,26 @@ export default class UI {
 		this._timer = timer;
 	}
 
-	resetOpacity() {
+	resetSelected() {
 		for(let i = 1; i <= this._mapSize * this._mapSize; ++i) {
-			document.getElementById('gamecard-' + i).style.opacity = 1;
-			document.getElementById('gamecard-' + i).style.border = 'solid 2px black';
+			const card = document.getElementById('square-' + i);
+			card.style.opacity = 1;
+			card.classList.remove('game__card_selected');		
 		}
 	}
 
 	setLowOpacity() {
 		for(let i = 1; i <= this._mapSize * this._mapSize; ++i) {
-			document.getElementById('gamecard-' + i).style.opacity = 0.7;
+			document.getElementById('square-' + i).style.opacity = 0.7;
 		}
+	}
+
+	selectCards(cardsId) {
+		cardsId.forEach(function(id) {
+			const card = document.getElementById('square-' + id);
+			card.style.opacity = 1;
+			card.classList.add('game__card_selected');
+		});
 	}
 
 	moveToCard(object, card) {

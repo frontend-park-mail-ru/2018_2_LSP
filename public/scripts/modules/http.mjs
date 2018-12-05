@@ -27,7 +27,11 @@ export default class Http {
 			}
 			let response = '';
 			if (xhr.responseText !== '') {
-				response = JSON.parse(xhr.responseText);
+				try {
+					response = JSON.parse(xhr.responseText);
+				} catch (e) {
+					response = '';
+				}
 			}
 			if (+xhr.status !== 200 && +xhr.status !== 201) {
 				callback(xhr, response);
