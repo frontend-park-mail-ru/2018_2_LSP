@@ -2,6 +2,7 @@ import MapBuilder from './MapBuilder.mjs';
 import CardBuilder from './CardBuilder.mjs';
 import Player from './Player.mjs';
 import UI from './UI.mjs';
+import Bus from './gameBus.mjs';
 
 
 let CARDTYPES = {};
@@ -58,13 +59,16 @@ export default class Game {
 				});
 			}
 		}
+
+		// Bus.on('toBase', (pirate) => {
+		// 	console.log(pirate);
+		// });
 	}
 
 	/**
 	 * Проверка выиграша какого-либо игрока
 	 */
 	checkForWin() {
-		// for (let player in 
 		this.players.forEach(player => {
 			if (player.getScore() > this.totalGoldCount / 2) {
 				return true;
@@ -99,6 +103,8 @@ export default class Game {
 			let moveableCards = this.map.getMoveableCards(currentCard);
 			moveableCards.forEach(function(id) {
 				document.getElementById('gamecard-' + id).style.opacity = 1;
+				document.getElementById('gamecard-' + id).style.outline = 'solid 10px lawngreen';
+				document.getElementById('gamecard-' + id).style.outlineOffset = '-10px';
 			});
 			this.currentSelectedPirate = pirateID; // TODO убрать
 		} 

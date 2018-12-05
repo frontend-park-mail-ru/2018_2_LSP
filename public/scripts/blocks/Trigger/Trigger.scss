@@ -4,7 +4,7 @@ $button_border: grey;
 $button_hover_bg: #b30000;
 $button_hover_text_color: white;
 
-.basic-button {
+.trigger {
     background-color: $button_bg;
     border: solid 1px $button_border;
     border-radius: 5px;
@@ -22,16 +22,10 @@ $button_hover_text_color: white;
         color: $button_hover_text_color;
     }
 
-    &_back{
-        float: left;
-    }
-
-    &_right{
-        float: right;
-    }
-
-    &_send {
-        margin: 10;
-        padding: 7px 5px;
+    &_hovered {
+        background-color: $button_hover_bg;
+        color: $button_hover_text_color;
+        outline: solid 5px $button_text_color;
+        outline-offset: -5px;
     }
 }

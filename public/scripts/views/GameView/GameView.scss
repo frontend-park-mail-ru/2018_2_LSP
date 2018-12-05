@@ -31,10 +31,11 @@
 	transform: scale(1);
 	transform-style: preserve-3d;
 	transition: transform .5s;
+	border: solid 2px black;
 
 	&:active {
 		transform: scale(0.97);
-		 transition: transform .2s;
+		transition: transform .2s;
 	}
 
 	&.flip {
@@ -66,6 +67,7 @@
 .game__pirate {
 	width: 50%; 
 	position: absolute;
-	top: 0;
+	top: 10%;
+	left: 25%;
 	z-index: 1;
 }

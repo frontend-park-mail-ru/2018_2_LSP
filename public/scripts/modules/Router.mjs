@@ -69,11 +69,7 @@ class Router {
 		//вперед, назад в браузере
 		window.addEventListener('popstate', () => {
 			const currentPath = window.location.pathname;
-			if(currentPath.includes('leaders/')) {
-				this.open('/leaders');
-			} else {
-				this.open(currentPath);
-			}
+			this.open(currentPath);
 		});
         
 		const currentPath = window.location.pathname;

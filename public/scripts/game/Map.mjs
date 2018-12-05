@@ -60,6 +60,7 @@ export default class Map {
 			cards = [temp-1, temp, temp+1];
 		} else {
 			cardID = Number(this.getCardNumber(cardID));
+			cards.push(cardID);
 			if ((cardID + 1) % this.size != 1) {
 				cards.push(cardID + 1);
 			}

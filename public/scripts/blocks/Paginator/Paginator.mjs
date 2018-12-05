@@ -1,5 +1,6 @@
 import Block from '../Block/Block.mjs';
-import Button from '../Button/Button.mjs';
+import Item from '../Item/Item.mjs';
+import Bus from '../../modules/eventBus.mjs';
 
 /**
  * Блок пагинации (наследуется от Block)
@@ -17,23 +18,25 @@ export default class Paginator extends Block {
 
 		callback(this._currentPage);
 
-		const aright = new Button('', '>', classes);
-		this.append(aright);
-		aright.event('click', () => {
+		const aright = new Item('>', () => {
 			this._currentPage += 1;
-			// Router.go('/leaders/' + this._currentPage);
 			callback(this._currentPage);
-		});
+		}, classes);
+		this.append(aright);
 
-		const aleft = new Button('', '<', classes=['basic-button', 'basic-button_right']);
-		this.append(aleft);
-		aleft.event('click', () => {
+		const aleft = new Item('<', () => {
 			if (this._currentPage === 0) {
 				return;
 			}
 			this._currentPage -= 1;
-			// Router.go('/leaders/' + this._currentPage);
 			callback(this._currentPage);
+		}, classes);
+		this.append(aleft);
+
+		Bus.on('empty-page', () => {
+			if (this._currentPage !== 0) {
+				this._currentPage -= 1;
+			}
 		});
 	}
 }

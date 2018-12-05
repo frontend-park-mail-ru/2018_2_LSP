@@ -7,6 +7,7 @@ export default class UI {
 	resetOpacity() {
 		for(let i = 1; i <= this._mapSize * this._mapSize; ++i) {
 			document.getElementById('gamecard-' + i).style.opacity = 1;
+			document.getElementById('gamecard-' + i).style.border = 'solid 2px black';
 		}
 	}
 

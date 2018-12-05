@@ -70,7 +70,7 @@ export default class Users {
 	 * @param {Object} data 
 	 */
 	static leaders(callback, data = {}) {
-		const query = path + '/users?page=' + data.page + '&fields=username,rating,totalgames&orderby=rating';
+		const query = path + '/users?page=' + data.page + '&fields=username,totalscore,totalgames&orderby=totalscore';
 		const call = function(err, users) {
 			if (err) {
 				return callback(err, users);

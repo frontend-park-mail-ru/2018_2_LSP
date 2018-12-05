@@ -3,7 +3,6 @@ import Users from '../../services/users.mjs';
 import Table from '../../blocks/Table/Table.mjs';
 import Paginator from '../../blocks/Paginator/Paginator.mjs';
 import Bus from '../../modules/eventBus.mjs';
-import Router from '../../modules/Router.mjs';
 
 export default class Leaders extends BaseView {
 	constructor(){
@@ -11,14 +10,15 @@ export default class Leaders extends BaseView {
 	}
 
 	render() {
-		Router.go('/leaders/0');
-		const items = {'Логин': 'username', 'Сыграно': 'totalgames', 'Рейтинг': 'rating'};
+		const items = {'Логин': 'username', 'Сыграно': 'totalgames', 'Рейтинг': 'totalscore'};
 		const paginator = new Paginator(function(page) {
 			Users.leaders((err, response) => {
 				if (!err) {
-					Bus.emit('paginator-update', response);
-				} else {
-					Bus.emit('');
+					if (response.length === 0) {
+						Bus.emit('empty-page', response);
+					} else {
+						Bus.emit('paginator-update', response);
+					}
 				}
 			}, {page: page});
 		});
