@@ -58,10 +58,12 @@ export default class Users {
 			return callback(null, user);
 		}.bind(this);
 
-		let payload = jwtDecode(this._cookieParser('header.payload'))['id'];
-		if (payload) {
-			Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar,totalgames');
-		} 
+		// let payload = jwtDecode(this._cookieParser('header.payload'))['id'];
+		// if (payload) {
+		// 	Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar,totalgames');
+		// }
+
+		Http.Get(call, path + '/me?fields=username,email,firstname,lastname,totalscore,avatar,totalgames');
 	}
 
 	/**

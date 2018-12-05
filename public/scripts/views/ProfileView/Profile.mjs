@@ -20,8 +20,8 @@ export default class Profile extends BaseView {
 				'Почта': profileData.email,
 				'Имя' : profileData.firstname,
 				'Фамилия' : profileData.lastname,
-				'Сыграно игр': profileData.gamecount,
-				'Счет': profileData.rating
+				'Сыграно игр': profileData.totalgames,
+				'Счет': profileData.totalscore
 			}; 
 			Object.entries(userParams).forEach((param) => {
 				const pParam = new Block('p');
