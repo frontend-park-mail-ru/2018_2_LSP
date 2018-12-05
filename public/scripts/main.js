@@ -37,10 +37,13 @@ Router.start();
 Bus.on('user:logged-in', () => {         
 	const menuHeader = header({'headerType': 'loggedIn'});
 	const navigationPart = document.getElementsByTagName('nav');
-	navigationPart[0].innerHTML = '';
-	navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
 
-	if(window.location.pathname == '/') {
+	if (navigationPart[0]) {
+		navigationPart[0].innerHTML = '';
+		navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
+	}
+
+	if(window.location.pathname === '/') {
 		const backButton = document.getElementsByClassName('basicButton_back');
 		backButton[0].hidden = true;
 	}

@@ -1,0 +1,13 @@
+-var num = 0
+
+p Игр: #{games}
+p Счет: #{score}
+
+form(class='basic-form')
+    each field in userParams
+        div
+            label(class='basic-form__label') #{fieldsNames[num++]}: 
+            if num == 1 || num == 2
+                input(type='text', value= field, required='required', class='basic-form__input')
+            else
+                input(type='text', value= field, class='basic-form__input')

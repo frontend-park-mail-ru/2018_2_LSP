@@ -13,6 +13,9 @@ export default class Form extends Block {
 	constructor(fields = []) {
 		super('form', ['basic-form']);
 		fields.forEach(field => {
+			if (field.attributes['name'] === 'submit') {
+				this.append(new Block('br'));
+			}
 			const fieldElement = new Block('input', field.classes = ['basic-form__input'], field.attributes);
 			this.append(fieldElement);
 		});

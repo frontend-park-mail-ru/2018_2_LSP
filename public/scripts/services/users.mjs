@@ -18,7 +18,7 @@ export default class Users {
 	}
 
 	static logout(callback) {
-		Http.Get(callback, path + '/logout');
+		//Http.Get(callback, path + '/logout');
 		Http.Delete(callback, path +'/session');
 		const date = new Date(0);
 		document.cookie = 'name=; path=/; expires=' + date.toUTCString();

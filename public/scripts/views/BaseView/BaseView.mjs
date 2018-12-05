@@ -3,6 +3,7 @@ import footer from '../../blocks/PageParts/footer.pug';
 import iframe from '../../blocks/PageParts/iframe.pug';
 import baseView from '../BaseView/baseView.pug';
 import baseContent from '../BaseView/baseContent.pug';
+import Trigger from '../../blocks/Trigger/Trigger.mjs';
 
 export default class BaseView {
 	constructor (title) {
@@ -26,6 +27,8 @@ export default class BaseView {
 
 			const pageFooter = footer();
 			application.insertAdjacentHTML('beforeend', pageFooter);
+			// const trig = new Trigger('Чатики')
+			// this.pageContent.appendChild(trig.getElement());
 
 			const callFrameButton = document.getElementById('callFrameButton');
 			callFrameButton.onclick = function() {

@@ -1,7 +1,9 @@
 import BaseView from '../BaseView/BaseView.mjs';
 import Users from '../../services/users.mjs';
-import Block from '../../blocks/Block/Block.mjs';
 import Router from '../../modules/Router.mjs';
+import profileFields from '../ProfileView/profileFields.pug';
+import './Profile.scss';
+import Button from '../../blocks/Button/Button.mjs';
 
 export default class Profile extends BaseView {
 	constructor({profile}) {
@@ -16,18 +18,20 @@ export default class Profile extends BaseView {
 	_renderProfile(profileData) {
 		if (profileData) {
 			const userParams = {
-				'Логин': profileData.username,
-				'Почта': profileData.email,
-				'Имя' : profileData.firstname,
-				'Фамилия' : profileData.lastname,
-				'Сыграно игр': profileData.totalgames,
-				'Счет': profileData.totalscore
+				'username': profileData.username,
+				'email': profileData.email,
+				'name' : profileData.firstname,
+				'surname' : profileData.lastname
 			}; 
-			Object.entries(userParams).forEach((param) => {
-				const pParam = new Block('p');
-				pParam.setText(param[0] + ': ' + param[1]);
-				this.pageContent.appendChild(pParam.getElement());
-			});
+
+			const fieldsNames = ['Логин', 'Почта', 'Имя', 'Фамилия'];
+			const fields = profileFields({'games': profileData.totalgames, 'score': profileData.totalscore,
+										'userParams': userParams, 'fieldsNames': fieldsNames});
+			this.pageContent.insertAdjacentHTML('beforeend', fields);
+
+			const saveButton = new Button('profile', 'Сохранить', ['basic-button']);
+			this.pageContent.appendChild(saveButton.getElement());
+
 		} else {
 			const callback = (err, response) => {
 				if (!err) {
