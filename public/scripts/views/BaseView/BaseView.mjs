@@ -1,5 +1,5 @@
 import header from '../../blocks/PageParts/header.pug';
-import footer from '../../blocks/PageParts/footer.pug';
+import Block from '../../blocks/Block/Block.mjs';
 import iframe from '../../blocks/PageParts/iframe.pug';
 import baseView from '../BaseView/baseView.pug';
 import baseContent from '../BaseView/baseContent.pug';
@@ -25,24 +25,23 @@ export default class BaseView {
 			navigationPart[0].innerHTML = '';
 			navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
 
-			const pageFooter = footer();
-			application.insertAdjacentHTML('beforeend', pageFooter);
-			// const trig = new Trigger('Чатики')
-			// this.pageContent.appendChild(trig.getElement());
-
-			const callFrameButton = document.getElementById('callFrameButton');
-			callFrameButton.onclick = function() {
-				const iframe = document.getElementsByTagName('iframe');
-				if(iframe[0].hidden) {
-					iframe[0].hidden = false;
-				} else {
-					iframe[0].hidden = true;
-				}
-			};
+			const footer = new Block('footer',['page-footer']);
+			application.appendChild(footer.getElement());
 			
 			const footerTag = document.getElementsByTagName('footer');
 			const iframeChat = iframe();
 			footerTag[0].insertAdjacentHTML('beforeend', iframeChat);
+
+			const trig = new Trigger('chat');
+			trig.event('click', function() {
+						const iframe = document.getElementsByTagName('iframe');
+						if(iframe[0].hidden) {
+							iframe[0].hidden = false;
+						} else {
+							iframe[0].hidden = true;
+						}
+					})
+			footerTag[0].appendChild(trig.getElement());
 		}
 		
 		this.pageContent = document.getElementById('content');
