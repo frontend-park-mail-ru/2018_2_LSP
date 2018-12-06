@@ -13,11 +13,21 @@ export default class Form extends Block {
 	constructor(fields = []) {
 		super('form', ['basic-form']);
 		fields.forEach(field => {
-			if (field.attributes['name'] === 'submit') {
-				this.append(new Block('br'));
+			const div = new Block('div');
+
+			if(field.fieldName) {
+				const fieldLabel = new Block('label',['basic-form__label']);			
+				fieldLabel.setText(field.fieldName);
+				div.append(fieldLabel);
 			}
-			const fieldElement = new Block('input', field.classes = ['basic-form__input'], field.attributes);
-			this.append(fieldElement);
+
+			if(field.classes.length == 0) {
+				field.classes = ['basic-form__input'];
+			}
+
+			const fieldElement = new Block('input', field.classes, field.attributes);
+			div.append(fieldElement);
+			this.append(div);
 		});
 	}
 

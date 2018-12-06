@@ -18,8 +18,8 @@ export default class Users {
 	}
 
 	static logout(callback) {
-		//Http.Get(callback, path + '/logout');
 		Http.Delete(callback, path +'/session');
+		this.user = '';
 		const date = new Date(0);
 		document.cookie = 'name=; path=/; expires=' + date.toUTCString();
 		// TODO удаление из кэша
@@ -58,12 +58,22 @@ export default class Users {
 			return callback(null, user);
 		}.bind(this);
 
-		// let payload = jwtDecode(this._cookieParser('header.payload'))['id'];
+		//let payload = jwtDecode(this._cookieParser('header.payload'))['id'];
 		// if (payload) {
 		// 	Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar,totalgames');
 		// }
 
-		Http.Get(call, path + '/me?fields=username,email,firstname,lastname,totalscore,avatar,totalgames');
+		Http.Get(call, path + '/me?fields=id,username,email,firstname,lastname,totalscore,avatar,totalgames');
+	}
+
+
+	/**
+	 * Получение данных профиля пользователя
+	 * @param {Function} callback функция-коллбек
+	 */
+	static updateInfo(callback, id, data = {}) {
+		Http.Put(callback, path + '/users/' + id, data);
+		this.user = '';
 	}
 
 	/**

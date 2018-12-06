@@ -72,4 +72,14 @@ export default class Http {
 	static Delete(callback, path, body) {
 		this._request(callback, 'DELETE', path, body);
 	}
+
+	/**
+     * Функция Delete-запроса
+     * @param {function} callback - коллбек-функция
+     * @param {string} path - адрес запроса
+     * @param {Object} body - тело запроса
+     */
+	static Put(callback, path, body) {
+		this._request(callback, 'PUT', path, body);
+	}
 }
