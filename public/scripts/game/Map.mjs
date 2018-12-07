@@ -52,10 +52,10 @@ export default class Map {
 
 	getMoveableCards(cardID) {	// получить массив игровых карт на которые можно попасть
 		let cards = [];
-		if (cardID === 'base-0') {
+		if (cardID === 'base-square0') {
 			let temp = Math.ceil(this.size/2);
 			cards = [temp-1, temp, temp+1];
-		} else if (cardID === 'base-1') {
+		} else if (cardID === 'base-square1') {
 			let temp = this.size*this.size - Math.floor(this.size/2);
 			cards = [temp-1, temp, temp+1];
 		} else {

@@ -34,7 +34,7 @@ export class KillCard extends Card {
 	}
 	
 	apply(game) {
-		game.UI.moveToCard('pirate-' + game.currentPlayer + '-' + game.currentSelectedPirate, 'base-' + game.currentPlayer);
-		game.players[game.currentPlayer].getPirate(game.currentSelectedPirate).setCard('base-' + game.currentPlayer);
+		game.UI.moveToCard('pirate-' + game.currentPlayer + '-' + game.currentSelectedPirate, 'base-square' + game.currentPlayer);
+		game.players[game.currentPlayer].getPirate(game.currentSelectedPirate).setCard('base-square' + game.currentPlayer);
 	}
 }

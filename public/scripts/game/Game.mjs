@@ -38,7 +38,7 @@ export default class Game {
 		this.players = Array(playersCount);
 		for(let i = 0; i < playersCount; i++) {
 			this.players[i] = new Player();
-			this.players[i].addPirates(pirateCount, 'base-' + i);
+			this.players[i].addPirates(pirateCount, 'base-square' + i);
 		}
 
 		this.UI = new UI(mapSize, this.timeOut);
@@ -128,6 +128,10 @@ export default class Game {
 		window.clearTimeout(this.timeOut);
 
 		this.players[this.currentPlayer].getPirate(this.currentSelectedPirate).setCard(id);
+
+		const pirate = `pirate-${this.currentPlayer}-${this.currentSelectedPirate}`;
+		this.UI.moveToCard(pirate, `square-${cardID}`);
+		this.UI.resetSelected();
 	
 		const cardType = this.map.getCardType(cardID);
 		const cardObject = CardBuilder.build(cardType);
@@ -146,10 +150,6 @@ export default class Game {
 			break;
 		}
 		card.classList.add('flip');
-
-		const pirate = `pirate-${this.currentPlayer}-${this.currentSelectedPirate}`;
-		this.UI.moveToCard(pirate, `square-${cardID}`);
-		this.UI.resetSelected();
 
 		if (this.checkForWin()) {
 			if (this.done === undefined) {

@@ -8,6 +8,7 @@ import Button from '../../blocks/Button/Button.mjs';
 import Bus from '../../modules/eventBus.mjs';
 import addForm from './addForm.pug';
 import playersBoard from './playersBoard.pug';
+import Socket from '../../modules/websocket.mjs';
 import './Room.scss';
 
 export default class Leaders extends BaseView {
@@ -16,6 +17,8 @@ export default class Leaders extends BaseView {
 	}
 
 	render() {
+		// const ws = new Socket();
+
 		const items = {'Игра': 'username', 'Кол-во игроков': 'players'};
 		const paginator = new Paginator(function(page) {
 			Games.list((err, response) => {

@@ -1,5 +1,7 @@
 import bus from './eventBus.mjs';
 
+const host = 'jackal.online/api';
+
 /**
  * Сервис для управления TCP соединением с бекендом через WebSocket (синглтон)
  * @module Socket
@@ -10,8 +12,8 @@ class Socket {
      */
 	constructor() {
 		const address = ['https', 'https:'].includes(location.protocol)	//в зависимости отпротокола выбор wss или ws
-			? `wss://${location.host}/ws`
-			: `ws://${location.host}/ws`;
+			? `wss://${host}/games/create`
+			: `ws://${host}/games/create`;
 		this.socket = new WebSocket(address);
 
 		this.socket.onopen = function() {
