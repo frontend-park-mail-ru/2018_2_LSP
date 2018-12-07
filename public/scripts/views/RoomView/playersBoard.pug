@@ -1,0 +1,13 @@
+mixin avatar
+    img(src= require('../../../img/water.png'))
+
+mixin name
+    div Name
+
+mixin check
+    div +
+
+div(class='player-block')
+    +avatar
+    +name
+    +check

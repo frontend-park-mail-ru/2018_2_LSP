@@ -1,0 +1,9 @@
+$light_font_color: white;
+$header_footer_bgcolor: brown;
+
+.player-block {
+    border: 2px solid white;
+    background: $header_footer_bgcolor;
+    color: $light_font_color;
+    position: absolute;
+}
