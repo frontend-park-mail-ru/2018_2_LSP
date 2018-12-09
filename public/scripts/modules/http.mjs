@@ -17,7 +17,7 @@ export default class Http {
 		xhr.open(method, path, true);
 		xhr.withCredentials = true;
     
-		if (body) {
+		if (body && !(body instanceof FormData)) {
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		}
     
@@ -35,8 +35,10 @@ export default class Http {
 				callback(null, response);
 			}
 		};
-    
-		if (body) {
+
+		if (body instanceof FormData) {
+			xhr.send(body);
+		} else if (body) {			
 			xhr.send(JSON.stringify(body));
 		} else {
 			xhr.send();

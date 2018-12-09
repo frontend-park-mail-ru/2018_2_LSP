@@ -66,13 +66,25 @@ export default class Users {
 		Http.Get(call, path + '/me?fields=id,username,email,firstname,lastname,totalscore,avatar,totalgames');
 	}
 
-
 	/**
-	 * Получение данных профиля пользователя
+	 * Обновление данных профиля пользователя
 	 * @param {Function} callback функция-коллбек
+	 * @param id ID пользователя
+	 * @param {Object} data 
 	 */
 	static updateInfo(callback, id, data = {}) {
 		Http.Put(callback, path + '/users/' + id, data);
+		this.user = '';
+	}
+
+	/**
+	 * Загрузка аватарки пользователя
+	 * @param {Function} callback функция-коллбек
+	 * @param id ID пользователя
+	 * @param {FormData} data 
+	 */
+	static setAvatar(callback, id, data = {}) {
+		Http.Post(callback, path + '/users/' + id, data);	
 		this.user = '';
 	}
 

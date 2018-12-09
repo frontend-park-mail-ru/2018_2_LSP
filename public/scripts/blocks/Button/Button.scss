@@ -1,7 +1,7 @@
-$button_text_color: darkkhaki;
-$button_bg: white;
-$button_border: grey;
-$button_hover_bg: #b30000;
+$button_text_color: white;
+$button_bg: #A7333F;
+$button_border: #262322;
+$button_hover_bg: #7A262E;
 $button_hover_text_color: white;
 
 .basic-button {
@@ -12,7 +12,7 @@ $button_hover_text_color: white;
     padding: 10px 8px;
     text-align: center;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 24px;
     margin: 4px 8px;
     right:0;
     cursor: pointer;    

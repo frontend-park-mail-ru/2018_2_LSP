@@ -3,7 +3,6 @@ import Users from '../../services/users.mjs';
 import Router from '../../modules/Router.mjs';
 import Block from '../../blocks/Block/Block.mjs';
 import './Profile.scss';
-import Button from '../../blocks/Button/Button.mjs';
 import Form from '../../blocks/Form/Form.mjs';
 import Errors from '../../services/errors.mjs';
 
@@ -19,9 +18,20 @@ export default class Profile extends BaseView {
 
 	_renderProfile(profileData) {
 		if (profileData) {
+			const div = new Block('div');
+			const avatar = new Block('img', ['avatar']);
+			if (profileData.avatar) {
+				avatar.getElement().src = 'https://jackal.online/avatars/' + profileData.avatar;
+			} else {
+				avatar.getElement().src = '../../img/avatar.png';
+			}
+			
+			div.append(avatar);
+			this.pageContent.appendChild(div.getElement());
 
 			const errorLine = new Block('p', ['page-content__error-line'], {'hidden': true});
 			const gamesNum = new Block('p');
+
 			gamesNum.setText('Игр: ' + profileData.totalgames);
 			this.pageContent.appendChild(gamesNum.getElement());
 
@@ -30,6 +40,14 @@ export default class Profile extends BaseView {
 			this.pageContent.appendChild(score.getElement());
 
 			const inputs = [
+				{
+					classes: [],
+					attributes: {
+						name: 'avatar',
+						type: 'file',
+						id: 'avatar-select'
+					}
+				},
 				{	
 					fieldName: 'Логин: ',
 					classes: [],
@@ -97,10 +115,7 @@ export default class Profile extends BaseView {
 			];
 	
 			const form = new Form(inputs);
-			const tmpData = {
-				"firstname": "mememe"
-			};
-
+			
 			form.submit(data => {	// добавляем по нажатию кнопки событие
 				// проверка на валидность вводимых данных
 				if (data['firstname'].length < 4 || data['firstname'].length > 25) {
@@ -112,21 +127,37 @@ export default class Profile extends BaseView {
 					errorLine.setText(Errors.getErrorString('symbols'));
 					errorLine.show();
 					return;
-				}		
-	
-				Users.updateInfo((err, response) => {	//обновить данные
+				}
+				delete data['avatar'];
+
+				const callback = (err, response) => {
 					if (!err) {
 						Router.open('/profile');
+					} else if (err) {
+						errorLine.setText(Errors.getErrorString(response.error));
+						errorLine.show();
+					}
+				};
+
+				Users.updateInfo((err, response) => { //обновить данные
+					if (!err) {
+						const avatarSelect = document.getElementById('avatar-select');
+						const avatarData = new FormData();
+						const avatar = avatarSelect.files[0];
+						
+						if (avatar) {
+							avatarData.append('file', avatar, avatar.name);
+							Users.setAvatar(callback, profileData.id, avatarData);
+						}
 					} else {
 						errorLine.setText(Errors.getErrorString(response.error));
 						errorLine.show();
 					}
 				}, profileData.id, data);	// используем данные введенные в форму
 			});
-	
+			
 			this.pageContent.appendChild(errorLine.getElement());
 			this.pageContent.appendChild(form.getElement());
-
 		} else {
 			const callback = (err, response) => {
 				if (!err) {
