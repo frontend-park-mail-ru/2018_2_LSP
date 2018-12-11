@@ -27,17 +27,18 @@ export default class Profile extends BaseView {
 			}
 			
 			div.append(avatar);
-			this.pageContent.appendChild(div.getElement());
-
+			
 			const errorLine = new Block('p', ['page-content__error-line'], {'hidden': true});
-			const gamesNum = new Block('p');
 
+			const gamesNum = new Block('p');
 			gamesNum.setText('Игр: ' + profileData.totalgames);
-			this.pageContent.appendChild(gamesNum.getElement());
+			div.append(gamesNum);
 
 			const score = new Block('p');
 			score.setText('Счет: ' + profileData.totalscore);
-			this.pageContent.appendChild(score.getElement());
+			div.append(score);			
+
+			this.pageContent.appendChild(div.getElement());		
 
 			const inputs = [
 				{
@@ -55,17 +56,17 @@ export default class Profile extends BaseView {
 						name: 'username',
 						type: 'text',
 						value: profileData.username,
-						required: 'required'
+						readOnly: true,
 					}
 				},
 				{
-					fieldName: 'Почта: ',
+					fieldName: 'Почта: ',					
 					classes: [],
 					attributes: {
 						name: 'email',
 						type: 'text',
 						value: profileData.email,
-						required: 'required'
+						readOnly: true,
 					}
 				},
 				{
@@ -128,10 +129,21 @@ export default class Profile extends BaseView {
 					errorLine.show();
 					return;
 				}
+
+				const avatarSelect = document.getElementById('avatar-select');				
+				const avatar = avatarSelect.files[0];
+	
+				if (!avatar.type.match('image.*')) {
+					errorLine.setText(Errors.getErrorString('avatarImg'));
+					errorLine.show();
+					return;
+				}
 				delete data['avatar'];
 
 				const callback = (err, response) => {
 					if (!err) {
+						errorLine.hide();
+						alert('Данные успешно обновлены.');
 						Router.open('/profile');
 					} else if (err) {
 						errorLine.setText(Errors.getErrorString(response.error));
@@ -140,14 +152,14 @@ export default class Profile extends BaseView {
 				};
 
 				Users.updateInfo((err, response) => { //обновить данные
-					if (!err) {
-						const avatarSelect = document.getElementById('avatar-select');
-						const avatarData = new FormData();
-						const avatar = avatarSelect.files[0];
-						
+					if (!err) {						
 						if (avatar) {
+							const avatarData = new FormData();
 							avatarData.append('file', avatar, avatar.name);
-							Users.setAvatar(callback, profileData.id, avatarData);
+							Users.setAvatar(callback, profileData.id, avatarData);							
+						} else {
+							errorLine.hide();
+							alert('Данные успешно обновлены.');
 						}
 					} else {
 						errorLine.setText(Errors.getErrorString(response.error));

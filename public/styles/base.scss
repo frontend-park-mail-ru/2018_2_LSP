@@ -16,7 +16,7 @@ $error_text_color: white;
     height: 200px;
     width: 400px;
     position: absolute;
-    top: 40%;
+    top: 35%;
     left: 50%;
     font-size: 30px;
     text-align: center;
@@ -38,7 +38,8 @@ $error_text_color: white;
     &__error-line {
         background-color:$error_line_bgcolor;
         color: $error_text_color;
-        font-size: 20px;   
+        font-size: 20px;
+        margin-top: 7vh; 
     }
 }
 
