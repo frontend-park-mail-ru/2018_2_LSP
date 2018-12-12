@@ -11,38 +11,44 @@ import playersBoard from './playersBoard.pug';
 import Socket from '../../modules/websocket.mjs';
 import './Room.scss';
 
-export default class Leaders extends BaseView {
+export let wsGame = undefined;
+
+export default class Room extends BaseView {
 	constructor(){
 		super('Мультиплеер');
+		// this.ws = undefined;
 	}
 
 	render() {
-		// const ws = new Socket();
-
-		const items = {'Игра': 'username', 'Кол-во игроков': 'players'};
+		const items = {'Игра': 'hash', 'Кол-во игроков': 'players'};
 		const paginator = new Paginator(function(page) {
 			Games.list((err, response) => {
 				if (!err) {
 					if (response.length === 0) {
 						Bus.emit('empty-page', response);
 					} else {
-						Bus.emit('paginator-update', response);
+						Bus.emit('paginator-update', response['gamerooms']);
 					}
 				}
 			}, {page: page});
 		});
 		const addRoomButton = new Item('+', function(page) {
-			Games.create((err, response) => {
-				if (!err) {
-					if (response.length === 0) {
-						Bus.emit('empty-page', response);
-					} else {
-						Bus.emit('paginator-update', response);
-					}
-				}
-			}, {page: page});
+			window.wsGame = new Socket('/games/create', 'game');
+			// Games.create((err, response) => {
+			// 	if (!err) {
+			// 		if (response.length === 0) {
+			// 			Bus.emit('empty-page', response);
+			// 		} else {
+			// 			Bus.emit('paginator-update', response);
+			// 		}
+			// 	}
+			// }, {page: page});
 		});
-		const gamesBoard = new Table(items, ['leaders-table'], [addRoomButton, paginator]);
+		const onclick = function() {
+			const gameHash = this.getElementsByTagName('th')[0].textContent;
+			window.wsGame = new Socket(`/games/connect?room=${gameHash}`, 'game');			
+		};
+		const gamesBoard = new Table(items, ['leaders-table'], [addRoomButton, paginator], onclick);
 
 		this.pageContent.insertAdjacentHTML('beforeend', addForm());
 		const addRoomForm =document.getElementById('add_room');
@@ -53,7 +59,14 @@ export default class Leaders extends BaseView {
 		const players = new Block('div');
 		players.getElement().insertAdjacentHTML('beforeend', playersBoard());
 
-		const startButton = new Button('singleplayer', 'Начать игру');
+		const startButton = new Button('singleplayer', 'Готов');
+
+		startButton.event('click', function() {
+			console.log(window.wsGame);
+			const data = {'action': 'ready', 'params': {}};
+			console.log(data);
+			Bus.emit('', data);
+		});
 
 		
 		this.pageContent.appendChild(gamesBoard.getElement());
