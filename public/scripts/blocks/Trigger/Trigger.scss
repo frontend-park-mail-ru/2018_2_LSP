@@ -1,32 +1,15 @@
-$button_text_color: white;
-$button_bg: #A7333F;
-$button_border: #262322;
 $button_hover_bg: #7A262E;
-$button_hover_text_color: white;
+$button_hover_text_color: hsl(0, 0%, 100%);
+$button_outline_color: #E7EB90;
 
 .trigger {
-    background-color: $button_bg;
-    border: solid 1px $button_border;
-    border-radius: 5px;
-    color: $button_text_color;
-    padding: 10px 8px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 25px;
-    margin: 4px 8px;
-    cursor: pointer;
     position: fixed;
     bottom: 1px;
 
-    &:hover {
-        background-color: $button_hover_bg;
-        color: $button_hover_text_color;
-    }
-
     &_hovered {
-        background-color: $button_hover_bg;
+        background-color: $button_hover_bg !important;
         color: $button_hover_text_color;
-        outline: solid 5px $button_text_color;
+        outline: solid 5px $button_outline_color;
         outline-offset: -5px;
     }
 }

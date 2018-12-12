@@ -106,7 +106,7 @@ export default class Profile extends BaseView {
 					}
 				},
 				{
-					classes: ['basic-button'],
+					classes: ['basic-form__button', 'basic-button'],
 					attributes: {
 						name: 'submit',
 						type: 'submit',

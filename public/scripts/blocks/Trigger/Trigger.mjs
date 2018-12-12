@@ -12,12 +12,12 @@ export default class Trigger extends Item {
      * @param {string} text текст кнопки
      * @param {Array} classes классы кнопки
      */
-	constructor (name = '', classes = ['trigger']) {
+	constructor (name = '', classes = ['basic-button', 'trigger']) {
 		super(name, function() {
-			if (this.className == classes[0]) {
-				this.classList.add(classes[0] + '_hovered');
+			if (this.className == classes.join(' ')) {
+				this.classList.add(classes[1] + '_hovered');
 			} else {
-				this.classList.remove(classes[0] + '_hovered');
+				this.classList.remove(classes[1] + '_hovered');
 			}
 		}, classes);
 	}
