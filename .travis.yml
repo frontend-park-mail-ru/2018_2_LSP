@@ -2,13 +2,15 @@ language: node_js
 sudo: false
 node_js:
 - 10
+before_script:
+- sudo apt-get install -qq sshpass
 install:
 - 
 script:
 - npm install
 - npm run build
 after_success:
-- sshpass -p $SSH_PASS scp -rp -o stricthostkeychecking=no public/* $SSH_USER@$SSH_HOST:~/var/www/html
+- sshpass -p $SSH_PASS scp -rp -o stricthostkeychecking=no public/* $SSH_USER@$SSH_HOST:/var/www/html
 env:
   global:
   - secure: iipsznx9E73rWkwXc8fplbumVFS2cWqX4Txz30Qp31imsb6mYdAdExNV1t7eO+Xi1GP07+wRxv1p7K/5n7fMO5+SbMDtrFU/Ao7T4QwFv47Mh12l9qB612esuS8ep2c+ZPbYMFA2zKK9iW2DHSVBC3AvyUbsBogddrjyS/oXovHBvJfWCo5MMFkV7lG4OZAhSiOWthEzcPuCHc7+WrHAhnca84Jfz9smOBbOPvhZtc6zvi9XtESgnRVFe6o/f5wwbp9CWpQEugNjUAGLG66NfSZokmQe9sNmMPPNaX7wcvNvk/Lcy6t1Tcl04IJ+gy2suK2oL4iwdDFJrD3P/j3gRmIco8mMuMF9XscRXhzI+qpgfMjaFGvZkGLf1Gm/cR0ylKky4G2Fw9/WAEJLZY/mBxxQzTDKtjYsQLHb27kEuCdNbD0SFLpWmY6hxTql9mkWKu9RcoFc1t/m7lIPYrPrj9qWvwHLIe7B8A5TwxvBHXlgv6mBwulm/IadTqcF5YTgbx0YNaTvlUKkicihqAAtjc+iFbNcHlSArLBteRU/uhvT+OvxSqvvz1n7MCvUmWLYTB+rEfO36fOtS0uky/ulsVgn+KlTjmP0l+Yu+to4QWi/kNJHBV3lIurKyFcyUXBPgbeaVX53Zh3ukuPtdGxs69cFKzENKLf7YbqNO5Vh/Wk=
