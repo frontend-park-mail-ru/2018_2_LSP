@@ -78,3 +78,9 @@
 	left: 25%;
 	z-index: 1;
 }
+
+.game__players__block {
+	&_selected {
+		background: lawngreen;
+	}
+}

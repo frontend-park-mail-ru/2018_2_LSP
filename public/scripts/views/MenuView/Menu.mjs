@@ -9,7 +9,7 @@ export default class Menu extends BaseView {
 
 	render() {
 		const items = {
-			room: 'Мультиплеер',
+			multiplayer: 'Мультиплеер',
 			singleplayer: 'Одиночная игра',
 			leaders: 'Лидеры',
 			rules: 'Правила',

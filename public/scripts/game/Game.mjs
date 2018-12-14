@@ -2,7 +2,13 @@ import MapBuilder from './MapBuilder.mjs';
 import CardBuilder from './CardBuilder.mjs';
 import Player from './Player.mjs';
 import UI from './UI.mjs';
+// import Controlle
 import Bus from './gameBus.mjs';
+// import Controller from './controller/Controller.mjs';
+import Multiplayer from './controller/Multiplayer.mjs';
+import Singleplayer from './controller/Singleplayer.mjs';
+import { TSMethodSignature } from 'babel-types';
+
 
 
 let CARDTYPES = {};
@@ -10,7 +16,6 @@ CARDTYPES.DEFAULT = 0;
 CARDTYPES.GOLD = 1;
 CARDTYPES.KILL = 2;
 
-const distribution = [[CARDTYPES.DEFAULT, 17], [CARDTYPES.GOLD, 6], [CARDTYPES.KILL, 2]];
  
 /**
  * Главный класс игры
@@ -23,9 +28,12 @@ export default class Game {
 	 * @param {number} playersCount количество игроков (2 или 4)
 	 * @param {number} pirateCount количество фишек на игрока
 	 */
-	constructor(mapSize, playersCount, pirateCount) {
-		this.map = MapBuilder.generateMap(distribution);	// получение карты в виде матрицы
+	constructor(mapSize, playersCount, pirateCount, mode = 'multiplayer') {
+		this.gameController = (mode === 'multiplayer') ? new Multiplayer() : new Singleplayer();
 
+		this.map = this.gameController.createMap();	// создание карты
+
+		// this.me = ;
 		this.currentPlayer = 0;
 		this.playersCount = playersCount;
 		
@@ -41,7 +49,7 @@ export default class Game {
 			this.players[i].addPirates(pirateCount, 'base-square' + i);
 		}
 
-		this.UI = new UI(mapSize, this.timeOut);
+		this.UI = new UI(mapSize, this.timeOut, this.playersCount);
 
 		// навешиваем событие переворота карточки
 		for(let i = 1; i <= mapSize * mapSize; ++i) {
@@ -81,7 +89,7 @@ export default class Game {
 		return window.setTimeout(function() {
 			this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
 			this.hovered = false;
-			this.UI.resetSelected();
+			// this.UI.resetSelected();
 			alert('Время вашего хода истекло');
 		}, 30000);
 	}
@@ -94,6 +102,7 @@ export default class Game {
 		if (this._getPlayerNumber(id) != this.currentPlayer) {
 			return;
 		}
+		this.UI.resetSelected();
 	
 		if (!this.hovered) {
 			this.hovered = true;
@@ -107,6 +116,9 @@ export default class Game {
 		else {
 			this.hovered = false;
 			this.UI.resetSelected();
+			//=====================
+			// выделение кораблей текущего игрока
+			//=================
 		}
 	}
 
@@ -121,13 +133,14 @@ export default class Game {
 		const cardID = parseInt(this.getCardNumber(id));
 		const currentCard = this.players[this.currentPlayer].getPirate(this.currentSelectedPirate).getCard();
 		let moveableCards = this.map.getMoveableCards(currentCard);
-		if (moveableCards.indexOf(cardID) == -1) {
+		console.log(moveableCards);
+		if (moveableCards.indexOf('square-' + this.getCardNumber(id)) == -1) {
 			return false;
 		}
 	
 		window.clearTimeout(this.timeOut);
 
-		this.players[this.currentPlayer].getPirate(this.currentSelectedPirate).setCard(id);
+		this.players[this.currentPlayer].getPirate(this.currentSelectedPirate).setCard('square-' + this.getCardNumber(id));
 
 		const pirate = `pirate-${this.currentPlayer}-${this.currentSelectedPirate}`;
 		this.UI.moveToCard(pirate, `square-${cardID}`);
@@ -157,7 +170,17 @@ export default class Game {
 				this.done = true;
 			}
 		}
-		this.currentPlayer = (this.currentPlayer + 1) % this.players.length;	
+
+		//==================
+		this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
+		this.UI.changeCurrentPlayer(this.currentPlayer);
+		const currentPiratesCards = [];
+		const pirateList = this.players[this.currentPlayer].getPirates();
+		pirateList.forEach((pirateOfPlayer) => {
+			currentPiratesCards.push(pirateOfPlayer.getCard());
+		});
+		this.UI.selectCards(currentPiratesCards);
+		
 		this.hovered = false;
 		this.timeOut = this.startTimer();
 		return true;
