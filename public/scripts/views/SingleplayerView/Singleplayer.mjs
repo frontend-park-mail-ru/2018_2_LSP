@@ -10,7 +10,7 @@ import addForm from './addForm.pug';
 // import playersBoard from './playersBoard.pug';
 import Socket from '../../modules/websocket.mjs';
 import GameView from '../GameView/GameView.mjs';
-import './Singleplayer.scss';
+// import './Singleplayer.scss';
 
 // export let wsGame = undefined;
 

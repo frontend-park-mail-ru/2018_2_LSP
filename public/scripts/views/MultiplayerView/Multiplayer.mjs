@@ -15,6 +15,14 @@ import './Multiplayer.scss';
 
 // export let wsGame = undefined;
 
+Array.prototype.remove = function(value) {
+	const idx = this.indexOf(value);
+	if (idx != -1) {
+		return this.splice(idx, 1);
+	}
+	return false;
+};
+
 export default class Multiplayer extends BaseView {
 	constructor(){
 		super('Мультиплеер');
@@ -41,11 +49,10 @@ export default class Multiplayer extends BaseView {
 			this._time = formdata['time'];
 
 			addRoomForm.setAttribute('hidden', true);
-			this.ws = new Socket(`/games/create?title=${this._gameName}&players=${this._playersCount}`, 'game');
 
-			// Bus.on('sw-game-message', (data) => {
-			// 	if
-			// });
+			this.roomBlock();
+			this.listenRoomEvents();
+			this.ws = new Socket(`/games/create?title=${this._gameName}&players=${this._playersCount}`, 'game');	
 		});
 
 		// пагинатор комнат
@@ -75,14 +82,13 @@ export default class Multiplayer extends BaseView {
 		});
 
 		// таблица комнат
-		const gamesBoard = new Table(items, ['leaders-table'], [addRoomButton, paginator], function() {
+		const gamesBoard = new Table(items, ['leaders-table'], [addRoomButton, paginator], () => {
 			const gameHash = this.getElementsByTagName('th')[0].textContent;
+			this.roomBlock();
+			this.listenRoomEvents();
 			this.ws = new Socket(`/games/connect?room=${gameHash}`, 'game');			
 		});
 
-
-		// const players = new Block('div');
-		// players.getElement().insertAdjacentHTML('beforeend', playersBoard());
 
 		// const startButton = new Item('Готов', () => {
 
@@ -102,6 +108,27 @@ export default class Multiplayer extends BaseView {
 		// this.pageContent.appendChild(startButton.getElement());
 	}
 
+	listenRoomEvents() {
+		Bus.on('sw-game-message', (data) => {
+			data = JSON.parse(data);
+			switch (data['Type']) {
+			case 'players':
+				console.log(data['User']['Username']);
+				if (this._players.indexOf(data['User']['Username']) === -1) {
+					this._players.push(data['User']['Username']);
+				}
+				this.playersBlock();
+				break;
+			case 'leave':
+				console.log(data['User']['Username']);
+				this._players.remove(data['User']['Username']);
+				this.playersBlock();
+				break;
+			}
+
+		});
+	}
+
 	startGame(size, players, units, time) {
 		const mainSection = document.getElementsByClassName('main-section')[0];
 		mainSection.innerHTML = '';
@@ -111,5 +138,22 @@ export default class Multiplayer extends BaseView {
 
 	settingWindow() {
 
+	}
+
+	playersBlock() {
+		this.roomPlayers.clear();
+		for (let i = 0; i < this._playersCount; i++) {
+			this.roomPlayers.getElement().insertAdjacentHTML('beforeend', playersBoard({'number': i, 'name': this._players[i]}));
+		}
+	}
+
+	roomBlock() {
+		this.roomPlayers = new Block('div');
+		this.pageContent.appendChild(this.roomPlayers.getElement());
+		this.playersBlock();
+		const readyButton = new Item('Готов', () => {
+			this.ws.send(JSON.stringify({'action': 'ready', 'params': {}}));
+		});
+		this.pageContent.appendChild(readyButton.getElement());
 	}
 }

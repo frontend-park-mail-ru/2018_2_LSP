@@ -6,7 +6,8 @@ $player_ready_color: lawngreen;
     border: 2px solid $light_font_color;
     background: $header_footer_bgcolor;
     color: $light_font_color;
-    position: absolute;
+    // position: absolute;
+    display: inline-block;
 
     &_ready {
         background: $player_ready_color;
