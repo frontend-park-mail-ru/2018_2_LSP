@@ -82,11 +82,27 @@ export default class Multiplayer extends BaseView {
 		});
 
 		// таблица комнат
-		const gamesBoard = new Table(items, ['leaders-table'], [addRoomButton, paginator], () => {
-			const gameHash = this.getElementsByTagName('th')[0].textContent;
-			this.roomBlock();
-			this.listenRoomEvents();
-			this.ws = new Socket(`/games/connect?room=${gameHash}`, 'game');			
+		const gamesBoard = new Table(items, ['leaders-table'], [addRoomButton, paginator], (event) => {
+			let target = event.target;
+			while (target.tagName !== 'tbody') {
+				if (target.classList.contains('leaders-table__row')) {
+					const gameHash = target.getElementsByClassName('leaders-table__cell')[0].textContent;
+					
+					//======
+					this._playersCount = 2;
+					this._mapSize = 5;
+					this._time = 60;
+					//======
+
+					this.roomBlock();
+					this.listenRoomEvents();
+					this.ws = new Socket(`/games/connect?room=${gameHash}`, 'game');
+					return;
+				}
+				target = target.parentNode;
+			}
+			// console.log(event.target);
+			// 		
 		});
 
 
@@ -113,26 +129,37 @@ export default class Multiplayer extends BaseView {
 			data = JSON.parse(data);
 			switch (data['Type']) {
 			case 'players':
-				console.log(data['User']['Username']);
 				if (this._players.indexOf(data['User']['Username']) === -1) {
 					this._players.push(data['User']['Username']);
 				}
 				this.playersBlock();
 				break;
 			case 'leave':
-				console.log(data['User']['Username']);
 				this._players.remove(data['User']['Username']);
 				this.playersBlock();
 				break;
+			case 'start':
+				this.startGame();
 			}
-
 		});
 	}
 
-	startGame(size, players, units, time) {
+	startGame() {
+		let units = 1;
+		switch (this._mapSize) {
+		case 5:
+			units = 1;
+			break;
+		case 7:
+			units = 2;
+			break;
+		case 9:
+			units = 3;
+			break;
+		}
 		const mainSection = document.getElementsByClassName('main-section')[0];
 		mainSection.innerHTML = '';
-		const gameView = new GameView('multiplayer', size, players, units);
+		const gameView = new GameView(this.ws, 'multiplayer', this._mapSize, this._players, this._playersCount, units, this._time);
 		gameView.render();
 	}
 

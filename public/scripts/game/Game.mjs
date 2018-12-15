@@ -5,8 +5,7 @@ import UI from './UI.mjs';
 // import Controlle
 import Bus from './gameBus.mjs';
 // import Controller from './controller/Controller.mjs';
-import Multiplayer from './controller/Multiplayer.mjs';
-import Singleplayer from './controller/Singleplayer.mjs';
+
 import { TSMethodSignature } from 'babel-types';
 
 
@@ -28,13 +27,13 @@ export default class Game {
 	 * @param {number} playersCount количество игроков (2 или 4)
 	 * @param {number} pirateCount количество фишек на игрока
 	 */
-	constructor(mapSize, playersCount, pirateCount, mode = 'multiplayer') {
-		this.gameController = (mode === 'multiplayer') ? new Multiplayer() : new Singleplayer();
+	constructor(controller, mapSize, playersCount, pirateCount) {
+		this._gameController = controller;
 
-		this.map = this.gameController.createMap();	// создание карты
+		this.map = this._gameController.createMap();	// создание карты
 
 		// this.me = ;
-		this.currentPlayer = 0;
+		this.currentPlayer = -1;
 		this.playersCount = playersCount;
 		
 		this.timeOut = this.startTimer();
@@ -68,9 +67,15 @@ export default class Game {
 			}
 		}
 
-		// Bus.on('toBase', (pirate) => {
-		// 	console.log(pirate);
-		// });
+		Bus.on('game-step', (current) => {
+			this.currentPlayer = current;
+			this._selectPirates(this.currentPlayer);
+			// 
+			// Bus.emit('game-pass-step', {'pirate': 0, 'card': 2});
+			// 
+		});
+
+		Bus.emit('game-ready', {});
 	}
 
 	/**
@@ -133,7 +138,6 @@ export default class Game {
 		const cardID = parseInt(this.getCardNumber(id));
 		const currentCard = this.players[this.currentPlayer].getPirate(this.currentSelectedPirate).getCard();
 		let moveableCards = this.map.getMoveableCards(currentCard);
-		console.log(moveableCards);
 		if (moveableCards.indexOf('square-' + this.getCardNumber(id)) == -1) {
 			return false;
 		}
@@ -172,17 +176,8 @@ export default class Game {
 		}
 
 		//==================
-		this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
-		this.UI.changeCurrentPlayer(this.currentPlayer);
-		const currentPiratesCards = [];
-		const pirateList = this.players[this.currentPlayer].getPirates();
-		pirateList.forEach((pirateOfPlayer) => {
-			currentPiratesCards.push(pirateOfPlayer.getCard());
-		});
-		this.UI.selectCards(currentPiratesCards);
-		
+		this._passStep(this.currentSelectedPirate, cardID);
 		this.hovered = false;
-		this.timeOut = this.startTimer();
 		return true;
 	}
 	
@@ -196,5 +191,23 @@ export default class Game {
 
 	getCardNumber(id) {
 		return id.match(/\d+/)[0];
+	}
+
+	_passStep(pirate, card) {
+		// this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
+		Bus.emit('game-pass-step', {'pirate': pirate, 'card': card-1});
+		this.currentPlayer = -1;
+
+		this.UI.changeCurrentPlayer(this.currentPlayer);		
+		this.timeOut = this.startTimer();
+	}
+
+	_selectPirates(current) {
+		const currentPiratesCards = [];
+		const pirateList = this.players[current].getPirates();
+		pirateList.forEach((pirateOfPlayer) => {
+			currentPiratesCards.push(pirateOfPlayer.getCard());
+		});
+		this.UI.selectCards(currentPiratesCards);
 	}
 }

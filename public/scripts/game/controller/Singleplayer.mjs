@@ -2,7 +2,7 @@ import MapBuilder from '../MapBuilder.mjs';
 // import CardBuilder from './CardBuilder.mjs';
 // import Player from './Player.mjs';
 // import UI from './UI.mjs';
-// import Bus from './gameBus.mjs';
+import Bus from '../gameBus.mjs';
 import Controller from './Controller.mjs';
 
 let CARDTYPES = {};
@@ -23,8 +23,8 @@ export default class Singleplayer extends Controller {
 	 * @param {number} playersCount количество игроков (2 или 4)
 	 * @param {number} pirateCount количество фишек на игрока
 	 */
-	constructor() {
-		super();
+	constructor(players) {
+		super(players);
 	}
 
 	createMap() {

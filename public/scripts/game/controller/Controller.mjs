@@ -15,8 +15,8 @@ export default class Controler {
 	 * @param {number} playersCount количество игроков (2 или 4)
 	 * @param {number} pirateCount количество фишек на игрока
 	 */
-	constructor() {
-		
+	constructor(players) {
+		this._players = players;
 	}
 
 	createMap() {

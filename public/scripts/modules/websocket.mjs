@@ -43,12 +43,12 @@ export default class Socket {
      * @param {any} data данные
      */
 	send(data = {}) {
-		// if (!this.socket.readyState) {  //проверка статуса ws
-		// 	setTimeout(function() {
-		// 		this.send(data);
-		// 	}.bind(this), 100);
-		// } else {
+		if (!this.socket.readyState) {  //проверка статуса ws
+			setTimeout(function() {
+				this.send(data);
+			}.bind(this), 100);
+		} else {
 			this.socket.send(data);
-		// }
+		}
 	}
 }

@@ -2,15 +2,21 @@ import BaseView from '../../views/BaseView/BaseView.mjs';
 import Game from '../../game/Game.mjs';
 import gameMap from './gameMap.pug';
 import gamePlayers from './gamePlayers.pug';
+import Multiplayer from '../../game/controller/Multiplayer.mjs';
+import Singleplayer from '../../game/controller/Singleplayer.mjs';
+
 import gameTimer from './gameTimer.pug';
 import './GameView.scss';
 
 export default class GameView extends BaseView {
-	constructor(mode = 'multiplayer', mapSize = 5, playersCount = 2, unitsCount = 2){
+	constructor(ws, mode = 'multiplayer', mapSize = 5, players = [], playersCount, unitsCount = 1, stepTime = 60){
 		super();
+		this.ws = ws;
 		this._mapSize = mapSize;
+		this._players = players;
 		this._playersCount = playersCount;
 		this._unitsCount = unitsCount;
+		this._stepTime = stepTime;
 		this._mode = mode;
 	}
 
@@ -18,12 +24,12 @@ export default class GameView extends BaseView {
 		const gameSection = document.getElementsByClassName('game');
 		if (gameSection.length != 0) {
 			gameSection[0].insertAdjacentHTML('beforeend', gameMap({'size': this._mapSize, 'players': this._playersCount, 'units': this._unitsCount}));
-			gameSection[0].insertAdjacentHTML('beforeend', gamePlayers({'names': ['1', '2']}));
+			gameSection[0].insertAdjacentHTML('beforeend', gamePlayers({'names': this._players}));
 			// gameSection[0].insertAdjacentHTML('beforeend', gameTimer());
 		} else {
 			const application = document.getElementById('application');			
 			application.insertAdjacentHTML('beforeend', gameMap({'size': this._mapSize, 'players': this._playersCount, 'units': this._unitsCount}));
-			application.insertAdjacentHTML('beforeend', gamePlayers({'names': ['1', '2']}));
+			application.insertAdjacentHTML('beforeend', gamePlayers({'names': this._players}));
 			// application.insertAdjacentHTML('beforeend', gameTimer());
 		}       
 
@@ -31,7 +37,8 @@ export default class GameView extends BaseView {
 		// const playersCount = 2;
 		// const unitsCount = 2;
 
-		window.game = new Game(this._mapSize, this._playersCount, this._unitsCount, this._mode);
+		const controller = (this._mode === 'multiplayer') ? new Multiplayer(this._players, this.ws) : new Singleplayer(this._players);
+		window.game = new Game(controller, this._mapSize, this._playersCount, this._unitsCount);
 	}
 }
 

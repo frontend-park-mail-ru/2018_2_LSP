@@ -30,14 +30,26 @@ export default class Singleplayer extends BaseView {
 			for (let element in elements) {
 				formdata[elements[element].name] = elements[element].value;
 			}
-			this.startGame(formdata['size'], formdata['players'], formdata['units'], formdata['time']);
+			this.startGame(formdata['size'], formdata['players'], formdata['time']);
 		});
 	}
 
-	startGame(size, players, units, time) {
+	startGame(size, players, time) {
+		let units = 1;
+		switch (this._mapSize) {
+		case 5:
+			units = 1;
+			break;
+		case 7:
+			units = 2;
+			break;
+		case 9:
+			units = 3;
+			break;
+		}
 		const mainSection = document.getElementsByClassName('main-section')[0];
 		mainSection.innerHTML = '';
-		const gameView = new GameView('singleplayer', size, players, units);
+		const gameView = new GameView('singleplayer', size, players, units, time);
 		gameView.render();
 	}
 }
