@@ -1,36 +1,10 @@
-$button_text_color: white;
-$button_bg: #A7333F;
-$button_border: #262322;
-$button_hover_bg: #7A262E;
-$button_hover_text_color: white;
+$button_text_color: black;
 
 .basic-button {
-    background-color: $button_bg;
-    border: solid 1px $button_border;
-    border-radius: 5px;
     color: $button_text_color;
-    padding: 10px 8px;
     text-align: center;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 30px;
     margin: 4px 8px;
-    cursor: pointer;    
-
-    &:hover {
-        background-color: $button_hover_bg;
-        color: $button_hover_text_color;
-    }
-
-    &_back{
-        float: left;
-    }
-
-    &_right{
-        float: right;
-    }
-
-    &_send {
-        margin: 10;
-        padding: 7px 5px;
-    }
+    cursor: pointer;
 }

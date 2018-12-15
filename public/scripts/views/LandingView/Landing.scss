@@ -1,4 +1,60 @@
+$button_border: #262322;
+
+@import url('https://fonts.googleapis.com/css?family=Lakki+Reddy');
+
 .page-content__landing-button {
     display: inline-block;
-    width: 250px;
+
+    @media (min-width: 700px) {
+        width: 250px;
+    }
+
+    @media (max-width: 699px) {
+        width: 200px;         
+    }
+    
+    background-color: #B80C09;
+    border: solid 1px $button_border;
+    border-radius: 5px;
+
+    color: white;
+    font-size: 40px;
+    margin-bottom: 25px;
+    border: solid 2px $button_border;
+    padding: 10px 8px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.23);
+    
+    &:hover {
+        box-shadow: 5px 10px 10px rgba(0,0,0,0.23);
+    }
+}
+
+.page-content__landing-title {
+    @media (min-width: 700px) {
+        font-size: 150px;
+        margin-bottom: 0px;
+    }
+
+    @media (max-width: 699px) {
+        font-size: 100px;
+        margin-bottom: 10px;          
+    }
+
+    font-family: 'Lakki Reddy', cursive;
+    color: black;
+}
+
+.page-content__landing-img {
+    margin-top: -100px;
+    
+    @media (min-width: 699px) {
+        margin-bottom: -80px;
+    }
+
+    @media (max-width: 699px) {
+        width: 300px;
+        margin-bottom: -50px;         
+    }
+    filter: drop-shadow(5px 5px 5px #222); 
 }

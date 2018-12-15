@@ -11,7 +11,7 @@ export default class BaseView {
 		this.mainSection = document.getElementsByClassName('main-section')[0];
 
 		if (this.mainSection) {
-			const backButton = document.getElementsByClassName('basic-button_back');
+			const backButton = document.getElementsByClassName('header__left-item');
 			backButton[0].hidden = false;
 			const contentView = baseContent({'title': title});
 			this.mainSection.insertAdjacentHTML('beforeend', contentView);

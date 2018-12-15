@@ -2,13 +2,19 @@
 
     &__input {
         //display: block;
-        font-size: 18;
+        font-size: 28px;
         margin: auto;
         margin-bottom: 20px;
+        border: 1px solid black;
+        border-radius: 10px;
+
+        &:focus{
+            outline: none;
+        }
     }
 
     &__button {
-        padding: 3px 7px;
+        //padding: 3px 7px;
         font-size: 20px;
     }
 }

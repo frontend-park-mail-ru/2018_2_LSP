@@ -18,6 +18,7 @@ export default class Profile extends BaseView {
 
 	_renderProfile(profileData) {
 		if (profileData) {
+			const profileDiv = new Block('div', ['profile']);
 			const div = new Block('div');
 			const avatar = new Block('img', ['avatar']);
 			if (profileData.avatar) {
@@ -38,7 +39,7 @@ export default class Profile extends BaseView {
 			score.setText('Счет: ' + profileData.totalscore);
 			div.append(score);			
 
-			this.pageContent.appendChild(div.getElement());		
+			profileDiv.append(div);
 
 			const inputs = [
 				{
@@ -167,9 +168,9 @@ export default class Profile extends BaseView {
 					}
 				}, profileData.id, data);	// используем данные введенные в форму
 			});
-			
-			this.pageContent.appendChild(errorLine.getElement());
-			this.pageContent.appendChild(form.getElement());
+			profileDiv.append(errorLine);
+			profileDiv.append(form);
+			this.pageContent.appendChild(profileDiv.getElement());	
 		} else {
 			const callback = (err, response) => {
 				if (!err) {

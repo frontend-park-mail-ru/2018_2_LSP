@@ -2,11 +2,17 @@
     width: 60px;
     font-size: 20;
     float: left;
-    text-align: left
+    text-align: left;
+    margin-right: 40px;
 }
 
 .avatar {
     float: left;
     height: 150px;
     margin-bottom: 1vh;
+}
+
+.profile {
+    display: grid;
+    justify-content: center;
 }

@@ -1,10 +1,13 @@
+div(class="header__left-item")
+        a(class="header__link") Назад
+        
 case headerType
     when "notLoggedIn"
-        a(class="basic-button basic-button_back" ) Назад
-        a(class="basic-button basic-button_right" href="/signup" data-href="signup") Регистрация
-        a(class="basic-button basic-button_right" href="/signin" data-href="signin") Вход
+        div(class="header__right-item")
+            a(class="header__link" href="/signin" data-href="signin") Вход
+            a(class="header__link " href="/signup" data-href="signup") Регистрация
     when "loggedIn"
-        a(class="basic-button basic-button_back") Назад
-        a(class="basic-button basic-button_right" href="/logout" data-href="logout") Выйти
-        a(class="basic-button basic-button_right" href="/profile" data-href="profile") Профиль
+        div(class="header__right-item")            
+            a(class="header__link" href="/profile" data-href="profile") Профиль
+            a(class="header__link" href="/logout" data-href="logout") Выйти
         

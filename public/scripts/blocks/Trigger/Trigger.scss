@@ -3,8 +3,8 @@ $button_hover_text_color: hsl(0, 0%, 100%);
 $button_outline_color: #E7EB90;
 
 .trigger {
-    position: fixed;
-    bottom: 1px;
+    width: 50px;
+    height: 30px;
 
     &_hovered {
         background-color: $button_hover_bg !important;
