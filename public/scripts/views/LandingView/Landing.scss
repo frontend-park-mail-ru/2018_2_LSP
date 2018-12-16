@@ -1,45 +1,54 @@
 $button_border: #262322;
+$button_bg: #B80C09;
 
 @import url('https://fonts.googleapis.com/css?family=Lakki+Reddy');
 
-.page-content__landing-button {
+.basic-button_landing {
     display: inline-block;
 
-    @media (min-width: 700px) {
+    @media (min-width: 1400px) {
         width: 250px;
+        margin-bottom: 25px;
     }
 
-    @media (max-width: 699px) {
-        width: 200px;         
+    @media (max-width: 1399px) {
+        font-size: 30px;
+        width: 150px;
+        margin-bottom: 15px;     
     }
     
-    background-color: #B80C09;
-    border: solid 1px $button_border;
-    border-radius: 5px;
-
+    background-color: $button_bg;
     color: white;
     font-size: 40px;
-    margin-bottom: 25px;
     border: solid 2px $button_border;
     padding: 10px 8px;
     border-radius: 5px;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.23);
     
     &:hover {
-        box-shadow: 5px 10px 10px rgba(0,0,0,0.23);
+        box-shadow: 10px 10px 5px rgba(0,0,0,0.23);
+    }
+
+    &:active {
+        transform: scale(0.9);
     }
 }
 
 .page-content__landing-title {
-    @media (min-width: 700px) {
-        font-size: 150px;
-        margin-bottom: 0px;
+    @media (min-width: 1400px) {
+         font-size: 150px;
+         margin-bottom: 0px;
+    }
+
+    @media (min-width: 700px) and (max-width: 1399px) {
+         font-size: 120px;
+         margin-bottom: -15px;          
     }
 
     @media (max-width: 699px) {
         font-size: 100px;
         margin-bottom: 10px;          
-    }
+   }
 
     font-family: 'Lakki Reddy', cursive;
     color: black;
@@ -48,13 +57,14 @@ $button_border: #262322;
 .page-content__landing-img {
     margin-top: -100px;
     
-    @media (min-width: 699px) {
+    @media (min-width: 1400px) {
         margin-bottom: -80px;
     }
 
-    @media (max-width: 699px) {
-        width: 300px;
-        margin-bottom: -50px;         
+    @media (max-width: 1399px) {
+        width: 270px;
+        margin-bottom: -60px;         
     }
+
     filter: drop-shadow(5px 5px 5px #222); 
 }

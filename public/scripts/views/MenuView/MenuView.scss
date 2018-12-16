@@ -29,12 +29,13 @@ $menu_hover_text_color: black;
     text-decoration: none;
     font-size: 24px;
     margin: 4px 8px;
-    cursor: pointer;    
+    cursor: pointer;
+    //box-shadow: 5px 5px 5px rgba(0,0,0,0.23);
+    box-shadow: 0px 0px 10px #171717;
     
     &:hover {
-        //box-shadow: 0 4px 8px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-
-        box-shadow: 0px 0px 50px #32292F;
+        //box-shadow: 0px 0px 20px #32292F;
+        box-shadow: 0px 0px 20px #171717;
         z-index: 2;
         transition: all 200ms ease-in;
         transform: scale(1.3);

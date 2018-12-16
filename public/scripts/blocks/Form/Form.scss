@@ -1,20 +1,35 @@
-.basic-form {
+$button_border: #262322;
 
+.basic-form {
     &__input {
-        //display: block;
         font-size: 28px;
         margin: auto;
         margin-bottom: 20px;
         border: 1px solid black;
         border-radius: 10px;
+        padding-left: 8px;
 
         &:focus{
             outline: none;
         }
     }
+}
 
-    &__button {
-        //padding: 3px 7px;
-        font-size: 20px;
+.basic-button_form {
+    outline: none;
+    font-size: 28px;
+    background-color: #B80C09;
+    color: white;
+    border: solid 2px $button_border;
+    padding: 2px 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.23);
+    
+    &:hover {
+        box-shadow: 10px 10px 5px rgba(0,0,0,0.23);
+    }
+
+    &:active {
+        transform: scale(0.9);
     }
 }

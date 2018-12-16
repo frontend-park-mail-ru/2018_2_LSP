@@ -19,12 +19,12 @@ export default class Landing extends BaseView{
 		landingTitle.setText('Pirates');
 		this.pageContent.appendChild(landingTitle.getElement());
 
-		const element1 = new Button('menu', 'Играть', ['page-content__landing-button', 'basic-button']);
+		const element1 = new Button('menu', 'Играть', ['basic-button', 'basic-button_landing']);
 		const div1 = new Block('div');
 		div1.append(element1);
 		this.pageContent.appendChild(div1.getElement());
 
-		const element2 = new Button('rules', 'Правила', ['page-content__landing-button', 'basic-button']);
+		const element2 = new Button('rules', 'Правила', ['basic-button', 'basic-button_landing']);
 		const div2 = new Block('div');
 		div2.append(element2);
 		this.pageContent.appendChild(div2.getElement());

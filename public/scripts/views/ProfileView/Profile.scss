@@ -1,6 +1,6 @@
 .basic-form__label {
     width: 60px;
-    font-size: 20;
+    font-size: 25px;
     float: left;
     text-align: left;
     margin-right: 40px;
@@ -15,4 +15,8 @@
 .profile {
     display: grid;
     justify-content: center;
+}
+
+.basic-form__input_avatar {
+    border: none !important;
 }

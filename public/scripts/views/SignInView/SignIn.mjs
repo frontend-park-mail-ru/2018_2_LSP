@@ -38,7 +38,7 @@ export default class SignIn extends BaseView {
 				}
 			},
 			{
-				classes: ['basic-form__button', 'basic-button'],
+				classes: ['basic-button', 'basic-button_form'],
 				attributes: {
 					name: 'submit',
 					type: 'submit',

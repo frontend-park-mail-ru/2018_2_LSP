@@ -43,7 +43,7 @@ export default class Profile extends BaseView {
 
 			const inputs = [
 				{
-					classes: [],
+					classes: ['basic-form__input', 'basic-form__input_avatar'],
 					attributes: {
 						name: 'avatar',
 						type: 'file',
@@ -51,7 +51,7 @@ export default class Profile extends BaseView {
 					}
 				},
 				{	
-					fieldName: 'Логин: ',
+					fieldName: 'Логин',
 					classes: [],
 					attributes: {
 						name: 'username',
@@ -61,7 +61,7 @@ export default class Profile extends BaseView {
 					}
 				},
 				{
-					fieldName: 'Почта: ',					
+					fieldName: 'Почта',					
 					classes: [],
 					attributes: {
 						name: 'email',
@@ -71,7 +71,7 @@ export default class Profile extends BaseView {
 					}
 				},
 				{
-					fieldName: 'Имя: ',
+					fieldName: 'Имя',
 					classes: [],
 					attributes: {
 						name: 'firstname',
@@ -80,7 +80,7 @@ export default class Profile extends BaseView {
 					}
 				},
 				{
-					fieldName: 'Фамилия: ',
+					fieldName: 'Фамилия',
 					classes: [],
 					attributes: {
 						name: 'lastname',
@@ -89,7 +89,7 @@ export default class Profile extends BaseView {
 					}
 				},
 				{
-					fieldName: 'Пароль:',
+					fieldName: 'Пароль',
 					classes: [],
 					attributes: {
 						name: 'oldpassword',
@@ -98,7 +98,7 @@ export default class Profile extends BaseView {
 					}
 				},
 				{
-					fieldName: 'Новый пароль: ',
+					fieldName: 'Новый пароль',
 					classes: [],
 					attributes: {
 						name: 'password',
@@ -107,7 +107,7 @@ export default class Profile extends BaseView {
 					}
 				},
 				{
-					classes: ['basic-form__button', 'basic-button'],
+					classes: ['basic-button', 'basic-button_form'],
 					attributes: {
 						name: 'submit',
 						type: 'submit',
