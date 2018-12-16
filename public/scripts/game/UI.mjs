@@ -38,6 +38,8 @@ export default class UI {
 	}
 
 	setEventListener(type, id, listener) {
+		console.log(id);
+		console.log(document.getElementById(id));
 		document.getElementById(id).addEventListener(type, listener);
 	}
 

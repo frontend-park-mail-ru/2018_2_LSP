@@ -9,7 +9,7 @@ import gameTimer from './gameTimer.pug';
 import './GameView.scss';
 
 export default class GameView extends BaseView {
-	constructor(ws, mode = 'multiplayer', mapSize = 5, players = [], playersCount, unitsCount = 1, stepTime = 60){
+	constructor(mode = 'multiplayer', mapSize = 5, players = [], playersCount, unitsCount = 1, stepTime = 60, ws) {
 		super();
 		this.ws = ws;
 		this._mapSize = mapSize;
