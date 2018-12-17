@@ -2,7 +2,7 @@ import MapBuilder from '../MapBuilder.mjs';
 // import CardBuilder from './CardBuilder.mjs';
 // import Player from './Player.mjs';
 // import UI from './UI.mjs';
-import Bus from '../gameBus.mjs';
+import gameBus from '../gameBus.mjs';
 import Controller from './Controller.mjs';
 
 let CARDTYPES = {};
@@ -25,9 +25,24 @@ export default class Singleplayer extends Controller {
 	 */
 	constructor(players) {
 		super(players);
+		this.playersCount = players.length;
+		this.currentPlayer = 0;
+
+		this.listenGameEvents();
 	}
 
 	createMap() {
 		return MapBuilder.generateMap(distribution);	// получение карты в виде матрицы
+	}
+
+	listenGameEvents() {
+		gameBus.on('game-pass-step', (data) => {
+			this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;			
+			gameBus.emit('game-step', this.currentPlayer);
+		});
+
+		gameBus.on('game-ready', () => {
+			gameBus.emit('game-step', this.currentPlayer);
+		});
 	}
 }

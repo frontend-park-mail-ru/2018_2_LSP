@@ -195,10 +195,10 @@ export default class Game {
 
 	_passStep(pirate, card) {
 		// this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
-		Bus.emit('game-pass-step', {'pirate': pirate, 'card': card-1});
 		this.currentPlayer = -1;
+		Bus.emit('game-pass-step', {'pirate': '' + pirate, 'card': '' + (card-1)});
 
-		this.UI.changeCurrentPlayer(this.currentPlayer);		
+		// this.UI.changeCurrentPlayer(this.currentPlayer);		
 		this.timeOut = this.startTimer();
 	}
 

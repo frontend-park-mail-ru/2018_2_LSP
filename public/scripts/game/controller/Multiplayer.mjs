@@ -2,7 +2,8 @@ import MapBuilder from '../MapBuilder.mjs';
 // import CardBuilder from './CardBuilder.mjs';
 // import Player from './Player.mjs';
 // import UI from './UI.mjs';
-import Bus from '../gameBus.mjs';
+import Bus from '../../modules/eventBus.mjs';
+import gameBus from '../gameBus.mjs';
 import Controller from './Controller.mjs';
 import Socket from '../../modules/websocket.mjs';
 
@@ -32,13 +33,17 @@ export default class Multiplayer extends Controller {
 	}
 
 	listenGameEvents() {
-		Bus.on('game-pass-step', (data) => {
+		gameBus.on('game-pass-step', (data) => {
 			data = JSON.stringify({action: 'move', params: data});
 			this.ws.send(data);
 		});
 
-		Bus.on('game-ready', () => {
-			Bus.emit('game-step', 0);
+		gameBus.on('game-ready', () => {
+			gameBus.emit('game-step', 0);
+		});
+
+		Bus.on('sw-game-message', (data) => {
+			console.log(data);
 		});
 	}
 }
