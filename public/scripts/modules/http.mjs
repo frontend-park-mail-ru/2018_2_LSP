@@ -17,7 +17,7 @@ export default class Http {
 		xhr.open(method, path, true);
 		xhr.withCredentials = true;
     
-		if (body) {
+		if (body && !(body instanceof FormData)) {
 			xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		}
     
@@ -25,15 +25,24 @@ export default class Http {
 			if (xhr.readyState !== xhr.DONE) {
 				return;
 			}
-			const response = JSON.parse(xhr.responseText);
+			let response = '';
+			if (xhr.responseText !== '') {
+				try {
+					response = JSON.parse(xhr.responseText);
+				} catch (e) {
+					response = '';
+				}
+			}
 			if (+xhr.status !== 200 && +xhr.status !== 201) {
 				callback(xhr, response);
 			} else {
 				callback(null, response);
 			}
 		};
-    
-		if (body) {
+
+		if (body instanceof FormData) {
+			xhr.send(body);
+		} else if (body) {			
 			xhr.send(JSON.stringify(body));
 		} else {
 			xhr.send();
@@ -68,5 +77,15 @@ export default class Http {
      */
 	static Delete(callback, path, body) {
 		this._request(callback, 'DELETE', path, body);
+	}
+
+	/**
+     * Функция Delete-запроса
+     * @param {function} callback - коллбек-функция
+     * @param {string} path - адрес запроса
+     * @param {Object} body - тело запроса
+     */
+	static Put(callback, path, body) {
+		this._request(callback, 'PUT', path, body);
 	}
 }

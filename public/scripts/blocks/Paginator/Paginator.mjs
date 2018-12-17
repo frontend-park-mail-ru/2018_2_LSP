@@ -1,5 +1,7 @@
 import Block from '../Block/Block.mjs';
-import Button from '../Button/Button.mjs';
+import Item from '../Item/Item.mjs';
+import Bus from '../../modules/eventBus.mjs';
+import './Paginator.scss';
 
 /**
  * Блок пагинации (наследуется от Block)
@@ -11,29 +13,31 @@ export default class Paginator extends Block {
 	 * @param callback функция-коллбек получения i-ой страницы (аргумент - номер страницы)
 	 * @param classes классы, накладоваемые на кнопки пагинации
 	 */
-	constructor(callback = {}, page = 0, classes=['basic-button', 'basic-button_right']) {
+	constructor(callback = {}, page = 0) {
 		super('div');
 		this._currentPage = page;
 
 		callback(this._currentPage);
 
-		const aright = new Button('', '>', classes);
-		this.append(aright);
-		aright.event('click', () => {
-			this._currentPage += 1;
-			// Router.go('/leaders/' + this._currentPage);
-			callback(this._currentPage);
-		});
-
-		const aleft = new Button('', '<', classes=['basic-button', 'basic-button_right']);
-		this.append(aleft);
-		aleft.event('click', () => {
+		const aleft = new Item('', () => {
 			if (this._currentPage === 0) {
 				return;
 			}
 			this._currentPage -= 1;
-			// Router.go('/leaders/' + this._currentPage);
 			callback(this._currentPage);
+		}, ['leaders-table__button','leaders-table__button_left']);
+		this.append(aleft);
+
+		const aright = new Item('', () => {
+			this._currentPage += 1;
+			callback(this._currentPage);
+		}, ['leaders-table__button','leaders-table__button_right']);
+		this.append(aright);
+
+		Bus.on('empty-page', () => {
+			if (this._currentPage !== 0) {
+				this._currentPage -= 1;
+			}
 		});
 	}
 }

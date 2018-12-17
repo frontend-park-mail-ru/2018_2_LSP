@@ -1,0 +1,9 @@
+mixin player(username, index, color)
+    div(id='game__players__block-' + index)
+        div(class='game__players__block__avatar')
+        h3(class='game__players__block__name') #{username}
+        div(class='game__players__block__score')        
+
+section(class='game__players')
+    each name, index in names
+        +player(name, index)

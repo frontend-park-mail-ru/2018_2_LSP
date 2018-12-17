@@ -8,7 +8,7 @@ mixin base(player, color, count)
     div(class= 'game__square', id= 'base-square' + player)
         div(class= 'game__card', id= 'base-' + player)
             img(class= 'game__card_front-face', src= require('../../../img/water.png'))
-            img(class= 'game__card_back-face', src= require('../../../img/base.png'))
+            img(class= 'game__card_back-face', src= require('../../../img/bases/base-'+ color +'.png'))
         - for (var pirate = 0; pirate < count; pirate++)
             img(id= 'pirate-' + player + '-' + pirate, class= 'game__pirate', src=require('../../../img/ships/' + color + '.png'))
 
@@ -30,14 +30,7 @@ mixin field(size)
 
 section(class='game')
     section(class='game__board', id='gameBoard')
-        +base_row('0', 'green', 2)
-        +field(5)
-        +base_row('1', 'red', 2)
-        
-    section(class='game__players')
-        div Игрок 1
-        div Игрок 2
-
-    section(class='game__timer')
-        div(id='timer') 0
+        +base_row('0', 'green', units)
+        +field(size)
+        +base_row('1', 'red', units)
     

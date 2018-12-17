@@ -1,7 +1,7 @@
 // import BaseView from '../BaseView/BaseView.mjs';
 import Chats from '../../services/chats.mjs';
 import Block from '../../blocks/Block/Block.mjs';
-import Item from '../../blocks/Chat/Item.mjs';
+import Item from '../../blocks/Item/Item.mjs';
 import Table from '../../blocks/Table/Table.mjs';
 import Paginator from '../../blocks/Paginator/Paginator.mjs';
 

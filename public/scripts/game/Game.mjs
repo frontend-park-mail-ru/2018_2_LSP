@@ -1,15 +1,13 @@
-import MapBuilder from './MapBuilder.mjs';
 import CardBuilder from './CardBuilder.mjs';
 import Player from './Player.mjs';
 import UI from './UI.mjs';
-
+import Bus from './gameBus.mjs';
 
 let CARDTYPES = {};
 CARDTYPES.DEFAULT = 0;
 CARDTYPES.GOLD = 1;
 CARDTYPES.KILL = 2;
 
-const distribution = [[CARDTYPES.DEFAULT, 17], [CARDTYPES.GOLD, 6], [CARDTYPES.KILL, 2]];
  
 /**
  * Главный класс игры
@@ -22,10 +20,12 @@ export default class Game {
 	 * @param {number} playersCount количество игроков (2 или 4)
 	 * @param {number} pirateCount количество фишек на игрока
 	 */
-	constructor(mapSize, playersCount, pirateCount) {
-		this.map = MapBuilder.generateMap(distribution);	// получение карты в виде матрицы
+	constructor(controller, mapSize, playersCount, pirateCount) {
+		this._gameController = controller;
 
-		this.currentPlayer = 0;
+		this.map = this._gameController.createMap();	// создание карты
+
+		this.currentPlayer = -1;
 		this.playersCount = playersCount;
 		
 		this.timeOut = this.startTimer();
@@ -37,10 +37,10 @@ export default class Game {
 		this.players = Array(playersCount);
 		for(let i = 0; i < playersCount; i++) {
 			this.players[i] = new Player();
-			this.players[i].addPirates(pirateCount, 'base-' + i);
+			this.players[i].addPirates(pirateCount, 'base-square' + i);
 		}
 
-		this.UI = new UI(mapSize, this.timeOut);
+		this.UI = new UI(mapSize, this.timeOut, this.playersCount);
 
 		// навешиваем событие переворота карточки
 		for(let i = 1; i <= mapSize * mapSize; ++i) {
@@ -58,13 +58,19 @@ export default class Game {
 				});
 			}
 		}
+
+		Bus.on('game-step', (current) => {
+			this.currentPlayer = current;
+			this._selectPirates(this.currentPlayer);
+		});
+
+		Bus.emit('game-ready', {});
 	}
 
 	/**
 	 * Проверка выиграша какого-либо игрока
 	 */
 	checkForWin() {
-		// for (let player in 
 		this.players.forEach(player => {
 			if (player.getScore() > this.totalGoldCount / 2) {
 				return true;
@@ -77,7 +83,7 @@ export default class Game {
 		return window.setTimeout(function() {
 			this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
 			this.hovered = false;
-			this.UI.resetOpacity();
+			// this.UI.resetSelected();
 			alert('Время вашего хода истекло');
 		}, 30000);
 	}
@@ -90,21 +96,23 @@ export default class Game {
 		if (this._getPlayerNumber(id) != this.currentPlayer) {
 			return;
 		}
+		this.UI.resetSelected();
 	
 		if (!this.hovered) {
 			this.hovered = true;
 			this.UI.setLowOpacity();
 			let pirateID = this._getPirateNumber(id);
 			let currentCard = this.players[this.currentPlayer].getPirate(pirateID).getCard();
-			let moveableCards = this.map.getMoveableCards(currentCard);
-			moveableCards.forEach(function(id) {
-				document.getElementById('gamecard-' + id).style.opacity = 1;
-			});
+			const moveableCards = this.map.getMoveableCards(currentCard);
+			this.UI.selectCards(moveableCards);
 			this.currentSelectedPirate = pirateID; // TODO убрать
 		} 
 		else {
 			this.hovered = false;
-			this.UI.resetOpacity();
+			this.UI.resetSelected();
+			//=====================
+			// выделение кораблей текущего игрока
+			//=================
 		}
 	}
 
@@ -119,13 +127,17 @@ export default class Game {
 		const cardID = parseInt(this.getCardNumber(id));
 		const currentCard = this.players[this.currentPlayer].getPirate(this.currentSelectedPirate).getCard();
 		let moveableCards = this.map.getMoveableCards(currentCard);
-		if (moveableCards.indexOf(cardID) == -1) {
+		if (moveableCards.indexOf('square-' + this.getCardNumber(id)) == -1) {
 			return false;
 		}
 	
 		window.clearTimeout(this.timeOut);
 
-		this.players[this.currentPlayer].getPirate(this.currentSelectedPirate).setCard(id);
+		this.players[this.currentPlayer].getPirate(this.currentSelectedPirate).setCard('square-' + this.getCardNumber(id));
+
+		const pirate = `pirate-${this.currentPlayer}-${this.currentSelectedPirate}`;
+		this.UI.moveToCard(pirate, `square-${cardID}`);
+		this.UI.resetSelected();
 	
 		const cardType = this.map.getCardType(cardID);
 		const cardObject = CardBuilder.build(cardType);
@@ -145,19 +157,16 @@ export default class Game {
 		}
 		card.classList.add('flip');
 
-		const pirate = `pirate-${this.currentPlayer}-${this.currentSelectedPirate}`;
-		this.UI.moveToCard(pirate, `square-${cardID}`);
-		this.UI.resetOpacity();
-
 		if (this.checkForWin()) {
 			if (this.done === undefined) {
 				alert('Игрок ' + this.currentPlayer + ' выиграл! Вы можете продолжать игру (тестовый режим).');
 				this.done = true;
 			}
 		}
-		this.currentPlayer = (this.currentPlayer + 1) % this.players.length;	
+
+		//==================
+		this._passStep(this.currentSelectedPirate, cardID);
 		this.hovered = false;
-		this.timeOut = this.startTimer();
 		return true;
 	}
 	
@@ -171,5 +180,22 @@ export default class Game {
 
 	getCardNumber(id) {
 		return id.match(/\d+/)[0];
+	}
+
+	_passStep(pirate, card) {
+		this.currentPlayer = -1;
+		Bus.emit('game-pass-step', {'pirate': '' + pirate, 'card': '' + (card-1)});
+
+		// this.UI.changeCurrentPlayer(this.currentPlayer);		
+		this.timeOut = this.startTimer();
+	}
+
+	_selectPirates(current) {
+		const currentPiratesCards = [];
+		const pirateList = this.players[current].getPirates();
+		pirateList.forEach((pirateOfPlayer) => {
+			currentPiratesCards.push(pirateOfPlayer.getCard());
+		});
+		this.UI.selectCards(currentPiratesCards);
 	}
 }

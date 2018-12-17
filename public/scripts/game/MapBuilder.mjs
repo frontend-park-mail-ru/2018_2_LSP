@@ -50,6 +50,21 @@ export default class MapBuilder {
 		return map;
 	}
 
+	static generateEmptyMap(size) {
+		let matrix = [];
+		for (let i = 0; i < size; i++) { // создание массива игровых карт
+			matrix[i] = new Array(size);
+		}
+
+		for (let y = 0; y < size; y++) {
+			for (let x = 0; x < size; x++) {
+				matrix[x][y] = 0;
+			}
+		}
+		let map = new Map(matrix, size);
+		return map;
+	}
+
 	static _getRandomInt(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}

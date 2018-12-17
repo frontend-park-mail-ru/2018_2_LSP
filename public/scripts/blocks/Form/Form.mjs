@@ -1,4 +1,5 @@
 import Block from '../Block/Block.mjs';
+import './Form.scss';
 
 /**
  * Класс формы (наследуется от Block)
@@ -12,8 +13,21 @@ export default class Form extends Block {
 	constructor(fields = []) {
 		super('form', ['basic-form']);
 		fields.forEach(field => {
-			const fieldElement = new Block('input', field.classes = ['basic-form__input'], field.attributes);
-			this.append(fieldElement);
+			const div = new Block('div');
+
+			if(field.fieldName) {
+				const fieldLabel = new Block('label',['basic-form__label']);			
+				fieldLabel.setText(field.fieldName);
+				div.append(fieldLabel);
+			}
+
+			if(field.classes.length == 0) {
+				field.classes = ['basic-form__input'];
+			}
+
+			const fieldElement = new Block('input', field.classes, field.attributes);
+			div.append(fieldElement);
+			this.append(div);
 		});
 	}
 

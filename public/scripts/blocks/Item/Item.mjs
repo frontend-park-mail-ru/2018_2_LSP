@@ -1,4 +1,3 @@
-// import B from '../Button/Button.mjs';
 import Block from '../Block/Block.mjs';
 
 /**

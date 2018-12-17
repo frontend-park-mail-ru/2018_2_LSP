@@ -4,6 +4,7 @@ import Form from '../../blocks/Form/Form.mjs';
 import Users from '../../services/users.mjs';
 import Errors from '../../services/errors.mjs';
 import Router from '../../modules/Router.mjs';
+import Bus from '../../modules/eventBus.mjs';
 
 export default class SignUp extends BaseView {
 	constructor() {
@@ -55,7 +56,7 @@ export default class SignUp extends BaseView {
 				}
 			},
 			{
-				classes: [],
+				classes: ['basic-button', 'basic-button_form'],
 				attributes: {
 					name: 'submit',
 					type: 'submit',
@@ -85,6 +86,7 @@ export default class SignUp extends BaseView {
 
 			Users.register((err, response) => {	// регистрация пользователя
 				if (!err) {
+					Bus.emit('user:logged-in');
 					Router.open('/menu');
 				} else {
 					errorLine.setText(Errors.getErrorString(response.error));
