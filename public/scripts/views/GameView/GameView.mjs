@@ -5,7 +5,6 @@ import gamePlayers from './gamePlayers.pug';
 import Multiplayer from '../../game/controller/Multiplayer.mjs';
 import Singleplayer from '../../game/controller/Singleplayer.mjs';
 
-import gameTimer from './gameTimer.pug';
 import './GameView.scss';
 
 export default class GameView extends BaseView {
@@ -31,11 +30,7 @@ export default class GameView extends BaseView {
 			application.insertAdjacentHTML('beforeend', gameMap({'size': this._mapSize, 'players': this._playersCount, 'units': this._unitsCount}));
 			application.insertAdjacentHTML('beforeend', gamePlayers({'names': this._players}));
 			// application.insertAdjacentHTML('beforeend', gameTimer());
-		}       
-
-		// const mapSize = 5;
-		// const playersCount = 2;
-		// const unitsCount = 2;
+		}
 
 		const controller = (this._mode === 'multiplayer') ? new Multiplayer(this._players, this.ws) : new Singleplayer(this._players);
 		window.game = new Game(controller, this._mapSize, this._playersCount, this._unitsCount);

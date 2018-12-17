@@ -1,14 +1,6 @@
 import MapBuilder from '../MapBuilder.mjs';
-// import CardBuilder from './CardBuilder.mjs';
-// import Player from './Player.mjs';
-// import UI from './UI.mjs';
-import Bus from '../../modules/eventBus.mjs';
 import gameBus from '../gameBus.mjs';
 import Controller from './Controller.mjs';
-import Socket from '../../modules/websocket.mjs';
-
-// import Bus from '../../modules/eventBus.mjs';
-
 
 /**
  * Главный класс игры
@@ -40,10 +32,6 @@ export default class Multiplayer extends Controller {
 
 		gameBus.on('game-ready', () => {
 			gameBus.emit('game-step', 0);
-		});
-
-		Bus.on('sw-game-message', (data) => {
-			console.log(data);
 		});
 	}
 }

@@ -15,22 +15,9 @@ export default class Socket {
 			? `wss://${host}${url}`
 			: `ws://${host}${url}`;
 		this.socket = new WebSocket(address);
-
-		this.socket.onopen = function() {
-			console.log('opened');
-		}.bind(this);
 		
 		this.socket.onmessage = function(event) {
-			console.log(`sended ${event.data}`);
 			bus.emit(`sw-${tag}-message`, event.data);
-		};
-
-		this.socket.onclose = function(error) {
-			console.log(error);
-		};
-
-		this.socket.onerror = function(error) {
-			console.log(error);
 		};
 
 		bus.on(`sw-${tag}-send`, (data) => {

@@ -4,7 +4,6 @@ import Block from '../../blocks/Block/Block.mjs';
 import Table from '../../blocks/Table/Table.mjs';
 import Paginator from '../../blocks/Paginator/Paginator.mjs';
 import Item from '../../blocks/Item/Item.mjs';
-import Button from '../../blocks/Button/Button.mjs';
 import Bus from '../../modules/eventBus.mjs';
 import addForm from './addForm.pug';
 import playersBoard from './playersBoard.pug';
@@ -90,7 +89,6 @@ export default class Multiplayer extends BaseView {
 					this._playersCount = 2;
 					this._mapSize = 5;
 					this._time = 60;
-					//======
 
 					this.roomBlock();
 					this.listenRoomEvents();
@@ -98,28 +96,10 @@ export default class Multiplayer extends BaseView {
 					return;
 				}
 				target = target.parentNode;
-			}
-			// console.log(event.target);
-			// 		
+			}	
 		});
 
-
-		// const startButton = new Item('Готов', () => {
-
-		// });
-
-		// startButton.event('click', function() {
-		// 	console.log(window.wsGame);
-		// 	const data = {'action': 'ready', 'params': {}};
-		// 	console.log(data);
-		// 	Bus.emit('', data);
-		// });
-
-		
 		this.pageContent.appendChild(gamesBoard.getElement());
-
-		// this.pageContent.appendChild(players.getElement());
-		// this.pageContent.appendChild(startButton.getElement());
 	}
 
 	listenRoomEvents() {

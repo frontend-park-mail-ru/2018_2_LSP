@@ -1,5 +1,4 @@
 import Http from '../modules/http.mjs';
-import jwtDecode from 'jwt-decode';
 
 const path = 'https://jackal.online/api'; 
 

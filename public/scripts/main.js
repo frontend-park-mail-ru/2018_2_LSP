@@ -8,7 +8,6 @@ import Leaders from './views/LeadersView/Leaders.mjs';
 import ChatsFrame from './views/ChatsView/ChatsFrame.mjs';
 import ChatsView from './views/ChatsView/ChatsView.mjs';
 import Router from './modules/Router.mjs';
-import GameView from './views/GameView/GameView.mjs';
 import Singleplayer from './views/SingleplayerView/SingleplayerView.mjs';
 import Multiplayer from './views/MultiplayerView/MultiplayerView.mjs';
 import Logout from './views/Logout.mjs';

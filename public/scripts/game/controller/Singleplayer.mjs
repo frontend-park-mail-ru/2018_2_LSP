@@ -1,7 +1,4 @@
 import MapBuilder from '../MapBuilder.mjs';
-// import CardBuilder from './CardBuilder.mjs';
-// import Player from './Player.mjs';
-// import UI from './UI.mjs';
 import gameBus from '../gameBus.mjs';
 import Controller from './Controller.mjs';
 
@@ -36,7 +33,7 @@ export default class Singleplayer extends Controller {
 	}
 
 	listenGameEvents() {
-		gameBus.on('game-pass-step', (data) => {
+		gameBus.on('game-pass-step', () => {
 			this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;			
 			gameBus.emit('game-step', this.currentPlayer);
 		});

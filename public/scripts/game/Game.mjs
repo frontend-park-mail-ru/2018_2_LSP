@@ -1,14 +1,7 @@
-import MapBuilder from './MapBuilder.mjs';
 import CardBuilder from './CardBuilder.mjs';
 import Player from './Player.mjs';
 import UI from './UI.mjs';
-// import Controlle
 import Bus from './gameBus.mjs';
-// import Controller from './controller/Controller.mjs';
-
-import { TSMethodSignature } from 'babel-types';
-
-
 
 let CARDTYPES = {};
 CARDTYPES.DEFAULT = 0;
@@ -32,7 +25,6 @@ export default class Game {
 
 		this.map = this._gameController.createMap();	// создание карты
 
-		// this.me = ;
 		this.currentPlayer = -1;
 		this.playersCount = playersCount;
 		
@@ -70,9 +62,6 @@ export default class Game {
 		Bus.on('game-step', (current) => {
 			this.currentPlayer = current;
 			this._selectPirates(this.currentPlayer);
-			// 
-			// Bus.emit('game-pass-step', {'pirate': 0, 'card': 2});
-			// 
 		});
 
 		Bus.emit('game-ready', {});
@@ -194,7 +183,6 @@ export default class Game {
 	}
 
 	_passStep(pirate, card) {
-		// this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
 		this.currentPlayer = -1;
 		Bus.emit('game-pass-step', {'pirate': '' + pirate, 'card': '' + (card-1)});
 

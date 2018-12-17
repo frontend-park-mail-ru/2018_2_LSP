@@ -55,16 +55,13 @@ class Router {
 		const application = document.getElementById('application');
 		application.addEventListener('click', event => {
 			if (!(event.target instanceof HTMLAnchorElement)) {
-				console.log('fdsdsfdf');
 				return;
 			}
 			event.preventDefault();
             
 			if(event.target.innerText == 'Назад') {
-				console.log('kasfkdsjafasd');
 				window.history.back();
 			} else {
-				console.log(event.target.pathname);
 				this.open(event.target.pathname);
 			}            
 		});
