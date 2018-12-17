@@ -13,7 +13,7 @@ export default class Paginator extends Block {
 	 * @param callback функция-коллбек получения i-ой страницы (аргумент - номер страницы)
 	 * @param classes классы, накладоваемые на кнопки пагинации
 	 */
-	constructor(callback = {}, page = 0, classes=[]) {
+	constructor(callback = {}, page = 0) {
 		super('div');
 		this._currentPage = page;
 

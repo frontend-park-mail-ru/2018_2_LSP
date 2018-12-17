@@ -1,28 +1,26 @@
 import bus from './eventBus.mjs';
 
+const host = 'jackal.online/api';
+
 /**
  * Сервис для управления TCP соединением с бекендом через WebSocket (синглтон)
  * @module Socket
  */
-class Socket {
+export default class Socket {
 	/**
      * Создать новый Web socket
      */
-	constructor() {
+	constructor(url, tag = '') {
 		const address = ['https', 'https:'].includes(location.protocol)	//в зависимости отпротокола выбор wss или ws
-			? `wss://${location.host}/ws`
-			: `ws://${location.host}/ws`;
+			? `wss://${host}${url}`
+			: `ws://${host}${url}`;
 		this.socket = new WebSocket(address);
-
-		this.socket.onopen = function() {
-			this.socket.send('ping');
-		}.bind(this);
 		
 		this.socket.onmessage = function(event) {
-			bus.emit('sw-message', event.data);
+			bus.emit(`sw-${tag}-message`, event.data);
 		};
 
-		bus.on('sw-send', (data) => {
+		bus.on(`sw-${tag}-send`, (data) => {
 			this.send(data);
 		});
 	}
@@ -31,7 +29,7 @@ class Socket {
      * Отправить данные
      * @param {any} data данные
      */
-	send(data) {
+	send(data = {}) {
 		if (!this.socket.readyState) {  //проверка статуса ws
 			setTimeout(function() {
 				this.send(data);
@@ -41,5 +39,3 @@ class Socket {
 		}
 	}
 }
-
-export default new Socket();

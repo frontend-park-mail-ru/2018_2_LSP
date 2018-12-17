@@ -62,6 +62,13 @@
 		background: rgb(255, 228, 209);
 		transform: rotateY(180deg)
 	}
+
+	&_selected {
+		img {
+			outline: solid 8px lawngreen;
+			outline-offset: -8px;
+		}
+	}
 }
 
 .game__pirate {
@@ -70,4 +77,10 @@
 	top: 10%;
 	left: 25%;
 	z-index: 1;
+}
+
+.game__players__block {
+	&_selected {
+		background: lawngreen;
+	}
 }
