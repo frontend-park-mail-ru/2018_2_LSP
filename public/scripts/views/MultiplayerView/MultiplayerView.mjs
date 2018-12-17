@@ -13,8 +13,6 @@ import GameView from '../GameView/GameView.mjs';
 import Router from '../../modules/Router.mjs';
 import './MultiplayerView.scss';
 
-// export let wsGame = undefined;
-
 Array.prototype.removeElement = function(value) {
 	const idx = this.indexOf(value);
 	if (idx != -1) {
@@ -138,8 +136,19 @@ export default class Multiplayer extends BaseView {
 				this._players.removeElement(data['User']['Username']);
 				this.playersBlock();
 				break;
+			case 'ready': {
+				const playerBlocks = document.getElementsByClassName('player-block');
+				Array.from(playerBlocks).forEach(player => {
+					const name = player.getElementsByTagName('div')[0];
+					if (name.textContent === data['User']['Username']) {
+						player.classList.add('player-block_ready');
+					}
+				});
+				break;
+			}
 			case 'start':
 				this.startGame();
+				break;
 			}
 		});
 	}
@@ -180,6 +189,7 @@ export default class Multiplayer extends BaseView {
 		this.playersBlock();
 		const readyButton = new Item('Готов', () => {
 			this.ws.send(JSON.stringify({'action': 'ready', 'params': {}}));
+			readyButton.setAttributes({disabled: 'disabled'});
 		});
 		this.pageContent.appendChild(readyButton.getElement());
 	}
