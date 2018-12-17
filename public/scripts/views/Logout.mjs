@@ -7,6 +7,6 @@ export default class Logout {
 	}
 
 	render() {
-		Router.open('/menu');
+		Router.open('/');
 	}
 }

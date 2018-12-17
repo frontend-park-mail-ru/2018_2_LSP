@@ -1,10 +1,10 @@
-$button_hover_bg: #7A262E;
+$button_hover_bg: #B80C09;
 $button_hover_text_color: hsl(0, 0%, 100%);
 $button_outline_color: #E7EB90;
 
 .trigger {
+    padding: 5px 10px;
     width: 50px;
-    height: 30px;
 
     &_hovered {
         background-color: $button_hover_bg !important;
