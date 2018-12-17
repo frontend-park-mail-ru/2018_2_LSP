@@ -29,7 +29,12 @@ export default class Singleplayer extends Controller {
 	}
 
 	createMap() {
-		return MapBuilder.generateMap(distribution);	// получение карты в виде матрицы
+		this.map = MapBuilder.generateMap(distribution);
+		return this.map;	// получение карты в виде матрицы
+	}
+
+	getCardType(cardID) {
+		return this.map.getCardType(cardID);		
 	}
 
 	listenGameEvents() {

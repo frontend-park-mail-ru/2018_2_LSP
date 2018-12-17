@@ -1,5 +1,6 @@
 import MapBuilder from '../MapBuilder.mjs';
 import gameBus from '../gameBus.mjs';
+import Bus from '../../modules/eventBus.mjs';
 import Controller from './Controller.mjs';
 
 /**
@@ -13,15 +14,21 @@ export default class Multiplayer extends Controller {
 	 * @param {number} playersCount количество игроков (2 или 4)
 	 * @param {number} pirateCount количество фишек на игрока
 	 */
-	constructor(players, ws) {
+	constructor(players, myNumber, ws) {
 		super(players);
 		this.ws = ws;
+		this.cardTypes = [];
+		this.myNumber = myNumber;
 
 		this.listenGameEvents();
 	}
 
 	createMap() {
 		return MapBuilder.generateEmptyMap(5);	// получение карты в виде матрицы        
+	}
+
+	getCardType(cardID) {
+		return this.cardTypes[cardID];
 	}
 
 	listenGameEvents() {
@@ -32,6 +39,23 @@ export default class Multiplayer extends Controller {
 
 		gameBus.on('game-ready', () => {
 			gameBus.emit('game-step', 0);
+		});
+
+		Bus.on('sw-game-message', (data) => {
+			data = JSON.parse(data);
+			switch (data['Type']) {
+			case 'movement':
+				this.cardTypes[data['Data']['cardID']] = data['Data']['cardType'];
+				gameBus.emit('game-pirate-go', data['Data']);
+				break;
+			case 'expired':
+				break;
+			case 'nextplayer':
+				if (this.myNumber === data['Data']['playerID']) {
+					gameBus.emit('game-step', data['Data']['playerID']);
+				}				
+				break;
+			}
 		});
 	}
 }

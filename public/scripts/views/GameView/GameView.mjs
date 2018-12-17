@@ -8,9 +8,10 @@ import Singleplayer from '../../game/controller/Singleplayer.mjs';
 import './GameView.scss';
 
 export default class GameView extends BaseView {
-	constructor(mode = 'multiplayer', mapSize = 5, players = [], playersCount, unitsCount = 1, stepTime = 60, ws) {
+	constructor(mode = 'multiplayer', mapSize = 5, players = [], playersCount, unitsCount = 1, stepTime = 60, myNumber = 0, ws) {
 		super();
 		this.ws = ws;
+		this._myNumber = myNumber;
 		this._mapSize = mapSize;
 		this._players = players;
 		this._playersCount = playersCount;
@@ -32,7 +33,7 @@ export default class GameView extends BaseView {
 			// application.insertAdjacentHTML('beforeend', gameTimer());
 		}
 
-		const controller = (this._mode === 'multiplayer') ? new Multiplayer(this._players, this.ws) : new Singleplayer(this._players);
+		const controller = (this._mode === 'multiplayer') ? new Multiplayer(this._players, this._myNumber, this.ws) : new Singleplayer(this._players);
 		window.game = new Game(controller, this._mapSize, this._playersCount, this._unitsCount);
 	}
 }

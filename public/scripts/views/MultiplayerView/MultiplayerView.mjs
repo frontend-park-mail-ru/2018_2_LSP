@@ -106,6 +106,9 @@ export default class Multiplayer extends BaseView {
 		Bus.on('sw-game-message', (data) => {
 			data = JSON.parse(data);
 			switch (data['Type']) {
+			case 'join':
+				this.myUsername = data['User']['Username'];
+				break;
 			case 'players':
 				if (this._players.indexOf(data['User']['Username']) === -1) {
 					this._players.push(data['User']['Username']);
@@ -148,12 +151,8 @@ export default class Multiplayer extends BaseView {
 		}
 		const mainSection = document.getElementsByClassName('main-section')[0];
 		mainSection.innerHTML = '';
-		const gameView = new GameView('multiplayer', this._mapSize, this._players, this._playersCount, units, this._time, this.ws);
+		const gameView = new GameView('multiplayer', this._mapSize, this._players, this._playersCount, units, this._time, this._players.indexOf(this.myUsername), this.ws);
 		gameView.render();
-	}
-
-	settingWindow() {
-
 	}
 
 	playersBlock() {
