@@ -1,0 +1,16 @@
+form(id='add_room')
+    p Игроков: 
+        select(name='players')
+            option(value=2) 2
+            option(value=4) 4
+    p Размер карты: 
+        select(name='size')
+            option(value=5, selected="selected") маленькая
+            option(value=7) средняя
+            option(value=9) большая
+    p Время хода: 
+        select(name='time')
+            option(value=30) 30 секунд
+            option(value=60, selected="selected") 60 секунд
+            option(value=90) 90 секунд
+    input(name='submit', type='submit', value='Начать', href='', 'data-href'= '')
