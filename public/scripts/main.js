@@ -18,9 +18,9 @@ import '../img/favicon.ico';
 import '../styles/base.scss';
 
 // авторизация service-worker
-// if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {	
-// 	navigator.serviceWorker.register('sw.js');
-// }
+if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {	
+	navigator.serviceWorker.register('sw.js');
+}
 
 Router.addPath('/', Landing);
 Router.addPath('/signin', SignIn);
@@ -46,7 +46,7 @@ Bus.on('user:logged-in', () => {
 	}
 
 	if(window.location.pathname === '/') {
-		const backButton = document.getElementsByClassName('basicButton_back');
+		const backButton = document.getElementsByClassName('header__left-item');
 		backButton[0].hidden = true;
 	}
 });
