@@ -20,21 +20,17 @@ $menu_hover_text_color: black;
     transition: all 200ms ease-in;
     transform: scale(1); 
 
-    //box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border: solid 1px $menu_border;
     border-radius: 5px;
     color: $menu_text_color;
-    //padding: 70px 90px;
     text-align: center;
     text-decoration: none;
     font-size: 24px;
     margin: 4px 8px;
     cursor: pointer;
-    //box-shadow: 5px 5px 5px rgba(0,0,0,0.23);
     box-shadow: 0px 0px 10px #171717;
     
     &:hover {
-        //box-shadow: 0px 0px 20px #32292F;
         box-shadow: 0px 0px 20px #171717;
         z-index: 2;
         transition: all 200ms ease-in;
@@ -45,33 +41,32 @@ $menu_hover_text_color: black;
 }
 
 .multiplayer {
-    background: url('../../../img/ship1.jpg');
+    background: url('../../../img/multiplayer.jpg');
     background-size: cover;
 }
 
 .singleplayer {
-    background: url('../../../img/ship1.jpg');
+    background: url('../../../img/newShip.jpg');
     background-size: cover;
 }
 
 .leaders {
-    background: url('../../../img/ship1.jpg');
+    background: url('../../../img/leaders.jpg');
     background-size: cover;
 }
 
 .rules {
-    background: url('../../../img/ship1.jpg');
+    background: url('../../../img/rules.jpg');
     background-size: cover;
 }
 
 .chats {
-    background: url('../../../img/ship1.jpg');
+    background: url('../../../img/chatsMenu.jpg');
     background-size: cover;
 }
 
 .menu {
     display: grid;
-    //grid-template-columns: 25vmin 25vmin 25vmin 25vmin 25vmin;
     @media(orientation: landscape),(min-width:760) {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
@@ -82,11 +77,5 @@ $menu_hover_text_color: black;
         align-items: center;
         grid-gap: 10px;
     }
-
-    //grid-template-rows: 30vmin;
-    // grid-template-areas: 
-    //     'firstRow firstRow firstRow'
-    //     'secondRow secondRow secondRow';
-    //justify-content: center;
 }
 
