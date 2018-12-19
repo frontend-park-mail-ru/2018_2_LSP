@@ -62,7 +62,7 @@ Bus.on('user:logged-out', () => {
 	navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
 
 	if(window.location.pathname === '/') {
-		const backButton = document.getElementsByClassName('basicButton_back');
+		const backButton = document.getElementsByClassName('header__left-item');
 		backButton[0].hidden = true;
 	}
     

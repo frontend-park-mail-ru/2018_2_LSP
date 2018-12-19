@@ -125,6 +125,7 @@ export default class Profile extends BaseView {
 					errorLine.show();
 					return;
 				}
+				
 				if (data['lastname'].length < 4 || data['lastname'].length > 25) {
 					errorLine.setText(Errors.getErrorString('symbols'));
 					errorLine.show();
@@ -133,11 +134,13 @@ export default class Profile extends BaseView {
 
 				const avatarSelect = document.getElementById('avatar-select');				
 				const avatar = avatarSelect.files[0];
-	
-				if (!avatar.type.match('image.*')) {
-					errorLine.setText(Errors.getErrorString('avatarImg'));
-					errorLine.show();
-					return;
+
+				if (avatar) {
+					if (!avatar.type.match('image.*')) {
+						errorLine.setText(Errors.getErrorString('avatarImg'));
+						errorLine.show();
+						return;
+					}
 				}
 				delete data['avatar'];
 
