@@ -20,19 +20,20 @@ export default class Game {
 	 * @param {number} playersCount количество игроков (2 или 4)
 	 * @param {number} pirateCount количество фишек на игрока
 	 */
-	constructor(controller, mapSize, playersCount, pirateCount) {
+	constructor(controller, mapSize, playersCount, pirateCount, myPlayer = -1) {
 		this._gameController = controller;
 
 		this.map = this._gameController.createMap();	// создание карты
 
+		this.myPlayer = myPlayer;
 		this.currentPlayer = -1;
 		this.playersCount = playersCount;
 		
 		this.timeOut = this.startTimer();
 		this.totalGoldCount = this.map.getTotalGoldCount();
-		this.currentSelectedPirate = -1; // TODO убрать ???
+		this.currentSelectedPirate = 0; // TODO убрать ???
 
-		this.hovered = false;	//???
+		this.hovered = false;
 
 		this.players = Array(playersCount);
 		for(let i = 0; i < playersCount; i++) {
@@ -62,11 +63,13 @@ export default class Game {
 		Bus.on('game-step', (current) => {
 			this.currentPlayer = current;
 			this.UI.changeCurrentPlayer(this.currentPlayer);
-			this._selectPirates(this.currentPlayer);
+			if (this.myPlayer === -1 || this.currentPlayer === this.myPlayer) {
+				this._selectPirates(this.currentPlayer);
+			}
 		});
 
 		Bus.on('game-pirate-go', (data) => {
-			this.moveUnit(data['playerID'], data['pirateID'], data['cardID'] + 1);
+			this.moveUnit(data['playerID'], data['pirateID'], data['cardID']);
 		});
 
 		Bus.emit('game-ready', {});
@@ -86,7 +89,7 @@ export default class Game {
   
 	startTimer() {
 		return window.setTimeout(function() {
-			this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
+			// this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
 			this.hovered = false;
 			// this.UI.resetSelected();
 			alert('Время вашего хода истекло');
@@ -98,7 +101,7 @@ export default class Game {
 	 * @param {string} id id пирата на которого нажали
 	 */
 	playerClick(id) {
-		if (this._getPlayerNumber(id) != this.currentPlayer) {
+		if (this._getPlayerNumber(id) != this.currentPlayer || (this.myPlayer !== -1 && this.currentPlayer !== this.myPlayer)) {
 			return;
 		}
 		this.UI.resetSelected();
@@ -168,7 +171,7 @@ export default class Game {
 	}
 
 	_passStep(pirate, card) {
-		this.currentPlayer = -1;
+		// this.currentPlayer = -1;
 		Bus.emit('game-pass-step', {'pirate': '' + pirate, 'card': '' + (card-1)});
 
 		this.timeOut = this.startTimer();

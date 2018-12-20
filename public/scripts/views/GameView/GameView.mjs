@@ -34,7 +34,10 @@ export default class GameView extends BaseView {
 		}
 
 		const controller = (this._mode === 'multiplayer') ? new Multiplayer(this._players, this._myNumber, this.ws) : new Singleplayer(this._players);
-		window.game = new Game(controller, this._mapSize, this._playersCount, this._unitsCount);
+		if (this._mode === 'singleplayer') {
+			this._myNumber = -1;
+		}
+		window.game = new Game(controller, this._mapSize, this._playersCount, this._unitsCount, this._myNumber);
 	}
 }
 

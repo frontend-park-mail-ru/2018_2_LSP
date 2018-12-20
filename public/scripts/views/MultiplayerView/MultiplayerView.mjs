@@ -6,6 +6,7 @@ import Paginator from '../../blocks/Paginator/Paginator.mjs';
 import Item from '../../blocks/Item/Item.mjs';
 import Bus from '../../modules/eventBus.mjs';
 import addForm from './addForm.pug';
+import Users from '../../services/users.mjs';
 import playersBoard from './playersBoard.pug';
 import Socket from '../../modules/websocket.mjs';
 import GameView from '../GameView/GameView.mjs';
@@ -106,9 +107,9 @@ export default class Multiplayer extends BaseView {
 		Bus.on('sw-game-message', (data) => {
 			data = JSON.parse(data);
 			switch (data['Type']) {
-			case 'join':
-				this.myUsername = data['User']['Username'];
-				break;
+			// case 'join':
+			// 	this.myUsername = data['User']['Username'];
+			// 	break;
 			case 'players':
 				if (this._players.indexOf(data['User']['Username']) === -1) {
 					this._players.push(data['User']['Username']);
@@ -151,8 +152,12 @@ export default class Multiplayer extends BaseView {
 		}
 		const mainSection = document.getElementsByClassName('main-section')[0];
 		mainSection.innerHTML = '';
-		const gameView = new GameView('multiplayer', this._mapSize, this._players, this._playersCount, units, this._time, this._players.indexOf(this.myUsername), this.ws);
-		gameView.render();
+		Users.profile((err, response) => {
+			console.log(response);
+			this.myNumber = this._players.indexOf(response['username']);
+			const gameView = new GameView('multiplayer', this._mapSize, this._players, this._playersCount, units, this._time, this.myNumber, this.ws);
+			gameView.render();
+		});
 	}
 
 	playersBlock() {

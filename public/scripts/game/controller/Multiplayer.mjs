@@ -28,7 +28,7 @@ export default class Multiplayer extends Controller {
 	}
 
 	getCardType(cardID) {
-		return this.cardTypes[cardID];
+		return this.cardTypes[cardID-1];
 	}
 
 	listenGameEvents() {
@@ -46,14 +46,13 @@ export default class Multiplayer extends Controller {
 			switch (data['Type']) {
 			case 'movement':
 				this.cardTypes[data['Data']['cardID']] = data['Data']['cardType'];
+				data['Data']['cardID'] += 1;
 				gameBus.emit('game-pirate-go', data['Data']);
 				break;
 			case 'expired':
 				break;
 			case 'nextplayer':
-				if (this.myNumber === data['Data']['playerID']) {
-					gameBus.emit('game-step', data['Data']['playerID']);
-				}				
+				gameBus.emit('game-step', data['Data']['playerID']);		
 				break;
 			}
 		});
