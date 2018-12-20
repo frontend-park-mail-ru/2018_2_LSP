@@ -1,0 +1,36 @@
+div(class = "rules-page")
+    h3 Цель игры
+    p Найти как можно больше золота, спрятанного на поле.
+
+    h3 Как и чем ходить
+    div(class= "rules-page__cards-table")
+        div
+            img(class= "rules-page__ship-img" src= "../../../img/green.png")
+            img(class= "rules-page__ship-img" src= "../../../img/blue.png")
+            img(class= "rules-page__ship-img" src= "../../../img/red.png")
+            img(class= "rules-page__ship-img" src= "../../../img/yellow.png")
+        p корабли
+
+        div
+            img(class= "rules-page__base-img" src= "../../../img/base-green.png")
+            img(class= "rules-page__base-img" src= "../../../img/base-blue.png")
+            img(class= "rules-page__base-img" src= "../../../img/base-red.png")
+            img(class= "rules-page__base-img" src= "../../../img/base-yellow.png")
+        p базы кораблей
+
+
+    p
+        | Первым ходит зеленый корабль. Далее участники ходят по очереди по часовой стрелке. 
+        | Чтобы сделать ход нужно кликнуть на свой корабль и выбрать доступную клетку для хода (подсвечены зеленым).
+        | Ходить можно как на еще неоткрытую карточку, так и на уже открытую. При ходе на еще неоткрытую карточку она переворачивается. 
+        | В зависимости от типа карточки осуществляются разные действия.
+
+    h3 Карточки
+    p В процессе игры могут встречаться такие карточки:
+    div(class= "rules-page__cards-table") 
+        img(src= "../../../img/unopened.png")
+        p неоткрытая карточка
+        img(src= "../../../img/gold2.png")
+        p золото
+        img(src= "../../../img/kill2.png")
+        p камень - отправляет корабль обратно на свою базу

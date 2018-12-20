@@ -1,0 +1,15 @@
+.rules-page__cards-table {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.rules-page__ship-img {
+    margin: 10px;
+}
+
+.rules-page__base-img {
+    height: 100px;
+}

@@ -1,5 +1,7 @@
 import BaseView from '../BaseView/BaseView.mjs';
 import Block from '../../blocks/Block/Block.mjs';
+import './RulesView.scss';
+import rulesView from '../RulesView/rulesView.pug';
 
 export default class RulesView extends BaseView {
 	constructor(){
@@ -7,8 +9,7 @@ export default class RulesView extends BaseView {
 	}
 
 	render() {
-		const pTag = new Block('p');
-		pTag.setText('Подробное описание правил игры...');
-		this.pageContent.appendChild(pTag.getElement());
+		const rules = rulesView();
+		this.pageContent.insertAdjacentHTML('beforeend', rules);
 	}
 }
