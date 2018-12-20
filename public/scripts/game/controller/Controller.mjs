@@ -1,9 +1,3 @@
-// import MapBuilder from './MapBuilder.mjs';
-// import CardBuilder from './CardBuilder.mjs';
-// import Player from './Player.mjs';
-// import UI from './UI.mjs';
-// import Bus from './gameBus.mjs';
-
 /**
  * Главный класс игры
  * @module Game

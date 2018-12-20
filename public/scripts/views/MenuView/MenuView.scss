@@ -1,7 +1,6 @@
-$menu_text_color1: white;
-$menu_text_color2: black;
-$menu_bg: #B80C09;
+$menu_button_bg: #B80C09;
 $menu_border: #262322;
+$menu_shadow: #171717;
 
 .page-content__menu-button {
     @media(orientation: landscape),(min-width:760) {
@@ -17,7 +16,7 @@ $menu_border: #262322;
         padding: 20px 0px;
         width: 300px;
         font-size: 30px;
-        background-color: $menu_bg;
+        background-color: $menu_button_bg;
         color: white;
         border: solid 2px $menu_border;
     }
@@ -31,10 +30,10 @@ $menu_border: #262322;
     text-decoration: none;
     margin: 4px 8px;
     cursor: pointer;
-    box-shadow: 0px 0px 10px #171717;
+    box-shadow: 0px 0px 10px $menu_shadow;
     
     &:hover {
-        box-shadow: 0px 0px 20px #171717;
+        box-shadow: 0px 0px 20px $menu_shadow;
         z-index: 2;
         transition: all 200ms ease-in;
         transform: scale(1.3);

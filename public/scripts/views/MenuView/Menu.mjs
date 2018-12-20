@@ -20,7 +20,6 @@ export default class Menu extends BaseView {
 		const menuDiv = new Block('div', ['menu']);
 
 		Object.entries(items).forEach((item) => {
-			//const div = new Block('div', ['menu']);
 			const element = new Button(item[0], item[1], ['page-content__menu-button', item[0]]);			
 			menuDiv.append(element);
 		});

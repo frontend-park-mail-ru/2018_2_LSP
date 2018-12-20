@@ -35,11 +35,7 @@ export default class BaseView {
 			const trig = new Trigger('chat');
 			trig.event('click', function() {
 				const iframe = document.getElementsByTagName('iframe');
-				if(iframe[0].hidden) {
-					iframe[0].hidden = false;
-				} else {
-					iframe[0].hidden = true;
-				}
+				iframe[0].hidden = !iframe[0].hidden;
 			});
 			footerTag[0].appendChild(trig.getElement());
 		}
