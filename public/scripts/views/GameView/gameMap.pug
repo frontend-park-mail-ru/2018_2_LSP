@@ -22,13 +22,13 @@ mixin base_row(player, color, count)
 
 mixin field(size, players, units)
     - for (var row = 0; row < size; row++)
-        - if (row == (size/2)+1 && players > 2)
+        if (row === ((size-1)/2) && players > 2)
             +base('2', 'blue', units)
             - for (var card = 1; card <= size; card++)
                 - var num = ((row*size)+card)
                 +card('gamecard-'+ num, 'unopened', 'square-'+ num)
             +base('3', 'yellow', units)
-        - else
+        else
             +card('gameCard', 'grass', 'square')
             - for (var card = 1; card <= size; card++)
                 - var num = ((row*size)+card)
