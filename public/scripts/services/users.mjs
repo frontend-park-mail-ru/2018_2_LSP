@@ -13,11 +13,11 @@ export default class Users {
 	 * @param data 
 	 */
 	static auth(callback, data = {}) {
-		Http.Post(callback, path + '/session', data);		
+		Http.Post(callback, `${path}/session`, data);		
 	}
 
 	static logout(callback) {
-		Http.Delete(callback, path +'/session');
+		Http.Delete(callback, `${path}/session`);
 		this.user = '';
 		const date = new Date(0);
 		document.cookie = 'name=; path=/; expires=' + date.toUTCString();
@@ -30,7 +30,7 @@ export default class Users {
 	 * @param data 
 	 */
 	static register(callback, data = {}) {
-		Http.Post(callback, path + '/users', data);
+		Http.Post(callback,`${path}/users`, data);
 	}
 
 	/**
@@ -57,12 +57,7 @@ export default class Users {
 			return callback(null, user);
 		}.bind(this);
 
-		//let payload = jwtDecode(this._cookieParser('header.payload'))['id'];
-		// if (payload) {
-		// 	Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar,totalgames');
-		// }
-
-		Http.Get(call, path + '/me?fields=id,username,email,firstname,lastname,totalscore,avatar,totalgames');
+		Http.Get(call, `${path}/me?fields=id,username,email,firstname,lastname,totalscore,avatar,totalgames`);
 	}
 
 	/**
@@ -72,7 +67,7 @@ export default class Users {
 	 * @param {Object} data 
 	 */
 	static updateInfo(callback, id, data = {}) {
-		Http.Put(callback, path + '/users/' + id, data);
+		Http.Put(callback,`${path}/users/${id}`, data);
 		this.user = '';
 	}
 
@@ -83,7 +78,7 @@ export default class Users {
 	 * @param {FormData} data 
 	 */
 	static setAvatar(callback, id, data = {}) {
-		Http.Post(callback, path + '/users/' + id, data);	
+		Http.Post(callback,`${path}/users/${id}`, data);	
 		this.user = '';
 	}
 
@@ -93,7 +88,7 @@ export default class Users {
 	 * @param {Object} data 
 	 */
 	static leaders(callback, data = {}) {
-		const query = path + '/users?page=' + data.page + '&fields=username,totalscore,totalgames&orderby=totalscore';
+		const query = `${path}/users?page=${data.page}&fields=username,totalscore,totalgames&orderby=totalscore`;
 		const call = function(err, users) {
 			if (err) {
 				return callback(err, users);

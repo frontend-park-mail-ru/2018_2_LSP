@@ -30,7 +30,7 @@ export default class Http {
 				try {
 					response = JSON.parse(xhr.responseText);
 				} catch (e) {
-					response = '';
+					response = 'Cannot parse response text';
 				}
 			}
 			if (+xhr.status !== 200 && +xhr.status !== 201) {

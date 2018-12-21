@@ -1,4 +1,6 @@
 $button_border: #262322;
+$form_button_bg: #B80C09;
+$form_button_shadow: rgba(0,0,0,0.23);
 
 .basic-form {
     &__input {
@@ -28,15 +30,15 @@ $button_border: #262322;
 .basic-button_form {
     outline: none;
     font-size: 28px;
-    background-color: #B80C09;
+    background-color: $form_button_bg;
     color: white;
     border: solid 2px $button_border;
     padding: 2px 10px;
     border-radius: 10px;
-    box-shadow: 5px 5px 5px rgba(0,0,0,0.23);
+    box-shadow: 5px 5px 5px $form_button_shadow;
     
     &:hover {
-        box-shadow: 10px 10px 5px rgba(0,0,0,0.23);
+        box-shadow: 10px 10px 5px $form_button_shadow;
     }
 
     &:active {

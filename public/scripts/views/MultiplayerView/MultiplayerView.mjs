@@ -153,10 +153,6 @@ export default class Multiplayer extends BaseView {
 		gameView.render();
 	}
 
-	settingWindow() {
-
-	}
-
 	playersBlock() {
 		this.roomPlayers.clear();
 		for (let i = 0; i < this._playersCount; i++) {

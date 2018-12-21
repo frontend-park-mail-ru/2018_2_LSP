@@ -1,5 +1,7 @@
 $light_font_color: white;
 $header_footer_bgcolor: #B80C09;
+$cell_border_color: maroon;
+$me_bg_color: darkkhaki;
 
 .leaders-table {
     width: 300px;
@@ -23,14 +25,14 @@ $header_footer_bgcolor: #B80C09;
         color:black;
 
         &_me {
-            background: darkkhaki;
+            background: $me_bg_color;
             color: $light_font_color;
         }
     }
 
     &__cell {
         padding: 3px;
-        border: 1px solid maroon;
+        border: 1px solid $cell_border_color;
         text-align: left;
     }
 }
