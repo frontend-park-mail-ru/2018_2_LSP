@@ -23,7 +23,7 @@ export default class Game {
 	constructor(controller, mapSize, playersCount, pirateCount, myPlayer = -1) {
 		this._gameController = controller;
 
-		this.map = this._gameController.createMap();	// создание карты
+		this.map = this._gameController.createMap(mapSize);	// создание карты
 
 		this.myPlayer = myPlayer;
 		this.currentPlayer = -1;

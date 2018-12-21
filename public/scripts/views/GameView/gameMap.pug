@@ -1,19 +1,19 @@
 mixin card(id, type, square)
-    div(class= 'game__square', id= square)
+    div(class= 'game__square game__square_' + size, id= square)
         div(class= 'game__card', id= id)
             img(class= 'game__card_front-face', src= require('../../../img/water.png'))
             img(class= 'game__card_back-face', src= require('../../../img/'+ type + '.png'))
 
 mixin base(player, color, count)
-    div(class= 'game__square', id= 'base-square' + player)
+    div(class= 'game__square game__square_' + size, id= 'base-square' + player)
         div(class= 'game__card', id= 'base-' + player)
             img(class= 'game__card_front-face', src= require('../../../img/water.png'))
             img(class= 'game__card_back-face', src= require('../../../img/bases/base-'+ color +'.png'))
         - for (var pirate = 0; pirate < count; pirate++)
             img(id= 'pirate-' + player + '-' + pirate, class= 'game__pirate', src=require('../../../img/ships/' + color + '.png'))
 
-mixin base_row(player, color, count)
-    - var length = 3
+mixin base_row(player, color, count, size)
+    - var length = (size+1)/2
     - for (var card = 0; card < length; card++)
         +card('gameCard', 'grass', 'square')
     +base(player, color, count)
@@ -37,7 +37,7 @@ mixin field(size, players, units)
 
 section(class='game')
     section(class='game__board', id='gameBoard')
-        +base_row('0', 'green', units)
+        +base_row('0', 'green', units, size)
         +field(size, players, units)
-        +base_row('1', 'red', units)
+        +base_row('1', 'red', units, size)
     

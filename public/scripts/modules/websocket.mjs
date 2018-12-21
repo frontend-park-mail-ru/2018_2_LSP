@@ -20,6 +20,10 @@ export default class Socket {
 			bus.emit(`sw-${tag}-message`, event.data);
 		};
 
+		this.socket.onclose = function(event) {
+			console.log(event);
+		};
+
 		bus.on(`sw-${tag}-send`, (data) => {
 			this.send(data);
 		});

@@ -50,11 +50,11 @@ export default class Multiplayer extends BaseView {
 
 			this.roomBlock();
 			this.listenRoomEvents();
-			this.ws = new Socket(`/games/create?title=${this._gameName}&players=${this._playersCount}`, 'game');	
+			this.ws = new Socket(`/games/create?title=${this._gameName}&players=${this._playersCount}&timelimit=${this._time}&size=${this._mapSize}`, 'game');	
 		});
 
 		// пагинатор комнат
-		const items = {'Игра': 'hash', 'Кол-во игроков': 'players'};
+		const items = {'Игра': 'hash', 'Название': 'title', 'Время хода': 'timelimit', 'Игроков': 'players', 'Мест': 'maxplayers'};
 		const paginator = new Paginator(function(page) {
 			Games.list((err, response) => {
 				if (!err) {
@@ -84,16 +84,16 @@ export default class Multiplayer extends BaseView {
 			let target = event.target;
 			while (target.tagName !== 'tbody') {
 				if (target.classList.contains('leaders-table__row')) {
-					const gameHash = target.getElementsByClassName('leaders-table__cell')[0].textContent;
+					const gameParams = target.getElementsByClassName('leaders-table__cell');
 					
-					//======
-					this._playersCount = 2;
-					this._mapSize = 5;
-					this._time = 60;
+					this._gameName = gameParams[1];
+					this._mapSize = 5;	//TODO
+					this._playersCount = gameParams[4];
+					this._time = gameParams[2];
 
 					this.roomBlock();
 					this.listenRoomEvents();
-					this.ws = new Socket(`/games/connect?room=${gameHash}`, 'game');
+					this.ws = new Socket(`/games/connect?room=${gameParams[0].textContent}`, 'game');
 					return;
 				}
 				target = target.parentNode;
@@ -107,9 +107,6 @@ export default class Multiplayer extends BaseView {
 		Bus.on('sw-game-message', (data) => {
 			data = JSON.parse(data);
 			switch (data['Type']) {
-			// case 'join':
-			// 	this.myUsername = data['User']['Username'];
-			// 	break;
 			case 'players':
 				if (this._players.indexOf(data['User']['Username']) === -1) {
 					this._players.push(data['User']['Username']);

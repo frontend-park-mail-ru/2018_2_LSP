@@ -23,8 +23,8 @@ export default class Multiplayer extends Controller {
 		this.listenGameEvents();
 	}
 
-	createMap() {
-		return MapBuilder.generateEmptyMap(5);	// получение карты в виде матрицы        
+	createMap(size) {
+		return MapBuilder.generateEmptyMap(size);	// получение карты в виде матрицы        
 	}
 
 	getCardType(cardID) {
