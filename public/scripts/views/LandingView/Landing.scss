@@ -1,5 +1,6 @@
 $button_border: #262322;
 $button_bg: #B80C09;
+$button_shadow: rgba(0,0,0,0.23);
 
 @import url('https://fonts.googleapis.com/css?family=Lakki+Reddy');
 
@@ -23,10 +24,10 @@ $button_bg: #B80C09;
     border: solid 2px $button_border;
     padding: 10px 8px;
     border-radius: 5px;
-    box-shadow: 5px 5px 5px rgba(0,0,0,0.23);
+    box-shadow: 5px 5px 5px $button_shadow;
     
     &:hover {
-        box-shadow: 10px 10px 5px rgba(0,0,0,0.23);
+        box-shadow: 10px 10px 5px $button_shadow;
     }
 
     &:active {

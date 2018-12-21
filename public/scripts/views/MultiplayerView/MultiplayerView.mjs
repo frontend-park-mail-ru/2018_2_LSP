@@ -12,6 +12,7 @@ import Socket from '../../modules/websocket.mjs';
 import GameView from '../GameView/GameView.mjs';
 import Router from '../../modules/Router.mjs';
 import './MultiplayerView.scss';
+import PopUpWindow from '../../blocks/PopUpWindow/PopUpWindow.mjs';
 
 Array.prototype.removeElement = function(value) {
 	const idx = this.indexOf(value);
@@ -70,17 +71,41 @@ export default class Multiplayer extends BaseView {
 		});
 
 		// кнопка создания новой комнаты
-		const addRoomButton = new Item('+', function() {
-			const form = document.getElementById('add_room');
-			if (form.hidden === true) {
-				form.removeAttribute('hidden', true);
-			} else {
-				addRoomForm.setAttribute('hidden', true);
-			}
-		});
+		const addRoomButton = new Item('', function() {
+			// форма создания комнаты	
+			application.insertAdjacentHTML('beforeend', addForm());
+			const popup1 = document.getElementById('popup1');
+
+			const cross = document.getElementsByClassName('popup__close');
+			cross[0].onclick = function(event) {
+				event.preventDefault();
+				application.removeChild(popup1);
+			};
+
+			const addRoomForm = document.getElementById('add_room');
+
+			addRoomForm.addEventListener('submit', (event) => {
+				event.preventDefault();
+				const formdata = {};
+				const elements = addRoomForm.elements;
+				for (let element in elements) {
+					formdata[elements[element].name] = elements[element].value;
+				}
+				this._gameName = formdata['name'];
+				this._mapSize = formdata['size'];
+				this._playersCount = formdata['players'];
+				this._time = formdata['time'];
+
+				application.removeChild(popup1);
+
+				this.roomBlock();
+				this.listenRoomEvents();
+				this.ws = new Socket(`/games/create?title=${this._gameName}&players=${this._playersCount}`, 'game');	
+			});
+		}, ['plus-button']);
 
 		// таблица комнат
-		const gamesBoard = new Table(items, ['leaders-table'], [addRoomButton, paginator], (event) => {
+		const gamesBoard = new Table(items, ['leaders-table'], [paginator, addRoomButton], (event) => {
 			let target = event.target;
 			while (target.tagName !== 'tbody') {
 				if (target.classList.contains('leaders-table__row')) {

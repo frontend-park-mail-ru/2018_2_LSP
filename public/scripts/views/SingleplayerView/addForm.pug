@@ -1,16 +1,19 @@
-form(id='add_room')
-    p Игроков: 
-        select(name='players')
+form(class= 'basic-form' id='add_room')
+    div
+        label(class='basic-form__label') Игроков 
+        select(name='players' class='basic-form__select')
             option(value=2) 2
             option(value=4) 4
-    p Размер карты: 
-        select(name='size')
-            option(value=5, selected="selected") маленькая
+    div
+        label(class='basic-form__label') Размер карты
+        select(name='size' class='basic-form__select')
+            option(value=5, selected='selected') маленькая
             option(value=7) средняя
             option(value=9) большая
-    p Время хода: 
-        select(name='time')
+    div
+        label(class='basic-form__label') Время хода
+        select(name='time' class='basic-form__select')
             option(value=30) 30 секунд
-            option(value=60, selected="selected") 60 секунд
+            option(value=60, selected='selected') 60 секунд
             option(value=90) 90 секунд
-    input(name='submit', type='submit', value='Начать', href='', 'data-href'= '')
+    input(name='submit', type='submit', value='Начать', class= 'basic-button_form', href='', 'data-href'= '')

@@ -17,3 +17,19 @@ $player_ready_color: lawngreen;
 .rooms_content {
     background: $light_font_color;
 }
+
+.plus-button {
+    width: 50px;
+    height: 50px;
+    background-image: url(../../../img/plus.png);
+    background-size: cover;
+    display: inline-block;
+
+    &:hover{
+        filter: drop-shadow(5px 5px 5px #222);
+    }
+}
+
+.popup-content__input {
+    width: 100%;
+}
