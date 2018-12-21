@@ -54,7 +54,7 @@ export default class Multiplayer extends BaseView {
 		});
 
 		// пагинатор комнат
-		const items = {'Игра': 'hash', 'Название': 'title', 'Время хода': 'timelimit', 'Игроков': 'players', 'Мест': 'maxplayers'};
+		const items = {'Игра': 'hash', 'Название': 'title', 'Размер карты': 'mapsize', 'Время хода': 'timelimit', 'Игроков': 'players', 'Мест': 'maxplayers'};
 		const paginator = new Paginator(function(page) {
 			Games.list((err, response) => {
 				if (!err) {
@@ -86,10 +86,10 @@ export default class Multiplayer extends BaseView {
 				if (target.classList.contains('leaders-table__row')) {
 					const gameParams = target.getElementsByClassName('leaders-table__cell');
 					
-					this._gameName = gameParams[1];
-					this._mapSize = 5;	//TODO
-					this._playersCount = gameParams[4];
-					this._time = gameParams[2];
+					this._gameName = gameParams[1].textContent;
+					this._mapSize = gameParams[2].textContent;
+					this._playersCount = gameParams[5].textContent;
+					this._time = gameParams[3].textContent;
 
 					this.roomBlock();
 					this.listenRoomEvents();

@@ -12,10 +12,10 @@ export default class GameView extends BaseView {
 		super();
 		this.ws = ws;
 		this._myNumber = myNumber;
-		this._mapSize = mapSize;
+		this._mapSize = +mapSize;
 		this._players = players;
-		this._playersCount = playersCount;
-		this._unitsCount = unitsCount;
+		this._playersCount = +playersCount;
+		this._unitsCount = +unitsCount;
 		this._stepTime = stepTime;
 		this._mode = mode;
 	}
@@ -37,7 +37,7 @@ export default class GameView extends BaseView {
 		if (this._mode === 'singleplayer') {
 			this._myNumber = -1;
 		}
-		window.game = new Game(controller, this._mapSize, this._playersCount, this._unitsCount, this._myNumber);
+		const game = new Game(controller, this._mapSize, this._playersCount, this._unitsCount, this._myNumber);
 	}
 }
 

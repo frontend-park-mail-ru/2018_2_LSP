@@ -7,12 +7,12 @@ export default class UI {
 
 	resetSelected() {
 		for(let i = 1; i <= this._mapSize * this._mapSize; ++i) {
-			const card = document.getElementById('square-' + i);
+			const card = document.getElementById(`square-${i}`);
 			card.style.opacity = 1;
 			card.classList.remove('game__card_selected');
 		}
 		for(let i = 0; i < this._playersCount; ++i) {
-			const card = document.getElementById('base-square' + i);
+			const card = document.getElementById(`base-square${i}`);
 			card.style.opacity = 1;
 			card.classList.remove('game__card_selected');
 		}
@@ -48,10 +48,15 @@ export default class UI {
 
 	changeCurrentPlayer(id) {
 		for(let i = 0; i < this._playersCount; ++i) {
-			const card = document.getElementById('game__players__block-' + i);
+			const card = document.getElementById(`game__players__block-${i}`);
 			card.classList.remove('game__players__block_selected');
 		}
-		const currentPlayer = document.getElementById('game__players__block-' + id);
+		const currentPlayer = document.getElementById(`game__players__block-${id}`);
 		currentPlayer.classList.add('game__players__block_selected');
+	}
+
+	addPoints(player, points) {
+		const block = document.getElementById(`game__players__block-${player}`);
+		block.getElementsByClassName('game__players__block__score')[0].textContent = points;
 	}
 }

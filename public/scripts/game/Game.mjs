@@ -46,8 +46,9 @@ export default class Game {
 
 		// навешиваем событие переворота карточки
 		for(let i = 1; i <= mapSize * mapSize; ++i) {
-			this.UI.setEventListener('click', 'gamecard-' + i, function() {
-				window.game.pirateStep(this.id);
+			const card = 'gamecard-' + i;
+			this.UI.setEventListener('click', card, () => {
+				this.pirateStep(card);
 			});
 		}
 	
@@ -55,8 +56,9 @@ export default class Game {
 		for (let i = 0; i < this.players.length; i++) {
 			for (let j = 0; j < this.players[i].getPirates().length; j++) {
 				const id = 'pirate-' + i + '-' + j;
-				this.UI.setEventListener('click', id, function() {
-					window.game.playerClick(this.id);
+				this.UI.setEventListener('click', id, () => {
+					console.log(id);
+					this.playerClick(id);
 				});
 			}
 		}
@@ -89,7 +91,7 @@ export default class Game {
 	}
   
 	startTimer() {
-		return window.setTimeout(function() {
+		return window.setTimeout(() => {
 			// this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
 			this.hovered = false;
 			// this.UI.resetSelected();
