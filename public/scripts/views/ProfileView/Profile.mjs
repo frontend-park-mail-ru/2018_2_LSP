@@ -5,6 +5,7 @@ import Block from '../../blocks/Block/Block.mjs';
 import './Profile.scss';
 import Form from '../../blocks/Form/Form.mjs';
 import Errors from '../../services/errors.mjs';
+import PopUpWindow from '../../blocks/PopUpWindow/PopUpWindow.mjs';
 
 export default class Profile extends BaseView {
 	constructor({profile}) {
@@ -28,7 +29,7 @@ export default class Profile extends BaseView {
 			}
 			
 			div.append(avatar);
-			
+
 			const errorLine = new Block('p', ['page-content__error-line'], {'hidden': true});
 
 			const gamesNum = new Block('p');
@@ -147,7 +148,7 @@ export default class Profile extends BaseView {
 				const callback = (err, response) => {
 					if (!err) {
 						errorLine.hide();
-						alert('Данные успешно обновлены.');
+						const infoWindow = new PopUpWindow('Данные успешно обновлены');
 						Router.open('/profile');
 					} else if (err) {
 						errorLine.setText(Errors.getErrorString(response.error));
@@ -163,7 +164,7 @@ export default class Profile extends BaseView {
 							Users.setAvatar(callback, profileData.id, avatarData);							
 						} else {
 							errorLine.hide();
-							alert('Данные успешно обновлены.');
+							const infoWindow = new PopUpWindow('Данные успешно обновлены');
 						}
 					} else {
 						errorLine.setText(Errors.getErrorString(response.error));

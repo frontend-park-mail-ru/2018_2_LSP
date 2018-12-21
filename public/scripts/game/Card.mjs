@@ -1,3 +1,5 @@
+import PopUpWindow from '../blocks/PopUpWindow/PopUpWindow.mjs';
+
 class Card {
 	constructor() {}
 
@@ -23,7 +25,7 @@ export class GoldCard extends Card {
 		if (game.map.getGoldOnTitle(cardID) > 0) {
 			game.map.decreaseGold(cardID);
 			game.players[game.currentPlayer].incScore();
-			alert('Вы нашли сундук! Теперь у вас ' + game.players[game.currentPlayer].getScore() + ' золота!');
+			const infoWindow = new PopUpWindow(`Вы нашли сундук! Теперь у вас ${game.players[game.currentPlayer].getScore()} золота!`);
 		}
 	}
 }
