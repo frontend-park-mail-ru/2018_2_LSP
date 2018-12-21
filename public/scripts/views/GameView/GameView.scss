@@ -19,9 +19,22 @@
 }
 
 .game__square {
-	width: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
-	height: calc(14%); /* Размер карточки. Равняется 100 / кол-во карточек*/
 	position: relative;
+
+	&_5 {
+		width: calc(100%/7);
+		height: calc(100%/7);
+	}
+
+	&_7 {
+		width: calc(100%/9);
+		height: calc(100%/9);
+	}
+
+	&_9 {
+		width: calc(100%/11);
+		height: calc(100%/11);
+	}
 }
 
 .game__card {

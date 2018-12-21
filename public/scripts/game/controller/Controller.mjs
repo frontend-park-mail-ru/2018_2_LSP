@@ -26,4 +26,8 @@ export default class Controler {
 	listenGameEvents() {
 		
 	}
+
+	getCardType() {
+		
+	}
 }

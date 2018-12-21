@@ -20,19 +20,20 @@ export default class Game {
 	 * @param {number} playersCount количество игроков (2 или 4)
 	 * @param {number} pirateCount количество фишек на игрока
 	 */
-	constructor(controller, mapSize, playersCount, pirateCount) {
+	constructor(controller, mapSize, playersCount, pirateCount, myPlayer = -1) {
 		this._gameController = controller;
 
-		this.map = this._gameController.createMap();	// создание карты
+		this.map = this._gameController.createMap(mapSize);	// создание карты
 
+		this.myPlayer = myPlayer;
 		this.currentPlayer = -1;
 		this.playersCount = playersCount;
 		
 		this.timeOut = this.startTimer();
 		this.totalGoldCount = this.map.getTotalGoldCount();
-		this.currentSelectedPirate = -1; // TODO убрать ???
+		this.currentSelectedPirate = 0; // TODO убрать ???
 
-		this.hovered = false;	//???
+		this.hovered = false;
 
 		this.players = Array(playersCount);
 		for(let i = 0; i < playersCount; i++) {
@@ -45,7 +46,7 @@ export default class Game {
 		// навешиваем событие переворота карточки
 		for(let i = 1; i <= mapSize * mapSize; ++i) {
 			this.UI.setEventListener('click', 'gamecard-' + i, function() {
-				window.game.flipCard(this.id);
+				window.game.pirateStep(this.id);
 			});
 		}
 	
@@ -61,7 +62,14 @@ export default class Game {
 
 		Bus.on('game-step', (current) => {
 			this.currentPlayer = current;
-			this._selectPirates(this.currentPlayer);
+			this.UI.changeCurrentPlayer(this.currentPlayer);
+			if (this.myPlayer === -1 || this.currentPlayer === this.myPlayer) {
+				this._selectPirates(this.currentPlayer);
+			}
+		});
+
+		Bus.on('game-pirate-go', (data) => {
+			this.moveUnit(data['playerID'], data['pirateID'], data['cardID']);
 		});
 
 		Bus.emit('game-ready', {});
@@ -81,7 +89,7 @@ export default class Game {
   
 	startTimer() {
 		return window.setTimeout(function() {
-			this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
+			// this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
 			this.hovered = false;
 			// this.UI.resetSelected();
 			alert('Время вашего хода истекло');
@@ -93,7 +101,7 @@ export default class Game {
 	 * @param {string} id id пирата на которого нажали
 	 */
 	playerClick(id) {
-		if (this._getPlayerNumber(id) != this.currentPlayer) {
+		if (this._getPlayerNumber(id) != this.currentPlayer || (this.myPlayer !== -1 && this.currentPlayer !== this.myPlayer)) {
 			return;
 		}
 		this.UI.resetSelected();
@@ -120,7 +128,7 @@ export default class Game {
 	 * Обработка нажатия на карточку
 	 * @param {string} id id нажатой карточки
 	 */
-	flipCard(id) {
+	pirateStep(id) {
 		if (!this.hovered) {
 			return false;
 		}
@@ -132,30 +140,10 @@ export default class Game {
 		}
 	
 		window.clearTimeout(this.timeOut);
+		this.moveUnit(this.currentPlayer, this.currentSelectedPirate, cardID);
 
-		this.players[this.currentPlayer].getPirate(this.currentSelectedPirate).setCard('square-' + this.getCardNumber(id));
 
-		const pirate = `pirate-${this.currentPlayer}-${this.currentSelectedPirate}`;
-		this.UI.moveToCard(pirate, `square-${cardID}`);
 		this.UI.resetSelected();
-	
-		const cardType = this.map.getCardType(cardID);
-		const cardObject = CardBuilder.build(cardType);
-		cardObject.apply(this);
-	
-		const card = document.getElementById(id);
-		switch (cardType) {
-		case CARDTYPES.GOLD:
-			card.getElementsByTagName('img')[0].src = 'img/gold.png';
-			break;
-		case CARDTYPES.KILL:
-			card.getElementsByTagName('img')[0].src = 'img/kill.png';
-			break;
-		default:
-			card.getElementsByTagName('img')[0].src = 'img/water.png';
-			break;
-		}
-		card.classList.add('flip');
 
 		if (this.checkForWin()) {
 			if (this.done === undefined) {
@@ -183,10 +171,9 @@ export default class Game {
 	}
 
 	_passStep(pirate, card) {
-		this.currentPlayer = -1;
+		// this.currentPlayer = -1;
 		Bus.emit('game-pass-step', {'pirate': '' + pirate, 'card': '' + (card-1)});
 
-		// this.UI.changeCurrentPlayer(this.currentPlayer);		
 		this.timeOut = this.startTimer();
 	}
 
@@ -197,5 +184,34 @@ export default class Game {
 			currentPiratesCards.push(pirateOfPlayer.getCard());
 		});
 		this.UI.selectCards(currentPiratesCards);
+	}
+
+	moveUnit(playerID, pirateID, cardID) {
+		this.players[playerID].getPirate(pirateID).setCard('square-' + cardID);
+
+		const pirate = `pirate-${playerID}-${pirateID}`;
+		this.UI.moveToCard(pirate, `square-${cardID}`);
+	
+		this.flipCard(cardID);
+	}
+
+	flipCard(cardID) {
+		const cardType = this._gameController.getCardType(cardID);
+		const cardObject = CardBuilder.build(cardType);
+		cardObject.apply(this);
+
+		const card = document.getElementById('gamecard-' + cardID);
+		switch (cardType) {
+		case CARDTYPES.GOLD:
+			card.getElementsByTagName('img')[0].src = 'img/gold.png';
+			break;
+		case CARDTYPES.KILL:
+			card.getElementsByTagName('img')[0].src = 'img/kill.png';
+			break;
+		default:
+			card.getElementsByTagName('img')[0].src = 'img/water.png';
+			break;
+		}
+		card.classList.add('flip');
 	}
 }
