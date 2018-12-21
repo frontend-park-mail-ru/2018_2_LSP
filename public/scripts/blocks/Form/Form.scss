@@ -4,10 +4,20 @@ $button_border: #262322;
     &__input {
         font-size: 28px;
         margin: auto;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         border: 1px solid black;
         border-radius: 10px;
         padding-left: 8px;
+
+        &:focus{
+            outline: none;
+        }
+    }
+
+    &__select {
+        font-size: 28px;
+        margin: auto;
+        margin-bottom: 30px;
 
         &:focus{
             outline: none;

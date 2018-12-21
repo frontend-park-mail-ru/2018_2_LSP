@@ -14,11 +14,10 @@ $cross_hover_color: #B80C09;
 .popup {
     margin: 70px auto;
     padding: 20px;
-    background: #fff;
+    background: #F3CFA8;
     border-radius: 5px;
     width: 20%;
     position: relative;
-    transition: all 5s ease-in-out;
 
     &__close {
         position: absolute;
@@ -29,16 +28,16 @@ $cross_hover_color: #B80C09;
         font-weight: bold;
         text-decoration: none;
         color: #333;
+        cursor: pointer;
 
         &:hover {
             color: $cross_hover_color;
         }
       }
 
-    &__content {
+    &-content {
         text-align: center;
         font-size: 25px;
-        max-height: 30%;
       }
   }
   

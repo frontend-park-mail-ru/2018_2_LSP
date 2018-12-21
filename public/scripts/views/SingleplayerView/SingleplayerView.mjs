@@ -1,6 +1,8 @@
 import BaseView from '../BaseView/BaseView.mjs';
 import addForm from './addForm.pug';
 import GameView from '../GameView/GameView.mjs';
+import Block from '../../blocks/Block/Block.mjs';
+import './Singleplayer.scss';
 
 export default class Singleplayer extends BaseView {
 	constructor(){
@@ -8,7 +10,9 @@ export default class Singleplayer extends BaseView {
 	}
 
 	render() {
-		this.pageContent.insertAdjacentHTML('beforeend', addForm());
+		const singleplayerDiv = new Block('div', ['game-settings']);
+		singleplayerDiv.getElement().insertAdjacentHTML('beforeend', addForm());
+		this.pageContent.appendChild(singleplayerDiv.getElement());
 		const addRoomForm = document.getElementById('add_room');
 
 		addRoomForm.addEventListener('submit', (event) => {
