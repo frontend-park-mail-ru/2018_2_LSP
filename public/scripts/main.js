@@ -68,7 +68,7 @@ Bus.on('user:logged-out', () => {
     
 	Users.logout((err, response) => {
 		if (err) {
-			alert(response.error);
+			console.log(response.error);
 		}
 	});
 });

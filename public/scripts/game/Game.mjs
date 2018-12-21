@@ -2,6 +2,7 @@ import CardBuilder from './CardBuilder.mjs';
 import Player from './Player.mjs';
 import UI from './UI.mjs';
 import Bus from './gameBus.mjs';
+import PopUpWindow from '../blocks/PopUpWindow/PopUpWindow.mjs';
 
 let CARDTYPES = {};
 CARDTYPES.DEFAULT = 0;
@@ -84,7 +85,7 @@ export default class Game {
 			this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
 			this.hovered = false;
 			// this.UI.resetSelected();
-			alert('Время вашего хода истекло');
+			const infoWindow = new PopUpWindow('Время вашего хода истекло');
 		}, 30000);
 	}
 
@@ -158,8 +159,8 @@ export default class Game {
 		card.classList.add('flip');
 
 		if (this.checkForWin()) {
-			if (this.done === undefined) {
-				alert('Игрок ' + this.currentPlayer + ' выиграл! Вы можете продолжать игру (тестовый режим).');
+			if (this.done === undefined) {				
+				const infoWindow = new PopUpWindow(`Игрок ${this.currentPlayer} выиграл! Вы можете продолжать игру (тестовый режим).`);
 				this.done = true;
 			}
 		}
