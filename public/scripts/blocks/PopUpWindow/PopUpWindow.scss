@@ -1,0 +1,48 @@
+$cross_hover_color: #B80C09;
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    opacity: 1;
+  }
+  
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #F3CFA8;
+    border-radius: 5px;
+    width: 20%;
+    position: relative;
+
+    &__close {
+        position: absolute;
+        top: 0px;
+        right: 20px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+        cursor: pointer;
+
+        &:hover {
+            color: $cross_hover_color;
+        }
+      }
+
+    &-content {
+        text-align: center;
+        font-size: 25px;
+      }
+  }
+  
+@media screen and (max-width: 700px){
+    .popup {
+        width: 70%;
+    }
+}

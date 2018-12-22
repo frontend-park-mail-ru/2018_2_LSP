@@ -1,4 +1,71 @@
-.page-content__landing-button {
+$button_border: #262322;
+$button_bg: #B80C09;
+$button_shadow: rgba(0,0,0,0.23);
+
+@import url('https://fonts.googleapis.com/css?family=Lakki+Reddy');
+
+.basic-button_landing {
     display: inline-block;
-    width: 250px;
+
+    @media (min-width: 1400px) {
+        width: 250px;
+        margin-bottom: 25px;
+    }
+
+    @media (max-width: 1399px) {
+        font-size: 30px;
+        width: 150px;
+        margin-bottom: 15px;     
+    }
+    
+    background-color: $button_bg;
+    color: white;
+    font-size: 40px;
+    border: solid 2px $button_border;
+    padding: 10px 8px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px $button_shadow;
+    
+    &:hover {
+        box-shadow: 10px 10px 5px $button_shadow;
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+}
+
+.page-content__landing-title {
+    @media (min-width: 1400px) {
+         font-size: 150px;
+         margin-bottom: 0px;
+    }
+
+    @media (min-width: 700px) and (max-width: 1399px) {
+         font-size: 120px;
+         margin-bottom: -15px;          
+    }
+
+    @media (max-width: 699px) {
+        font-size: 100px;
+        margin-bottom: 10px;          
+   }
+
+    font-family: 'Lakki Reddy', cursive;
+    color: black;
+}
+
+.page-content__landing-img {
+    margin-top: -100px;
+    
+    @media (min-width: 1400px) {
+        margin-bottom: -80px;
+    }
+
+    @media (max-width: 1399px) {
+        width: 270px;
+        margin-bottom: -60px;         
+    }
+
+    filter: drop-shadow(5px 5px 5px #222); 
 }

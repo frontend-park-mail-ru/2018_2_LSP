@@ -1,66 +1,105 @@
-$text_color: brown;
-$error_line_bgcolor: brown;
+$text_color: black;
+$error_line_bgcolor: #A7333F;
 $error_text_color: white;
 
-@import '../scripts/blocks/Form/Form.scss';
-@import '../scripts/blocks/Button/Button.scss';
-@import '../scripts/blocks/Table/Table.scss';
-@import '../scripts/views/LandingView/Landing.scss';
-@import '../scripts/views/MenuView/MenuView.scss';
-@import '../scripts/views/GameView/GameView.scss';
 @import './normalize.css';
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
 
 @viewport {
     width: device-width;
 }
 
+.application {
+    display: grid;
+    grid-template-rows: 60px 1fr 60px;
+
+    @media(min-width: 813px) {
+        grid-template-columns: 100px 1fr 100px;
+        height: 100%;
+        width: 100%;
+    }
+
+    @media(min-width: 481px) and (max-width: 812px){
+        grid-template-columns: 100px 1fr 100px;
+        height: 100%;
+        width: 100%;
+    }
+
+    @media(min-width: 481px) and (max-width: 812px) and (orientation: landscape) {
+        grid-template-columns: 100px 1fr 100px;
+        height: 135%;
+        width: 135%;
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 60px 1fr 60px;        
+        height: 135%;
+        width: 135%;
+    }
+
+    font-family: 'PT Sans', sans-serif;  
+    font-weight: bold;
+
+    grid-template-areas: 
+        'header1 header1 header1'
+        '. main .'
+        'footer . .'
+}
+
+.header {
+    grid-area: header1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+
+    &__right-item {
+        grid-column: 2/3;
+        justify-self: end;
+    }
+
+    &__left-item {
+        grid-column: 1/2;
+    }
+}
+
 .main-section {
-    height: 200px;
-    width: 400px;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    font-size: 30px;
-    text-align: center;
-    transform: translate(-50%, -50%);
+    grid-area: main;
+    display: grid;
+    align-self: center;
+    font-size: 30px;    
 
     &__title {
-        @media (min-width: 350px) {
-            font-size: 54px;
+        text-align: center;
+
+        @media (min-width: 813px) {
+            font-size: 80px;            
         }
 
-        @media (max-width: 350px) {
-            font-size: 45px;
+        @media (max-width: 812px) {
+            font-size: 60px;
         }
-        color:$text_color;
+        color: $text_color;
+        margin-bottom: 30px;      
     }
 }
 
 .page-content {
+    text-align: center;
     &__error-line {
         background-color:$error_line_bgcolor;
         color: $error_text_color;
-        font-size: 20px;   
+        font-size: 20px;
+        margin-top: 7vh; 
     }
 }
 
-.grid {
-    display: grid;
-    grid-template: 100px auto 100px / 200px 1fr 200px;
-
-    &-item {
-        padding: 5px;
-        border: 1px solid red;
-    }
-}
-
-body {
-	background: url(../img/water.png)
+html {
+    background: url(../img/oldpaper.jpg) no-repeat center center fixed;
+    background-size: cover;
 }
 
 .page-footer {
-    position: absolute;
-    bottom: 10;
+    grid-area: footer;
 }
 
 .input-field {
@@ -70,7 +109,7 @@ body {
 
 .message {
     background-color: aquamarine;
-    border: solid 1px $button_border;
+    border: solid 1px gray;
     border-radius: 10px;
     padding: 8px 5px;
     text-align: center;

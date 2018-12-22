@@ -7,12 +7,8 @@ export default class ChatsView extends BaseView {
 	}
 
 	render() {
-		const popUpIframe = document.getElementById('popUpIframe');
-		if(!popUpIframe.hidden) {
-			popUpIframe.hidden = true;
-		}
-
-		const frame = new Block('iframe', [], {'src': '/chatsframe'});
-		this.pageContent.appendChild(frame.getElement());
+		const p = new Block('p');
+		p.setText('Скоро появятся!');
+		this.pageContent.appendChild(p.getElement());
 	}
 }

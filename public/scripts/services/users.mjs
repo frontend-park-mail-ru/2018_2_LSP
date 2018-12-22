@@ -1,5 +1,4 @@
 import Http from '../modules/http.mjs';
-import jwtDecode from 'jwt-decode';
 
 const path = 'https://jackal.online/api'; 
 
@@ -14,15 +13,14 @@ export default class Users {
 	 * @param data 
 	 */
 	static auth(callback, data = {}) {
-		Http.Post(callback, path + '/session', data);		
+		Http.Post(callback, `${path}/session`, data);		
 	}
 
 	static logout(callback) {
-		Http.Get(callback, path + '/logout');
-		Http.Delete(callback, path +'/session');
+		Http.Delete(callback, `${path}/session`);
+		this.user = '';
 		const date = new Date(0);
 		document.cookie = 'name=; path=/; expires=' + date.toUTCString();
-		// TODO удаление из кэша
 	}
 
 	/**
@@ -31,7 +29,7 @@ export default class Users {
 	 * @param data 
 	 */
 	static register(callback, data = {}) {
-		Http.Post(callback, path + '/users', data);
+		Http.Post(callback,`${path}/users`, data);
 	}
 
 	/**
@@ -57,11 +55,30 @@ export default class Users {
 			this.user = user;
 			return callback(null, user);
 		}.bind(this);
+		
+		Http.Get(call, `${path}/me?fields=id,username,email,firstname,lastname,totalscore,avatar,totalgames`);
+	}
 
-		let payload = jwtDecode(this._cookieParser('header.payload'))['id'];
-		if (payload) {
-			Http.Get(call, path + '/users/' + payload + '?fields=username,email,firstname,lastname,rating,avatar,totalgames');
-		} 
+	/**
+	 * Обновление данных профиля пользователя
+	 * @param {Function} callback функция-коллбек
+	 * @param id ID пользователя
+	 * @param {Object} data 
+	 */
+	static updateInfo(callback, id, data = {}) {
+		Http.Put(callback,`${path}/users/${id}`, data);
+		this.user = '';
+	}
+
+	/**
+	 * Загрузка аватарки пользователя
+	 * @param {Function} callback функция-коллбек
+	 * @param id ID пользователя
+	 * @param {FormData} data 
+	 */
+	static setAvatar(callback, id, data = {}) {
+		Http.Post(callback,`${path}/users/${id}`, data);	
+		this.user = '';
 	}
 
 	/**
@@ -70,7 +87,7 @@ export default class Users {
 	 * @param {Object} data 
 	 */
 	static leaders(callback, data = {}) {
-		const query = path + '/users?page=' + data.page + '&fields=username,rating,totalgames&orderby=rating';
+		const query = `${path}/users?page=${data.page}&fields=username,totalscore,totalgames&orderby=totalscore`;
 		const call = function(err, users) {
 			if (err) {
 				return callback(err, users);

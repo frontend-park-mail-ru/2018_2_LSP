@@ -1,6 +1,5 @@
 import header from '../../blocks/PageParts/header.pug';
-import footer from '../../blocks/PageParts/footer.pug';
-import iframe from '../../blocks/PageParts/iframe.pug';
+import Block from '../../blocks/Block/Block.mjs';
 import baseView from '../BaseView/baseView.pug';
 import baseContent from '../BaseView/baseContent.pug';
 
@@ -10,7 +9,7 @@ export default class BaseView {
 		this.mainSection = document.getElementsByClassName('main-section')[0];
 
 		if (this.mainSection) {
-			const backButton = document.getElementsByClassName('basic-button_back');
+			const backButton = document.getElementsByClassName('header__left-item');
 			backButton[0].hidden = false;
 			const contentView = baseContent({'title': title});
 			this.mainSection.insertAdjacentHTML('beforeend', contentView);
@@ -24,22 +23,8 @@ export default class BaseView {
 			navigationPart[0].innerHTML = '';
 			navigationPart[0].insertAdjacentHTML('beforeend', menuHeader);
 
-			const pageFooter = footer();
-			application.insertAdjacentHTML('beforeend', pageFooter);
-
-			const callFrameButton = document.getElementById('callFrameButton');
-			callFrameButton.onclick = function() {
-				const iframe = document.getElementsByTagName('iframe');
-				if(iframe[0].hidden) {
-					iframe[0].hidden = false;
-				} else {
-					iframe[0].hidden = true;
-				}
-			};
-			
-			const footerTag = document.getElementsByTagName('footer');
-			const iframeChat = iframe();
-			footerTag[0].insertAdjacentHTML('beforeend', iframeChat);
+			const footer = new Block('footer',['page-footer']);
+			application.appendChild(footer.getElement());
 		}
 		
 		this.pageContent = document.getElementById('content');

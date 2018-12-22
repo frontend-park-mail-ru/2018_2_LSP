@@ -1,5 +1,6 @@
 import Block from '../Block/Block.mjs';
 import Bus from '../../modules/eventBus.mjs';
+import './Table.scss';
 
 export default class Table extends Block {
 	/**
@@ -8,9 +9,10 @@ export default class Table extends Block {
      * @param page номер страницы
      * @param callback функция-коллбек получения i-ой страницы (аргумент - номер страницы)
      */
-	constructor(fields = {}, tableClass = [], components = []) {
+	constructor(fields = {}, tableClass = [], components = [], onclick) {
 		super('table', tableClass);
 		this._fields = fields;
+		this._onclick = onclick;
 
 		// thead
 		const trhead = new Block('tr', ['leaders-table__header']);
@@ -24,7 +26,6 @@ export default class Table extends Block {
 		// tfoot
 		const trfoot = new Block('tr', ['leaders-table__footer']);
 		const thfoot = new Block('th', [], {'colspan': Object.keys(this._fields).length});
-		// const paginator = new Paginator(callback);
 		components.forEach(component => {	// добавление компонентов
 			thfoot.append(component);
 		});
@@ -53,6 +54,7 @@ export default class Table extends Block {
 				th.textContent = item[this._fields[header]];
 				tr.appendChild(th);
 			}
+			tr.addEventListener('click', this._onclick);
 			this._tbody.getElement().appendChild(tr);
 		});
 	}

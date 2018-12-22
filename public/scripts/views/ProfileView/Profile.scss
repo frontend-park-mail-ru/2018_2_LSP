@@ -1,0 +1,22 @@
+.basic-form__label {
+    width: 160px;
+    font-size: 25px;
+    float: left;
+    text-align: left;
+    margin-right: 40px;
+}
+
+.avatar {
+    float: left;
+    height: 150px;
+    margin-bottom: 1vh;
+}
+
+.profile {
+    display: grid;
+    justify-content: center;
+}
+
+.basic-form__input_avatar {
+    border: none !important;
+}

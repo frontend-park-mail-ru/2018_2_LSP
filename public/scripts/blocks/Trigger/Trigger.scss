@@ -1,0 +1,15 @@
+$button_hover_bg: #B80C09;
+$button_hover_text_color: hsl(0, 0%, 100%);
+$button_outline_color: #E7EB90;
+
+.trigger {
+    padding: 5px 10px;
+    width: 50px;
+
+    &_hovered {
+        background-color: $button_hover_bg !important;
+        color: $button_hover_text_color;
+        outline: solid 5px $button_outline_color;
+        outline-offset: -5px;
+    }
+}

@@ -52,37 +52,43 @@ export default class Map {
 
 	getMoveableCards(cardID) {	// получить массив игровых карт на которые можно попасть
 		let cards = [];
-		if (cardID === 'base-0') {
+		if (cardID === 'base-square0') {
 			let temp = Math.ceil(this.size/2);
-			cards = [temp-1, temp, temp+1];
-		} else if (cardID === 'base-1') {
+			cards = ['square-' + (temp-1), 'square-' + (temp), 'square-' + (temp+1)];
+		} else if (cardID === 'base-square1') {
 			let temp = this.size*this.size - Math.floor(this.size/2);
-			cards = [temp-1, temp, temp+1];
+			cards = ['square-' + (temp-1), 'square-' + (temp), 'square-' + (temp+1)];
+		} else if (cardID === 'base-square2') {
+			let temp = this.size*(Math.floor(this.size/2)) + 1;
+			cards = ['square-' + (temp-this.size), 'square-' + (temp), 'square-' + (temp+this.size)];
+		} else if (cardID === 'base-square3') {
+			let temp = this.size*(Math.floor(this.size/2) + 1);
+			cards = ['square-' + (temp-this.size), 'square-' + (temp), 'square-' + (temp+this.size)];
 		} else {
 			cardID = Number(this.getCardNumber(cardID));
 			if ((cardID + 1) % this.size != 1) {
-				cards.push(cardID + 1);
+				cards.push('square-' + (cardID + 1));
 			}
 			if ((cardID - 1) % this.size != 0) {
-				cards.push(cardID - 1);
+				cards.push('square-' + (cardID - 1));
 			}
-			if (cardID - 5 >= 1) {
-				cards.push(cardID - 5);
+			if (cardID - this.size >= 1) {
+				cards.push('square-' + (cardID - this.size));
 			}
-			if (cardID - 6 >= 1 && (cardID - 6) % this.size != 0) {
-				cards.push(cardID - 6);
+			if (cardID - (this.size+1) >= 1 && (cardID - (this.size+1)) % this.size != 0) {
+				cards.push('square-' + (cardID - (this.size+1)));
 			}
-			if (cardID - 4 >= 1 && (cardID - 4) % this.size != 1) {
-				cards.push(cardID - 4);
+			if (cardID - (this.size-1) >= 1 && (cardID - (this.size-1)) % this.size != 1) {
+				cards.push('square-' + (cardID - (this.size-1)));
 			}
-			if (cardID + 5 <= this.size * this.size) {
-				cards.push(cardID + 5);
+			if (cardID + this.size <= this.size * this.size) {
+				cards.push('square-' + (cardID + this.size));
 			}
-			if (cardID + 6 <= this.size * this.size  && (cardID + 6) % this.size != 1) {
-				cards.push(cardID + 6);
+			if (cardID + (this.size+1) <= this.size * this.size  && (cardID + (this.size+1)) % this.size != 1) {
+				cards.push('square-' + (cardID + (this.size+1)));
 			}
-			if (cardID + 4 <= this.size * this.size  && (cardID + 4) % this.size != 0) {
-				cards.push(cardID + 4);
+			if (cardID + (this.size-1) <= this.size * this.size  && (cardID + (this.size-1)) % this.size != 0) {
+				cards.push('square-' + (cardID + (this.size-1)));
 			}
 		}
 		return cards;
