@@ -30,30 +30,6 @@ export default class Multiplayer extends BaseView {
 	}
 
 	render() {
-		// форма создания комнаты
-		this.pageContent.insertAdjacentHTML('beforeend', addForm());
-		const addRoomForm = document.getElementById('add_room');
-		addRoomForm.setAttribute('hidden', true);
-
-		addRoomForm.addEventListener('submit', (event) => {
-			event.preventDefault();
-			const formdata = {};
-			const elements = addRoomForm.elements;
-			for (let element in elements) {
-				formdata[elements[element].name] = elements[element].value;
-			}
-			this._gameName = formdata['name'];
-			this._mapSize = formdata['size'];
-			this._playersCount = formdata['players'];
-			this._time = formdata['time'];
-
-			addRoomForm.setAttribute('hidden', true);
-
-			this.roomBlock();
-			this.listenRoomEvents();
-			this.ws = new Socket(`/games/create?title=${this._gameName}&players=${this._playersCount}&timelimit=${this._time}&size=${this._mapSize}`, 'game');	
-		});
-
 		// пагинатор комнат
 		const items = {'Игра': 'hash', 'Название': 'title', 'Размер карты': 'mapsize', 'Время хода': 'timelimit', 'Игроков': 'players', 'Мест': 'maxplayers'};
 		const paginator = new Paginator(function(page) {
@@ -100,7 +76,7 @@ export default class Multiplayer extends BaseView {
 
 				this.roomBlock();
 				this.listenRoomEvents();
-				this.ws = new Socket(`/games/create?title=${this._gameName}&players=${this._playersCount}`, 'game');	
+				this.ws = new Socket(`/games/create?title=${this._gameName}&players=${this._playersCount}&timelimit=${this._time}&size=${this._mapSize}`, 'game');	
 			});
 		}, ['plus-button']);
 

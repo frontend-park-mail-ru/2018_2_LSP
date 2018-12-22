@@ -21,17 +21,10 @@ export default class GameView extends BaseView {
 	}
 
 	render() {
+		const mainSection = document.getElementsByClassName('main-section');
+		mainSection[0].insertAdjacentHTML('beforeend', gameMap({'size': this._mapSize, 'players': this._playersCount, 'units': this._unitsCount}));
 		const gameSection = document.getElementsByClassName('game');
-		if (gameSection.length != 0) {
-			gameSection[0].insertAdjacentHTML('beforeend', gameMap({'size': this._mapSize, 'players': this._playersCount, 'units': this._unitsCount}));
-			gameSection[0].insertAdjacentHTML('beforeend', gamePlayers({'names': this._players}));
-			// gameSection[0].insertAdjacentHTML('beforeend', gameTimer());
-		} else {
-			const application = document.getElementById('application');			
-			application.insertAdjacentHTML('beforeend', gameMap({'size': this._mapSize, 'players': this._playersCount, 'units': this._unitsCount}));
-			application.insertAdjacentHTML('beforeend', gamePlayers({'names': this._players}));
-			// application.insertAdjacentHTML('beforeend', gameTimer());
-		}
+		gameSection[0].insertAdjacentHTML('beforeend', gamePlayers({'names': this._players}));
 
 		const controller = (this._mode === 'multiplayer') ? new Multiplayer(this._players, this._myNumber, this.ws) : new Singleplayer(this._players);
 		if (this._mode === 'singleplayer') {
@@ -40,13 +33,3 @@ export default class GameView extends BaseView {
 		const game = new Game(controller, this._mapSize, this._playersCount, this._unitsCount, this._myNumber);
 	}
 }
-
-
-      
-
-    
-
-
-
-
-  

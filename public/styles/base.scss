@@ -66,10 +66,11 @@ $error_text_color: white;
     grid-area: main;
     display: grid;
     align-self: center;
-    font-size: 30px;
-    text-align: center;
+    font-size: 30px;    
 
     &__title {
+        text-align: center;
+
         @media (min-width: 813px) {
             font-size: 80px;            
         }
@@ -78,11 +79,12 @@ $error_text_color: white;
             font-size: 60px;
         }
         color: $text_color;
-        margin-bottom: 30px;        
+        margin-bottom: 30px;      
     }
 }
 
 .page-content {
+    text-align: center;
     &__error-line {
         background-color:$error_line_bgcolor;
         color: $error_text_color;

@@ -28,6 +28,10 @@ $player_ready_color: lawngreen;
     &:hover{
         filter: drop-shadow(5px 5px 5px #222);
     }
+
+    &:active {
+        transform: scale(0.9);
+    }
 }
 
 .popup-content__input {
