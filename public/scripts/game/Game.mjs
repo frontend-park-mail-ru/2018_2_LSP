@@ -57,7 +57,6 @@ export default class Game {
 			for (let j = 0; j < this.players[i].getPirates().length; j++) {
 				const id = 'pirate-' + i + '-' + j;
 				this.UI.setEventListener('click', id, () => {
-					console.log(id);
 					this.playerClick(id);
 				});
 			}

@@ -165,7 +165,6 @@ export default class Multiplayer extends BaseView {
 		const mainSection = document.getElementsByClassName('main-section')[0];
 		mainSection.innerHTML = '';
 		Users.profile((err, response) => {
-			console.log(response);
 			this.myNumber = this._players.indexOf(response['username']);
 			const gameView = new GameView('multiplayer', this._mapSize, this._players, this._playersCount, units, this._time, this.myNumber, this.ws);
 			gameView.render();

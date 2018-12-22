@@ -66,11 +66,7 @@ Bus.on('user:logged-out', () => {
 		backButton[0].hidden = true;
 	}
     
-	Users.logout((err, response) => {
-		if (err) {
-			console.log(response.error);
-		}
-	});
+	Users.logout();
 });
 
 Bus.on('Call iframe', () => {         
