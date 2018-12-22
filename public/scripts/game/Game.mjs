@@ -161,7 +161,7 @@ export default class Game {
 
 	_passStep(pirate, card) {
 		Bus.emit('game-pass-step', {'pirate': '' + pirate, 'card': '' + (card-1)});
-		this.timeOut = this.startTimer();
+		//this.timeOut = this.startTimer();
 	}
 
 	_selectPirates(current) {
