@@ -83,19 +83,30 @@ export default class Game {
 		});
 
 		Bus.on('game-end', () => {
-			const winMessage = new PopUpWindow('У нас есть победитель!');
+			let winner = undefined;
+			let maxScore = 0;
+			let myScore = 0;
+			for (let i = 0; i < this.players.length; i++) {
+				const currentScore = this.players[i].getScore();
+				if (i === this.myPlayer) {
+					myScore = currentScore;
+				}
+				if (currentScore === maxScore) {
+					winner = undefined;
+				}
+				if (currentScore > maxScore) {
+					maxScore = currentScore;
+					winner = i;
+				}
+			}
+
+			if (winner !== undefined) {
+				const winMessage = new PopUpWindow(`У нас есть победитель! Поздравляем ${this.UI.getPlayerName(winner)}!`);
+			} else {
+				const winMessage = new PopUpWindow('Ничья!');
+			}
 		});
 	}
-  
-	// startTimer() {
-	// 	let timeOut = setTimeout(function(){
-	// 		// this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
-	// 		this.hovered = false;
-	// 		// this.UI.resetSelected();
-	// 		const infoWindow = new PopUpWindow('Время вашего хода истекло');
-	// 	}, 30000);
-	// 	return timeOut;
-	// }
 
 	/**
 	 * Обработка нажатия на пирата

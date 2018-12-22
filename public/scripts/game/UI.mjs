@@ -59,4 +59,9 @@ export default class UI {
 		const block = document.getElementById(`game__players__block-${player}`);
 		block.getElementsByClassName('game__players__block__score')[0].textContent = points;
 	}
+
+	getPlayerName(player) {
+		const block = document.getElementById(`game__players__block-${player}`);
+		return block.getElementsByClassName('game__players__block__name')[0].textContent;
+	}
 }

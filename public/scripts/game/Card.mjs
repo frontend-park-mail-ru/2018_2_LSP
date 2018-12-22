@@ -1,5 +1,3 @@
-import PopUpWindow from '../blocks/PopUpWindow/PopUpWindow.mjs';
-
 class Card {
 	constructor() {}
 
@@ -24,7 +22,6 @@ export class GoldCard extends Card {
 		const cardID = game.getCardNumber(id);
 		if (game.map.getGoldOnTitle(cardID) > 0) {
 			game.map.decreaseGold(cardID);
-			const score = game.players[game.currentPlayer].getScore();
 		}
 	}
 }
@@ -37,6 +34,5 @@ export class KillCard extends Card {
 	apply(game) {
 		game.UI.moveToCard('pirate-' + game.currentPlayer + '-' + game.currentSelectedPirate, 'base-square' + game.currentPlayer);
 		game.players[game.currentPlayer].getPirate(game.currentSelectedPirate).setCard('base-square' + game.currentPlayer);
-		const infoWindow = new PopUpWindow('Вы налетели на скалу=( Придется отправится на базу для ремонта...');
 	}
 }

@@ -48,6 +48,11 @@ export default class Multiplayer extends BaseView {
 
 		// кнопка создания новой комнаты
 		const addRoomButton = new Item('', () => {
+			Users.profile((err, response) => {
+				if (err) {
+					Router.open('/signin');
+				}
+			});
 			// форма создания комнаты	
 			application.insertAdjacentHTML('beforeend', addForm());
 			const popup1 = document.getElementById('popup1');
