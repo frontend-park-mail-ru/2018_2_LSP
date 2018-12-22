@@ -31,7 +31,7 @@ export default class Game {
 		this.currentPlayer = -1;
 		this.playersCount = playersCount;
 		
-		this.timeOut = this.startTimer();
+		// this.timeOut = this.startTimer();
 		this.totalGoldCount = this.map.getTotalGoldCount();
 		this.currentSelectedPirate = 0; // TODO убрать ???
 
@@ -87,15 +87,15 @@ export default class Game {
 		});
 	}
   
-	startTimer() {
-		let timeOut = setTimeout(function(){
-			// this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
-			this.hovered = false;
-			// this.UI.resetSelected();
-			const infoWindow = new PopUpWindow('Время вашего хода истекло');
-		}, 30000);
-		return timeOut;
-	}
+	// startTimer() {
+	// 	let timeOut = setTimeout(function(){
+	// 		// this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
+	// 		this.hovered = false;
+	// 		// this.UI.resetSelected();
+	// 		const infoWindow = new PopUpWindow('Время вашего хода истекло');
+	// 	}, 30000);
+	// 	return timeOut;
+	// }
 
 	/**
 	 * Обработка нажатия на пирата

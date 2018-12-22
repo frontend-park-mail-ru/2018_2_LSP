@@ -47,7 +47,7 @@ export default class Multiplayer extends BaseView {
 		});
 
 		// кнопка создания новой комнаты
-		const addRoomButton = new Item('', function() {
+		const addRoomButton = new Item('', () => {
 			// форма создания комнаты	
 			application.insertAdjacentHTML('beforeend', addForm());
 			const popup1 = document.getElementById('popup1');
@@ -166,6 +166,7 @@ export default class Multiplayer extends BaseView {
 	}
 
 	roomBlock() {
+		this.pageContent.innerHTML = '';
 		this.roomPlayers = new Block('div');
 		this.pageContent.appendChild(this.roomPlayers.getElement());
 		this.playersBlock();

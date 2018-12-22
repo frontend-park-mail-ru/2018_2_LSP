@@ -107,7 +107,12 @@
 	}
 
 	&_selected {
-		img {
+		.game__card_front-face {
+			outline: solid 8px lawngreen;
+			outline-offset: -8px;
+		}
+		
+		.game__card_back-face {
 			outline: solid 8px lawngreen;
 			outline-offset: -8px;
 		}
