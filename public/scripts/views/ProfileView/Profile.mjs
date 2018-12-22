@@ -148,7 +148,7 @@ export default class Profile extends BaseView {
 				const callback = (err, response) => {
 					if (!err) {
 						errorLine.hide();
-						const infoWindow = new PopUpWindow('Данные успешно обновлены');
+						this.infoWindow = new PopUpWindow('Данные успешно обновлены');
 						Router.open('/profile');
 					} else if (err) {
 						errorLine.setText(Errors.getErrorString(response.error));
@@ -164,7 +164,7 @@ export default class Profile extends BaseView {
 							Users.setAvatar(callback, profileData.id, avatarData);							
 						} else {
 							errorLine.hide();
-							const infoWindow = new PopUpWindow('Данные успешно обновлены');
+							this.infoWindow = new PopUpWindow('Данные успешно обновлены');
 						}
 					} else {
 						errorLine.setText(Errors.getErrorString(response.error));

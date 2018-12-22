@@ -1,3 +1,4 @@
+/*global application*/
 import BaseView from '../BaseView/BaseView.mjs';
 import Games from '../../services/games.mjs';
 import Block from '../../blocks/Block/Block.mjs';
@@ -12,7 +13,10 @@ import Socket from '../../modules/websocket.mjs';
 import GameView from '../GameView/GameView.mjs';
 import Router from '../../modules/Router.mjs';
 import './MultiplayerView.scss';
-import PopUpWindow from '../../blocks/PopUpWindow/PopUpWindow.mjs';
+
+const SMALL_MAP = 5;
+const MIDDLE_MAP = 7;
+const BIG_MAP = 9;
 
 Array.prototype.removeElement = function(value) {
 	const idx = this.indexOf(value);
@@ -48,7 +52,7 @@ export default class Multiplayer extends BaseView {
 
 		// кнопка создания новой комнаты
 		const addRoomButton = new Item('', () => {
-			Users.profile((err, response) => {
+			Users.profile((err) => {
 				if (err) {
 					Router.open('/signin');
 				}
@@ -87,6 +91,11 @@ export default class Multiplayer extends BaseView {
 
 		// таблица комнат
 		const gamesBoard = new Table(items, ['leaders-table'], [paginator, addRoomButton], (event) => {
+			Users.profile((err) => {
+				if (err) {
+					Router.open('/signin');
+				}
+			});
 			let target = event.target;
 			while (target.tagName !== 'tbody') {
 				if (target.classList.contains('leaders-table__row')) {
@@ -103,7 +112,7 @@ export default class Multiplayer extends BaseView {
 					return;
 				}
 				target = target.parentNode;
-			}	
+			}
 		});
 
 		this.pageContent.appendChild(gamesBoard.getElement());
@@ -143,13 +152,13 @@ export default class Multiplayer extends BaseView {
 	startGame() {
 		let units = 1;
 		switch (this._mapSize) {
-		case 5:
+		case SMALL_MAP:
 			units = 1;
 			break;
-		case 7:
+		case MIDDLE_MAP:
 			units = 2;
 			break;
-		case 9:
+		case BIG_MAP:
 			units = 3;
 			break;
 		}

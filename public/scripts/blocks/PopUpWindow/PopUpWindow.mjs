@@ -1,3 +1,4 @@
+/*global application*/
 import popUpWindow from './popUpWindow.pug';
 import './PopUpWindow.scss';
 

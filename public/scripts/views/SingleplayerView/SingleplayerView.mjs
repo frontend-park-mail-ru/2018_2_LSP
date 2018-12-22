@@ -4,6 +4,10 @@ import GameView from '../GameView/GameView.mjs';
 import Block from '../../blocks/Block/Block.mjs';
 import './Singleplayer.scss';
 
+const SMALL_MAP = 5;
+const MIDDLE_MAP = 7;
+const BIG_MAP = 9;
+
 export default class Singleplayer extends BaseView {
 	constructor(){
 		super('Одиночная игра');
@@ -28,14 +32,14 @@ export default class Singleplayer extends BaseView {
 
 	startGame(size, playersCount, time) {
 		let units = 1;
-		switch (size) {
-		case 5:
+		switch (this._mapSize) {
+		case SMALL_MAP:
 			units = 1;
 			break;
-		case 7:
+		case MIDDLE_MAP:
 			units = 2;
 			break;
-		case 9:
+		case BIG_MAP:
 			units = 3;
 			break;
 		}

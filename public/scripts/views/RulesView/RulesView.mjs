@@ -1,5 +1,4 @@
 import BaseView from '../BaseView/BaseView.mjs';
-import Block from '../../blocks/Block/Block.mjs';
 import './RulesView.scss';
 import rulesView from '../RulesView/rulesView.pug';
 

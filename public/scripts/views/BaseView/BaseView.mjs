@@ -1,9 +1,7 @@
 import header from '../../blocks/PageParts/header.pug';
 import Block from '../../blocks/Block/Block.mjs';
-import iframe from '../../blocks/PageParts/iframe.pug';
 import baseView from '../BaseView/baseView.pug';
 import baseContent from '../BaseView/baseContent.pug';
-import Trigger from '../../blocks/Trigger/Trigger.mjs';
 
 export default class BaseView {
 	constructor (title) {

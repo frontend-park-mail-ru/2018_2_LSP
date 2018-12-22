@@ -31,7 +31,6 @@ export default class Game {
 		this.currentPlayer = -1;
 		this.playersCount = playersCount;
 		
-		// this.timeOut = this.startTimer();
 		this.totalGoldCount = this.map.getTotalGoldCount();
 		this.currentSelectedPirate = 0; // TODO убрать ???
 
@@ -85,12 +84,8 @@ export default class Game {
 		Bus.on('game-end', () => {
 			let winner = undefined;
 			let maxScore = 0;
-			let myScore = 0;
 			for (let i = 0; i < this.players.length; i++) {
 				const currentScore = this.players[i].getScore();
-				if (i === this.myPlayer) {
-					myScore = currentScore;
-				}
 				if (currentScore === maxScore) {
 					winner = undefined;
 				}
@@ -101,9 +96,9 @@ export default class Game {
 			}
 
 			if (winner !== undefined) {
-				const winMessage = new PopUpWindow(`У нас есть победитель! Поздравляем ${this.UI.getPlayerName(winner)}!`);
+				this.winMessage = new PopUpWindow(`У нас есть победитель! Поздравляем ${this.UI.getPlayerName(winner)}!`);
 			} else {
-				const winMessage = new PopUpWindow('Ничья!');
+				this.winMessage = new PopUpWindow('Ничья!');
 			}
 		});
 	}
@@ -172,7 +167,6 @@ export default class Game {
 
 	_passStep(pirate, card) {
 		Bus.emit('game-pass-step', {'pirate': '' + pirate, 'card': '' + (card-1)});
-		//this.timeOut = this.startTimer();
 	}
 
 	_selectPirates(current) {

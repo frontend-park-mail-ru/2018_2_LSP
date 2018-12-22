@@ -30,6 +30,6 @@ export default class GameView extends BaseView {
 		if (this._mode === 'singleplayer') {
 			this._myNumber = -1;
 		}
-		const game = new Game(controller, this._mapSize, this._playersCount, this._unitsCount, this._myNumber);
+		this.game = new Game(controller, this._mapSize, this._playersCount, this._unitsCount, this._myNumber);
 	}
 }

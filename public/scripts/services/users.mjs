@@ -21,7 +21,6 @@ export default class Users {
 		this.user = '';
 		const date = new Date(0);
 		document.cookie = 'name=; path=/; expires=' + date.toUTCString();
-		// TODO удаление из кэша
 	}
 
 	/**
