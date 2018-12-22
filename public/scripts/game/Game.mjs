@@ -91,12 +91,13 @@ export default class Game {
 	}
   
 	startTimer() {
-		return window.setTimeout(() => {
+		let timeOut = setTimeout(function(){
 			// this.currentPlayer = (this.currentPlayer + 1) % this.playersCount;
 			this.hovered = false;
 			// this.UI.resetSelected();
 			const infoWindow = new PopUpWindow('Время вашего хода истекло');
 		}, 30000);
+		return timeOut;
 	}
 
 	/**
