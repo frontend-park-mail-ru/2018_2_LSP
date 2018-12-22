@@ -27,17 +27,6 @@ export default class BaseView {
 
 			const footer = new Block('footer',['page-footer']);
 			application.appendChild(footer.getElement());
-			
-			const footerTag = document.getElementsByTagName('footer');
-			const iframeChat = iframe();
-			footerTag[0].insertAdjacentHTML('beforeend', iframeChat);
-
-			const trig = new Trigger('chat');
-			trig.event('click', function() {
-				const iframe = document.getElementsByTagName('iframe');
-				iframe[0].hidden = !iframe[0].hidden;
-			});
-			footerTag[0].appendChild(trig.getElement());
 		}
 		
 		this.pageContent = document.getElementById('content');
